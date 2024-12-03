@@ -27,10 +27,10 @@ export class SurgeryRoomComponent {
   public isOperating: boolean = false;
   public isOpenDoor: boolean = false;
 
-  private door!: THREE.Group; // Para controlar a porta
-  private scene!: THREE.Scene; // Cena do Three.js
-  private camera!: THREE.PerspectiveCamera; // Câmera
-  private renderer!: THREE.WebGLRenderer; // Renderizador
+  private door!: THREE.Group;
+  private scene!: THREE.Scene;
+  private camera!: THREE.PerspectiveCamera;
+  private renderer!: THREE.WebGLRenderer;
   private mouse = new THREE.Vector2();
   private raycaster = new THREE.Raycaster();
 
