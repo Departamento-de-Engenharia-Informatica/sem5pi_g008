@@ -70,6 +70,7 @@ import {
   AddOperationRequestComponent
 } from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
+import { AlgavComponent } from './Components/Algav/algav/algav.component';
 
 
 
@@ -121,7 +122,8 @@ import { PatientProfileComponent } from './Components/Patient/patient-profile/pa
     CheckUserToDeleteComponent,
     EditOperationRequestComponent,
     AddOperationRequestComponent,
-    PatientProfileComponent
+    PatientProfileComponent,
+    AlgavComponent
 
   ],
   imports: [

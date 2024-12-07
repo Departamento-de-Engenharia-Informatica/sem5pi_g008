@@ -36,6 +36,7 @@ import {PatientProfileComponent} from './Components/Patient/patient-profile/pati
 import {
   EditOperationRequestComponent
 } from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
+import {AlgavComponent} from './Components/Algav/algav/algav.component';
 
 
 
@@ -184,5 +185,10 @@ export const routes: Routes = [
     path: 'doctor/operationRequest/add',
     component: AddOperationRequestComponent,
     title: 'AddOperationRequestComponent',
+  },
+  {
+    path: 'algav',
+    component: AlgavComponent,
+    title: 'Algav',
   }
 ];
