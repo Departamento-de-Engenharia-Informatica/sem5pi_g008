@@ -34,10 +34,10 @@ export class GoBackButtonComponent {
             return this.router.navigate(['/admin']);
           case 'Patient':
             return this.router.navigate(['/patient']);
-          case 'Staff':
-            return this.router.navigate(['/staff']);
+          case 'Unregistered':
+            return this.router.navigate(['/unregistered']);
           default:
-            return this.router.navigate(['/']);
+            return this.router.navigate(['/staff']);
         }
       })
     ).subscribe();

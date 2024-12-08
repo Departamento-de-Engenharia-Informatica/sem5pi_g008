@@ -54,10 +54,10 @@ export const routes: Routes = [
     title: 'AdminHome',
   },
   {
-    path: 'doctor',
+    path: 'staff',
     component: DoctorMenuComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['doctor']},
+    data: {roles: ['doctor', 'nurse']},
     title: 'DoctorHome',
   },
   {
@@ -126,14 +126,9 @@ export const routes: Routes = [
     title: 'Delete Patient Account',
   },
   {
-    path: 'doctor',
-    component: DoctorMenuComponent,
-    title: 'doctor operations list',
-  },
-  {
-    path: 'doctor/operationRequests',
+    path: 'staff/operationRequests',
     component: ListOperationRequestComponent,
-    title: 'doctor operations list',
+    title: 'Doctor operations list',
   },
 
    {
@@ -176,12 +171,12 @@ export const routes: Routes = [
     title: 'EditPatientProfileComponent',
   },
   {
-    path: 'doctor/operationRequest/edit',
+    path: 'staff/operationRequest/edit',
     component: EditOperationRequestComponent,
     title: 'EditOperationRequestComponent',
   },
   {
-    path: 'doctor/operationRequest/add',
+    path: 'staff/operationRequest/add',
     component: AddOperationRequestComponent,
     title: 'AddOperationRequestComponent',
   }
