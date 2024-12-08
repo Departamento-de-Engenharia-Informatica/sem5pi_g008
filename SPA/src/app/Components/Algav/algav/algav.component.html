@@ -1,0 +1,28 @@
+<div class="algav-container">
+  <h1>Surgery Plan</h1>
+
+  <div *ngIf="surgeryPlan.solutions && surgeryPlan.solutions.length > 0; else noData">
+    <table class="surgery-table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Surgery ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let solution of surgeryPlan.solutions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ solution.surgery_id }}</td>
+        <td>{{ solution.start_time }}</td>
+        <td>{{ solution.end_time }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <p>No surgery rooms available at the moment.</p>
+  </ng-template>
+</div>
