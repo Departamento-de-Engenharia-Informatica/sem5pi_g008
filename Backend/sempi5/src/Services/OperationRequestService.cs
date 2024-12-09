@@ -130,5 +130,9 @@ public class OperationRequestService
         return list;
     }
 
-   
+
+    public async Task<List<OperationRequest>> getOperationRequest()
+    {
+     return await _operationRequestRepository.GetAllAsync();
+    }
 }

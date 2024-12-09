@@ -10,6 +10,8 @@ export class SurgeryRoomService {
 
   private apiUrl = json.apiUrl + '/surgeryRoom';
   private SwiUrl = "http://localhost:8080";
+  private algavUrl = json.apiUrl + '/algav';
+
 
 
   constructor(private http: HttpClient) {
@@ -34,4 +36,22 @@ export class SurgeryRoomService {
     );
   }
 
+
+  getOperationTypes(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/operation-type`);
+  }
+  getRequests(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/operation-request`);
+  }
+
+   getSurgeryRoomsInfo(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/surgery-room`);
+  }
+
+  getStaff(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/staff`);
+  }
+  getRequiredStaff(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/RequiredStaff`);
+  }
 }

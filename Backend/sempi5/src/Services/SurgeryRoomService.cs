@@ -25,4 +25,9 @@ public class SurgeryRoomService
      }
      return occupancy;
  }
+
+ public async Task<List<SurgeryRoom>>getSurgeryRoom()
+ {
+    return await _surgeryRoomRepository.GetAllAsync();
+ }
 }

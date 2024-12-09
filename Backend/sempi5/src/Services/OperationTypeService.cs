@@ -301,4 +301,14 @@ public class OperationTypeService
             RequiredStaff = requiredStaffDTOs
         };
     }
+
+    public  async Task<List<OperationType>> getOperationType()
+    {
+        return await _operationTypeRepository.GetAllAsync();
+        
+    }
+    public async Task<List<RequiredStaff>> getRequiredStaff()
+    {
+        return await _requiredStaffRepository.GetAllAsync();
+    }
 }

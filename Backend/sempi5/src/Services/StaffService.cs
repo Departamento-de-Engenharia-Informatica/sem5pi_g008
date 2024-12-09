@@ -398,5 +398,10 @@ namespace Sempi5.Services
                     e);
             }
         }
+
+        public async Task<List<Staff>>getStaff()
+        {
+            return await _staffRepository.GetAllActiveStaff();
+        }
     }
 }
