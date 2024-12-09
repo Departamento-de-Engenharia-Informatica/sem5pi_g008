@@ -77,6 +77,8 @@ export const routes: Routes = [
 
   {
     path: '3d',
+    canActivate: [AuthGuard],
+    data: { roles: appSettings.userRoles.threeD },
     component: Connect3dComponent,
     title: '3D Module',
   },
