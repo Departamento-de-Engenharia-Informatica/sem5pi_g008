@@ -21,6 +21,12 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/roleSchema',
   };
 
+  const medicalConditionSchema = {
+    // compare with the approach followed in repos and services
+    name: 'medicalConditionSchema',
+    schema: '../persistence/schemas/medicalConditionSchema',
+  };
+  
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -35,6 +41,11 @@ export default async ({ expressApp }) => {
     name: config.repos.user.name,
     path: config.repos.user.path
   }
+  
+  const medicalConditionRepo = {
+    name: config.repos.medicalCondition.name,
+    path: config.repos.medicalCondition.path
+  }
 
   const roleService = {
     name: config.services.role.name,
@@ -45,14 +56,16 @@ export default async ({ expressApp }) => {
     mongoConnection,
     schemas: [
       userSchema,
-      roleSchema
+      roleSchema,
+      medicalConditionSchema
     ],
     controllers: [
       roleController
     ],
     repos: [
       roleRepo,
-      userRepo
+      userRepo, 
+      medicalConditionRepo
     ],
     services: [
       roleService
