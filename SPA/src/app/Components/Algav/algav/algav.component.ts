@@ -14,12 +14,12 @@ export class AlgavComponent implements OnInit {
   constructor(private surgeryService: SurgeryRoomService) {}
 
   ngOnInit(): void {
-   this.getSurgeryPlan();
-    this.getStaff();
-   this.getSurgeryRoomsInfo();
+   // this.getSurgeryPlan();
+   //  this.getStaff();
+   // this.getSurgeryRoomsInfo();
     this.getRequests();
-    this.getOperationTypes();
-    this.getRequiredStaff();
+    // this.getOperationTypes();
+    // this.getRequiredStaff();
   }
 
   // Método para obter o plano de cirurgia

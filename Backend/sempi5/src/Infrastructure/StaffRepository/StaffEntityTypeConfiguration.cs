@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Sempi5.Domain;
 using Sempi5.Domain.StaffAggregate;
 
 namespace Sempi5.Infrastructure.StaffRepository
@@ -50,6 +51,9 @@ namespace Sempi5.Infrastructure.StaffRepository
                     p => p.ToString(),
                     p => (StaffStatusEnum)Enum.Parse(typeof(StaffStatusEnum), p)
                 );
+            builder.HasMany(t=>t.StaffAgendas)
+                .WithOne()
+                .HasForeignKey("StaffID");
         }
     }
 }

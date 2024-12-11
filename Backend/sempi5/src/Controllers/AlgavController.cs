@@ -63,14 +63,18 @@ public class AlgavController : ControllerBase
     public async Task<IActionResult> GetOperationRequest()
     {
         var requests = await _operationRequestService.getOperationRequest();
+        for (int i = 0; i < requests.Count; i++)
+        {
+            Console.Write("aquiiiiiiiiii"+requests[i].Doctor.Person?.FullName._name);
+        }
         var tableData = requests.Select(request => new
         {
             Id = request.Id?.Value,
-            DoctorName = request.Doctor?.Person,
+            DoctorName = request.Doctor?.Id.AsString(),
             PatientName = request.Patient,
             OperationType = request.OperationType?.Name,
             Deadline = request.DeadLineDate.ToString("yyyy-MM-dd"),
-            Priority = request.PriorityEnum.ToString()
+            Priority = request.PriorityEnum.ToString(),
         }).ToList();
 
         return Ok(tableData);

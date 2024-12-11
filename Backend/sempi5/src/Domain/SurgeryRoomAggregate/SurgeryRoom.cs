@@ -10,6 +10,7 @@ public class SurgeryRoom : Entity<RoomNumber>, IAggregateRoot
     public List<string> Equipment { get;  set; }
     public RoomStatusEnum Status { get;  set; }
     public List<string> MaintenanceSlots { get;  set; }
+    public List<RoomAgenda> RoomAgendas { get; set; }
     
     private SurgeryRoom() { }
     

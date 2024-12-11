@@ -15,6 +15,7 @@ namespace Sempi5.Domain.StaffAggregate
         public Specialization Specialization { get; set; }
         public List<string> AvailabilitySlots { get; set; }
         public StaffStatusEnum Status { get; set; }
+        public List<StaffAgenda> StaffAgendas { get; set; }
         
         private Staff() { }
         

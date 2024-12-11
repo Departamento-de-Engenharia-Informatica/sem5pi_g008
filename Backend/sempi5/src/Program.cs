@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Sempi5.Infrastructure.StaffRepository;
 using Sempi5.Infrastructure.Databases;
 using Sempi5.Bootstrappers;
+using Sempi5.Domain;
+using Sempi5.Domain.AgendaAggregate;
+using Sempi5.Infrastructure;
 using Sempi5.Services;
 using Sempi5.Infrastructure.UserRepository;
 using Sempi5.Infrastructure.PatientRepository;
@@ -172,6 +175,8 @@ namespace Sempi5
                 var appointmentRepository = scope.ServiceProvider.GetRequiredService<IAppointmentRepository>();
                 var operationRequestRepository = scope.ServiceProvider.GetRequiredService<IOperationRequestRepository>();
                 var surgeryRoomRepository = scope.ServiceProvider.GetRequiredService<ISurgeryRoomRepository>();
+                var staffAgendaRepository = scope.ServiceProvider.GetRequiredService<IStaffAgendaRepository>();
+                var roomAgendaRepository = scope.ServiceProvider.GetRequiredService<IRoomAgendaRepository>();
 
                 new UsersBootstrap(userRepository).SeedAdminUser().Wait();
                 unitOfWork.CommitAsync().Wait();
@@ -195,6 +200,10 @@ namespace Sempi5
 
                 var surgeryRoomBootstrap = new SurgeryRoomBootstrap(surgeryRoomRepository);
                 surgeryRoomBootstrap.SeedSurgeryRooms().Wait();
+                unitOfWork.CommitAsync().Wait();
+                
+                var timeTableBootstrap = new TimeTableBootstrap( staffAgendaRepository, roomAgendaRepository);
+                timeTableBootstrap.SeeedTavbeTime().Wait();
                 unitOfWork.CommitAsync().Wait();
             }
         }
@@ -257,6 +266,8 @@ namespace Sempi5
             services.AddTransient<IAppointmentRepository, AppointmentRepository>();
             services.AddTransient<IAccountToDeleteRepository, AccountToDeleteRepository>();
             services.AddTransient<IConfirmationLinkRepository, ConfirmationLinkRepository>();
+            services.AddTransient<IStaffAgendaRepository, StaffAgendaRepository>();
+            services.AddTransient<IRoomAgendaRepository, RoomAgendaRepository>();
 
             services.AddTransient<StaffService>();
             services.AddTransient<LoginService>();
