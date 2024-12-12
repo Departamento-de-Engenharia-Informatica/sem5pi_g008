@@ -15,11 +15,13 @@ export class AlgavComponent implements OnInit {
 
   ngOnInit(): void {
    // this.getSurgeryPlan();
-   //  this.getStaff();
-   // this.getSurgeryRoomsInfo();
-    this.getRequests();
-    // this.getOperationTypes();
-    // this.getRequiredStaff();
+    this.getStaff();
+   this.getSurgeryRoomsInfo();
+   this.getRequests();
+    this.getOperationTypes();
+    this.getRequiredStaff();
+    // this.getStaffAgenda();
+    // this.getRoomAgenda();
   }
 
   // Método para obter o plano de cirurgia
@@ -52,7 +54,7 @@ export class AlgavComponent implements OnInit {
   getRequests(): void {
     this.surgeryService.getRequests().subscribe({
       next: (data) => {
-        console.log('Surgery Schedules:', data);
+        console.log('Operation Request:', data);
         this.surgerySchedules = data;
       },
       error: (err) => {
@@ -89,6 +91,28 @@ export class AlgavComponent implements OnInit {
     this.surgeryService.getRequiredStaff().subscribe({
       next: (data) => {
         console.log('getRequiredStaff:', data);
+        this.surgeryRooms = data;
+      },
+      error: (err) => {
+        console.error('Error fetching surgery rooms:', err);
+      }
+    });
+  }
+  getStaffAgenda(): void {
+    this.surgeryService.getStaffAgenda().subscribe({
+      next: (data) => {
+        console.log('getStaffAgenda:', data);
+        this.surgeryRooms = data;
+      },
+      error: (err) => {
+        console.error('Error fetching surgery rooms:', err);
+      }
+    });
+  }
+  getRoomAgenda(): void {
+    this.surgeryService.getRoomAgenda().subscribe({
+      next: (data) => {
+        console.log('getRoomAgenda:', data);
         this.surgeryRooms = data;
       },
       error: (err) => {

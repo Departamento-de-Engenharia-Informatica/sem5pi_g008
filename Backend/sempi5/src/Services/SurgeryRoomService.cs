@@ -28,6 +28,6 @@ public class SurgeryRoomService
 
  public async Task<List<SurgeryRoom>>getSurgeryRoom()
  {
-    return await _surgeryRoomRepository.GetAllAsync();
+    return await _surgeryRoomRepository.GetAllStaff();
  }
 }

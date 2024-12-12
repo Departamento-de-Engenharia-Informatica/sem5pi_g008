@@ -25,7 +25,10 @@ public class RoomAgendaEntityTypeConfiguration : IEntityTypeConfiguration<RoomAg
             .IsRequired();
         builder.Property(t => t.TimeIntervals)
             .HasColumnName("TimeIntervals")
-            .IsRequired();
+            //TODO rever
+           ;
+        
+
         
     }
 }

@@ -11,8 +11,8 @@ public class StaffAgendaEntityTypeConfiguration : IEntityTypeConfiguration<Staff
 {
     public void Configure(EntityTypeBuilder<StaffAgenda> builder)
     {
-        builder.HasKey(ra => ra.Id);
-
+        builder.HasKey(t => new { t.Id });
+        
         builder.Property(t => t.Id)
             .HasColumnName("StaffAgendaID")
             .IsRequired()
@@ -20,12 +20,15 @@ public class StaffAgendaEntityTypeConfiguration : IEntityTypeConfiguration<Staff
                 v => v.AsLong(),
                 v => new AgendaId(v))
             .ValueGeneratedOnAdd();
+
         builder.Property(t => t.Date)
             .HasColumnName("Date")
             .IsRequired();
+
         builder.Property(t => t.TimeIntervals)
             .HasColumnName("TimeIntervals")
             .IsRequired();
+        builder.HasIndex(t => t.TimeIntervals).IsUnique(false);
+
     }
-    
 }

@@ -14,5 +14,11 @@ public class StaffAgendaRepository: BaseRepository<StaffAgenda, AgendaId>, IStaf
     {
         this.context = context;
     }
+
+    public async Task<List<StaffAgenda>> GetAllStaffAgenda()
+    {
+        return await context.StaffAgendas.ToListAsync();
+    }
+
 }
 

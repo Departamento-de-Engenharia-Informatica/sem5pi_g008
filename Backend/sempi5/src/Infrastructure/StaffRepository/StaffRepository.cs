@@ -92,6 +92,7 @@ namespace Sempi5.Infrastructure.StaffRepository
             return await context.StaffMembers
                 .Include(p => p.Person)
                 .Include(p => p.Specialization)
+                .Include(p=>p.StaffAgendas)
                 .Where(p => p.Status.Equals(StaffStatusEnum.ACTIVE))
                 .ToListAsync();
         }

@@ -52,8 +52,8 @@ namespace Sempi5.Infrastructure.StaffRepository
                     p => (StaffStatusEnum)Enum.Parse(typeof(StaffStatusEnum), p)
                 );
             builder.HasMany(t=>t.StaffAgendas)
-                .WithOne()
-                .HasForeignKey("StaffID");
+                .WithOne();
+            //TODO rever
         }
     }
 }

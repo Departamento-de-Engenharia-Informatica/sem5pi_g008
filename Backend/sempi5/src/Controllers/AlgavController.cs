@@ -12,17 +12,19 @@ public class AlgavController : ControllerBase
     private readonly SurgeryRoomService _surgeryRoomService;
     private readonly OperationRequestService _operationRequestService;
     private readonly OperationTypeService _operationTypeService;
+    private readonly AgendaService _agendaService;
 
     public AlgavController(
         StaffService staffService,
         SurgeryRoomService surgeryRoomService,
         OperationRequestService operationRequestService,
-        OperationTypeService operationTypeService)
+        OperationTypeService operationTypeService,AgendaService agendaService)
     {
         _staffService = staffService;
         _surgeryRoomService = surgeryRoomService;
         _operationRequestService = operationRequestService;
         _operationTypeService = operationTypeService;
+        _agendaService = agendaService;
     }
 
     [HttpGet("staff")]
@@ -36,7 +38,8 @@ public class AlgavController : ControllerBase
             Name = staff.Person,
             Specialization = staff.Specialization,
             Status = staff.Status.ToString(),
-            AvailabilitySlots = staff.AvailabilitySlots
+            AvailabilitySlots = staff.AvailabilitySlots,
+            StaffAgenda=staff.StaffAgendas
         }).ToList();
 
         return Ok(tableData);
@@ -53,7 +56,9 @@ public class AlgavController : ControllerBase
             Capacity = room.Capacity,
             Status = room.Status.ToString(),
             Equipment = room.Equipment,
-            MaintenanceSlots = room.MaintenanceSlots
+            MaintenanceSlots = room.MaintenanceSlots,
+            RoomAgenda=room.RoomAgendas
+            
         }).ToList();
 
         return Ok(tableData);
@@ -62,16 +67,13 @@ public class AlgavController : ControllerBase
     [HttpGet("operation-request")]
     public async Task<IActionResult> GetOperationRequest()
     {
-        var requests = await _operationRequestService.getOperationRequest();
-        for (int i = 0; i < requests.Count; i++)
-        {
-            Console.Write("aquiiiiiiiiii"+requests[i].Doctor.Person?.FullName._name);
-        }
+        var requests = await _operationRequestService.getallOperationRequest();
+       
         var tableData = requests.Select(request => new
         {
             Id = request.Id?.Value,
-            DoctorName = request.Doctor?.Id.AsString(),
-            PatientName = request.Patient,
+            DoctorName = request.Doctor.Person?.FullName.ToString(),
+            PatientName = request.Patient.Person?.FullName.ToString(),
             OperationType = request.OperationType?.Name,
             Deadline = request.DeadLineDate.ToString("yyyy-MM-dd"),
             Priority = request.PriorityEnum.ToString(),
@@ -105,6 +107,30 @@ public class AlgavController : ControllerBase
             Id = requiredStaff.Id?.Value,
             NumberOfStaff = requiredStaff.NumberOfStaff,
             Specialization = requiredStaff.Specialization
+        }).ToList();
+
+        return Ok(tableData);
+    }
+    [HttpGet("room-agenda")]
+    public async Task<IActionResult> GetRoomAgenda()
+    {
+        var roomAgenda = await _agendaService.getAllRoomAgenda();
+        var tableData = roomAgenda.Select(roomAgenda => new
+        {
+            Date = roomAgenda.Date,
+            Intervals = roomAgenda.TimeIntervals,
+        }).ToList();
+
+        return Ok(tableData);
+    }
+    [HttpGet("staff-agenda")]
+    public async Task<IActionResult> GetStaffAgenda()
+    {
+        var staffAgenda = await _agendaService.getAllStaffAgenda();
+        var tableData = staffAgenda.Select(staffAgenda => new
+        {
+            Date = staffAgenda.Date,
+            Intervals = staffAgenda.TimeIntervals
         }).ToList();
 
         return Ok(tableData);

@@ -14,4 +14,9 @@ public class RoomAgendaRepository:BaseRepository<RoomAgenda, AgendaId>, IRoomAge
     {
         this.context = context;
     }
+
+    public async Task<List<RoomAgenda>> GetAllRoomAgenda()
+    {
+        return await context.RoomAgendas.ToListAsync();
+    }
 }

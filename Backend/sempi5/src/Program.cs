@@ -278,6 +278,7 @@ namespace Sempi5
             services.AddTransient<OperationRequestService>();
             services.AddTransient<SystemUserService>();
             services.AddTransient<SurgeryRoomService>();
+            services.AddTransient<AgendaService>();
 
             services.AddSingleton(Log.Logger);
         }

@@ -54,4 +54,10 @@ export class SurgeryRoomService {
   getRequiredStaff(): Observable<any> {
     return this.http.get(`${this.algavUrl}/RequiredStaff`);
   }
+  getStaffAgenda(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/staff-agenda`);
+  }
+  getRoomAgenda(): Observable<any> {
+    return this.http.get(`${this.algavUrl}/room-agenda`);
+  }
 }

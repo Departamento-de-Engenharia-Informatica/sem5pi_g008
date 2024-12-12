@@ -107,51 +107,79 @@ time_to_minutes(TimeString, Minutes) :-
     TotalMinutes is Hours * 60 + MinutesPart,
     Minutes is TotalMinutes,!.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Process and load staff data
-process_staff([]):-!.
-process_staff([Staff | Rest]) :-
-    % Extract fields
-    string_to_atom_safe(Staff.get(licenseNumber), LicenseNumber),
-    Status = Staff.get(status),
-    Specialization = Staff.specialization.specializationName.name,
-    StaffID = Staff.id.value,
-    % Assert the staff fact
-        assertz(staff(StaffID, LicenseNumber, Specialization, Status)),
+% Definir predicados dinâmicos
+:- dynamic surgery_room/5.
+:- dynamic room_agenda/3.
 
-    assertz(agenda_staff(StaffID, 20240113, [])),
-    % Print confirmation
-    format('Staff ~w: Specialization: ~w, Status: ~w, ID: ~w\n',
-           [LicenseNumber, Specialization, Status, StaffID]),!,
-    process_staff(Rest).
-
-% Main loader predicate
-load_staff_data :-
-    fetch_json('http://localhost:5001/algav/staff', StaffJSON),
-    process_staff(StaffJSON).
-
-% Clear all staff data
-clear_staff_data :-
-    retractall(staff(_, _, _, _)),
-    write('Staff data cleared.\n').
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-process_rooms([]):-!.
+% process_rooms/1
+% Processa a lista completa de salas de cirurgia.
+process_rooms([]) :- !.  % Caso base
 process_rooms([Room | Rest]) :-
-    % Extract necessary fields
+    % Extrair campos principais
     string_to_atom_safe(Room.id, RoomID),
     string_to_atom_safe(Room.type, RoomType),
     string_to_atom_safe(Room.status, RoomStatus),
-    RoomCapacity = Room.capacity.capacity, % Nested field extraction
-    % Assert the room fact
-    assertz(surgery_room(RoomID, RoomType, RoomStatus, RoomCapacity)),
-    assertz(agenda_operation_room(RoomID, 20240113, [])),
-    % Print confirmation
-    format('Room ~w (~w): Status ~w, Capacity ~w\n', [RoomID, RoomType, RoomStatus, RoomCapacity]),!,
+    Room.capacity.capacity = Capacity,
+    Room.equipment = Equipment,
+
+    % Armazenar o fato da sala
+    assertz(surgery_room(RoomID, RoomType, Capacity, Equipment, RoomStatus)),
+
+    % Processar agenda associada à sala
+    RoomAgenda = Room.roomAgenda,
+    process_room_agenda(RoomID, RoomAgenda),
+
+    % Exibir confirmação
+    format('Room ~w: Type ~w, Capacity ~w, Status ~w, Equipment ~w\n',
+           [RoomID, RoomType, Capacity, RoomStatus, Equipment]),
+    !,
     process_rooms(Rest).
 
-% Example for loading all rooms
-load_surgery_rooms_data :-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% process_room_agenda/2
+% Processa a agenda associada a uma sala específica.
+process_room_agenda(_, []) :- !.  % Caso base
+process_room_agenda(RoomID, [AgendaEntry | Rest]) :-
+    % Extrair data e intervalos da agenda
+    string_to_atom_safe(AgendaEntry.date, DateISO),
+    date_iso_to_ymd(DateISO, FormattedDate),
+    Intervals = AgendaEntry.timeIntervals,
+
+    % Armazenar os intervalos da agenda
+    process_room_intervals(RoomID, FormattedDate, Intervals),
+    !,
+    process_room_agenda(RoomID, Rest).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% process_room_intervals/3
+% Processa os intervalos de tempo associados a uma sala e data.
+process_room_intervals(_, _, []) :- !.  % Caso base
+process_room_intervals(RoomID, Date, [Interval | Rest]) :-
+    assertz(room_agenda(RoomID, Date, Interval)),
+    format('Room Agenda: RoomID ~w, Date ~w, Interval ~w\n', [RoomID, Date, Interval]),
+    !,
+    process_room_intervals(RoomID, Date, Rest).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Converter datas ISO (ex: "2024-12-15T00:00:00") para formato YYYYMMDD.
+date_iso_to_ymd(DateISO, FormattedDate) :-
+    split_string(DateISO, "T", "", [DatePart | _]),
+    split_string(DatePart, "-", "", [Year, Month, Day]),
+    atomic_list_concat([Year, Month, Day], '', FormattedDate).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Função auxiliar para converter strings em átomos com segurança.
+string_to_atom_safe(String, Atom) :-
+    ( var(String) -> Atom = 'Unknown' ; string_to_atom(String, Atom) ).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Predicado principal para carregar os dados JSON e processar
+load_surgery_rooms :-
     fetch_json('http://localhost:5001/algav/surgery-room', RoomsJSON),
     process_rooms(RoomsJSON).
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Process and load required staff data
 process_required_staff([]):-!.
@@ -182,8 +210,75 @@ clear_required_staff :-
     write('Required staff data cleared.\n').
 
 % Utility: Safe conversion of string to atom
+% Declarar os fatos dinâmicos
+:- dynamic staff/4.
+:- dynamic staff_agenda/3.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% load_staff/0
+% Carrega e processa os dados de membros da equipe.
+load_staff :-
+    % Obter os dados da equipe (substitua pela URL ou caminho correto)
+    fetch_json('http://localhost:5001/algav/staff', StaffJSON),
+    
+    % Processar os dados da equipe
+    process_staff(StaffJSON).
+
+% process_staff/1
+% Processa a lista completa de membros da equipe.
+process_staff([]) :- !.  % Caso base
+process_staff([Staff | Rest]) :-
+    % Extrair campos principais
+    string_to_atom_safe(Staff.id.value, StaffID),
+    string_to_atom_safe(Staff.licenseNumber, LicenseNumber),
+    string_to_atom_safe(Staff.specialization.specializationName.name, Specialization),
+    string_to_atom_safe(Staff.status, Status),
+
+    % Armazenar os fatos do staff
+    assertz(staff(StaffID, LicenseNumber, Specialization, Status)),
+
+    % Processar agenda associada ao staff
+    StaffAgenda = Staff.staffAgenda,
+    process_staff_agenda_entries(StaffID, StaffAgenda),
+
+    % Exibir confirmação para depuração
+    format('Staff ~w: License ~w, Specialization ~w, Status ~w\n',
+           [StaffID, LicenseNumber, Specialization, Status]),
+    !,
+    process_staff(Rest).
+
+% process_staff_agenda_entries/2
+% Processa as entradas de agenda para um membro específico do staff.
+process_staff_agenda_entries(_, []) :- !.  % Caso base
+process_staff_agenda_entries(StaffID, [AgendaEntry | Rest]) :-
+    % Extrair data e intervalos da agenda
+    string_to_atom_safe(AgendaEntry.date, DateISO),
+    date_iso_to_ymd(DateISO, FormattedDate),  % Converter ISO para formato YYYYMMDD
+    Intervals = AgendaEntry.timeIntervals,
+
+    % Armazenar cada intervalo como fato associado ao staff
+    process_staff_intervals(StaffID, FormattedDate, Intervals),
+    !,
+    process_staff_agenda_entries(StaffID, Rest).
+
+% process_staff_intervals/3
+% Processa os intervalos de tempo associados a um staff e uma data.
+process_staff_intervals(_, _, []) :- !.  % Caso base
+process_staff_intervals(StaffID, Date, [Interval | Rest]) :-
+    assertz(staff_agenda(StaffID, Date, Interval)),
+    format('Staff Agenda: StaffID ~w, Date ~w, Interval ~w\n', [StaffID, Date, Interval]),
+    !,
+    process_staff_intervals(StaffID, Date, Rest).
+
+% Converter datas ISO (ex: "2024-12-15T00:00:00") para formato YYYYMMDD.
+date_iso_to_ymd(DateISO, FormattedDate) :-
+    split_string(DateISO, "T", "", [DatePart | _]),
+    split_string(DatePart, "-", "", [Year, Month, Day]),
+    atomic_list_concat([Year, Month, Day], '', FormattedDate).
+
+% Função auxiliar para converter strings em átomos com segurança.
+string_to_atom_safe(String, Atom) :-
+    ( var(String) -> Atom = 'Unknown' ; string_to_atom(String, Atom) ).
+
 
 
 % Reload all operation request data
