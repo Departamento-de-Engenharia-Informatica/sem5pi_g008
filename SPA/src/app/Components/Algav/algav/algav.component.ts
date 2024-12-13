@@ -14,7 +14,7 @@ export class AlgavComponent implements OnInit {
   constructor(private surgeryService: SurgeryRoomService) {}
 
   ngOnInit(): void {
-   // this.getSurgeryPlan();
+  //  this.getSurgeryPlan();
     this.getStaff();
    this.getSurgeryRoomsInfo();
    this.getRequests();
@@ -22,6 +22,7 @@ export class AlgavComponent implements OnInit {
     this.getRequiredStaff();
     // this.getStaffAgenda();
     // this.getRoomAgenda();
+  //  this.loadData();
   }
 
   // Método para obter o plano de cirurgia
@@ -33,6 +34,17 @@ export class AlgavComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching surgery plan:', err);
+      }
+    });
+  }
+  loadData(): void {
+    this.surgeryService.loadData().subscribe({
+      next: (data) => {
+        console.log('loadData:', data);
+        this.surgeryRooms = data;
+      },
+      error: (err) => {
+        console.error('Error fetching surgery rooms:', err);
       }
     });
   }

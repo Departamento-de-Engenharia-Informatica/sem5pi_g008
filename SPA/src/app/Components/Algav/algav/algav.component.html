@@ -1,6 +1,13 @@
 <div class="algav-container">
   <h1>Surgery Plan</h1>
 
+  <!-- Botões para carregar dados e buscar o plano de cirurgia -->
+  <div class="button-group">
+    <button (click)="loadData()" class="btn btn-primary">Load Data</button>
+    <button (click)="getSurgeryPlan()" class="btn btn-secondary">Search Surgery Plan</button>
+  </div>
+
+  <!-- Tabela de dados do plano de cirurgia -->
   <div *ngIf="surgeryPlan.solutions && surgeryPlan.solutions.length > 0; else noData">
     <table class="surgery-table">
       <thead>
@@ -22,6 +29,7 @@
     </table>
   </div>
 
+  <!-- Mensagem caso não existam dados -->
   <ng-template #noData>
     <p>No surgery rooms available at the moment.</p>
   </ng-template>

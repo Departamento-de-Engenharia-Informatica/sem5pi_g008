@@ -36,6 +36,15 @@ export class SurgeryRoomService {
     );
   }
 
+  loadData(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.SwiUrl}/load`).pipe(
+      catchError(error => {
+        console.error('Error getting surgery plan:', error);
+        return of([]);
+      })
+    );
+  }
+
 
   getOperationTypes(): Observable<any> {
     return this.http.get(`${this.algavUrl}/operation-type`);
