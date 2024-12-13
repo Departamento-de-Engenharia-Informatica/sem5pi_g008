@@ -26,7 +26,12 @@ export default async ({ expressApp }) => {
     name: 'medicalConditionSchema',
     schema: '../persistence/schemas/medicalConditionSchema',
   };
-  
+
+  const allergySchema = {
+    name: 'allergySchema',
+    schema: '../persistence/schemas/allergySchema',
+  };
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -41,10 +46,15 @@ export default async ({ expressApp }) => {
     name: config.repos.user.name,
     path: config.repos.user.path
   }
-  
+
   const medicalConditionRepo = {
     name: config.repos.medicalCondition.name,
     path: config.repos.medicalCondition.path
+  }
+
+  const allergyRepo = {
+    name: config.repos.allergy.name,
+    path: config.repos.allergy.path
   }
 
   const roleService = {
@@ -57,15 +67,17 @@ export default async ({ expressApp }) => {
     schemas: [
       userSchema,
       roleSchema,
-      medicalConditionSchema
+      medicalConditionSchema,
+      allergySchema
     ],
     controllers: [
       roleController
     ],
     repos: [
       roleRepo,
-      userRepo, 
-      medicalConditionRepo
+      userRepo,
+      medicalConditionRepo,
+      allergyRepo
     ],
     services: [
       roleService

@@ -59,6 +59,10 @@ export default {
     medicalCondition: {
         name: "MedicalConditionRepo",
         path: "../repos/MedicalConditionRepo"
+    },
+    allergy: {
+      name: "AllergyRepo",
+      path: "../repos/AllergyRepo"
     }
   },
 
