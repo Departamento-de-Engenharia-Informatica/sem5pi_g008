@@ -8,5 +8,6 @@ namespace Sempi5.Infrastructure.RequiredStaffAggregate;
 public interface IRequiredStaffRepository : IRepository<RequiredStaff, RequiredStaffID>
 {
     public Task<RequiredStaff> GetByRequiredStaff(RequiredStaff requiredStaff);
-    public Task<RequiredStaff> GetBySpecializationAndOperationId(Specialization specialization, OperationTypeID operationTypeId); 
+    public Task<RequiredStaff> GetBySpecializationAndOperationId(Specialization specialization, OperationTypeID operationTypeId);
+    Task<List<RequiredStaff>> GetAllRequiredAsync();
 }

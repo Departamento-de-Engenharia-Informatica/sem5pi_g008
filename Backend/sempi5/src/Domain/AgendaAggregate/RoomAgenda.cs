@@ -8,4 +8,6 @@ public class RoomAgenda: Entity<AgendaId>, IAggregateRoot
 {
     public DateTime Date { get;  set; }
     public List<String> TimeIntervals { get;  set; }
+    public string? appointmentType { get;  set; }
+
 }

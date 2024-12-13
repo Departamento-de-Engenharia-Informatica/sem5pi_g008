@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sempi5.Domain.RequiredStaffAggregate;
+using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Services;
 
 namespace Sempi5.Controllers;
@@ -74,9 +75,10 @@ public class AlgavController : ControllerBase
             Id = request.Id?.Value,
             DoctorName = request.Doctor.Person?.FullName.ToString(),
             PatientName = request.Patient.Person?.FullName.ToString(),
-            OperationType = request.OperationType?.Name,
+            OperationType = request.OperationType?.Name.ToString(),
             Deadline = request.DeadLineDate.ToString("yyyy-MM-dd"),
             Priority = request.PriorityEnum.ToString(),
+          //  Specialization=request.Doctor.Specialization.specializationName.ToString()
         }).ToList();
 
         return Ok(tableData);
@@ -89,11 +91,12 @@ public class AlgavController : ControllerBase
         var tableData = operationTypes.Select(operationType => new
         {
             Id = operationType.Id?.Value,
-            Name = operationType.Name,
+            Name = operationType.Name.ToString(),
             SetupDuration = operationType.SetupDuration.ToString(),
             SurgeryDuration = operationType.SurgeryDuration.ToString(),
             CleaningDuration = operationType.CleaningDuration.ToString(),
-            StillPerformed = operationType.stillPerformed
+            StillPerformed = operationType.stillPerformed,
+            RequiredStaff=operationType.RequiredStaff,
         }).ToList();
 
         return Ok(tableData);
@@ -106,7 +109,7 @@ public class AlgavController : ControllerBase
         {
             Id = requiredStaff.Id?.Value,
             NumberOfStaff = requiredStaff.NumberOfStaff,
-            Specialization = requiredStaff.Specialization
+            Specialization = requiredStaff.Specialization.specializationName.ToString()
         }).ToList();
 
         return Ok(tableData);

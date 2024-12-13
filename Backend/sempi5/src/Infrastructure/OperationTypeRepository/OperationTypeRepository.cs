@@ -66,9 +66,12 @@ public class OperationTypeRepository : BaseRepository<OperationType, OperationTy
             .Where(o => o.stillPerformed)
             .ToListAsync();
     }
-    
-    
 
-    
-    
+    public async Task<List<OperationType>> GetAllOperationTypeAsync()
+    {
+        return await context.OperationTypes
+            .Include(o => o.RequiredStaff)
+            .ThenInclude(r => r.Specialization)
+            .ToListAsync();
+    }
 }

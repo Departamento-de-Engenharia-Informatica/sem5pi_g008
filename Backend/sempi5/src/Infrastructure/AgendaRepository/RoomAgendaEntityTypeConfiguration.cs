@@ -23,6 +23,10 @@ public class RoomAgendaEntityTypeConfiguration : IEntityTypeConfiguration<RoomAg
         builder.Property(t => t.Date)
             .HasColumnName("Date")
             .IsRequired();
+        builder.Property(t=>t.appointmentType)
+            .HasColumnName("appointmentType")
+            .IsRequired();
+        
         builder.Property(t => t.TimeIntervals)
             .HasColumnName("TimeIntervals")
             //TODO rever

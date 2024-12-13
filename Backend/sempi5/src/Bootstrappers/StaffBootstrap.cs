@@ -30,7 +30,7 @@ public class StaffBootstrap
         var sandroUserDoctor = new SystemUser(new Email("carmoluis28@gmail.com"), "Doctor", true);
         var ruteUserDoctor = new SystemUser(new Email("rutemaia2004@gmail.com"), "Doctor", true);
 
-        
+
         var specialization1 = new Specialization(new SpecializationName("Cardiology"));
         var specialization2 = new Specialization(new SpecializationName("Surgeon"));
         var specialization3 = new Specialization(new SpecializationName("Neurologist"));
@@ -38,28 +38,34 @@ public class StaffBootstrap
         var agenda1 = new StaffAgenda
         {
             Date = new DateTime(2024, 12, 15),
-            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" }
+            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
+            appointmentType = "Consultation"
         };
-        
+
 
         var nurse = new Staff
         (
             nurseUser,
             new LicenseNumber(124),
-            new Person(new Name("Jane"), new Name("Smith"), new ContactInfo(new Email("nurse@example.com"), new PhoneNumber(988654321))),
+            new Person(new Name("Jane"), new Name("Smith"),
+                new ContactInfo(new Email("nurse@example.com"), new PhoneNumber(988654321))),
             specialization1,
             StaffStatusEnum.INACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
         var doctor = new Staff
         (
             doctorUser,
             new LicenseNumber(125),
-            new Person(new Name("Alice"), new Name("Johnson"), new ContactInfo(new Email("admin@example.com"), new PhoneNumber(977654321))),
+            new Person(new Name("Alice"), new Name("Johnson"),
+                new ContactInfo(new Email("admin@example.com"), new PhoneNumber(977654321))),
             specialization2,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
+
         );
 
         var test = new Staff(
@@ -69,9 +75,11 @@ public class StaffBootstrap
                 new ContactInfo(new Email("rutemaia2004@gmail.com"), new PhoneNumber(966652994))),
             specialization1,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 });
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
+        );
 
-        var nurseRui = new Staff
+    var nurseRui = new Staff
         (
             nurseUserRui,
             new LicenseNumber(200),
@@ -79,7 +87,8 @@ public class StaffBootstrap
                 new ContactInfo(new Email("rpsoares8@gmail.com"), new PhoneNumber(964666298))),
             specialization1,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
         var nurseRui2 = new Staff
@@ -90,7 +99,8 @@ public class StaffBootstrap
                 new ContactInfo(new Email("rui.soares13749@aesps.pt"), new PhoneNumber(964666299))),
             specialization1,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
         var doctorRui2 = new Staff
@@ -101,7 +111,8 @@ public class StaffBootstrap
                 new ContactInfo(new Email("swag4yt@gmail.com"), new PhoneNumber(964666300))),
             specialization2,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
         var doctorSandro = new Staff
         (
@@ -111,7 +122,8 @@ public class StaffBootstrap
                 new ContactInfo(new Email("carmoluis28@gmail.com"), new PhoneNumber(938536400))),
             specialization2,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
   
         
@@ -135,12 +147,14 @@ public class StaffBootstrap
         var agenda1 = new StaffAgenda
         {
             Date = new DateTime(2024, 12, 15),
-            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" }
+            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
+            appointmentType = "Consultation"
         };
         var agenda2 = new StaffAgenda
         {
             Date = new DateTime(2024, 1, 15),
-            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" }
+            TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
+            appointmentType = "Consultation"
         };
         
         var orthopedicSurgeonStaff = new Staff
@@ -149,8 +163,9 @@ public class StaffBootstrap
             new LicenseNumber(126),
             new Person(new Name("Frank"), new Name("Sinatra"), new ContactInfo(new Email("frankie@example.com"), new PhoneNumber(977654621))),
             orthopedicSurgeon,
-            StaffStatusEnum.ACTIVE
-        );
+            StaffStatusEnum.ACTIVE,
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" });
 
         var generalSurgeonStaff = new Staff
         (
@@ -159,7 +174,8 @@ public class StaffBootstrap
             new Person(new Name("Michael"), new Name("Jackson"), new ContactInfo(new Email("mickel@test.com"), new PhoneNumber(907654621))),
             generalSurgeon,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1,agenda2 }
+            new List<StaffAgenda> { agenda1,agenda2 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
         var doctorStaff = new Staff
@@ -170,7 +186,8 @@ public class StaffBootstrap
             doctorSpecialization,
             StaffStatusEnum.ACTIVE,
             
-            new List<StaffAgenda> { agenda2 }
+            new List<StaffAgenda> { agenda2 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
         var nurseStaff = new Staff
@@ -180,7 +197,8 @@ public class StaffBootstrap
             new Person(new Name("Alice"), new Name("Johnson"), new ContactInfo(new Email("alice@example.com"), new PhoneNumber(987987985))),
             nurseSpecialization,
             StaffStatusEnum.ACTIVE,
-            new List<StaffAgenda> { agenda1 }
+            new List<StaffAgenda> { agenda1 },
+            new List<string> { "20241028-09:00-10:00" }
         );
 
 

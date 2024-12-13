@@ -65,6 +65,22 @@ namespace Sempi5.Domain.StaffAggregate
             Status = status;
             StaffAgendas = staffAgendas;
         }
+        public Staff(SystemUser user, LicenseNumber licenseNumber, Person person, Specialization specialization,
+            StaffStatusEnum status, List<StaffAgenda> staffAgendas, List<string> list)
+        {
+            
+            ArgumentNullException.ThrowIfNull(licenseNumber);
+            ArgumentNullException.ThrowIfNull(person);
+            ArgumentNullException.ThrowIfNull(specialization);
+            
+            User = user;
+            LicenseNumber = licenseNumber;
+            Specialization = specialization;
+            AvailabilitySlots = list;
+            Person = person;
+            Status = status;
+            StaffAgendas = staffAgendas;
+        }
         
         
         public void AddUser(SystemUser user)

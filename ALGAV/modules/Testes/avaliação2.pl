@@ -1,21 +1,31 @@
 ﻿:- use_module(library(http/thread_httpd)).
-    :- use_module(library(http/http_dispatch)).
-    :- use_module(library(http/http_json)).
-    :- use_module(library(http/http_parameters)).
-    :- use_module(library(lists)).
-    :- use_module(library(http/http_cors)).
+:- use_module(library(http/http_dispatch)).
+:- use_module(library(http/http_json)).
+:- use_module(library(http/http_parameters)).
+:- use_module(library(lists)).
+:- use_module(library(http/http_cors)).
 :- use_module(library(debug)). % Certifique-se de importar o módulo de depuração
+:- use_module(library(http/http_open)).
+:- use_module(library(http/json)).
+
+% fetch_json(URL, JSON)
+% Fetch JSON data from a given URL.
+fetch_json(URL, JSON) :-
+    http_open(URL, Stream, []),       % Open the URL and get the response stream
+    json_read_dict(Stream, JSON),     % Parse the stream into a JSON dictionary
+    close(Stream).                    % Close the stream after use
+
 
     :- set_prolog_flag(encoding, utf8).
-
     % Cors: Permitir requisições de qualquer origem
     :- set_setting(http:cors, [*]).
 
 :- http_handler('/ola2', get_surgery_plan_response, [method(get)]).	
+
 		
 get_surgery_plan_response(_Request) :-
     cors_enable,
-    (   search_pending_surgeries(20241028, or1) ->
+    (   search_pending_surgeries(20241216, '2') ->
        listasolucoes(A),
         findall(A, listasolucoes(A), AllSolutions),
         find_best_solution(AllSolutions, BestSolution),
@@ -25,7 +35,7 @@ get_surgery_plan_response(_Request) :-
 
         reply_json_dict(_{
             status: "success",
-            date: 20241028,
+            date: 20241216,
             room: "or1",
             solutions: FormattedSolucoes
 
@@ -37,30 +47,7 @@ get_surgery_plan_response(_Request) :-
         })
     ).
 
-
-responde_ola2(_Request) :-
-    cors_enable,
-    (   schedule_surgery(so100002, 20241028, or1, Solucoes) ->
-        maplist(format_solution, Solucoes, FormattedSolucoes),
-        
-        % Resposta de sucesso com as soluções formatadas
-        reply_json_dict(_{
-            status: "success",
-            surgery: "so100002",
-            date: 20241028,
-            room: "or1",
-            solutions: FormattedSolucoes
-        }, [encoding(utf8)])
-    ;   % Resposta de erro
-        reply_json_dict(_{
-            status: "error",
-            message: "Unable to compute solutions"
-        })
-    ).
-
 format_solution((Start, End, SurgeryID), _{start_time: Start, end_time: End, surgery_id: SurgeryID}).
-
-
 
 
     
@@ -83,46 +70,47 @@ format_solution((Start, End, SurgeryID), _{start_time: Start, end_time: End, sur
 :-dynamic agenda_operation_room1/3.
 :-dynamic assignment_surgery/2.
 :-dynamic listasolucoes/1.
+:-dynamic timetable/3.
+:-dynamic staff/4.
+:-dynamic surgery_id/2.
+:-dynamic surgery/4.
+:-dynamic surgery_staff_requirements/3.
 
 %another example
-agenda_staff(d001,20241028,[]).
-agenda_staff(d002,20241028,[]).
-agenda_staff(d003,20241028,[]).
-agenda_staff(d004,20241028,[]).
-agenda_staff(d005,20241028,[]).
-agenda_staff(d006,20241028,[]).
-agenda_staff(d007,20241028,[]).
-agenda_staff(d008,20241028,[]).
+agenda_staff(d001,20241216,[]).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+agenda_staff(d002,20241216,[]).
+agenda_staff(d003,20241216,[]).
+agenda_staff(d004,20241216,[]).
+agenda_staff(d005,20241216,[]).
+agenda_staff(d006,20241216,[]).
+agenda_staff(d007,20241216,[]).
+agenda_staff(d008,20241216,[]).
 
-timetable(d001,20241028,(480,1200)).
-timetable(d002,20241028,(720,1440)).
-timetable(d003,20241028,(600,1320)).
-timetable(d004,20241028,(520,1320)).
-timetable(d005,20241028,(520,1440)).
-timetable(d006,20241028,(520,1440)).
-timetable(d007,20241028,(520,1440)).
-timetable(d008,20241028,(520,1440)).
+timetable(d001,20241216,(480,1200)).
+timetable(d002,20241216,(720,1440)).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+timetable(d003,20241216,(600,1320)).
+timetable(d004,20241216,(520,1320)).
+timetable(d005,20241216,(520,1440)).
+timetable(d006,20241216,(520,1440)).
+timetable(d007,20241216,(520,1440)).
+timetable(d008,20241216,(520,1440)).
 
 %another example
-%timetable(d001,20241028,(480,1200)).
-%timetable(d002,20241028,(500,1440)).
-%timetable(d003,20241028,(520,1320)).
-%timetable(d004,20241028,(520,1320)).
-%timetable(d005,20241028,(520,1320)).
-%timetable(d006,20241028,(520,1320)).
+%timetable(d001,20241216,(480,1200)).
+%timetable(d002,20241216,(500,1440)).
+%timetable(d003,20241216,(520,1320)).
+%timetable(d004,20241216,(520,1320)).
+%timetable(d005,20241216,(520,1320)).
+%timetable(d006,20241216,(520,1320)).
 
 staff(d001,doctor,orthopaedist,[so2,so3,so4]).
-staff(d002,doctor,orthopaedist,[so2,so3,so4]).
+staff(d002,doctor,orthopaedist,[so2,so3,so4]).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 staff(d003, doctor, anesthetist, [so2, so3]).
 staff(d004, doctor, orthopaedist, [so2]).
 staff(d005, doctor, cleaner, [so2]).
 staff(d006, doctor, cleaner, [so2]).
 staff(d007, doctor, anesthetist, [so2, so3]).
 staff(d008, doctor, anesthetist, [so2, so3]).
-
-surgery_duration(so3, 10). 
-surgery_duration(so2, 90). 
-surgery_duration(so4, 90).
 
 surgery_staff_requirements(operation_team,so2, [(orthopaedist, 2)]).
 surgery_staff_requirements(anesthetist_team,so2, [(anesthetist, 2)]).
@@ -136,16 +124,16 @@ surgery_staff_requirements(operation_team,so4, [(orthopaedist, 1)]).
 surgery_staff_requirements(anesthetist_team,so4, [(anesthetist, 1)]).
 surgery_staff_requirements(cleaning_team,so4, [(cleaner, 1)]).
 
-agenda_operation_room(or1,20241028,[(520,579,so100000)]).
-agenda_operation_room(ola,20241028,[]).
+agenda_operation_room(or1,20241216,[(520,579,so100000)]).
+agenda_operation_room(ola,20241216,[]).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 surgery(so2,45,60,45).
 surgery(so3,45,90,45).
-surgery(so4,45,75,45).
+surgery(so4,45,75,45).%%%%%%%%%%%%%%%%%%%%%%%%%
 
 surgery_id(so100001,so2).
 surgery_id(so100002,so3).
-surgery_id(so100003,so4).
+surgery_id(so100003,so4).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 surgery_id(so100004,so2).
 surgery_id(so100005,so4).
 
@@ -235,7 +223,10 @@ evaluate_final_time(Solution, TFin) :-
 
 search_pending_surgeries(Date, Room) :-
     findall(_, (agenda_staff(D, Day, Agenda), assertz(agenda_staff2(D, Day, Agenda))), _),
+    format('ola'),
     agenda_operation_room(Room, Date, Agenda),
+    format('ola'),
+
     retractall(agenda_operation_room1(Room, Date, _)),
     assertz(agenda_operation_room1(Room, Date, Agenda)),
     findall(Surgery, surgery_id(Surgery, _), SurgeryList),
@@ -498,3 +489,285 @@ precede(L1, L2, L3, Result) :-
         I2 =< I3,               
         F2 >= I3                
        ), Result).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+:- http_handler('/load', load_data_handler, []).	
+load_data_handler(_Request) :-
+cors_enable,
+reload_all_data,
+reply_json_dict(_{status: "success"}).      
+
+reload_all_data :-
+reload_surgery_rooms_data,
+reload_staff_data,
+reload_operation_requests,
+reload_operation_types,
+!. 
+
+
+reload_surgery_rooms_data :-
+clear_surgery_rooms,
+!,
+load_surgery_rooms.
+clear_surgery_rooms :-
+retractall(agenda_operation_room(_, _, _)),
+!.
+
+
+reload_operation_requests :-
+    clear_operation_requests,
+    !,
+    load_operation_requests.
+clear_operation_requests :-
+    retractall(operation_request(_, _, _, _, _, _)),
+    retractall(surgery_id(_, _)),
+    !.
+
+
+reload_operation_types :-
+    clear_operation_types,
+    !,
+    load_operation_types.
+    
+% Clear operation-type data
+clear_operation_types :-
+    retractall(surgery(_, _, _, _)),
+    %TODO:REVERretractall(surgery_staff_requirements(_, _, _)),
+    !.    
+            
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definir predicados dinâmicos
+:- dynamic room_agenda/3.
+process_rooms([]) :- !.  % Caso base
+process_rooms([Room | Rest]) :-
+    % Extrair campos principais
+    string_to_atom_safe(Room.id, RoomID),
+    string_to_atom_safe(Room.type, RoomType),
+    string_to_atom_safe(Room.status, RoomStatus),
+    Room.capacity.capacity = Capacity,
+    Room.equipment = Equipment,
+
+    % Processar agenda associada à sala
+    RoomAgenda = Room.roomAgenda,
+    process_room_agenda(RoomID, RoomAgenda),
+    !,
+    process_rooms(Rest).
+
+process_room_agenda(_, []) :- !. 
+process_room_agenda(RoomID, [AgendaEntry | Rest]) :-
+    string_to_atom_safe(AgendaEntry.date, DateISO),
+    date_iso_to_ymd(DateISO, FormattedDate),
+    Intervals = AgendaEntry.timeIntervals,
+      AppointmentType = AgendaEntry.appointmentType,
+       collect_intervals(Intervals, [], CollectedIntervals,AppointmentType), % Agregar os intervalos     
+
+    assertz(agenda_operation_room(RoomID, FormattedDate, CollectedIntervals)),
+       !,
+    process_room_agenda(RoomID, Rest).
+
+time_to_minutes(TimeString, Minutes) :-
+    split_string(TimeString, ":", "", [HourStr, MinStr]),
+    number_string(Hours, HourStr),
+    number_string(MinutesPart, MinStr),
+    Minutes is Hours * 60 + MinutesPart.
+
+load_surgery_rooms :-
+    fetch_json('http://localhost:5001/algav/surgery-room', RoomsJSON),
+    process_rooms(RoomsJSON).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+reload_staff_data :-
+    clear_staff,
+    !,
+    load_staff.
+
+clear_staff :-
+    retractall(staff(_, _, _, _)),
+    retractall(agenda_staff(_, _, _)),
+    !.
+
+load_staff :-
+    % Obter os dados da equipe (substitua pela URL ou caminho correto)
+    fetch_json('http://localhost:5001/algav/staff', StaffJSON),
+    
+    % Processar os dados da equipe
+    process_staff(StaffJSON).
+
+% process_staff/1
+% Processa a lista completa de membros da equipe.
+process_staff([]) :- !.  % Caso base
+process_staff([Staff | Rest]) :-
+    % Extrair campos principais
+    string_to_atom_safe(Staff.id.value, StaffID),
+    string_to_atom_safe(Staff.licenseNumber, LicenseNumber),
+    string_to_atom_safe(Staff.specialization.specializationName.name, Specialization),
+    string_to_atom_safe(Staff.status, Status),
+    AvailabilitySlots = Staff.availabilitySlots,
+    process_availability_slots(StaffID, AvailabilitySlots),
+
+    % Armazenar os fatos do staff
+   assertz(staff(StaffID, doctor, Specialization, Status)),
+
+    StaffAgenda = Staff.staffAgenda,
+    process_staff_agenda_entries(StaffID, StaffAgenda),
+    !,
+    process_staff(Rest).
+
+% Predicado auxiliar para processar os AvailabilitySlots
+process_availability_slots(_, []) :- !.  % Caso base: lista vazia
+process_availability_slots(StaffID, [Slot | Rest]) :-
+    split_string(Slot, "-", "", [DateStr, StartStr, EndStr]),
+    atom_number(DateStr, Date),               % Converter data para número
+    time_to_minutes(StartStr, StartMinutes),  % Converter hora inicial para minutos
+    time_to_minutes(EndStr, EndMinutes),      % Converter hora final para minutos
+
+    assertz(timetable(StaffID, Date, (StartMinutes, EndMinutes))),
+
+    process_availability_slots(StaffID, Rest).
+
+
+% process_staff_agenda_entries/2
+% Processa as entradas de agenda para um membro específico do staff.
+process_staff_agenda_entries(_, []) :- !.  % Caso base
+process_staff_agenda_entries(StaffID, [AgendaEntry | Rest]) :-
+    % Extrair data e intervalos da agenda
+    string_to_atom_safe(AgendaEntry.date, DateISO),
+    date_iso_to_ymd(DateISO, FormattedDate),  % Converter ISO para formato YYYYMMDD
+    Intervals = AgendaEntry.timeIntervals,
+    AppointmentType = AgendaEntry.appointmentType,
+    collect_intervals(Intervals, [], CollectedIntervals,AppointmentType), % Agregar os intervalos
+     
+    assertz(agenda_staff(StaffID, FormattedDate, CollectedIntervals)),
+        !,
+    process_staff_agenda_entries(StaffID, Rest).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+process_operation_requests([]):-!.
+process_operation_requests([Request | Rest]) :-
+    % Extract fields safely
+    string_to_atom_safe(Request.get(id), ID),
+    Deadline = Request.get(deadline),
+    (   Request.get(doctorName) == null 
+    ->  DoctorName = null
+    ;   string_to_atom_safe(Request.get(doctorName), DoctorName)
+    ),
+    (   Request.get(operationType) == null 
+    ->  OperationType = null
+    ;   OperationType=Request.get(operationType)
+
+    ),
+    (   Request.get(patientName) == null 
+    ->  PatientName = null
+    ;   string_to_atom_safe(Request.get(patientName), PatientName)
+    ),
+    string_to_atom_safe(Request.get(priority), Priority),
+    
+    assertz(operation_request(ID, Deadline, DoctorName, OperationType, PatientName, Priority)),
+    assertz(surgery_id(ID,OperationType)),
+           !,
+    process_operation_requests(Rest).
+
+% Main loader predicate
+load_operation_requests :-
+    fetch_json('http://localhost:5001/algav/operation-request', OperationRequestsJSON),
+    process_operation_requests(OperationRequestsJSON).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+process_operation_types([]):- !.
+process_operation_types([Operation | Rest]) :-
+    % Extract fields
+    atom_string_safe(Operation.get(id), OperationID),
+    Name = Operation.get(name), % Extract the Name correctly
+    time_to_minutes(Operation.get(cleaningDuration), CleaningDuration),
+    time_to_minutes(Operation.get(surgeryDuration), SurgeryDuration),
+    time_to_minutes(Operation.get(setupDuration), SetupDuration),
+    StillPerformed = Operation.get(stillPerformed),
+    (   StillPerformed == null
+    ->  StillPerformedFlag = false
+    ;   StillPerformedFlag = StillPerformed
+    ),
+    RequiredStaffList = Operation.get(requiredStaff), % Extract the list of required staff
+
+    assertz(surgery(Name, SetupDuration, SurgeryDuration, CleaningDuration)),
+    %TODO:REVERprocess_required_staff(OperationID, RequiredStaffList),
+    !,
+    process_operation_types(Rest).
+
+% Process the required staff list for an operation
+process_required_staff(_, null) :- !. % Case where there is no required staff (null)
+process_required_staff(OperationID, []) :- !. % Base case for empty list
+process_required_staff(OperationID, [Staff | Rest]) :-
+    atom_string_safe(Staff.get(id), ID),
+    NumberOfStaff = Staff.numberOfStaff.get(value),
+    (   Staff.specialization == null
+    ->  Specialization = null
+    ;   atom_string_safe(Staff.get(specialization), Specialization)
+    ),
+    
+    % Assert the required_staff fact
+    assertz(surgery_staff_requirements(ID, NumberOfStaff, Specialization)),
+    assertz(required_staff(ID, NumberOfStaff, Specialization)),
+    !,
+    process_required_staff(OperationID, Rest). % Process the rest of the list
+
+% Main loader predicate
+load_operation_types :-
+    fetch_json('http://localhost:5001/algav/operation-type', OperationTypesJSON),
+    process_operation_types(OperationTypesJSON).
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+collect_intervals([], Acc, Acc,_) :- !. 
+collect_intervals([Interval | Rest], Acc, FinalList,AppointmentType) :-
+    split_string(Interval, "-", "", [StartStr, EndStr]),
+
+    % Converte as horas para minutos
+    time_to_minutes(StartStr, MinInicial),
+    time_to_minutes(EndStr, MinFinal),
+
+    % Adiciona o intervalo à lista acumulada
+    append(Acc, [(MinInicial, MinFinal,AppointmentType)], UpdatedAcc),
+
+    % Processa o restante dos intervalos
+    collect_intervals(Rest, UpdatedAcc, FinalList,AppointmentType).
+    
+date_iso_to_ymd(DateISO, FormattedDate) :-
+    split_string(DateISO, "T", "", [DatePart | _]),
+    split_string(DatePart, "-", "", [Year, Month, Day]),
+    atomic_list_concat([Year, Month, Day], '', FormattedDate).
+
+
+% Converte strings para átomos com segurança
+string_to_atom_safe(Value, Atom) :-
+    (   var(Value) -> Atom = 'Unknown'  % Caso a variável seja indefinida
+    ;   string(Value) -> atom_string(Atom, Value)  % Caso seja uma string válida
+    ;   atom(Value) -> Atom = Value  % Já é um átomo
+    ;   number(Value) -> atom_number(Atom, Value)  % Caso seja um número
+    ;   is_dict(Value) -> Atom = 'InvalidInput'  % Caso seja um dicionário
+    ;   Atom = 'Unknown'  % Fallback para entradas não reconhecidas
+    ).
+string_to_atom_safe(String, Atom) :-
+    ( var(String) -> Atom = 'Unknown' ; string_to_atom(String, Atom) ).
+
+% Utility: Time conversion
+time_to_minutes(TimeString, Minutes) :-
+    (   TimeString == null
+    ->  Minutes = 0 % Handle null time values gracefully
+    ;   split_string(TimeString, ":", "", [HStr, MStr, _]),
+        number_string(Hours, HStr),
+        number_string(MinutesPart, MStr),
+        TotalMinutes is Hours * 60 + MinutesPart,
+        Minutes is TotalMinutes
+    ).
+
+atom_string_safe(String, Atom) :-
+    (   string(String)
+    ->  atom_string(Atom, String)
+    ;   Atom = String
+    ).

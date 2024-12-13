@@ -304,11 +304,11 @@ public class OperationTypeService
 
     public  async Task<List<OperationType>> getOperationType()
     {
-        return await _operationTypeRepository.GetAllAsync();
+        return await _operationTypeRepository.GetAllOperationTypeAsync();
         
     }
     public async Task<List<RequiredStaff>> getRequiredStaff()
     {
-        return await _requiredStaffRepository.GetAllAsync();
+        return await _requiredStaffRepository.GetAllRequiredAsync();
     }
 }

@@ -24,6 +24,10 @@ public class StaffAgendaEntityTypeConfiguration : IEntityTypeConfiguration<Staff
         builder.Property(t => t.Date)
             .HasColumnName("Date")
             .IsRequired();
+        
+        builder.Property(t=>t.appointmentType)
+            .HasColumnName("appointmentType")
+            .IsRequired();
 
         builder.Property(t => t.TimeIntervals)
             .HasColumnName("TimeIntervals")
