@@ -23,6 +23,9 @@ import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-d
 import { AddOperationRequestComponent } from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
 import { EditOperationRequestComponent } from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
+import {
+  SpecializationManagementComponent
+} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 
 export const routes: Routes = [
   {
@@ -47,6 +50,7 @@ export const routes: Routes = [
       { path: 'patient', component: PatientManagementComponent, title: 'PatientManagement' },
       { path: 'patient/register', component: RegisterPatientProfileComponent, title: 'RegisterPatientProfile' },
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
+      {path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
     ],
   },
 

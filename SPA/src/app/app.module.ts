@@ -49,6 +49,15 @@ import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-d
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
+import {
+  SpecializationManagementComponent
+} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
+import { ErrorMessageComponent } from './Components/SpecializationManagement/error-message/error-message.component';
+import {
+  SpecializationListComponent
+} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
+import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-button/reset-filter-button.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,8 +104,11 @@ import { PatientProfileComponent } from './Components/Patient/patient-profile/pa
     CheckUserToDeleteComponent,
     EditOperationRequestComponent,
     AddOperationRequestComponent,
-    PatientProfileComponent
-
+    PatientProfileComponent,
+    SpecializationManagementComponent,
+    ErrorMessageComponent,
+    SpecializationListComponent,
+    ResetFilterButtonComponent
   ],
   imports: [
     BrowserModule,

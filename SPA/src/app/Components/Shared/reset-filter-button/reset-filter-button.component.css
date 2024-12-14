@@ -1,0 +1,13 @@
+.reset-filter-button {
+  padding: 8px 12px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px; /* Adiciona espaço abaixo do botão */
+}
+
+.reset-filter-button:hover {
+  background-color: #1976d2;
+}
