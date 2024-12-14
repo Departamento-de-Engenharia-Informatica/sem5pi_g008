@@ -1,0 +1,44 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Put Method - Level 2
+
+autonumber
+
+actor "User" as User
+participant "Frontend" as FE
+participant "BackEnd" as BE
+database "Database" as DB
+
+activate User
+
+    User -> FE : Asks to update something
+    activate FE
+
+      FE --> User : Asks for information
+    deactivate FE
+
+    User -> FE : Provides information
+    activate FE
+
+      FE -> BE : Request to update
+      activate BE
+
+        BE -> DB : Fetch data
+        activate DB
+
+          DB --> BE : Return insucc
+        deactivate DB
+
+        BE --> FE : Return success (or failure)
+      deactivate BE
+
+      FE --> User : Display success (or failure)
+    deactivate FE
+
+
+deactivate User
+
+@enduml

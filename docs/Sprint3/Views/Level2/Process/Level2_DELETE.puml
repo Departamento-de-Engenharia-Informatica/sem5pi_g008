@@ -1,0 +1,47 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Delete Method - Level 2
+
+autonumber
+
+actor "User" as User
+participant "Frontend" as FE
+participant "BackEnd" as BE
+database "Database" as DB
+
+activate User
+
+    User -> FE : Asks to delete something
+    activate FE
+
+    FE --> User : Ask for confirmation
+    deactivate FE
+
+    User -> FE : Confirm operation
+    activate FE
+
+        FE -> BE : Requests delete operation
+        activate BE
+
+        BE -> DB : Delete something
+        activate DB
+
+        DB --> BE : Return success (or failure) operation result
+        deactivate DB
+
+
+            BE --> FE : Return OK or Error
+            deactivate BE
+
+            FE --> User : Display (in)success operation
+
+        deactivate FE
+
+
+deactivate User
+
+@enduml

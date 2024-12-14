@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Post Method - Level 2
+
+autonumber
+
+actor "User" as User
+participant "Frontend" as FE
+participant "BackEnd" as BE
+database "Database" as DB
+
+activate User
+
+    User -> FE : Asks to create something
+    activate FE
+
+    FE --> User : Asks for necessary \ninformation to create
+    deactivate FE
+
+    User -> FE : Provide information
+    activate FE
+
+        FE -> BE : Send information to Backend
+        activate BE
+
+            BE -> DB : Create something
+            activate DB
+
+                DB --> BE : Return created \ninformation
+            deactivate DB
+
+            BE --> FE : Return success (or failure) operation result
+            deactivate BE
+
+    FE --> User : Display (in)success operation
+            deactivate FE
+
+deactivate User
+
+@enduml
