@@ -22,7 +22,7 @@ public class SurgeryRoomBootstrap
     {
         var agenda1 = new RoomAgenda
         {
-            Date = new DateTime(2024, 12, 15),
+            Date = new DateTime(2024, 12, 16),
             TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
             appointmentType = "Surgery"
         };

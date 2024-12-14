@@ -37,7 +37,7 @@ public class StaffBootstrap
 
         var agenda1 = new StaffAgenda
         {
-            Date = new DateTime(2024, 12, 15),
+            Date = new DateTime(2024, 12, 16),
             TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
             appointmentType = "Consultation"
         };
@@ -52,7 +52,7 @@ public class StaffBootstrap
             specialization1,
             StaffStatusEnum.INACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
         var doctor = new Staff
@@ -64,7 +64,7 @@ public class StaffBootstrap
             specialization2,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
 
         );
 
@@ -76,7 +76,7 @@ public class StaffBootstrap
             specialization1,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
     var nurseRui = new Staff
@@ -88,7 +88,7 @@ public class StaffBootstrap
             specialization1,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
         var nurseRui2 = new Staff
@@ -100,7 +100,7 @@ public class StaffBootstrap
             specialization1,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
         var doctorRui2 = new Staff
@@ -112,7 +112,7 @@ public class StaffBootstrap
             specialization2,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
         var doctorSandro = new Staff
         (
@@ -123,7 +123,7 @@ public class StaffBootstrap
             specialization2,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
   
         
@@ -146,13 +146,13 @@ public class StaffBootstrap
         
         var agenda1 = new StaffAgenda
         {
-            Date = new DateTime(2024, 12, 15),
+            Date = new DateTime(2024, 12, 16),
             TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
             appointmentType = "Consultation"
         };
         var agenda2 = new StaffAgenda
         {
-            Date = new DateTime(2024, 1, 15),
+            Date = new DateTime(2024, 12, 16),
             TimeIntervals = new List<string> { "09:00-10:00", "10:00-11:00", "11:00-12:00" },
             appointmentType = "Consultation"
         };
@@ -165,7 +165,7 @@ public class StaffBootstrap
             orthopedicSurgeon,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" });
+            new List<string> { "20241216-09:00-23:00" });
 
         var generalSurgeonStaff = new Staff
         (
@@ -175,7 +175,7 @@ public class StaffBootstrap
             generalSurgeon,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1,agenda2 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
         var doctorStaff = new Staff
@@ -187,7 +187,7 @@ public class StaffBootstrap
             StaffStatusEnum.ACTIVE,
             
             new List<StaffAgenda> { agenda2 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
         var nurseStaff = new Staff
@@ -198,7 +198,7 @@ public class StaffBootstrap
             nurseSpecialization,
             StaffStatusEnum.ACTIVE,
             new List<StaffAgenda> { agenda1 },
-            new List<string> { "20241028-09:00-10:00" }
+            new List<string> { "20241216-09:00-23:00" }
         );
 
 
