@@ -28,7 +28,7 @@ export class SurgeryRoomService {
     );
   }
   getSurgeryPlan(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.SwiUrl}/ola2`).pipe(
+    return this.http.get<any[]>(`${this.SwiUrl}/generate_plan`).pipe(
       catchError(error => {
         console.error('Error getting surgery plan:', error);
         return of([]);
@@ -63,10 +63,7 @@ export class SurgeryRoomService {
   getRequiredStaff(): Observable<any> {
     return this.http.get(`${this.algavUrl}/RequiredStaff`);
   }
-  getStaffAgenda(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/staff-agenda`);
-  }
-  getRoomAgenda(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/room-agenda`);
+  getData(): Observable<any> {
+    return this.http.get(`${this.SwiUrl}/getdata`);
   }
 }

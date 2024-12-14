@@ -5,10 +5,11 @@
   <div class="button-group">
     <button (click)="loadData()" class="btn btn-primary">Load Data</button>
     <button (click)="getSurgeryPlan()" class="btn btn-secondary">Search Surgery Plan</button>
+    <button (click)="getData()" class="btn btn-secondary">Get data</button>
   </div>
 
   <!-- Tabela de dados do plano de cirurgia -->
-  <div *ngIf="surgeryPlan.solutions && surgeryPlan.solutions.length > 0; else noData">
+  <div *ngIf="surgeryPlan.solutions && surgeryPlan.solutions.length > 0; else noDataSurgeryPlan">
     <table class="surgery-table">
       <thead>
       <tr>
@@ -29,8 +30,73 @@
     </table>
   </div>
 
-  <!-- Mensagem caso não existam dados -->
-  <ng-template #noData>
-    <p>No surgery rooms available at the moment.</p>
+  <!-- Tabela de dados de agendamento de sala -->
+  <div *ngIf="agenda.agendaroomlist && agenda.agendaroomlist.length > 0; else noDataRoomSchedule">
+    <table class="surgery-table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Room ID</th>
+        <th>Tasks</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let agendaroomlist of agenda.agendaroomlist; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ agendaroomlist.date }}</td>
+        <td>{{ agendaroomlist.room_id }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let task of agendaroomlist.tasks">
+              Operation Request Id: {{ task.code }}, Start: {{ task.start }}, End: {{ task.end }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tabela de dados de agendamento de equipe -->
+  <div *ngIf="agenda.agendastafflist && agenda.agendastafflist.length > 0; else noDataStaffSchedule">
+    <table class="surgery-table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Staff Id</th>
+        <th>Tasks</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let agendastafflist of agenda.agendastafflist; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ agendastafflist.date }}</td>
+        <td>{{ agendastafflist.staff_id }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let task of agendastafflist.tasks">
+              Operation Request Id: {{ task.code }}, Start: {{ task.start }}, End: {{ task.end }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Caso não haja dados - Mensagens personalizadas -->
+  <ng-template #noDataSurgeryPlan>
+    <p><strong>No surgery plans found. Please load or search for data.</strong></p>
   </ng-template>
+
+  <ng-template #noDataRoomSchedule>
+    <p><strong>No room schedules available. Please load or search for data.</strong></p>
+  </ng-template>
+
+  <ng-template #noDataStaffSchedule>
+    <p><strong>No staff schedules found. Please load or search for data.</strong></p>
+  </ng-template>
+
 </div>
