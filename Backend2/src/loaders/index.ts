@@ -4,6 +4,7 @@ import mongooseLoader from './mongoose';
 import Logger from './logger';
 
 import config from '../../config';
+import AllergyService from "../services/allergyService";
 
 export default async ({ expressApp }) => {
   const mongoConnection = await mongooseLoader();
@@ -37,6 +38,11 @@ export default async ({ expressApp }) => {
     path: config.controllers.role.path
   }
 
+  const allergyController = {
+    name: config.controllers.allergy.name,
+    path: config.controllers.allergy.path
+  }
+
   const roleRepo = {
     name: config.repos.role.name,
     path: config.repos.role.path
@@ -62,6 +68,11 @@ export default async ({ expressApp }) => {
     path: config.services.role.path
   }
 
+  const allergyService = {
+    name: config.services.allergy.name,
+    path: config.services.allergy.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
@@ -71,7 +82,8 @@ export default async ({ expressApp }) => {
       allergySchema
     ],
     controllers: [
-      roleController
+      roleController,
+      allergyController
     ],
     repos: [
       roleRepo,
@@ -80,7 +92,8 @@ export default async ({ expressApp }) => {
       allergyRepo
     ],
     services: [
-      roleService
+      roleService,
+      allergyService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

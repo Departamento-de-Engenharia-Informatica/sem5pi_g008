@@ -63,7 +63,7 @@ namespace Sempi5.Controllers
 
             if (string.IsNullOrEmpty(role))
             {
-                return NotFound("Role not found.");
+                return Unauthorized("Role not found.");
             }
 
             return Ok(role);
