@@ -1,0 +1,18 @@
+<div class="home-button-container"> <!-- Home button container outside of the container -->
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+<app-backgroud-card>
+  <div class="header">
+    <h1>Specializations Management</h1>
+  </div>
+
+
+
+  <app-error-message [message]="errorMessage"></app-error-message>
+
+  <app-specialization-list *ngIf="specializationList.length > 0"
+    [specializationList]="specializationList"
+  ></app-specialization-list>
+
+</app-backgroud-card>

@@ -18,8 +18,8 @@ export class AdminMenuComponent {
     { title: 'Staff Management', icon: 'assets/icons/users.png', link: '/admin/staff' },
     {title : 'Patient Management', icon: 'assets/icons/patient.png', link: '/admin/patient'},
     {title : 'Delete Pendent Users', icon: 'assets/icons/patient.png', link: '/patient/checkUserToDelete'},
-    { title: '3D',icon: 'assets/icons/3d.png', link: '/3d' }
-
+    { title: '3D',icon: 'assets/icons/3d.png', link: '/3d' },
+    { title: 'Specialization Management',icon: 'assets/icons/dashboard.png', link: '/admin/specialization' },
   ];
 
   constructor(@Inject(AuthService) auth: AuthService) {

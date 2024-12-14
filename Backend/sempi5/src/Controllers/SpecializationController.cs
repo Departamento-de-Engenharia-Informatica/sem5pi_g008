@@ -41,7 +41,11 @@ public class SpecializationController : ControllerBase
         }
         catch (NoSpecializationsFoundException e)
         {
-            return BadRequest(e.Message + " --------------- " + e.StatusCode);
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
     }
 }
