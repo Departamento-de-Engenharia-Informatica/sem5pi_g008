@@ -1,4 +1,4 @@
 ﻿export interface SpecializationDTO {
-  specializationID: number;
+  specializationID?: number;
   specializationName: string;
 }

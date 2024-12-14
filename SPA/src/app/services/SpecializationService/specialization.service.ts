@@ -16,4 +16,13 @@ export class SpecializationService {
 
     return this.http.get<SpecializationDTO[]>(`${this.apiUrl}`, { withCredentials: true });
   }
+
+  public listSpecializationByName(specializationDTO: SpecializationDTO): Observable<SpecializationDTO> {
+
+    const specializationName = specializationDTO.specializationName;
+
+    console.log('Specialization name: ' + specializationName);
+
+    return this.http.get<SpecializationDTO>(`${this.apiUrl}/${specializationName}`, { withCredentials: true});
+  }
 }

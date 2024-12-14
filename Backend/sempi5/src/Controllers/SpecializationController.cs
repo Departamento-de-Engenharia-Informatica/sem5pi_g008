@@ -19,14 +19,28 @@ public class SpecializationController : ControllerBase
     [HttpGet("{specializationName}")]
     public async Task<IActionResult> SpecializationByName(string specializationName)
     {
+        
+        Console.WriteLine("\n \n \n");
+        Console.WriteLine("ENTROU AQUI: - " + specializationName);
+        Console.WriteLine("\n \n \n");
+
         try
         {
             var specialization = await _specializationService.SpecializationByName(specializationName);
+            
+            Console.WriteLine("\n \n \n");
+            Console.WriteLine(specialization.specializationName);
+            Console.WriteLine("\n \n \n");
+            
             return Ok(specialization);
         }
         catch (SpecializationNotFoundException e)
         {
-            return BadRequest(e.Message + " " + e.StatusCode);
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
     }
 
@@ -34,6 +48,10 @@ public class SpecializationController : ControllerBase
     // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> ListAllSpecializations()
     {
+        Console.WriteLine("\n \n \n");
+        Console.WriteLine("ENTROU AQUI222222222222: - ");
+        Console.WriteLine("\n \n \n");
+        
         try
         {
             var specializations = await _specializationService.ListAllSpecializations();

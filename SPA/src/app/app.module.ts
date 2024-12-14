@@ -56,6 +56,7 @@ import { ErrorMessageComponent } from './Components/SpecializationManagement/err
 import {
   SpecializationListComponent
 } from './Components/SpecializationManagement/specialization-list/specialization-list.component';
+import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-button/reset-filter-button.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import {
     PatientProfileComponent,
     SpecializationManagementComponent,
     ErrorMessageComponent,
-    SpecializationListComponent
+    SpecializationListComponent,
+    ResetFilterButtonComponent
   ],
   imports: [
     BrowserModule,

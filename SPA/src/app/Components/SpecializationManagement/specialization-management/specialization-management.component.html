@@ -7,12 +7,23 @@
     <h1>Specializations Management</h1>
   </div>
 
+  <app-filter-button
+    *ngIf="specializationList.length > 0"
+    [filters]="['Specialization Name']"
+    (filterSelected)="handleFilter()"
+  ></app-filter-button>
 
+  <app-reset-filter-button (click)="resetFilter()"></app-reset-filter-button>
+
+  <app-specialization-list *ngIf="specializationList.length > 0"
+                           [specializationList]="specializationList"
+  ></app-specialization-list>
 
   <app-error-message [message]="errorMessage"></app-error-message>
 
-  <app-specialization-list *ngIf="specializationList.length > 0"
-    [specializationList]="specializationList"
-  ></app-specialization-list>
 
 </app-backgroud-card>
+
+<app-enter-filter-name
+  (nameToFilter)="handleFilterSelection($event)"
+></app-enter-filter-name>

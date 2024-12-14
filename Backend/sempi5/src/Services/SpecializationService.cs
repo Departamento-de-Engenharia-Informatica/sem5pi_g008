@@ -16,10 +16,7 @@ public class SpecializationService
     public async Task<SpecializationDTO> SpecializationByName(string specializationName)
     {
         
-        
         var specializationNameObj = new SpecializationName(specializationName);
-        
-        Console.WriteLine("\n\n\n" + specializationNameObj + "\n\n\n");
         
         var specialization = await _specializationRepository.GetBySpecializationName(new Specialization(specializationNameObj));
         
