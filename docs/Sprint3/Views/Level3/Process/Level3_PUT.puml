@@ -1,0 +1,56 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Put Method - Level 3
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+JS" as Frontend
+participant "<<component>> Service" as FrontendService
+participant "<<component>> Controller (Backend)" as Controller
+participant "<<component>> Service (Backend)" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate User
+
+    User -> Frontend : Request to update an item
+    activate Frontend
+
+  Frontend --> User : asks for data
+
+    User -> Frontend : Types data
+
+    Frontend -> FrontendService : Requests to update an item
+    activate FrontendService
+
+    FrontendService -> Controller : Forward HTTP PUT request
+
+    activate Controller
+        Controller -> BackendService : Requests to update an item in repository
+        activate BackendService
+
+            BackendService -> Repository : Update item
+            activate Repository
+
+                Repository --> BackendService : Success of update
+            deactivate Repository
+
+            BackendService --> Controller : Return Success or Failure
+        deactivate BackendService
+
+        Controller --> FrontendService : Return Success or Failure
+    deactivate Controller
+
+    FrontendService --> Frontend : Return Success or Failure
+    deactivate FrontendService
+
+    Frontend --> User : Display update result
+   deactivate Frontend
+
+deactivate User
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Delete Method - Level 3
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+JS" as Frontend
+participant "<<component>> Service" as FrontendService
+participant "<<component>> Controller (Backend)" as Controller
+participant "<<component>> Service (Backend)" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate User
+
+    User -> Frontend : Request to delete something
+    activate Frontend
+
+  Frontend --> User : asks for confirmation
+
+    User -> Frontend : Confirms deletion
+
+    Frontend -> FrontendService : Requests delete item
+    activate FrontendService
+
+    FrontendService -> Controller : Forward HTTP DELETE request
+
+
+    activate Controller
+        Controller -> BackendService : Requests to delete item
+        activate BackendService
+
+            BackendService -> Repository : Deletes item
+            activate Repository
+
+
+                Repository --> BackendService : Success of deletion
+            deactivate Repository
+
+
+            BackendService --> Controller : Return Success or Failure
+        deactivate BackendService
+
+        Controller --> FrontendService : Return Success or Failure
+    deactivate Controller
+
+    FrontendService --> Frontend : Return Success or Failure
+    deactivate FrontendService
+
+
+    Frontend --> User : Display confirmation prompt
+   deactivate Frontend
+
+deactivate User
+
+@enduml
