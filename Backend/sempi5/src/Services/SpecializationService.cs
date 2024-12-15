@@ -21,7 +21,7 @@ public class SpecializationService
         
         var specializationNameObj = new SpecializationName(specializationName);
         
-        var specialization = await _specializationRepository.GetBySpecializationName(new Specialization(specializationNameObj));
+        var specialization = await _specializationRepository.GetActiveBySpecializationName(new Specialization(specializationNameObj));
         
         if(specialization == null)
         {
@@ -49,13 +49,32 @@ public class SpecializationService
     public async Task DeleteSpecialization(string specializationName)
     {
         
-        var specialization = await _specializationRepository.GetBySpecializationName(new Specialization(new SpecializationName(specializationName)));
+        var specialization = await _specializationRepository.GetActiveBySpecializationName(new Specialization(new SpecializationName(specializationName)));
 
         if (specialization == null) throw new SpecializationNotFoundException("Specialization not found.");
         
         specialization.specializationStatus = SpecializationStatusEnum.INACTIVE;
 
         await _unitOfWork.CommitAsync();
+    }
+    
+    public async Task<SpecializationDTO> CreateSpecialization(string specializationName)
+    {
+        
+        var specialization = new Specialization(new SpecializationName(specializationName));
+        
+        var spec = await _specializationRepository.GetBySpecializationName(specialization);
+        
+        if(spec != null)
+        {
+            throw new SpecializationInUseException("Specialization already exists.");
+        }
+        
+        await _specializationRepository.AddAsync(specialization);
+        
+        await _unitOfWork.CommitAsync();
+        
+        return SpecializationMap.toDTO(specialization);
     }
     
     private List<SpecializationDTO> MapSpecializationListToSpecializationDTOList(List<Specialization> specializations)
