@@ -22,9 +22,9 @@ public class SpecializationController : ControllerBase
     {
         try
         {
-            var specialization = await _specializationService.SpecializationByName(specializationName);
+            var specializationDTO = await _specializationService.SpecializationByName(specializationName);
 
-            return Ok(specialization);
+            return Ok(specializationDTO);
         }
         catch (SpecializationNotFoundException e)
         {
@@ -66,6 +66,26 @@ public class SpecializationController : ControllerBase
             return Ok(new { message = "Staff deactivated successfully." });
         }
         catch (SpecializationNotFoundException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    [HttpPost("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateSpecialization(string specializationName)
+    {
+        try
+        { 
+            var speciliazationDTO = await _specializationService.CreateSpecialization(specializationName);
+
+            return Ok(speciliazationDTO);
+        }
+        catch (SpecializationInUseException e)
         {
             return StatusCode(e.StatusCode, e.Message);
         }

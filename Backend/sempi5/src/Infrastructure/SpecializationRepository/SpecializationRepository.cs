@@ -14,19 +14,34 @@ namespace Sempi5.Infrastructure.SpecializationRepository
         {
             this.context = dbContext;
         }
-
-
-        public async Task<Specialization?> GetBySpecializationName(Specialization specialization)
+        
+        
+        public async Task<Specialization?> GetActiveBySpecializationName(Specialization specialization)
         {
-            if(specialization == null)
+            if (specialization == null)
             {
                 return null;
             }
 
-            var specializationSearched = await Task.Run(() => context.Specializations
-                .FirstOrDefault(p => p.specializationName.Equals(specialization.specializationName)));
+            var specializationSearched = await context.Specializations
+                .FirstOrDefaultAsync(p => p.specializationName.Equals(specialization.specializationName) 
+                                          && p.specializationStatus.Equals(SpecializationStatusEnum.ACTIVE)); 
+    
+            return specializationSearched;        
+        }
 
-            return specializationSearched;
+
+        public async Task<Specialization?> GetBySpecializationName(Specialization specialization)
+        {
+            if (specialization == null)
+            {
+                return null;
+            }
+
+            var specializationSearched = await context.Specializations
+                .FirstOrDefaultAsync(p => p.specializationName.Equals(specialization.specializationName)); 
+    
+            return specializationSearched;  
         }
 
         public async Task<List<Specialization>> GetAllActiveSpecializations()

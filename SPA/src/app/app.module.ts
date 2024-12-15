@@ -57,6 +57,7 @@ import {
 import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-button/reset-filter-button.component';
 import {ErrorMessageComponent} from './Components/Shared/error-message/error-message.component';
 import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-button.component';
+import { CreateSpecializationComponent } from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-bu
     SpecializationManagementComponent,
     ErrorMessageComponent,
     SpecializationListComponent,
-    ResetFilterButtonComponent
+    ResetFilterButtonComponent,
+    CreateSpecializationComponent
   ],
   imports: [
     BrowserModule,
