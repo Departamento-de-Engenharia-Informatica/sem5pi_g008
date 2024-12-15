@@ -13,10 +13,11 @@
     (filterSelected)="handleFilter()"
   ></app-filter-button>
 
-  <app-reset-filter-button (click)="resetFilter()"></app-reset-filter-button>
+  <app-reset-filter-button (click)="resetFilter()" *ngIf="showResetButton"></app-reset-filter-button>
 
   <app-specialization-list *ngIf="specializationList.length > 0"
                            [specializationList]="specializationList"
+                           (deleteSpecialization)="deleteSpecialization($event)"
   ></app-specialization-list>
 
   <app-error-message [message]="errorMessage"></app-error-message>

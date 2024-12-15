@@ -3,6 +3,10 @@
   <div *ngFor="let specialization of specializationList" class="specialization-item">
     <p><strong>Specialization:</strong> {{ specialization.specializationName }}</p>
 
+  <app-delete-button
+    (delete)="deleteSpecialization.emit(specialization.specializationName)"
+  ></app-delete-button>
+
   </div>
 </div>
 

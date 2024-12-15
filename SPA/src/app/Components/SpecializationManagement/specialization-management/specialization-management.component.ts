@@ -15,6 +15,7 @@ export class SpecializationManagementComponent implements OnInit {
   public specializationList: Specialization[] = [];
   public specializationListAux: Specialization[] = [];
   private specializationService: SpecializationService;
+  public showResetButton: boolean = false;
 
   @ViewChild(EnterFilterNameComponent) enterFilterName!: EnterFilterNameComponent;
 
@@ -30,8 +31,13 @@ export class SpecializationManagementComponent implements OnInit {
   }
 
   public resetFilter() {
+
+    this.showResetButton = false;
     this.errorMessage = '';
     this.specializationList = this.specializationListAux;
+
+    if (this.specializationList.length === 0) this.errorMessage = 'No Specializations To List.';
+
   }
 
   public handleFilter() {
@@ -66,6 +72,38 @@ export class SpecializationManagementComponent implements OnInit {
       },
       (error) => {
 
+        if (error.status === 651) {
+
+          this.specializationList = [];
+
+          this.errorMessage = 'Specialization Not Found.';
+
+        } else {
+          console.error('Error Searching For a Specialization.');
+        }
+      }
+    );
+
+    this.showResetButton = true;
+  }
+
+  public deleteSpecialization(specializationName: string) {
+
+    const specializationDTO: SpecializationDTO = {
+      specializationName: specializationName
+    };
+
+    this.specializationService.deleteSpecialization(specializationDTO).subscribe(
+      response => {
+
+        this.specializationList = this.specializationList.filter(specialization => specialization.specializationName !== specializationName);
+        this.specializationListAux = this.specializationList;
+
+        if (this.specializationList.length === 0) this.errorMessage = 'No Specializations To List.';
+
+      },
+
+      (error) => {
         if (error.status === 651) {
 
           this.specializationList = [];

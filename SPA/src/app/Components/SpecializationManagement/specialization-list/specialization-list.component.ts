@@ -8,7 +8,7 @@ import {Specialization} from '../../../Domain/Specialization';
 })
 export class SpecializationListComponent {
   @Input() specializationList: Specialization[] = [];
-  // @Output() deleteSpecialization = new EventEmitter<string>();
+   @Output() deleteSpecialization = new EventEmitter<string>();
   // @Output() editSpecialization = new EventEmitter<Specialization>();
 
 }
