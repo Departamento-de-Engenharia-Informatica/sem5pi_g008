@@ -17,21 +17,13 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SpecializationByName(string specializationName)
     {
-        
-        Console.WriteLine("\n \n \n");
-        Console.WriteLine("ENTROU AQUI: - " + specializationName);
-        Console.WriteLine("\n \n \n");
-
         try
         {
             var specialization = await _specializationService.SpecializationByName(specializationName);
-            
-            Console.WriteLine("\n \n \n");
-            Console.WriteLine(specialization.specializationName);
-            Console.WriteLine("\n \n \n");
-            
+
             return Ok(specialization);
         }
         catch (SpecializationNotFoundException e)
@@ -48,16 +40,32 @@ public class SpecializationController : ControllerBase
     // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> ListAllSpecializations()
     {
-        Console.WriteLine("\n \n \n");
-        Console.WriteLine("ENTROU AQUI222222222222: - ");
-        Console.WriteLine("\n \n \n");
-        
         try
         {
             var specializations = await _specializationService.ListAllSpecializations();
             return Ok(specializations);
         }
         catch (NoSpecializationsFoundException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteSpecialization(string specializationName)
+    {
+        try
+        {
+            await _specializationService.DeleteSpecialization(specializationName);
+
+            return Ok(new { message = "Staff deactivated successfully." });
+        }
+        catch (SpecializationNotFoundException e)
         {
             return StatusCode(e.StatusCode, e.Message);
         }

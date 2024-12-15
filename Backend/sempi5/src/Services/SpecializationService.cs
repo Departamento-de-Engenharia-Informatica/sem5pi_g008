@@ -1,4 +1,5 @@
-﻿using Sempi5.Domain.SpecializationAggregate;
+﻿using Sempi5.Domain.Shared;
+using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Domain.SpecializationAggregate.SpecializationExceptions;
 using Sempi5.Infrastructure.SpecializationAggregate;
 
@@ -7,10 +8,12 @@ namespace Sempi5.Services;
 public class SpecializationService
 {
     private readonly ISpecializationRepository _specializationRepository;
-    
-    public SpecializationService(ISpecializationRepository specializationRepository)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public SpecializationService(ISpecializationRepository specializationRepository, IUnitOfWork unitOfWork)
     {
         _specializationRepository = specializationRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task<SpecializationDTO> SpecializationByName(string specializationName)
@@ -41,6 +44,18 @@ public class SpecializationService
         var specializationsDtoList = MapSpecializationListToSpecializationDTOList(specializationList);
         
         return specializationsDtoList;
+    }
+    
+    public async Task DeleteSpecialization(string specializationName)
+    {
+        
+        var specialization = await _specializationRepository.GetBySpecializationName(new Specialization(new SpecializationName(specializationName)));
+
+        if (specialization == null) throw new SpecializationNotFoundException("Specialization not found.");
+        
+        specialization.specializationStatus = SpecializationStatusEnum.INACTIVE;
+
+        await _unitOfWork.CommitAsync();
     }
     
     private List<SpecializationDTO> MapSpecializationListToSpecializationDTOList(List<Specialization> specializations)
