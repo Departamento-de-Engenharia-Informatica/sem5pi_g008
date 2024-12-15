@@ -1,0 +1,20 @@
+
+<div class="add-specialization">
+
+  <h2>Add Specialization</h2>
+
+  <div class="form-group">
+    <label for="specializationName">Specialization Name</label>
+    <input
+      id="specializationName"
+      type="text"
+      [(ngModel)]="newSpecialization.specializationName"
+      name="specialization name"
+    />
+  </div>
+
+  <button type="submit" [disabled]="!isFieldFilled()" (click)="createSpecialization()">Save Changes</button>
+
+  <app-error-message [message]="errorMessage"></app-error-message>
+
+</div>

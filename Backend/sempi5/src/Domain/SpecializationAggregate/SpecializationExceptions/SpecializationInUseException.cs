@@ -2,7 +2,7 @@
 
 public class SpecializationInUseException : Exception
 {
-    public int StatusCode { get; set; } = 651;
+    public int StatusCode { get; set; } = 652;
 
     public SpecializationInUseException(string message) : base(message)
     {

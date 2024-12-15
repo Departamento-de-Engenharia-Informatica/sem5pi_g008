@@ -26,6 +26,9 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {
   SpecializationManagementComponent
 } from './Components/SpecializationManagement/specialization-management/specialization-management.component';
+import {
+  CreateSpecializationComponent
+} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +54,7 @@ export const routes: Routes = [
       { path: 'patient/register', component: RegisterPatientProfileComponent, title: 'RegisterPatientProfile' },
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       {path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
+      {path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
     ],
   },
 
