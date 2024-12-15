@@ -23,7 +23,9 @@
     "esModuleInterop": true
   },
   "include": [
-    "./src/**/*", "index.js"
+    "./src/**/*",
+    "index.js",
+    "../../../AppData/Local/JetBrains/Rider2024.3/javascript/typings/node/22.9.1/node_modules/@types/node/globals.d.ts"
   ],
   "exclude": [
     "node_modules",

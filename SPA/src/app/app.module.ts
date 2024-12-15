@@ -48,12 +48,9 @@ import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-d
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
-import {
-  SpecializationManagementComponent
-} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
-import {
-  SpecializationListComponent
-} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
+import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
+import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
+import {SpecializationListComponent} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
 import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-button/reset-filter-button.component';
 import {ErrorMessageComponent} from './Components/Shared/error-message/error-message.component';
 import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-button.component';
@@ -106,6 +103,7 @@ import { CreateSpecializationComponent } from './Components/SpecializationManage
     EditOperationRequestComponent,
     AddOperationRequestComponent,
     PatientProfileComponent,
+    AddAllergyComponent,
     SpecializationManagementComponent,
     ErrorMessageComponent,
     SpecializationListComponent,

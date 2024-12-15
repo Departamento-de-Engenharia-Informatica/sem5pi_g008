@@ -44,6 +44,10 @@ export default {
     role: {
       name: "RoleController",
       path: "../controllers/roleController"
+    },
+    allergy: {
+      name: "AllergyController",
+      path: "../controllers/AllergyController"
     }
   },
 
@@ -59,6 +63,10 @@ export default {
     medicalCondition: {
         name: "MedicalConditionRepo",
         path: "../repos/MedicalConditionRepo"
+    },
+    allergy: {
+      name: "AllergyRepo",
+      path: "../repos/AllergyRepo"
     }
   },
 
@@ -66,6 +74,19 @@ export default {
     role: {
       name: "RoleService",
       path: "../services/roleService"
+    },
+    allergy: {
+      name: "AllergyService",
+      path: "../services/AllergyService"
     }
   },
+
+  Google: {
+    ClientId: "367986401250-0qiqdf0cot2g1bpu9l0qppcf33633amd.apps.googleusercontent.com",
+    Client_Secret: "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"
+  },
+
+  Backend1: {
+    URL: "http://localhost:5001"
+  }
 };
