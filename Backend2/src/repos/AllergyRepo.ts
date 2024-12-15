@@ -13,9 +13,10 @@ export default class AllergyRepo implements IAllergyRepo {
 
 
   public async save(allergy: Allergy, number?: number): Promise<Allergy> {
-    //TODO -  Implementar id autoincrementável
+
     if(number === undefined) {
-      number = await this.getLastId();
+      number = await this.getFirstAvailableId();
+      console.log('Number:', number);
     }
 
     const rawAllergy: any = AllergyMap.toPersistence(allergy, number);
@@ -27,8 +28,27 @@ export default class AllergyRepo implements IAllergyRepo {
     return true;
   }
 
-  private async getLastId(): Promise<number> {
-    //TODO - Implement last id
-    return 0;
+  private async getFirstAvailableId(): Promise<number> {
+    try {
+
+      const existingIds = await this.allergySchema.find().sort({ domainId: 1 }).select('domainId');
+
+      if (existingIds.length === 0) {
+        return 0;
+      }
+
+      for (let i = 0; i < existingIds.length; i++) {
+        if (existingIds[i].domainId !== i) {
+          return i;
+        }
+      }
+
+      return existingIds[existingIds.length - 1].domainId + 1;
+    } catch (error) {
+      console.error('Error fetching first available ID:', error);
+      throw error;
+    }
   }
+
+
 }

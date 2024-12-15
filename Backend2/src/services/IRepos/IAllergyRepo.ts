@@ -2,5 +2,5 @@
 import {Allergy} from "../../domain/Allergy/Allergy";
 
 export default interface IAllergyRepo extends Repo<Allergy> {
-  save(allergy: Allergy): Promise<Allergy>;
+  save(allergy: Allergy,  number?: number): Promise<Allergy>;
 }

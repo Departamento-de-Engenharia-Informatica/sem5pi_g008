@@ -14,9 +14,16 @@ export default (app: Router) => {
 
   const ctrl = Container.get(config.controllers.allergy.name) as IAllergyController;
 
-  route.get('/test',checkRoleAndProceed(['doctor']), (req, res) => {
-    res.status(200).json({
-      message: 'Access granted to route',
-    });
+  route.post('/',
+    celebrate({
+      body: Joi.object({
+        domainId: Joi.number().optional(),
+        allergy: Joi.string().required(),
+        effect: Joi.string().optional()
+      }),
+    }),
+    checkRoleAndProceed(['admin']), (req, res, next) => {
+    ctrl.createAllergy(req, res, next);
   });
+
 };

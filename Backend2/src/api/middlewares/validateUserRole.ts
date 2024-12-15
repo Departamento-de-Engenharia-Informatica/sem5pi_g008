@@ -5,29 +5,22 @@ import config from "../../../config";
 export const checkRoleAndProceed = (allowedRoles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Parse cookies from the request headers
-      const cookies = req.headers.cookie;
 
-      // Fetch the role from the backend (e.g., from the login route)
       const response = await axios.get(config.Backend1.URL + '/Login/role', {
         headers: {
-          'Cookie': cookies // Manually set the Cookie header
+          'Cookie': req.headers.cookie
         }
       });
 
       const role = response.data;
 
-      console.log('Role:', role);
-
       if(allowedRoles.length === 0) {
         return next();
       }
 
-      for (let i = 0; i < allowedRoles.length; i++) {
-        allowedRoles[i] = allowedRoles[i].toLowerCase();
-      }
+      const normalizedRoles = allowedRoles.map((r) => r.toLowerCase());
 
-      if (allowedRoles.includes(role.toLowerCase())) {
+      if (normalizedRoles.includes(role.toLowerCase())) {
         return next();
       } else {
         return res.status(403).json({

@@ -1,17 +1,14 @@
-import 'reflect-metadata'; // We need this in order to use @Decorators
+import 'reflect-metadata';
 
 import config from '../config';
 
 import express from 'express';
 
 import Logger from './loaders/logger';
-import cookieParser from 'cookie-parser'; // Import cookie-parser
 
 
 async function startServer() {
   const app = express();
-
-  app.use(cookieParser());
 
   await require('./loaders').default({ expressApp: app });
 
