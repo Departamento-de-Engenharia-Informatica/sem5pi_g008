@@ -36,11 +36,17 @@ get_date_response(_Request) :-
     agendastafflist: FormattedStaffList,
     agendaroomlist: FormattedRoomList
     }, [encoding(utf8)]).
-    		
-get_surgery_plan_response(_Request) :-
+    
+      		
+get_surgery_plan_response(Request) :-
     cors_enable,
+    http_parameters(Request, [
+              date(Date_R, [integer]),   % Parâmetro 'date' esperado como inteiro (ex: 20241216)
+              room(Room_R, [atom])       % Parâmetro 'room' esperado como átomo (ex: 'or1')
+    ]),
+                    
     %TODO se number with "" '' or without
-    (   search_pending_surgeries(20241216, or1) ->  % Verifica se há cirurgias pendentes
+    (   search_pending_surgeries(Date_R, Room_R) ->  % Verifica se há cirurgias pendentes
         listasolucoes(A),
         findall(A, listasolucoes(A), AllSolutions),   
         find_best_solution(AllSolutions, BestSolution), 
@@ -287,10 +293,10 @@ search_pending_surgeries(Date, Room) :-
     ;
         true
     )
-    ,
-    findall(A, listasolucoes(A), AllSolutions),   
-    find_best_solution(AllSolutions, BestSolution), 
-    findall(X, (member((_, _, X), BestSolution), schedule_surgery(X, Date, Room, Solucoes1)),_)
+   % ,
+   %% findall(A, listasolucoes(A), AllSolutions),   
+   % find_best_solution(AllSolutions, BestSolution), 
+   % findall(X, (member((_, _, X), BestSolution), schedule_surgery(X, Date, Room, Solucoes1)),_)
 .
 
 schedule_pending_surgeries([], Date, Room,Solucoes) :-
@@ -328,7 +334,7 @@ schedule_surgery(Surgery, Date, Room,Solucoes) :-
     get_staff_for_surgery(Requirements, StaffList),
     get_staff_for_surgery(Requirements2, Staff_AnesthesiaList),
     get_staff_for_surgery(Requirements3, Staff_CleaningList),
-    format('StaffList: ~w~n', [StaffList]),
+    %format('StaffList: ~w~n', [StaffList]),
 
     
 
@@ -339,28 +345,28 @@ schedule_surgery(Surgery, Date, Room,Solucoes) :-
     findall(CommonIntervals, (member(Team, Staff_AnesthesiaList), intersect_all_agendas(Team, Date, CommonIntervals)), AllCommonIntervals_Anesthesia),
 
     findall(CommonIntervals, (member(Team, Staff_CleaningList), intersect_all_agendas(Team, Date, CommonIntervals)), AllCommonIntervals_Cleaning),
-format('AllCommonIntervals: ~w~n', [AllCommonIntervals]),
+%format('AllCommonIntervals: ~w~n', [AllCommonIntervals]),
 
    
     findall(SurgeryInterval, (member(CommonIntervals, AllCommonIntervals), select_sufficient_interval(CommonIntervals, Time_Surgery, SurgeryInterval)), AllSurgeryInterval),   
     flatten(AllSurgeryInterval, Result_surgery),
     list_to_set(Result_surgery, UniqueResultsurgery),
-    format('UniqueResultsurgery: ~w~n', [UniqueResultsurgery]),
+    %format('UniqueResultsurgery: ~w~n', [UniqueResultsurgery]),
 
    
     findall(SurgeryInterval, (member(CommonIntervals, AllCommonIntervals_Anesthesia), select_sufficient_interval(CommonIntervals, Time_Anesthesia, SurgeryInterval)), AllSurgeryInterval_Anesthesia),
     flatten(AllSurgeryInterval_Anesthesia, Result_Anesthesia),
     list_to_set(Result_Anesthesia, UniqueResultAnesthesia),
-    format('UniqueResultAnesthesia: ~w~n', [UniqueResultAnesthesia]),
+    %format('UniqueResultAnesthesia: ~w~n', [UniqueResultAnesthesia]),
 
     findall(SurgeryInterval, (member(CommonIntervals, AllCommonIntervals_Cleaning), select_sufficient_interval(CommonIntervals, Time_Cleaning, SurgeryInterval)), AllSurgeryInterval_Cleaning),
     flatten(AllSurgeryInterval_Cleaning, Result_Cleaning),
     list_to_set(Result_Cleaning, UniqueResultCleaning),
-    format('UniqueResultCleaning: ~w~n', [UniqueResultCleaning]),
+    %format('UniqueResultCleaning: ~w~n', [UniqueResultCleaning]),
 
     precede(UniqueResultAnesthesia,UniqueResultsurgery,UniqueResultCleaning,Result_allCombinatios),
     list_to_set(Result_allCombinatios, Result_allCombinatios1),
-format('Result_allCombinatios1: ~w~n', [Result_allCombinatios1]),
+%format('Result_allCombinatios1: ~w~n', [Result_allCombinatios1]),
    
     agenda_operation_room(Room, Date, RoomAgenda),
     findall(NewInterval, (
@@ -580,6 +586,7 @@ reload_all_data,
 reply_json_dict(_{status: "success"}).      
 
 reload_all_data :-
+retractall(listasolucoes(_)),
 reload_surgery_rooms_data,
 reload_staff_data,
 reload_operation_requests,
@@ -644,7 +651,7 @@ process_room_agenda(RoomID, [AgendaEntry | Rest]) :-
        collect_intervals(Intervals, [], CollectedIntervals,AppointmentType), % Agregar os intervalos     
 %TODO se number with "" '' or without
     atom_number(FormattedDate, NumberDate), 
-    format('1Room: ~w, Date: ~w, Intervals: ~w~n', [RoomID, FormattedDate, CollectedIntervals]),
+    %format('1Room: ~w, Date: ~w, Intervals: ~w~n', [RoomID, FormattedDate, CollectedIntervals]),
     assertz(agenda_operation_room(RoomID, NumberDate, CollectedIntervals)),
        !,
     process_room_agenda(RoomID, Rest).
@@ -707,7 +714,7 @@ process_availability_slots(StaffID, [Slot | Rest]) :-
     time_to_minutes(StartStr, StartMinutes),  % Converter hora inicial para minutos
     time_to_minutes(EndStr, EndMinutes),      % Converter hora final para minutos
 %TODO se number with "" '' or without
-    format('2Staff: ~w, Date: ~w, Start: ~w, End: ~w~n', [StaffID, Date, StartMinutes, EndMinutes]),
+    %format('2Staff: ~w, Date: ~w, Start: ~w, End: ~w~n', [StaffID, Date, StartMinutes, EndMinutes]),
 
     assertz(timetable(StaffID, Date, (StartMinutes, EndMinutes))),
 
@@ -725,7 +732,7 @@ process_staff_agenda_entries(StaffID, [AgendaEntry | Rest]) :-
     AppointmentType = AgendaEntry.appointmentType,
     collect_intervals(Intervals, [], CollectedIntervals,AppointmentType), % Agregar os intervalos
      %TODO se number with "" '' or without
-     format('3Staff: ~w, Date: ~w, Intervals: ~w~n', [StaffID, FormattedDate, CollectedIntervals]),
+     %format('3Staff: ~w, Date: ~w, Intervals: ~w~n', [StaffID, FormattedDate, CollectedIntervals]),
        atom_number(FormattedDate, NumberDate), 
 
     assertz(agenda_staff(StaffID, NumberDate, CollectedIntervals)),

@@ -7,37 +7,38 @@ import { SurgeryRoomService } from '../../../services/SurgeryRoomService/surgery
   styleUrls: ['./algav.component.css']
 })
 export class AlgavComponent implements OnInit {
-  surgeryRooms: any[] = [];
   surgeryPlan: any = {};
-  surgerySchedules: any[] = [];
-  availableRooms: any[] = [];
   agenda: any = {};
+
+  formData = {
+    date: '',
+    room: ''
+  };
   constructor(private surgeryService: SurgeryRoomService) {}
 
   ngOnInit(): void {
   //  this.getSurgeryPlan();
-    this.getStaff();
-   this.getSurgeryRoomsInfo();
-   this.getRequests();
-    this.getOperationTypes();
-    this.getRequiredStaff();
+ //  this.getStaff();
+ //   this.getSurgeryRoomsInfo();
+ //   this.getRequests();
+ //    this.getOperationTypes();
+ //    this.getRequiredStaff();
   //  this.loadData();
   // this.getData();
   }
 
   // Método para obter o plano de cirurgia
-  getSurgeryPlan(): void {
-    this.surgeryService.getSurgeryPlan().subscribe({
-      next: (data) => {
-        console.log('Surgery Plan:', data);
-        this.surgeryPlan = data;
-      },
-      error: (err) => {
-        console.error('Error fetching surgery plan:', err);
-      }
-    });
 
+  searchSurgeryPlan() {
+    const { date, room } = this.formData;
+    console.log('Date:', date);
+    console.log('Room:', room);
+    this.surgeryService.getSurgeryPlan(date, room).subscribe(data => {
+      this.surgeryPlan = data;
+      console.log('Surgery Plan:', this.surgeryPlan);
+    });
   }
+
   loadData(): void {
     this.surgeryService.loadData().subscribe({
       next: (data) => {

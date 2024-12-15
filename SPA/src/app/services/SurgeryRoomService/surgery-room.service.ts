@@ -27,14 +27,20 @@ export class SurgeryRoomService {
       })
     );
   }
-  getSurgeryPlan(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.SwiUrl}/generate_plan`).pipe(
+
+  getSurgeryPlan(date: string, room: string): Observable<any[]> {
+    const params = new URLSearchParams();
+    params.set('date', date);
+    params.set('room', room);
+
+    return this.http.get<any[]>(`${this.SwiUrl}/generate_plan?${params.toString()}`).pipe(
       catchError(error => {
         console.error('Error getting surgery plan:', error);
         return of([]);
       })
     );
   }
+
 
   loadData(): Observable<any[]> {
     return this.http.get<any[]>(`${this.SwiUrl}/load`).pipe(
