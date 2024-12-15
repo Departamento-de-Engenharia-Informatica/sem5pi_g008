@@ -17,16 +17,22 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SpecializationByName(string specializationName)
     {
         try
         {
-            var specialization = await _specializationService.SpecializationByName(specializationName);
-            return Ok(specialization);
+            var specializationDTO = await _specializationService.SpecializationByName(specializationName);
+
+            return Ok(specializationDTO);
         }
         catch (SpecializationNotFoundException e)
         {
-            return BadRequest(e.Message + " " + e.StatusCode);
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
     }
 
@@ -41,7 +47,51 @@ public class SpecializationController : ControllerBase
         }
         catch (NoSpecializationsFoundException e)
         {
-            return BadRequest(e.Message + " --------------- " + e.StatusCode);
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteSpecialization(string specializationName)
+    {
+        try
+        {
+            await _specializationService.DeleteSpecialization(specializationName);
+
+            return Ok(new { message = "Staff deactivated successfully." });
+        }
+        catch (SpecializationNotFoundException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    [HttpPost("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateSpecialization(string specializationName)
+    {
+        try
+        { 
+            var speciliazationDTO = await _specializationService.CreateSpecialization(specializationName);
+
+            return Ok(speciliazationDTO);
+        }
+        catch (SpecializationInUseException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
     }
 }

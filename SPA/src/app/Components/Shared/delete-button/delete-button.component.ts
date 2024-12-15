@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-delete-staff-profile-button',
-  templateUrl: './delete-staff-profile-button.component.html',
-  styleUrl: './delete-staff-profile-button.component.css',
+  selector: 'app-delete-button',
+  templateUrl: './delete-button.component.html',
+  styleUrl: './delete-button.component.css',
   standalone: false
 })
 
-export class DeleteStaffProfileButtonComponent {
+export class DeleteButtonComponent {
   @Input() staffId!: string;
   @Output() delete = new EventEmitter<string>();
 
