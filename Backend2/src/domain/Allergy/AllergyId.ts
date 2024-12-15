@@ -13,7 +13,8 @@ export class AllergyId extends Entity<any> {
     }
 
     const auxId = id.toString();
-    if(!/^\d+$/.test(auxId)) {
+    let regex = /^\d+$/;
+    if(!regex.test(auxId)) {
       throw new Error("AllergyId must contain only digits");
     }
 

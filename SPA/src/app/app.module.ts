@@ -49,6 +49,8 @@ import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-d
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
+import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,8 +97,8 @@ import { PatientProfileComponent } from './Components/Patient/patient-profile/pa
     CheckUserToDeleteComponent,
     EditOperationRequestComponent,
     AddOperationRequestComponent,
-    PatientProfileComponent
-
+    PatientProfileComponent,
+    AddAllergyComponent
   ],
   imports: [
     BrowserModule,

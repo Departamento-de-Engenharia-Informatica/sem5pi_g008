@@ -25,8 +25,7 @@ export default class AllergyController implements IAllergyController {
       console.error('Error creating allergy:', error.message);
 
       res.status(500).json({
-        message: 'Error creating allergy',
-        error: error.message
+        message: 'Error creating allergy - Duplicate entry',
       });
     }
   }

@@ -25,5 +25,4 @@ export default (app: Router) => {
     checkRoleAndProceed(['admin']), (req, res, next) => {
     ctrl.createAllergy(req, res, next);
   });
-
 };

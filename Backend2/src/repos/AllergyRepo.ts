@@ -4,6 +4,8 @@ import {Document, Model} from "mongoose";
 import {IAllergyPersistence} from "../dataschema/IAllergyPersistence";
 import {Allergy} from "../domain/Allergy/Allergy";
 import {AllergyMap} from "../mappers/AllergyMap";
+import {AllergyId} from "../domain/Allergy/AllergyId";
+import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 
 @Service()
 export default class AllergyRepo implements IAllergyRepo {
@@ -25,30 +27,33 @@ export default class AllergyRepo implements IAllergyRepo {
   }
 
   public async exists(allergy: Allergy): Promise<boolean> {
-    return true;
-  }
-
-  private async getFirstAvailableId(): Promise<number> {
     try {
+      const existingAllergy = await this.allergySchema.findOne({ allergy: allergy.allergy });
 
-      const existingIds = await this.allergySchema.find().sort({ domainId: 1 }).select('domainId');
+      existingAllergy || await this.allergySchema.findOne({ domainId: allergy.domainId.id.toValue() });
 
-      if (existingIds.length === 0) {
-        return 0;
+      if (existingAllergy) {
+        return true;
       }
 
-      for (let i = 0; i < existingIds.length; i++) {
-        if (existingIds[i].domainId !== i) {
-          return i;
-        }
-      }
+      return false;
 
-      return existingIds[existingIds.length - 1].domainId + 1;
     } catch (error) {
-      console.error('Error fetching first available ID:', error);
+      console.error('Error checking if allergy exists:', error);
       throw error;
     }
   }
 
+  private async getFirstAvailableId(): Promise<number> {
+    let number = 1;
+
+    const allergies = await this.allergySchema.find();
+
+    if (allergies.length > 0) {
+      number = allergies[allergies.length - 1].domainId + 1;
+    }
+
+    return number;
+  }
 
 }
