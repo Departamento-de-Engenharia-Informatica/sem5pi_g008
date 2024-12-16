@@ -56,4 +56,16 @@ export default class AllergyRepo implements IAllergyRepo {
     return number;
   }
 
+  public async getAll(): Promise<Allergy[]> {
+    const allergies = await this.allergySchema.find();
+
+    let aux: Allergy[] = new Array(allergies.length);
+
+    for(let i = 0; i < allergies.length; i++) {
+      aux[i] = AllergyMap.toDomain(allergies[i]);
+    }
+
+    return aux;
+  }
+
 }
