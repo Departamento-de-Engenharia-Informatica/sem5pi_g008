@@ -1,0 +1,26 @@
+﻿import {Container} from "typedi";
+import {Router} from "express";
+import config from "../../../config";
+import IMedicalRecordController from "../../controllers/IControllers/IMedicalRecordController";
+import {celebrate, Joi} from "celebrate";
+import {checkRoleAndProceed} from "../middlewares/validateUserRole";
+
+
+const route = Router();
+
+export default (app: Router) => {
+    app.use('/medicalRecord', route);
+
+    const ctrl = Container.get(config.controllers.medicalRecord.name) as IMedicalRecordController;
+
+    route.post('/',
+        celebrate({
+            body: Joi.object({
+                domainId: Joi.number().optional(),
+                medicalRecord: Joi.string().required(),
+            }),
+        }),
+        checkRoleAndProceed(['doctor']), (req, res, next) => {
+            ctrl.createMedicalRecord(req, res, next);
+        });
+};

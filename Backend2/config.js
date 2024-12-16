@@ -48,6 +48,10 @@ export default {
     allergy: {
       name: "AllergyController",
       path: "../controllers/AllergyController"
+    },
+    medicalRecord: {
+      name:"MedicalRecordController",
+      path:"../controllers/MedicalRecordController"
     }
   },
 
@@ -67,6 +71,10 @@ export default {
     allergy: {
       name: "AllergyRepo",
       path: "../repos/AllergyRepo"
+    },
+    medicalRecord: {
+      name:"MedicalRecordRepo",
+      path:"../repos/MedicalRecordRepo"
     }
   },
 
@@ -78,6 +86,10 @@ export default {
     allergy: {
       name: "AllergyService",
       path: "../services/AllergyService"
+    },
+    medicalRecord:{
+      name: "MedicalRecordService",
+      path:"../services/MedicalRecordService"
     }
   },
 
