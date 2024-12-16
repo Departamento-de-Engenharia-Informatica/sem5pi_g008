@@ -18,7 +18,6 @@ export default class AllergyRepo implements IAllergyRepo {
 
     if(number === undefined) {
       number = await this.getFirstAvailableId();
-      console.log('Number:', number);
     }
 
     const rawAllergy: any = AllergyMap.toPersistence(allergy, number);
