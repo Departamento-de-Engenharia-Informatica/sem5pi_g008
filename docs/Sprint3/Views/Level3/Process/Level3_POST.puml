@@ -1,0 +1,56 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Post Method - Level 3
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+JS" as Frontend
+participant "<<component>> Service" as FrontendService
+participant "<<component>> Controller (Backend)" as Controller
+participant "<<component>> Service (Backend)" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate User
+
+    User -> Frontend : Request to create something
+    activate Frontend
+
+  Frontend --> User : asks for data
+
+    User -> Frontend : Submits data
+
+    Frontend -> FrontendService : Requests to create something
+    activate FrontendService
+
+    FrontendService -> Controller : Forward HTTP POST request
+
+    activate Controller
+        Controller -> BackendService : Requests to create something
+        activate BackendService
+
+            BackendService -> Repository : Saves item
+            activate Repository
+
+                Repository --> BackendService : Success of submission
+            deactivate Repository
+
+            BackendService --> Controller : Return Success or Failure
+        deactivate BackendService
+
+        Controller --> FrontendService : Return Success or Failure
+    deactivate Controller
+
+    FrontendService --> Frontend : Return Success or Failure
+    deactivate FrontendService
+
+    Frontend --> User : Display operation result
+   deactivate Frontend
+
+deactivate User
+
+@enduml

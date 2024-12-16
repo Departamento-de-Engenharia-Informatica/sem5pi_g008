@@ -1,0 +1,30 @@
+<div class="add-allergy">
+  <h2>Add Allergy</h2>
+
+  <form (ngSubmit)="addAllergy()">
+    <div class="form-group">
+      <label for="allergy">Allergy</label>
+      <input
+        id="allergy"
+        type="text"
+        [(ngModel)]="allergyDTO.allergy"
+        name="allergy"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="effect">Effect (Optional)</label>
+      <input
+        id="effect"
+        type="text"
+        [(ngModel)]="allergyDTO.effect"
+        name="effect"
+      />
+    </div>
+
+    <button type="submit" [disabled]="!allergyDTO.allergy">Add Allergy</button>
+  </form>
+
+  <app-home-button></app-home-button>
+</div>

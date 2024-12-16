@@ -53,7 +53,7 @@ namespace Sempi5
                     policy =>
                     {
                         policy
-                            .WithOrigins(builder.Configuration["FrontEnd:Url"]) // Make sure to use correct protocol (https/http)
+                            .WithOrigins(builder.Configuration["FrontEnd:Url"],builder.Configuration["Backend2:Url"]) // Make sure to use correct protocol (https/http)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
@@ -258,6 +258,7 @@ namespace Sempi5
             services.AddTransient<IAccountToDeleteRepository, AccountToDeleteRepository>();
             services.AddTransient<IConfirmationLinkRepository, ConfirmationLinkRepository>();
 
+            services.AddTransient<SpecializationService>();
             services.AddTransient<StaffService>();
             services.AddTransient<LoginService>();
             services.AddTransient<EmailService>();

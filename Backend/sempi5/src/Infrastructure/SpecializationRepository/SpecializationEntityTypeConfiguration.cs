@@ -31,6 +31,13 @@ public class SpecializationEntityTypeConfiguration : IEntityTypeConfiguration<Sp
 
         builder.HasIndex(s => s.specializationName)
             .IsUnique();
+        
+        builder.Property(p => p.specializationStatus)
+            .IsRequired()
+            .HasConversion(
+                p => p.ToString(),
+                p => (SpecializationStatusEnum)Enum.Parse(typeof(SpecializationStatusEnum), p)
+            );
 
     }
 }

@@ -57,14 +57,14 @@ export class ListOperationRequestComponent  {
   }
 
   public editRequest(operation: MouseEvent){
-    this.router.navigate(['doctor/operationRequest/edit'], { state: { operation: operation } });
+    this.router.navigate(['staff/operationRequest/edit'], { state: { operation: operation } });
   }
   hasStatusColumn(): boolean {
     return this.searchResults.some(result => result.status);
   }
 
   public addOperationRequest() {
-    this.router.navigate(['doctor/operationRequest/add']);
+    this.router.navigate(['staff/operationRequest/add']);
   }
 
 }
