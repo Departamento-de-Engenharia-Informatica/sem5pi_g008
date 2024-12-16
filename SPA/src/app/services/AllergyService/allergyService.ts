@@ -1,8 +1,9 @@
 ﻿import {Injectable} from '@angular/core';
 import json from "../../appsettings.json"
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {AllergyDTO} from '../../DTOs/allergyDTO';
 import {catchError, Observable, of, throwError} from 'rxjs';
+import {Allergy} from '../../Domain/Allergy';
+import {AllergyMapper} from '../../DTOs/mappers/allergyMapper';
 
 
 @Injectable({
@@ -16,8 +17,11 @@ export class AllergyService {
   constructor(private http: HttpClient) {
   }
 
-  addAllergy(allergy: AllergyDTO): Observable<string> {
-    return this.http.post<string>(this.apiUrl, allergy, {
+  addAllergy(allergy: Allergy): Observable<string> {
+
+    const allergyDTO = AllergyMapper.domainToBackendDto(allergy);
+
+    return this.http.post<string>(this.apiUrl, allergyDTO, {
       withCredentials: true,
     }).pipe(
       catchError((error: HttpErrorResponse) => {
