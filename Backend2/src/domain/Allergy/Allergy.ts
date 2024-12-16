@@ -3,7 +3,7 @@ import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {AllergyId} from "./AllergyId";
 import {Result} from "../../core/logic/Result";
 
-interface AllergyProps {
+export interface AllergyProps {
   allergy: string;
   effect?: string;
 }
