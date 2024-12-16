@@ -1,6 +1,7 @@
 ﻿import {Allergy} from "../Allergy/Allergy";
 import {AggregateRoot} from "../../core/domain/AggregateRoot";
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
+import {Result} from "../../core/logic/Result";
 
 interface MedicalRecordAllergyProps {
   allergy: Allergy;
@@ -34,8 +35,13 @@ export class MedicalRecordAllergy extends AggregateRoot<MedicalRecordAllergyProp
     super(props, id);
   }
 
-  public static create(props: MedicalRecordAllergyProps, id?: UniqueEntityID): MedicalRecordAllergy {
-    const medRecordAllergy = new MedicalRecordAllergy(props, id);
-    return medRecordAllergy;
+  public static create(props: MedicalRecordAllergyProps, id?: UniqueEntityID): Result<MedicalRecordAllergy> {
+    try {
+      const medicalRecordAllergy = new MedicalRecordAllergy(props, id);
+      return Result.ok<MedicalRecordAllergy>(medicalRecordAllergy);
+
+    } catch (e) {
+      return Result.fail<MedicalRecordAllergy>(e.message);
+    }
   }
 }

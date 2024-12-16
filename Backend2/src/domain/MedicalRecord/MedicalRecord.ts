@@ -2,17 +2,15 @@
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {MedicalRecordId} from "./MedicalRecordId";
 import {Result} from "../../core/logic/Result";
-import {Allergy} from "../Allergy/Allergy";
-import {MedicalCondition} from "../MedicalCondition/MedicalCondition";
 import {MedicalRecordAllergy} from "../MedicalRecordAllergy/MedicalRecordAllergy";
 import {MedicalRecordCondition} from "../MedicalRecordCondition/MedicalRecordCondition";
 import {MedicalRecordFreeText} from "../MedicalRecordFreeText/MedicalRecordFreeText";
 
 
 interface MedicalRecordProps{
-    medicalRecordConditions: MedicalRecordCondition[];
-    medicalRecordAllergies: MedicalRecordAllergy[];
-    freeText: MedicalRecordFreeText[];
+    medicalRecordConditions?: MedicalRecordCondition[];
+    medicalRecordAllergies?: MedicalRecordAllergy[];
+    freeText?: MedicalRecordFreeText[];
 }
 
 export class MedicalRecord extends AggregateRoot<MedicalRecordProps>{

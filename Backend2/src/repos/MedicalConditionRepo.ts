@@ -7,7 +7,7 @@ import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
 import MedicalConditionService from "../services/MedicalConditionService";
 
-@Service() 
+@Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
     constructor(
@@ -18,10 +18,7 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     public async save(medicalCondition: MedicalCondition): Promise<MedicalCondition> {
 
         const idToUse = await this.getLastId() + 1;
-        
-        console.log("VAI PERSISTIR ATENÇÂO");
-        console.log(medicalCondition);
-        
+
         const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, idToUse);
 
         const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
@@ -41,10 +38,10 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
     public async getOne(): Promise<MedicalCondition> {
         const medicalCondition = await this.medicalConditionSchema.findOne();
-        
+
         return MedicalConditionMap.toDomain(medicalCondition);
     }
-    
+
 
     public async exists(medicalConditionId: MedicalConditionId | string): Promise<boolean> {
 

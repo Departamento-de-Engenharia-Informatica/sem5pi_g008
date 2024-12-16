@@ -1,29 +1,12 @@
-﻿import mongoose from 'mongoose';
-import { IMedicalRecordPersistence } from "../../dataschema/IMedicalRecordPersistence";
-import AllergySchema from "./allergySchema";
-import MedicalConditionSchema from "./medicalConditionSchema";
+﻿// MedicalRecord.ts
+import mongoose, { Schema, Document } from 'mongoose';
+import {IMedicalRecordPersistence} from "../../dataschema/IMedicalRecordPersistence";
 
-const MedicalRecordSchema = new mongoose.Schema(
+const MedicalRecordSchema = new Schema(
   {
-    domainId: { type: Number, unique: true, required: true }, // Adding required for domainId
-    allergies: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Allergy',
-      required: false
-    }],
-    medicalCondition: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'MedicalCondition',
-      required: false
-    }],
-    freeText: [{
-      type: String,
-      required: false
-    }]
+    domainId: { type: String, required: true },
   },
-  {
-    timestamps: true // Adds createdAt and updatedAt fields
-  }
+  { timestamps: true }
 );
 
-export default mongoose.model<IMedicalRecordPersistence & mongoose.Document>('MedicalRecord', MedicalRecordSchema);
+export default mongoose.model<IMedicalRecordPersistence & Document>('MedicalRecord', MedicalRecordSchema);
