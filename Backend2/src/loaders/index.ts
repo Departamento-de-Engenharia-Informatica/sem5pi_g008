@@ -33,6 +33,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/allergySchema',
   };
 
+  const medicalRecordSchema = {
+    name: 'medicalRecordSchema',
+    schema: '../persistence/schemas/medicalRecordSchema',
+  };
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -78,6 +83,7 @@ export default async ({ expressApp }) => {
     schemas: [
       userSchema,
       roleSchema,
+      medicalRecordSchema,
       medicalConditionSchema,
       allergySchema
     ],
