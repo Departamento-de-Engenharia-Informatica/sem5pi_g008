@@ -75,7 +75,19 @@ export default {
     medicalRecord: {
       name:"MedicalRecordRepo",
       path:"../repos/MedicalRecordRepo"
-    }
+    },
+    medicalRecordAllergy: {
+      name: "MedicalRecordAllergyRepo",
+      path: "../repos/MedicalRecordAllergyRepo"
+    },
+    medicalRecordCondition: {
+      name: "MedicalRecordConditionRepo",
+      path: "../repos/MedicalRecordConditionRepo"
+    },
+    medicalRecordFreeText: {
+      name: "MedicalRecordFreeTextRepo",
+      path: "../repos/MedicalRecordFreeTextRepo"
+    },
   },
 
   services: {

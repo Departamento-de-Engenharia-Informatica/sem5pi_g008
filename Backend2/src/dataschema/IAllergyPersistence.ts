@@ -2,4 +2,5 @@
   domainId: number;
   allergy: string;
   effect?: string;
+  isDeleted: boolean;
 }
