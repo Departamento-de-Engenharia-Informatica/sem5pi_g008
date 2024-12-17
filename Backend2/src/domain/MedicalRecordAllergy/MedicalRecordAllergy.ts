@@ -4,7 +4,8 @@ import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {Result} from "../../core/logic/Result";
 
 interface MedicalRecordAllergyProps {
-  allergy: Allergy;
+  allergy: string;
+  medicalRecord: string;
   doctorId: string;
   comment: string;
 }
@@ -15,12 +16,16 @@ export class MedicalRecordAllergy extends AggregateRoot<MedicalRecordAllergyProp
     return this._id;
   }
 
-  get domainId(): string {
-    return this.id.toString();
+  get domainId(): number {
+    return <number>this.id.toValue();
   }
 
-  get allergy(): Allergy {
+  get allergy(): string {
     return this.props.allergy;
+  }
+
+  get medicalRecord(): string {
+    return this.props.medicalRecord;
   }
 
   get doctorId(): string {
@@ -36,6 +41,7 @@ export class MedicalRecordAllergy extends AggregateRoot<MedicalRecordAllergyProp
   }
 
   public static create(props: MedicalRecordAllergyProps, id?: UniqueEntityID): Result<MedicalRecordAllergy> {
+
     try {
       const medicalRecordAllergy = new MedicalRecordAllergy(props, id);
       return Result.ok<MedicalRecordAllergy>(medicalRecordAllergy);

@@ -9,7 +9,7 @@ import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMap
 
 @Service()
 export default class MedicalRecordConditionRepo implements IMedicalRecordConditionRepo{
-  constructor(@Inject('medicalRecordSchema') private medicalRecordConditionSchema: Model<IMedicalRecordConditionPersistence & Document>,) {
+  constructor(@Inject('medicalRecordConditionSchema') private medicalRecordConditionSchema: Model<IMedicalRecordConditionPersistence & Document>,) {
   }
 
   exists(t: MedicalRecordCondition): Promise<boolean> {

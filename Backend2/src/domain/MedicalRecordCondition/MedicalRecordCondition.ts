@@ -1,13 +1,10 @@
-﻿import {Allergy} from "../Allergy/Allergy";
-import {AggregateRoot} from "../../core/domain/AggregateRoot";
+﻿import {AggregateRoot} from "../../core/domain/AggregateRoot";
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
-import {MedicalCondition} from "../MedicalCondition/MedicalCondition";
 import {Result} from "../../core/logic/Result";
-import {MedicalRecord} from "../MedicalRecord/MedicalRecord";
 
 interface MedicalRecordConditionProps {
-  condition: MedicalCondition;
-  medicalRecord: MedicalRecord;
+  condition: string;
+  medicalRecord: string;
   doctorId: string;
   comment: string;
 }
@@ -18,12 +15,16 @@ export class MedicalRecordCondition extends AggregateRoot<MedicalRecordCondition
     return this._id;
   }
 
-  get domainId(): string {
-    return this.id.toString();
+  get domainId(): number {
+    return <number>this.id.toValue();
   }
 
-  get condition(): MedicalCondition {
+  get condition(): string {
     return this.props.condition;
+  }
+
+  get medicalRecord(): string {
+    return this.props.medicalRecord;
   }
 
   get doctorId(): string {

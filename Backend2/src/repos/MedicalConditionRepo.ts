@@ -5,7 +5,6 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
-import MedicalConditionService from "../services/MedicalConditionService";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {

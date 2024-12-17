@@ -8,7 +8,7 @@ import {IMedicalRecordAllergyPersistence} from "../dataschema/IMedicalRecordAlle
 
 @Service()
 export default class MedicalRecordAllergyRepo implements IMedicalRecordAllergyRepo{
-  constructor(@Inject('medicalRecordSchema') private medicalRecordAllergySchema: Model<IMedicalRecordAllergyPersistence & Document>,) {
+  constructor(@Inject('medicalRecordAllergySchema') private medicalRecordAllergySchema: Model<IMedicalRecordAllergyPersistence & Document>,) {
   }
 
   exists(t: MedicalRecordAllergy): Promise<boolean> {

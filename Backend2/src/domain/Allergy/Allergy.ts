@@ -2,8 +2,10 @@
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {AllergyId} from "./AllergyId";
 import {Result} from "../../core/logic/Result";
+import {ObjectId} from "mongodb";
 
 export interface AllergyProps {
+  _id?: string;
   allergy: string;
   effect?: string;
   isDeleted?: boolean;

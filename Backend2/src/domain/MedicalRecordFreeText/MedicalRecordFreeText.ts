@@ -1,8 +1,9 @@
-﻿import {Allergy} from "../Allergy/Allergy";
-import {AggregateRoot} from "../../core/domain/AggregateRoot";
+﻿import {AggregateRoot} from "../../core/domain/AggregateRoot";
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
+import {Result} from "../../core/logic/Result";
 
 interface MedicalRecordFreeTextProps {
+  medicalRecord: string;
   doctorId: string;
   comment: string;
 }
@@ -13,8 +14,12 @@ export class MedicalRecordFreeText extends AggregateRoot<MedicalRecordFreeTextPr
     return this._id;
   }
 
-  get domainId(): string {
-    return this.id.toString();
+  get domainId(): number {
+    return <number>this.id.toValue();
+  }
+
+  get medicalRecord(): string {
+    return this.props.medicalRecord;
   }
 
   get doctorId(): string {
@@ -29,8 +34,14 @@ export class MedicalRecordFreeText extends AggregateRoot<MedicalRecordFreeTextPr
     super(props, id);
   }
 
-  public static create(props: MedicalRecordFreeTextProps, id?: UniqueEntityID): MedicalRecordFreeText {
-    const medRecordCondition = new MedicalRecordFreeText(props, id);
-    return medRecordCondition;
+  public static create(props: MedicalRecordFreeTextProps, id?: UniqueEntityID): Result<MedicalRecordFreeText> {
+
+    try {
+      const medicalRecordFreeText = new MedicalRecordFreeText(props, id);
+      return Result.ok<MedicalRecordFreeText>(medicalRecordFreeText);
+
+    } catch (e) {
+      return Result.fail<MedicalRecordFreeText>(e.message);
+    }
   }
 }

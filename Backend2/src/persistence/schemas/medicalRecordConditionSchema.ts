@@ -4,10 +4,10 @@ let Schema = mongoose.Schema;
 const MedicalRecordConditionSchema = new mongoose.Schema(
   {
     domainId: {type: Number, unique: true, required: true},
-    condition: {type:Schema.Types.ObjectId,ref: 'MedicalCondition',required: true},
+    conditionId: {type:Schema.Types.ObjectId,ref: 'MedicalCondition',required: true},
+    medicalRecordId: {type: Schema.Types.ObjectId, ref: 'MedicalRecord', required: true},
     doctorId: {type: String, required: true},
-    comment: {type: String, required: false},
-    medicalRecordId: {type: Schema.Types.ObjectId, ref: 'MedicalRecord', required: true}
+    comment: {type: String, required: false}
   },
   {
     timestamps: true

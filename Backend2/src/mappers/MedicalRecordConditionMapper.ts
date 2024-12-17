@@ -1,16 +1,16 @@
 ﻿import {Mapper} from "../core/infra/Mapper";
-import {Document, Model} from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
-import {MedicalConditionMap} from "./MedicalConditionMap";
 import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordConditionPersistence";
 
 export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition> {
 
   public static toDTO(domain: MedicalRecordCondition): IMedicalRecordConditionDTO {
     return {
-      condition: MedicalConditionMap.toDTO(domain.condition),
+      conditionId: domain.condition,
+      medicalRecordId: domain.medicalRecord,
       doctorId: domain.doctorId,
       comment: domain.comment
     } as IMedicalRecordConditionDTO;
@@ -28,11 +28,12 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
     return medicalRecordConditionResult.isSuccess ? medicalRecordConditionResult.getValue() : null;
   }
 
-  public static toPersistence (medicalRecordCondition: MedicalRecordCondition, id?: Number): any {
+  public static toPersistence (medicalRecordCondition: MedicalRecordCondition, id?: number): IMedicalRecordConditionPersistence {
     if(id === undefined) {
       return {
         domainId: medicalRecordCondition.domainId,
-        condition: medicalRecordCondition.condition,
+        conditionId: new mongoose.Types.ObjectId(medicalRecordCondition.condition),
+        medicalRecordId: new mongoose.Types.ObjectId(medicalRecordCondition.medicalRecord),
         comment: medicalRecordCondition.comment,
         doctorId: medicalRecordCondition.doctorId,
       }
@@ -40,7 +41,8 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
 
     return {
       domainId: id,
-      condition: medicalRecordCondition.condition,
+      conditionId: new mongoose.Types.ObjectId(medicalRecordCondition.condition),
+      medicalRecordId: new mongoose.Types.ObjectId(medicalRecordCondition.medicalRecord),
       comment: medicalRecordCondition.comment,
       doctorId: medicalRecordCondition.doctorId,
     }

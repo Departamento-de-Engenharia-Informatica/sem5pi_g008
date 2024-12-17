@@ -1,5 +1,5 @@
 ﻿import {Mapper} from "../core/infra/Mapper";
-import {Document, Model} from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import {MedicalRecordAllergy} from "../domain/MedicalRecordAllergy/MedicalRecordAllergy";
@@ -11,7 +11,8 @@ export class MedicalRecordAllergyMapper extends Mapper<MedicalRecordAllergy> {
 
   public static toDTO(domain: MedicalRecordAllergy): IMedicalRecordAllergyDTO {
     return {
-      allergy: AllergyMap.toDTO(domain.allergy),
+      allergyId: domain.allergy,
+      medicalRecordId: domain.medicalRecord,
       doctorId: domain.doctorId,
       comment: domain.comment
     } as IMedicalRecordAllergyDTO;
@@ -29,22 +30,15 @@ export class MedicalRecordAllergyMapper extends Mapper<MedicalRecordAllergy> {
     return medicalRecordAllergyResult.isSuccess ? medicalRecordAllergyResult.getValue() : null;
   }
 
-  public static toPersistence (medicalRecordAllergy: MedicalRecordAllergy, id?: Number): any {
-    if(id === undefined) {
-      return {
-        domainId: medicalRecordAllergy.domainId,
-        allergy: medicalRecordAllergy.allergy,
-        comment: medicalRecordAllergy.comment,
-        doctorId: medicalRecordAllergy.doctorId,
-      }
-    }
+  public static toPersistence(medicalRecordAllergy: MedicalRecordAllergy, id?: number): any {
 
     return {
-      domainId: id,
-      allergy: medicalRecordAllergy.allergy,
+      domainId: id !== undefined ? id : medicalRecordAllergy.domainId,
+      allergyId: new mongoose.Types.ObjectId(medicalRecordAllergy.allergy),
+      medicalRecordId: new mongoose.Types.ObjectId(medicalRecordAllergy.medicalRecord),
       comment: medicalRecordAllergy.comment,
       doctorId: medicalRecordAllergy.doctorId,
-    }
+    };
   }
 
 }

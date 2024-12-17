@@ -4,10 +4,10 @@ let Schema = mongoose.Schema;
 const MedicalRecordAllergySchema =  new mongoose.Schema(
   {
     domainId: {type: Number, unique: true, required: true},
-    allergy: {type:Schema.Types.ObjectId,ref: 'Allergy',required: true},
+    allergyId: {type:Schema.Types.ObjectId,ref: 'Allergy',required: true},
+    medicalRecordId: {type: Schema.Types.ObjectId, ref: 'MedicalRecord', required: true},
     doctorId: {type: String, required: true},
-    comment: {type: String, required: false},
-    medicalRecordId: {type: Schema.Types.ObjectId, ref: 'MedicalRecord', required: true}
+    comment: {type: String, required: false}
   },
   {
     timestamps: true

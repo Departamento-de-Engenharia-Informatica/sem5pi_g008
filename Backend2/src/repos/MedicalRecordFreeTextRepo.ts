@@ -3,10 +3,11 @@ import {Document, Model} from "mongoose";
 import IMedicalRecordFreeTextRepo from "../services/IRepos/IMedicalRecordFreeTextRepo";
 import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
+import {IMedicalRecordFreeTextPersistence} from "../dataschema/IMedicalRecordFreeTextPersistence";
 
 @Service()
 export default class MedicalRecordFreeTextRepo implements IMedicalRecordFreeTextRepo{
-  constructor(@Inject('medicalRecordSchema') private medicalRecordFreeTextSchema: Model<IMedicalRecordFreeTextPersistence & Document>,) {
+  constructor(@Inject('medicalRecordFreeTextSchema') private medicalRecordFreeTextSchema: Model<IMedicalRecordFreeTextPersistence & Document>,) {
   }
 
   exists(t: MedicalRecordFreeText): Promise<boolean> {

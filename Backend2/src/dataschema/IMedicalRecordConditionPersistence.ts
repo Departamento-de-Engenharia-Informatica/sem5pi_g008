@@ -2,7 +2,7 @@
 
 export interface IMedicalRecordConditionPersistence {
   domainId: number;
-  condition: mongoose.Types.ObjectId;
+  conditionId: mongoose.Types.ObjectId;
   medicalRecordId: mongoose.Types.ObjectId;
   doctorId: string;
   comment: string;
