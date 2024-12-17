@@ -2,10 +2,13 @@
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {AllergyId} from "./AllergyId";
 import {Result} from "../../core/logic/Result";
+import {ObjectId} from "mongodb";
 
 export interface AllergyProps {
+  _id?: string;
   allergy: string;
   effect?: string;
+  isDeleted?: boolean;
 }
 
 export class Allergy extends AggregateRoot<AllergyProps> {
@@ -34,10 +37,23 @@ export class Allergy extends AggregateRoot<AllergyProps> {
     this.props.effect = value;
   }
 
+  get isDeleted(): boolean {
+    return this.props.isDeleted;
+  }
+
+  public deleteAllergy(): void {
+    this.props.isDeleted = true;
+  }
+
   private constructor(props: AllergyProps, id?: UniqueEntityID) {
     if (id) {
       new AllergyId(id);
     }
+
+    if(props.isDeleted === undefined){
+      props.isDeleted = false;
+    }
+
     super(props, id);
   }
 

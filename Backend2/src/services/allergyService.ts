@@ -2,7 +2,6 @@
 import IAllergyService from "./IServices/IAllergyService";
 import config from "../../config";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
-import axios from 'axios';
 import {AllergyMap} from "../mappers/AllergyMap";
 
 @Service()
@@ -25,7 +24,6 @@ export default class AllergyService implements IAllergyService {
     let dtoArray = new Array(aux.length);
     for(let i = 0; i < aux.length; i++) {
       dtoArray[i] = AllergyMap.toDTO(aux[i]);
-      console.log(dtoArray[i]);
     }
     return dtoArray;
   }
