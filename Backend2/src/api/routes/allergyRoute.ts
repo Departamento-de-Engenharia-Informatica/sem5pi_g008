@@ -10,25 +10,31 @@ import config from "../../../config";
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/allergy', route);
+    app.use('/allergy', route);
 
-  const ctrl = Container.get(config.controllers.allergy.name) as IAllergyController;
+    const ctrl = Container.get(config.controllers.allergy.name) as IAllergyController;
 
-  route.post('/',
-    celebrate({
-      body: Joi.object({
-        domainId: Joi.number().optional(),
-        allergy: Joi.string().required(),
-        effect: Joi.string().optional()
-      }),
-    }),
-    checkRoleAndProceed(['admin']), (req, res, next) => {
-    ctrl.createAllergy(req, res, next);
-  });
+    route.post('/',
+        celebrate({
+            body: Joi.object({
+                domainId: Joi.number().optional(),
+                allergy: Joi.string().required(),
+                effect: Joi.string().optional()
+            }),
+        }),
+        checkRoleAndProceed(['admin']), (req, res, next) => {
+            ctrl.createAllergy(req, res, next);
+        });
 
-  route.get('/',
-    checkRoleAndProceed(['admin','doctor']), (req, res, next) => {
-    ctrl.getAllAllergies(req, res, next);
-  });
+    route.get('/',
+        checkRoleAndProceed(['admin', 'doctor']), (req, res, next) => {
+            ctrl.getAllAllergies(req, res, next);
+        });
+
+    route.get('/:filter',
+        (req, res, next) => {
+            ctrl.searchAllergies(req, res, next);
+        });
+    //TODO POR CHECK ROLE AND PROCEED
 
 };

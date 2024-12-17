@@ -2,7 +2,6 @@
 import IAllergyService from "./IServices/IAllergyService";
 import config from "../../config";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
-import axios from 'axios';
 import {AllergyMap} from "../mappers/AllergyMap";
 
 @Service()
@@ -28,6 +27,11 @@ export default class AllergyService implements IAllergyService {
       console.log(dtoArray[i]);
     }
     return dtoArray;
+  }
+  
+  public async searchAllergies(allergy: string): Promise<any>{
+    let aux = await this.allergyRepo.search(allergy);
+    return AllergyMap.toDTO(aux);
   }
 
 }
