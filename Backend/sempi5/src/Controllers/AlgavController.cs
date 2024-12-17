@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sempi5.Domain.AgendaAggregate;
+using Sempi5.Domain.PatientAggregate;
 using Sempi5.Domain.RequiredStaffAggregate;
 using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Services;
@@ -114,28 +116,55 @@ public class AlgavController : ControllerBase
 
         return Ok(tableData);
     }
-    [HttpGet("room-agenda")]
-    public async Task<IActionResult> GetRoomAgenda()
-    {
-        var roomAgenda = await _agendaService.getAllRoomAgenda();
-        var tableData = roomAgenda.Select(roomAgenda => new
-        {
-            Date = roomAgenda.Date,
-            Intervals = roomAgenda.TimeIntervals,
-        }).ToList();
+    // [HttpGet("room-agenda")]
+    // public async Task<IActionResult> GetRoomAgenda()
+    // {
+    //     var roomAgenda = await _agendaService.getAllRoomAgenda();
+    //     var tableData = roomAgenda.Select(roomAgenda => new
+    //     {
+    //         Date = roomAgenda.Date,
+    //         Intervals = roomAgenda.TimeIntervals,
+    //     }).ToList();
+    //
+    //     return Ok(tableData);
+    // }
+    // [HttpGet("staff-agenda")]
+    // public async Task<IActionResult> GetStaffAgenda()
+    // {
+    //     var staffAgenda = await _agendaService.getAllStaffAgenda();
+    //     var tableData = staffAgenda.Select(staffAgenda => new
+    //     {
+    //         Date = staffAgenda.Date,
+    //         Intervals = staffAgenda.TimeIntervals
+    //     }).ToList();
+    //
+    //     return Ok(tableData);
+    // }
+    // [HttpPost("appointment")]
+    // public async Task<IActionResult>createappointment(AppointmentHistoryDTO appointment)
+    // {
+    //     await _agendaService.createAppointment(appointment);
+    //     return Ok(new { message = "Appointment was created" });
+    // }
+    // [HttpPatch("updateStaffAgenda")]
+    // public async Task<IActionResult> updateStaffAgenda(AgendaDto agenda)
+    // {        
+    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
+    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
+    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
+    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
+    //
+    //    // Console.WriteLine(agenda);
+    //    // await _agendaService.updateAgendaStaff(agenda);
+    //     return Ok(new { message = "Staff Agenda was updated" });
+    // }
+    [HttpPatch("updateRoomAgenda")]
+    public async Task<IActionResult> updateRoomAgenda(List<AgendaDto> agenda)
+    {        Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
 
-        return Ok(tableData);
+      //  Console.WriteLine(agenda.room_id);
+      //  await _agendaService.updateAgendaRoom(agenda);
+        return Ok(new { message = "Room Agenda was updated" });
     }
-    [HttpGet("staff-agenda")]
-    public async Task<IActionResult> GetStaffAgenda()
-    {
-        var staffAgenda = await _agendaService.getAllStaffAgenda();
-        var tableData = staffAgenda.Select(staffAgenda => new
-        {
-            Date = staffAgenda.Date,
-            Intervals = staffAgenda.TimeIntervals
-        }).ToList();
 
-        return Ok(tableData);
-    }
 }

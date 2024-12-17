@@ -20,5 +20,9 @@ public class StaffAgendaRepository: BaseRepository<StaffAgenda, AgendaId>, IStaf
         return await context.StaffAgendas.ToListAsync();
     }
 
+    public Task updateAgenda()
+    {
+        throw new NotImplementedException();
+    }
 }
 

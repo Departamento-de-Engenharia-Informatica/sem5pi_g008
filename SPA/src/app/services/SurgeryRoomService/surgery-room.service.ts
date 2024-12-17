@@ -72,4 +72,24 @@ export class SurgeryRoomService {
   getData(): Observable<any> {
     return this.http.get(`${this.SwiUrl}/getdata`);
   }
+
+  postSurgeryPlanRoom(agenda: any): Observable<any> {
+    const payload = {
+      date: agenda[0].date,
+      room_id: agenda[0].room_id,
+      task: agenda[0].tasks
+    };
+    console.log('Payload being sent:', payload);
+    console.log('service----Room agenda-- service:', agenda);
+    return this.http.patch(`${this.algavUrl}/updateRoomAgenda`, agenda, { withCredentials: true });
+  }
+  postSurgeryPlanStaff(agenda: any): Observable<any> {
+    const payload = {
+      agenda: agenda
+    };
+    console.log('Payload being sent:', payload);
+
+    return this.http.patch(`${this.algavUrl}/updateStaffAgenda`, payload, { withCredentials: true });
+  }
+
 }

@@ -71,8 +71,8 @@ get_surgery_plan_response(Request) :-
         % Envia a resposta em JSON
         reply_json_dict(_{
             status: "success",
-            date: 20241216,
-            room: "or1",
+            date: Date_R,
+            room: Room_R,
             solutions: FormattedSolucoes,
             staff: FormattedStaffList,
             room_agendas: FormattedRoomList
@@ -123,6 +123,7 @@ format_task((Start, End, Code), _{start: Start, end: End, code: Code}).
 :-dynamic surgery_id/2.
 :-dynamic surgery/4.
 :-dynamic surgery_staff_requirements/3.
+:-dynamic aux_rooms/1.
 
 %another example
 agenda_staff(d001,20241216,[]).%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -293,11 +294,22 @@ search_pending_surgeries(Date, Room) :-
     ;
         true
     )
-   % ,
-   %% findall(A, listasolucoes(A), AllSolutions),   
-   % find_best_solution(AllSolutions, BestSolution), 
-   % findall(X, (member((_, _, X), BestSolution), schedule_surgery(X, Date, Room, Solucoes1)),_)
-.
+    ,
+            findall(A, listasolucoes(A), AllSolutions),   
+            find_best_solution(AllSolutions, BestSolution), 
+            % Agenda as cirurgias
+            findall(
+                X, 
+                (member((_, _, X), BestSolution), schedule_surgery(X, Date, Room, Solucoes1)),
+                _
+            )
+     ,
+        retractall(listasolucoes(_))
+       % ,
+        %retractall(aux_rooms(Room)),
+       % ( aux_rooms(Room_aux), findall(_, (member((_, _, Surgery), BestSolution),retractall(surgery_id(Surgery, _))),_),
+      %   search_pending_surgeries(Date, Room_aux) ; true)
+         .
 
 schedule_pending_surgeries([], Date, Room,Solucoes) :-
 

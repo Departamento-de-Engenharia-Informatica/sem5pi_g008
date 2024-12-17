@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { SurgeryRoomService } from '../../../services/SurgeryRoomService/surgery-room.service';
+import {Component, OnInit} from '@angular/core';
+import {SurgeryRoomService} from '../../../services/SurgeryRoomService/surgery-room.service';
+
 
 @Component({
   selector: 'app-algav',
@@ -14,23 +15,58 @@ export class AlgavComponent implements OnInit {
     date: '',
     room: ''
   };
-  constructor(private surgeryService: SurgeryRoomService) {}
+
+  agendaRoom = {
+    agendaroomlist: [
+      {
+        date: 0,
+        room_id: '',
+        tasks: [
+          {
+            code: '',
+            start: 0,
+            end: 0
+          }
+        ]
+      }
+    ]
+  };
+
+  agendaStaff = {
+    room2: [
+      {
+        date: 0,
+        staff_id: '',
+        tasks: [
+          {
+            code: '',
+            start: 0,
+            end: 0
+          }
+        ]
+      }
+    ]
+  };
+
+  constructor(private surgeryService: SurgeryRoomService) {
+  }
 
   ngOnInit(): void {
-  //  this.getSurgeryPlan();
- //  this.getStaff();
- //   this.getSurgeryRoomsInfo();
- //   this.getRequests();
- //    this.getOperationTypes();
- //    this.getRequiredStaff();
-  //  this.loadData();
-  // this.getData();
+    //  this.getSurgeryPlan();
+    //  this.getStaff();
+    //   this.getSurgeryRoomsInfo();
+    //   this.getRequests();
+    //    this.getOperationTypes();
+    //    this.getRequiredStaff();
+    //  this.loadData();
+    // this.getData();
   }
 
   // Método para obter o plano de cirurgia
 
   searchSurgeryPlan() {
-    const { date, room } = this.formData;
+
+    const {date, room} = this.formData;
     console.log('Date:', date);
     console.log('Room:', room);
     this.surgeryService.getSurgeryPlan(date, room).subscribe(data => {
@@ -85,6 +121,7 @@ export class AlgavComponent implements OnInit {
       }
     });
   }
+
   // Método para obter a lista de salas de cirurgia
   getStaff(): void {
     this.surgeryService.getStaff().subscribe({
@@ -96,6 +133,7 @@ export class AlgavComponent implements OnInit {
       }
     });
   }
+
   getRequiredStaff(): void {
     this.surgeryService.getRequiredStaff().subscribe({
       next: (data) => {
@@ -106,15 +144,48 @@ export class AlgavComponent implements OnInit {
       }
     });
   }
+
   getData(): void {
     this.surgeryService.getData().subscribe({
       next: (data) => {
         console.log('getData:', data);
         this.agenda = data;
+
       },
       error: (err) => {
         console.error('Error fetching surgery rooms:', err);
       }
     });
   }
+
+  savedata(): void {
+
+   console.log('Agenda:',this.agenda);
+
+    this.agendaRoom = this.agenda.agendaroomlist;
+   // this.agendaStaff = this.agenda.agendastafflist;
+
+    console.log('AgendaRoom:',this.agenda.agendaroomlist);
+    //console.log('AgendaStaff:',this.agenda.agendastafflist);
+
+
+    console.log("Expected AgendaRoom:",this.agendaRoom);
+    // console.log("Expected AgendaRoom:",this.agendaStaff);
+
+
+    this.surgeryService.postSurgeryPlanRoom(this.agendaRoom).subscribe(
+      {
+        next: (data) => {
+          console.log('postSurgeryPlan:', data);
+        }
+      });
+    // this.surgeryService.postSurgeryPlanStaff(this.agenda).subscribe(
+    //   {
+    //     next: (data) => {
+    //       console.log('postSurgeryPlan:', data);
+    //     }
+    //   });
+  }
+
+
 }

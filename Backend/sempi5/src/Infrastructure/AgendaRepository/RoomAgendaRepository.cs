@@ -19,4 +19,9 @@ public class RoomAgendaRepository:BaseRepository<RoomAgenda, AgendaId>, IRoomAge
     {
         return await context.RoomAgendas.ToListAsync();
     }
+
+    public Task updateAgenda()
+    {
+        throw new NotImplementedException();
+    }
 }

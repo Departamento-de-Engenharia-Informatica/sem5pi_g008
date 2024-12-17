@@ -173,19 +173,16 @@ timed_search_pending_surgeries(Date, Room) :-
 
 % Remove todas as entradas de surgery_id/2 associadas a uma sala específica (Room)
 remove_surgeries_by_room(Room) :-
-    % Encontra agendas associadas à sala Room
     agenda_operation_room(Room, _, Agenda),
-    % Processa a lista de Agenda para retirar os IDs de cirurgia
-    remove_surgeries_from_agenda(Agenda),
-    fail. % Continua buscando outras agendas da mesma sala
+    remove_urgeries_from_agenda(Agenda),
+    fail.
 
 remove_surgeries_by_room(_). % Caso base para parar o processamento
 
-% Remove todos os surgery_id correspondentes a uma lista de agendas
-remove_surgeries_from_agenda([]). % Caso base: lista vazia, não faz nada
+remove_surgeries_from_agenda([]). 
 remove_surgeries_from_agenda([(_, _, SurgeryID)|Rest]) :-
-    retractall(surgery_id(SurgeryID, _)), % Remove todos os surgery_id associados
-    remove_surgeries_from_agenda(Rest).   % Processa o restante da lista
+    retractall(surgery_id(SurgeryID, _)),
+    remove_surgeries_from_agenda(Rest). 
 
 
     % Predicado para listar e agendar cirurgias pendentes
