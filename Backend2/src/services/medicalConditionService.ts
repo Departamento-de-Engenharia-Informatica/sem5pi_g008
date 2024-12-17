@@ -1,0 +1,45 @@
+﻿import {Service, Inject} from "typedi";
+import IMedicalConditionService from "./IServices/IMedicalConditionService";
+import config from "../../config";
+import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
+import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
+import {Code} from "../domain/MedicalCondition/code";
+import {Designation} from "../domain/MedicalCondition/designation";
+import {Description} from "../domain/MedicalCondition/description";
+
+@Service()
+export default class MedicalConditionService implements IMedicalConditionService {
+    constructor(
+        @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
+    ) {
+    }
+
+    public async createMedicalCondition(medicalConditionDTO: any): Promise<any> {
+        
+        const medicalConditionProps = {
+            code: Code.create(medicalConditionDTO.code).getValue(),
+            designation: Designation.create(medicalConditionDTO.designation).getValue(),
+            description: Description.create(medicalConditionDTO.description).getValue(),
+            symptomsList: medicalConditionDTO.symptomsList
+        };
+        
+        const medicalCondition = MedicalCondition.create(medicalConditionProps).getValue();
+        
+        if (medicalConditionDTO.domainId === undefined) {
+            
+            console.log("DomainId is undefined");
+            
+           const medSaved = await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
+        
+            console.log("Medical Condition saved: " + medSaved);
+        
+        } else {
+            
+            console.log("DomainId is defined");
+            
+           const medSaved = await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
+
+            console.log("Medical Condition saved: " + medSaved);
+        }
+    }
+}

@@ -7,10 +7,13 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 
 export class MedicalConditionMap extends Mapper<MedicalCondition> {
     
-    public static toDTO(medicine: MedicalCondition): IMedicalConditionDTO {
+    public static toDTO(medicalCondition: MedicalCondition): IMedicalConditionDTO {
         return {
-            id: medicine.domainId.id.toValue(),
-            condition: medicine.condition 
+            domainId: medicalCondition.domainId.id.toValue(),
+            code: medicalCondition.code.value,
+            designation: medicalCondition.designation.value,
+            description: medicalCondition.description.value,
+            symptomsList: medicalCondition.symptomsList
         } as IMedicalConditionDTO;
     }
 
@@ -27,9 +30,23 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
     }
 
     public static toPersistence (medicalCondition: MedicalCondition, id: Number): any {
+        
+        if(id === undefined) {
+            return {
+                domainId: medicalCondition.domainId.id.toValue(),
+                code: medicalCondition.code.value,
+                designation: medicalCondition.designation.value,
+                description: medicalCondition.description.value,
+                symptomsList: medicalCondition.symptomsList
+            }
+        }
+        
         return {
             domainId: id,
-            condition: medicalCondition.condition
+            code: medicalCondition.code.value,
+            designation: medicalCondition.designation.value,
+            description: medicalCondition.description.value,
+            symptomsList: medicalCondition.symptomsList
         }
     }
     

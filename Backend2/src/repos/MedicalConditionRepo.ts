@@ -5,7 +5,6 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
-import MedicalConditionService from "../services/MedicalConditionService";
 
 @Service() 
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
@@ -15,16 +14,22 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     ) {
     }
 
-    public async save(medicalCondition: MedicalCondition): Promise<MedicalCondition> {
-
-        const idToUse = await this.getLastId() + 1;
+    public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
         
-        console.log("VAI PERSISTIR ATENÇÂO");
-        console.log(medicalCondition);
+        if(id === undefined) {
+            id = await this.getLastId() + 1;
+        }
         
-        const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, idToUse);
-
+        console.log('Entrou no Repo')
+        
+        const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
+        
+        console.log("Aquiii agora");
+        
         const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
+
+        console.log("Aquiii agora 2");
+
 
         return MedicalConditionMap.toDomain(medicalConditionCreated);
     }
