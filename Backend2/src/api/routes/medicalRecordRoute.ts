@@ -5,22 +5,21 @@ import IMedicalRecordController from "../../controllers/IControllers/IMedicalRec
 import {celebrate, Joi} from "celebrate";
 import {checkRoleAndProceed} from "../middlewares/validateUserRole";
 
-
 const route = Router();
 
 export default (app: Router) => {
-    app.use('/medicalRecord', route);
+  app.use('/medicalRecord', route);
 
-    const ctrl = Container.get(config.controllers.medicalRecord.name) as IMedicalRecordController;
+  const ctrl = Container.get(config.controllers.medicalRecord.name) as IMedicalRecordController;
 
-    route.post('/',
-        celebrate({
-            body: Joi.object({
-                domainId: Joi.number().optional(),
-                medicalRecord: Joi.string().required(),
-            }),
-        }),
-        checkRoleAndProceed(['doctor']), (req, res, next) => {
-            ctrl.createMedicalRecord(req, res, next);
-        });
+  route.post('/',
+    celebrate({
+      body: Joi.object({
+        recordNumberId: Joi.string().required(),
+      }),
+    }),
+    checkRoleAndProceed(['admin']),
+    (req, res, next) => {
+      ctrl.createMedicalRecord(req, res, next);
+    });
 };

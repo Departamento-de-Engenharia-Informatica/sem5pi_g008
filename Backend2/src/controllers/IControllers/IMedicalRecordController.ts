@@ -2,5 +2,5 @@
 
 
 export default interface IMedicalRecordController{
-    updateMedicalRecord(req: Request, res: Response, next: NextFunction);
+    createMedicalRecord(req: Request, res: Response, next: NextFunction);
 }

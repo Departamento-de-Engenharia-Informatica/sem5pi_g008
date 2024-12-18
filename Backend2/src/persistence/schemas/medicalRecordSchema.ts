@@ -4,7 +4,7 @@ import {IMedicalRecordPersistence} from "../../dataschema/IMedicalRecordPersiste
 
 const MedicalRecordSchema = new Schema(
   {
-    domainId: { type: String, required: true },
+    domainId: { type: String, unique: true, required: true, maxLength: 24 },
   },
   { timestamps: true }
 );

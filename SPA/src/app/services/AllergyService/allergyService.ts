@@ -12,7 +12,7 @@ import {AllergyMapper} from '../../DTOs/mappers/allergyMapper';
 
 export class AllergyService {
 
-  private apiUrl = json.backend2ApiUrl + '/allergy';
+  private apiUrl = json.backendApi["2"].url + '/allergy';
 
   constructor(private http: HttpClient) {
   }
