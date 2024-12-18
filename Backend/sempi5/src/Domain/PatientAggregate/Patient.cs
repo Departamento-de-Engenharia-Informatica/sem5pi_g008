@@ -6,9 +6,7 @@ namespace Sempi5.Domain.PatientAggregate
 {
     public class Patient : Entity<MedicalRecordNumber>, IAggregateRoot
     {
-
-        //Class can and should be modified so that fields are more representative 
-        //of what they are instead of just strings
+        
         public SystemUser? User { get; set; }      
         public MedicalRecordNumber Id { get; set; }
         public Person? Person { get; set; }
