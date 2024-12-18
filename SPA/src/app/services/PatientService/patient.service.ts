@@ -8,7 +8,7 @@ import json from '../../appsettings.json';
 })
 export class PatientService {
 
-  private apiUrl =  json.apiUrl + '/patient';
+  private apiUrl =  json.backendApi["1"].url + '/patient';
 
   constructor(private http: HttpClient) {
   }

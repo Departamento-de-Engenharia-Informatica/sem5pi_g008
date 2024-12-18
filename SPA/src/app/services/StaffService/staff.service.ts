@@ -9,7 +9,7 @@ import json from '../../appsettings.json';
   providedIn: 'root'
 })
 export class StaffService {
-  private apiUrl = json.apiUrl + '/Staff';
+  private apiUrl = json.backendApi["1"].url + '/Staff';
 
   constructor(private http: HttpClient) {}
 

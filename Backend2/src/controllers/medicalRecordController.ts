@@ -15,10 +15,7 @@ export default class MedicalRecordController implements IMedicalRecordController
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
-    console.log(req);
-
     let medicalRecordId = req.body.recordNumberId;
-    console.log('medicalRecordId:', medicalRecordId);
 
     try {
       await this.medicalRecordInstance.createMedicalRecord(medicalRecordId);

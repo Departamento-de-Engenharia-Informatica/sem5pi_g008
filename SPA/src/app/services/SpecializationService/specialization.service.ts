@@ -8,7 +8,7 @@ import {SpecializationDTO} from '../../DTO/SpecializationDTO';
   providedIn: 'root'
 })
 export class SpecializationService {
-  private apiUrl = json.apiUrl + '/Specialization';
+  private apiUrl = json.backendApi["1"].url + '/Specialization';
 
   constructor(private http: HttpClient) {}
 

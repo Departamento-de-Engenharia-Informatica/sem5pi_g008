@@ -318,7 +318,7 @@ public class PatientController : ControllerBase
 
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> ListAllActivePatientProfiles()
     {
         try
