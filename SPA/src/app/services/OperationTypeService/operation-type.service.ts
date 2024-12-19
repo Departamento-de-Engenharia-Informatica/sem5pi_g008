@@ -10,7 +10,7 @@ import json from "../../appsettings.json"
   providedIn: 'root',
 })
 export class OperationTypeService {
-  private apiUrl = json.apiUrl + '/operationType';
+  private apiUrl = json.backendApi["1"].url + '/operationType';
 
   constructor(private http: HttpClient) {
   }

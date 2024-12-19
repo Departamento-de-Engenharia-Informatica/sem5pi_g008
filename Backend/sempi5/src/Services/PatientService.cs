@@ -1,4 +1,5 @@
-﻿using Sempi5.Domain.ConfirmationLinkAggregate;
+﻿using System.Net;
+using Sempi5.Domain.ConfirmationLinkAggregate;
 using Sempi5.Domain.ConfirmationTokenAggregate;
 using Sempi5.Domain.PatientAggregate;
 using Sempi5.Domain.PersonalData;
@@ -28,11 +29,12 @@ public class PatientService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPersonRepository _personRepository;
     private readonly IUserRepository _userRepository;
+    private readonly string backend2Url;
 
     public PatientService(IPatientRepository patientRepository, EmailService emailService,
         IConfirmationTokenRepository confirmationRepository, IAccountToDeleteRepository accountToDeleteRepository,
         IConfirmationLinkRepository confirmationLinkRepository, IUnitOfWork unitOfWork,
-        IPersonRepository personRepository, IUserRepository userRepository)
+        IPersonRepository personRepository, IUserRepository userRepository, IConfiguration configuration)
     {
         _confirmationRepository = confirmationRepository;
         _patientRepository = patientRepository;
@@ -42,6 +44,7 @@ public class PatientService
         _unitOfWork = unitOfWork;
         _personRepository = personRepository;
         _userRepository = userRepository;
+        backend2Url = configuration["Backend2:Url"];
     }
     
     public async Task checkUserToDelete()
@@ -490,10 +493,48 @@ public class PatientService
         
         var patient = patientDTOToPatient(patientDTO);
 
-        patient.PatientStatus = PatientStatusEnum.ACTIVATED;
+        patient.PatientStatus = PatientStatusEnum.ACTIVATED; 
         await _patientRepository.AddAsync(patient);
 
         await _unitOfWork.CommitAsync();
+        
+    }
+    
+    public async Task CreatePatientMedicalRecord(string cookie,int? patientPhoneNumber)
+    {
+        if(patientPhoneNumber == null)
+        {
+            throw new ArgumentException("Patient phone number can´t be null");
+        }
+        
+        var patient = await _patientRepository.GetByPhoneNumber(patientPhoneNumber ?? 0);
+        if (patient == null)
+        {
+            throw new ArgumentException("Patient not found");
+        }
+
+        var handler = new HttpClientHandler
+        {
+            UseCookies = true
+        };
+
+        using var httpClient = new HttpClient(handler)
+        { 
+            BaseAddress  = new Uri(backend2Url)   
+        };
+        
+        httpClient.DefaultRequestHeaders.Add("Cookie", cookie);
+        
+        var payload = new { recordNumberId = patient.Id.AsString()}; 
+        var response = await httpClient.PostAsJsonAsync( "/api/medicalRecord", payload);
+        
+        if(response.StatusCode != HttpStatusCode.Created)
+        {
+            Console.WriteLine("Status Code " + response.StatusCode);
+            Console.WriteLine("Response " + response.Content.ReadAsStringAsync().Result);
+            throw new Exception("Error creating medical record for patient with ID: " + patient.Id.AsString());
+        }
+        httpClient.Dispose();
     }
     
     public async Task<List<SearchedPatientDTO>> ListAllActivePatients()

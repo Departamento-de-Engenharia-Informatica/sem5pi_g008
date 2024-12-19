@@ -26,9 +26,12 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
+import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
 import {
   CreateAppointmentComponent
 } from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import{  PatientManagementAsDoctorComponent
+} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
 
 export const routes: Routes = [
   {
@@ -53,6 +56,7 @@ export const routes: Routes = [
       { path: 'patient', component: PatientManagementComponent, title: 'PatientManagement' },
       { path: 'patient/register', component: RegisterPatientProfileComponent, title: 'RegisterPatientProfile' },
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
+      { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
       {path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
       {path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
@@ -64,7 +68,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: appSettings.userRoles.staff},
     children: [
-      {path: 'appointment', component:CreateAppointmentComponent, title: 'CreateAppointment'},
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },

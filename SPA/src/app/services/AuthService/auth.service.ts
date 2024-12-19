@@ -8,7 +8,7 @@ import json from '../../appsettings.json';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = json.apiUrl + '/Login';
+  private apiUrl = json.backendApi["1"].url + '/Login';
 
   constructor(private http: HttpClient, private router: Router) {
   }

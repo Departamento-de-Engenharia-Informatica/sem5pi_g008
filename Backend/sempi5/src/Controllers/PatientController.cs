@@ -297,17 +297,28 @@ public class PatientController : ControllerBase
         try
         {
             await patientService.CreatePatientProfile(patient);
-            return Ok("Patient profile created successfully");
         }
         catch (Exception e)
         {
             return BadRequest(e.Message);
         }
+        
+        try
+        {
+            var authenticationCookie = ".AspNetCore.Cookies=" + HttpContext.Request.Cookies[".AspNetCore.Cookies"];
+             await patientService.CreatePatientMedicalRecord(authenticationCookie, patient.phoneNumber);
+        }
+        catch (Exception e)
+        {
+            return Conflict(e.Message);
+        }
+        
+        return Ok("Patient profile created successfully");
     }
 
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> ListAllActivePatientProfiles()
     {
         try
