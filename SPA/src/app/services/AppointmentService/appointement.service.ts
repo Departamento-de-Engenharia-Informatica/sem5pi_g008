@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AppointementService {
-  private apiUrl = json.apiUrl + '/appointment';
+  private apiUrl =  json.backendApi["1"].url + '/appointment';
 
 
   constructor(private http: HttpClient) {

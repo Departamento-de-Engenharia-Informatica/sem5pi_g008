@@ -115,7 +115,7 @@ import {
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
     AllergyManagementComponent,
-    PatientManagementAsDoctorComponent
+    PatientManagementAsDoctorComponent,
     CreateAppointmentComponent
   ],
   imports: [
