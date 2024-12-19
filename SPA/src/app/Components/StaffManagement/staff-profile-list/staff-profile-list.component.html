@@ -2,9 +2,9 @@
   <div *ngFor="let staff of staffList" class="staff-profile-item">
     <app-staff-details [staff]="staff"></app-staff-details>
     <div class="staff-profile-actions">
-      <app-delete-staff-profile-button
+      <app-delete-button
         (delete)="deleteStaffProfile.emit(staff.id)"
-      ></app-delete-staff-profile-button>
+      ></app-delete-button>
       <app-edit-staff-profile-button
         (edit)="editStaffProfile.emit(staff)"
       ></app-edit-staff-profile-button>

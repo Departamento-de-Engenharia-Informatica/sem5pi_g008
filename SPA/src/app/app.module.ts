@@ -19,7 +19,6 @@ import {HomeButtonComponent} from './Components/Shared/home-button/home-button.c
 import {AddOperationTypeComponent} from './Components/OperationTypeManagement/add-operation-type/add-operation-type.component';
 import {EditOperationTypeComponent} from './Components/OperationTypeManagement/edit-operation-type/edit-operation-type.component';
 import {GoBackButtonComponent} from './Components/Shared/go-back-button/go-back-button.component';
-import {DeleteStaffProfileButtonComponent} from './Components/StaffManagement/delete-staff-profile-button/delete-staff-profile-button.component';
 import {EditStaffProfileButtonComponent} from './Components/StaffManagement/edit-staff-profile-button/edit-staff-profile-button.component';
 import {StaffDetailsComponent} from './Components/StaffManagement/staff-details/staff-details.component';
 import {StaffProfileListComponent} from './Components/StaffManagement/staff-profile-list/staff-profile-list.component';
@@ -49,14 +48,13 @@ import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-d
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
-import {
-  SpecializationManagementComponent
-} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
-import { ErrorMessageComponent } from './Components/SpecializationManagement/error-message/error-message.component';
-import {
-  SpecializationListComponent
-} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
+import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
+import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
+import {SpecializationListComponent} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
 import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-button/reset-filter-button.component';
+import {ErrorMessageComponent} from './Components/Shared/error-message/error-message.component';
+import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-button.component';
+import { CreateSpecializationComponent } from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +72,7 @@ import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-but
     AddOperationTypeComponent,
     EditOperationTypeComponent,
     GoBackButtonComponent,
-    DeleteStaffProfileButtonComponent,
+    DeleteButtonComponent,
     EditStaffProfileButtonComponent,
     StaffDetailsComponent,
     StaffProfileListComponent,
@@ -105,10 +103,12 @@ import { ResetFilterButtonComponent } from './Components/Shared/reset-filter-but
     EditOperationRequestComponent,
     AddOperationRequestComponent,
     PatientProfileComponent,
+    AddAllergyComponent,
     SpecializationManagementComponent,
     ErrorMessageComponent,
     SpecializationListComponent,
-    ResetFilterButtonComponent
+    ResetFilterButtonComponent,
+    CreateSpecializationComponent
   ],
   imports: [
     BrowserModule,

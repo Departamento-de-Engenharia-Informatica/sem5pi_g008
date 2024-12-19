@@ -4,6 +4,7 @@ import mongooseLoader from './mongoose';
 import Logger from './logger';
 
 import config from '../../config';
+import AllergyService from "../services/allergyService";
 
 export default async ({ expressApp }) => {
   const mongoConnection = await mongooseLoader();
@@ -26,10 +27,20 @@ export default async ({ expressApp }) => {
     name: 'medicalConditionSchema',
     schema: '../persistence/schemas/medicalConditionSchema',
   };
-  
+
+  const allergySchema = {
+    name: 'allergySchema',
+    schema: '../persistence/schemas/allergySchema',
+  };
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
+  }
+
+  const allergyController = {
+    name: config.controllers.allergy.name,
+    path: config.controllers.allergy.path
   }
 
   const roleRepo = {
@@ -41,10 +52,15 @@ export default async ({ expressApp }) => {
     name: config.repos.user.name,
     path: config.repos.user.path
   }
-  
+
   const medicalConditionRepo = {
     name: config.repos.medicalCondition.name,
     path: config.repos.medicalCondition.path
+  }
+
+  const allergyRepo = {
+    name: config.repos.allergy.name,
+    path: config.repos.allergy.path
   }
 
   const roleService = {
@@ -52,23 +68,32 @@ export default async ({ expressApp }) => {
     path: config.services.role.path
   }
 
+  const allergyService = {
+    name: config.services.allergy.name,
+    path: config.services.allergy.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
       userSchema,
       roleSchema,
-      medicalConditionSchema
+      medicalConditionSchema,
+      allergySchema
     ],
     controllers: [
-      roleController
+      roleController,
+      allergyController
     ],
     repos: [
       roleRepo,
-      userRepo, 
-      medicalConditionRepo
+      userRepo,
+      medicalConditionRepo,
+      allergyRepo
     ],
     services: [
-      roleService
+      roleService,
+      allergyService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

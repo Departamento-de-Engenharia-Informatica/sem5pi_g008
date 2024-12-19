@@ -4,6 +4,7 @@ import {SpecializationService} from '../../../services/SpecializationService/spe
 import {SpecializationDTO} from '../../../DTO/SpecializationDTO';
 import {SpecializationMap} from '../../../Mappers/SpecializationMap';
 import {EnterFilterNameComponent} from '../../Shared/enter-filter-name/enter-filter-name.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-specialization-management',
@@ -15,11 +16,14 @@ export class SpecializationManagementComponent implements OnInit {
   public specializationList: Specialization[] = [];
   public specializationListAux: Specialization[] = [];
   private specializationService: SpecializationService;
+  public showResetButton: boolean = false;
+  private router : Router;
 
   @ViewChild(EnterFilterNameComponent) enterFilterName!: EnterFilterNameComponent;
 
-  constructor(@Inject(SpecializationService) specializationService: SpecializationService) {
+  constructor(@Inject(SpecializationService) specializationService: SpecializationService, @Inject(Router) router: Router) {
     this.specializationService = specializationService;
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -30,8 +34,13 @@ export class SpecializationManagementComponent implements OnInit {
   }
 
   public resetFilter() {
+
+    this.showResetButton = false;
     this.errorMessage = '';
     this.specializationList = this.specializationListAux;
+
+    if (this.specializationList.length === 0) this.errorMessage = 'No Specializations To List.';
+
   }
 
   public handleFilter() {
@@ -77,6 +86,38 @@ export class SpecializationManagementComponent implements OnInit {
         }
       }
     );
+
+    this.showResetButton = true;
+  }
+
+  public deleteSpecialization(specializationName: string) {
+
+    const specializationDTO: SpecializationDTO = {
+      specializationName: specializationName
+    };
+
+    this.specializationService.deleteSpecialization(specializationDTO).subscribe(
+      response => {
+
+        this.specializationList = this.specializationList.filter(specialization => specialization.specializationName !== specializationName);
+        this.specializationListAux = this.specializationList;
+
+        if (this.specializationList.length === 0) this.errorMessage = 'No Specializations To List.';
+
+      },
+
+      (error) => {
+        if (error.status === 651) {
+
+          this.specializationList = [];
+
+          this.errorMessage = 'Specialization Not Found.';
+
+        } else {
+          console.error('Error Searching For a Specialization.');
+        }
+      }
+    );
   }
 
   public fetchStaffProfiles() {
@@ -102,6 +143,9 @@ export class SpecializationManagementComponent implements OnInit {
     );
   }
 
+  public createSpecialization() {
+    this.router.navigate(['admin/specialization/add']);
+  }
 
   private specializationDTOListToSpecializationList(specializationDTOList: SpecializationDTO[]): Specialization[] {
 

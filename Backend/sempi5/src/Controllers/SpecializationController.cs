@@ -17,22 +17,14 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SpecializationByName(string specializationName)
     {
-        
-        Console.WriteLine("\n \n \n");
-        Console.WriteLine("ENTROU AQUI: - " + specializationName);
-        Console.WriteLine("\n \n \n");
-
         try
         {
-            var specialization = await _specializationService.SpecializationByName(specializationName);
-            
-            Console.WriteLine("\n \n \n");
-            Console.WriteLine(specialization.specializationName);
-            Console.WriteLine("\n \n \n");
-            
-            return Ok(specialization);
+            var specializationDTO = await _specializationService.SpecializationByName(specializationName);
+
+            return Ok(specializationDTO);
         }
         catch (SpecializationNotFoundException e)
         {
@@ -48,16 +40,52 @@ public class SpecializationController : ControllerBase
     // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> ListAllSpecializations()
     {
-        Console.WriteLine("\n \n \n");
-        Console.WriteLine("ENTROU AQUI222222222222: - ");
-        Console.WriteLine("\n \n \n");
-        
         try
         {
             var specializations = await _specializationService.ListAllSpecializations();
             return Ok(specializations);
         }
         catch (NoSpecializationsFoundException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteSpecialization(string specializationName)
+    {
+        try
+        {
+            await _specializationService.DeleteSpecialization(specializationName);
+
+            return Ok(new { message = "Staff deactivated successfully." });
+        }
+        catch (SpecializationNotFoundException e)
+        {
+            return StatusCode(e.StatusCode, e.Message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    [HttpPost("{specializationName}")]
+    // [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateSpecialization(string specializationName)
+    {
+        try
+        { 
+            var speciliazationDTO = await _specializationService.CreateSpecialization(specializationName);
+
+            return Ok(speciliazationDTO);
+        }
+        catch (SpecializationInUseException e)
         {
             return StatusCode(e.StatusCode, e.Message);
         }
