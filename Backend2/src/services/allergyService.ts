@@ -2,7 +2,7 @@
 import IAllergyService from "./IServices/IAllergyService";
 import config from "../../config";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
-import axios from 'axios';
+import {AllergyMap} from "../mappers/AllergyMap";
 
 @Service()
 export default class AllergyService implements IAllergyService {
@@ -17,6 +17,15 @@ export default class AllergyService implements IAllergyService {
       } else {
         await this.allergyRepo.save(allergy, allergy.domainId);
       }
+  }
+
+  public async getAllAllergies(): Promise<any> {
+    let aux = await this.allergyRepo.getAll();
+    let dtoArray = new Array(aux.length);
+    for(let i = 0; i < aux.length; i++) {
+      dtoArray[i] = AllergyMap.toDTO(aux[i]);
+    }
+    return dtoArray;
   }
 
 }

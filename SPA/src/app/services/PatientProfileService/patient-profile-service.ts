@@ -4,13 +4,15 @@ import {PatientProfile} from '../../Domain/PatientProfile';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import json from '../../appsettings.json';
+import {DisplayPatientProfileDTO} from '../../DTOs/displayDTOs/displayPatientProfileDTO';
+import {PatientProfileMapper} from '../../DTOs/mappers/patientProfileMapper';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PatientProfileService {
-  private apiUrl = json.apiUrl + '/Patient';
+  private apiUrl = json.backendApi["1"].url + '/Patient';
 
   constructor(private http: HttpClient) {
   }
@@ -37,10 +39,20 @@ export class PatientProfileService {
       })
     );
   }
+
   public listAllPatientProfiles(): Observable<PatientProfile[]> {
-
     return this.http.get<PatientProfile[]>(`${this.apiUrl}`, { withCredentials: true });
+  }
 
+  public listAllPatientProfilesDTOs(): Observable<DisplayPatientProfileDTO[]> {
+    const patientProfileDTOs: DisplayPatientProfileDTO[] = [];
+    const listOfPatientProfiles = this.listAllPatientProfiles();
+    listOfPatientProfiles.subscribe((patientProfiles) => {
+      for (let patientProfile of patientProfiles) {
+        patientProfileDTOs.push(PatientProfileMapper.domainToDisplayDto(patientProfile));
+      }
+    });
+    return of(patientProfileDTOs);
   }
 
   public filterPatientProfilesByName(name: string): Observable<PatientProfile[]> {
