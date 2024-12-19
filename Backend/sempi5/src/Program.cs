@@ -257,6 +257,7 @@ namespace Sempi5
             services.AddTransient<IAppointmentRepository, AppointmentRepository>();
             services.AddTransient<IAccountToDeleteRepository, AccountToDeleteRepository>();
             services.AddTransient<IConfirmationLinkRepository, ConfirmationLinkRepository>();
+            
 
             services.AddTransient<SpecializationService>();
             services.AddTransient<StaffService>();
@@ -268,6 +269,7 @@ namespace Sempi5
             services.AddTransient<OperationRequestService>();
             services.AddTransient<SystemUserService>();
             services.AddTransient<SurgeryRoomService>();
+            services.AddTransient<AppointmentService>();
 
             services.AddSingleton(Log.Logger);
         }
