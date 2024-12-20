@@ -10,5 +10,6 @@ namespace Sempi5.Infrastructure.SpecializationAggregate
         public Task<Specialization?> GetBySpecializationName(SpecializationName specializationName);
         public Task<Specialization?> GetBySpecializationCode(SpecializationCode specializationCode);
         public Task<List<Specialization>> GetAllActiveSpecializations();
+        public Task<Specialization?> GetActiveBySpecializationID(SpecializationID specializationID);
     }
 }
