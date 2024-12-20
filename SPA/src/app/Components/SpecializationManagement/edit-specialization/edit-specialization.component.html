@@ -1,0 +1,52 @@
+﻿<div class="edit-specialization-container">
+  <h2>Edit Specialization</h2>
+
+  <form (ngSubmit)="saveChanges()">
+
+    <div class="form-group">
+      <label for="specializationCode">Code:</label>
+      <input
+        type="text"
+        id="specializationCode"
+        [(ngModel)]="updatedSpecialization.specializationCode"
+        name="specializationCode"
+        class="form-control"
+        placeholder="Specialization code"
+        readonly
+      />
+    </div>
+
+
+    <div class="form-group">
+      <label for="specializationName">Name:</label>
+      <input
+        type="text"
+        id="specializationName"
+        [(ngModel)]="updatedSpecialization.specializationName"
+        name="specializationName"
+        required
+        class="form-control"
+        placeholder="Enter specialization name"
+      />
+    </div>
+
+    <!-- Specialization Description -->
+    <div class="form-group">
+      <label for="specializationDescription">Description:</label>
+      <textarea
+        id="specializationDescription"
+        [(ngModel)]="updatedSpecialization.specializationDescription"
+        name="specializationDescription"
+        class="form-control"
+        rows="4"
+        placeholder="Enter specialization description"
+      ></textarea>
+    </div>
+
+    <!-- Save Button -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+
+</div>

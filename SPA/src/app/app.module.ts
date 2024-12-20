@@ -60,6 +60,9 @@ import {PatientManagementAsDoctorComponent} from './Components/PatientManagement
 import {
   CreateAppointmentComponent
 } from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +119,8 @@ import {
     CreateSpecializationComponent,
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
-    CreateAppointmentComponent
+    CreateAppointmentComponent,
+    EditSpecializationComponent
   ],
   imports: [
     BrowserModule,

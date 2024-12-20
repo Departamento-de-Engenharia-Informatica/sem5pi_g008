@@ -38,7 +38,7 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(Roles = "Admin,Doctor")]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> ListAllSpecializations()
     {
         try
@@ -57,7 +57,7 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpDelete("{specializationName}")]
-    [Authorize(Roles = "Admin,Doctor")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteSpecialization(string specializationName)
     {
         try
@@ -75,14 +75,13 @@ public class SpecializationController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpPost("")]
-   // [Authorize(Roles = "Admin,Doctor")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateSpecialization(SpecializationDTO specializationDTO)
     {
-        
         try
-        { 
+        {
             var speciliazationDTO = await _specializationService.CreateSpecialization(specializationDTO);
 
             return Ok(speciliazationDTO);
@@ -96,4 +95,43 @@ public class SpecializationController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPatch("name/{specializationId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateSpecializationName(int specializationId,[FromBody] string specializationName)
+    {
+        try
+        {
+            await _specializationService.UpdateSpecializationName(specializationId, specializationName);
+            return NoContent();
+        }
+        catch (SpecializationNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpPatch("description/{specializationId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateSpecializationDescription(int specializationId,[FromBody] string specializationDescription)
+    {
+        try
+        {
+            await _specializationService.UpdateSpecializationDescription(specializationId, specializationDescription);
+            return NoContent();
+        }
+        catch (SpecializationNotFoundException e)
+        {
+            return StatusCode(601, e.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
 }

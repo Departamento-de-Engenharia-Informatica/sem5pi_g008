@@ -97,4 +97,34 @@ public class SpecializationService
         return specializationDTOs;
     }
     
+    public async Task UpdateSpecializationName(int specializationId, string newSpecializationName)
+    {
+        
+        var specialization = await _specializationRepository.GetActiveBySpecializationID(new SpecializationID(specializationId));
+        
+        if(specialization == null)
+        {
+            throw new SpecializationNotFoundException("Specialization not found.");
+        }
+        
+        specialization.specializationName = new SpecializationName(newSpecializationName);
+        
+        await _unitOfWork.CommitAsync();
+    }
+    
+    public async Task UpdateSpecializationDescription(int specializationId, string newSpecializationDescription)
+    {
+        
+        var specialization = await _specializationRepository.GetActiveBySpecializationID(new SpecializationID(specializationId));
+        
+        if(specialization == null)
+        {
+            throw new SpecializationNotFoundException("Specialization not found.");
+        }
+        
+        specialization.specializationDescription = new SpecializationDescription(newSpecializationDescription);
+        
+        await _unitOfWork.CommitAsync();
+    }
+    
 }

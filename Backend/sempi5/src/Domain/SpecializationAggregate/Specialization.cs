@@ -6,7 +6,7 @@ public class Specialization : Entity<SpecializationID>, IAggregateRoot
 {
     public SpecializationID Id { get; set; }
     
-    public SpecializationName specializationName { get;}
+    public SpecializationName specializationName { get; set; }
     
     public SpecializationStatusEnum specializationStatus { get; set; }
 

@@ -32,6 +32,9 @@ import {
 } from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
 import{  PatientManagementAsDoctorComponent
 } from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 
 export const routes: Routes = [
   {
@@ -58,8 +61,9 @@ export const routes: Routes = [
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
-      {path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
-      {path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
+      { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
+      { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
+      { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
     ],
   },
 
