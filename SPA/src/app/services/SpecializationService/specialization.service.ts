@@ -17,25 +17,20 @@ export class SpecializationService {
     return this.http.get<SpecializationDTO[]>(`${this.apiUrl}`, { withCredentials: true });
   }
 
-  public listSpecializationByName(specializationDTO: SpecializationDTO): Observable<SpecializationDTO> {
+  public listSpecializationByName(specializationName: string): Observable<SpecializationDTO> {
 
-    const specializationName = specializationDTO.specializationName;
 
     return this.http.get<SpecializationDTO>(`${this.apiUrl}/${specializationName}`, { withCredentials: true});
   }
 
-  public deleteSpecialization(specializationDTO: SpecializationDTO): Observable<any> {
-
-    const specializationName = specializationDTO.specializationName;
+  public deleteSpecialization(specializationName: string): Observable<any> {
 
     return this.http.delete<SpecializationDTO>(`${this.apiUrl}/${specializationName}`, { withCredentials: true});
   }
 
   public createSpecialization(specializationDTO: SpecializationDTO): Observable<SpecializationDTO> {
 
-    const specializationName = specializationDTO.specializationName;
-
-    return this.http.post<SpecializationDTO>(`${this.apiUrl}/${specializationName}`, { withCredentials: true});
+    return this.http.post<SpecializationDTO>(`${this.apiUrl}`, specializationDTO, { withCredentials: true});
   }
 
 }

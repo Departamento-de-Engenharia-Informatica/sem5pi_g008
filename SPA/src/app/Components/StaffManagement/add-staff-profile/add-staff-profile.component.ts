@@ -15,6 +15,7 @@ export class AddStaffProfileComponent implements OnInit {
   public newStaffProfile!: CreateStaff;
   public showErrorMessagePopup: boolean = false;
   public errorMessage: string = '';
+  public specializations: string[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -23,6 +24,7 @@ export class AddStaffProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getSpecializations();
     this.newStaffProfile = {} as CreateStaff;
     this.newStaffProfile.Email = '';
     this.newStaffProfile.FirstName = '';
@@ -30,6 +32,18 @@ export class AddStaffProfileComponent implements OnInit {
     this.newStaffProfile.PhoneNumber = 0;
     this.newStaffProfile.Specialization = '';
     this.newStaffProfile.LicenseNumber = 0;
+  }
+
+  private getSpecializations() {
+    this.staffService.getSpecializations().subscribe(
+      (response: any) => {
+        this.specializations = response;
+      },
+      (error: { error: any; }) => {
+        console.error('Error:', error);
+        alert('Error fetching specializations: ' + (error.error || 'An unknown error occurred.'));
+      }
+    );
   }
 
   public areAllFieldsFilled(): boolean {

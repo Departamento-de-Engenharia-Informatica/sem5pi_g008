@@ -11,6 +11,22 @@
       [(ngModel)]="newSpecialization.specializationName"
       name="specialization name"
     />
+
+    <label for="specializationName">Specialization Code</label>
+    <input
+      id="specializationCode"
+      type="text"
+      [(ngModel)]="newSpecialization.specializationCode"
+      name="specialization code"
+    >
+
+    <label for="specializationName">Specialization Description</label>
+    <input
+      id="specializationDescription"
+      type="text"
+      [(ngModel)]="newSpecialization.specializationDescription"
+      name="specialization description"
+    >
   </div>
 
   <button type="submit" [disabled]="!isFieldFilled()" (click)="createSpecialization()">Save Changes</button>

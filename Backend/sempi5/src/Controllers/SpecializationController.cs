@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Domain.SpecializationAggregate.SpecializationExceptions;
 using Sempi5.Services;
 
@@ -17,7 +18,7 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet("{specializationName}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> SpecializationByName(string specializationName)
     {
         try
@@ -37,7 +38,7 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> ListAllSpecializations()
     {
         try
@@ -56,7 +57,7 @@ public class SpecializationController : ControllerBase
     }
 
     [HttpDelete("{specializationName}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> DeleteSpecialization(string specializationName)
     {
         try
@@ -75,13 +76,14 @@ public class SpecializationController : ControllerBase
         }
     }
     
-    [HttpPost("{specializationName}")]
-    // [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> CreateSpecialization(string specializationName)
+    [HttpPost("")]
+   // [Authorize(Roles = "Admin,Doctor")]
+    public async Task<IActionResult> CreateSpecialization(SpecializationDTO specializationDTO)
     {
+        
         try
         { 
-            var speciliazationDTO = await _specializationService.CreateSpecialization(specializationName);
+            var speciliazationDTO = await _specializationService.CreateSpecialization(specializationDTO);
 
             return Ok(speciliazationDTO);
         }

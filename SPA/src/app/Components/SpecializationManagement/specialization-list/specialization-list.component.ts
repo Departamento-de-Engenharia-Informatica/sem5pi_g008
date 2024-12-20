@@ -11,4 +11,8 @@ export class SpecializationListComponent {
    @Output() deleteSpecialization = new EventEmitter<string>();
   // @Output() editSpecialization = new EventEmitter<Specialization>();
 
+  editSpecialization(specialization: Specialization) {
+    console.log('Viewing specialization: ' + specialization);
+  }
+
 }

@@ -16,30 +16,40 @@ namespace Sempi5.Infrastructure.SpecializationRepository
         }
         
         
-        public async Task<Specialization?> GetActiveBySpecializationName(Specialization specialization)
+        public async Task<Specialization?> GetActiveBySpecializationName(SpecializationName specializationName)
         {
-            if (specialization == null)
-            {
+            if(string.IsNullOrWhiteSpace(specializationName.ToString())) {
                 return null;
             }
-
+            
             var specializationSearched = await context.Specializations
-                .FirstOrDefaultAsync(p => p.specializationName.Equals(specialization.specializationName) 
+                .FirstOrDefaultAsync(p => p.specializationName.Equals(specializationName) 
                                           && p.specializationStatus.Equals(SpecializationStatusEnum.ACTIVE)); 
     
             return specializationSearched;        
         }
 
 
-        public async Task<Specialization?> GetBySpecializationName(Specialization specialization)
+        public async Task<Specialization?> GetBySpecializationName(SpecializationName specializationName)
         {
-            if (specialization == null)
-            {
+            if(string.IsNullOrWhiteSpace(specializationName.ToString())) {
                 return null;
             }
 
             var specializationSearched = await context.Specializations
-                .FirstOrDefaultAsync(p => p.specializationName.Equals(specialization.specializationName)); 
+                .FirstOrDefaultAsync(p => p.specializationName.Equals(specializationName)); 
+    
+            return specializationSearched;  
+        }
+        
+        public async Task<Specialization?> GetBySpecializationCode(SpecializationCode specializationCode)
+        {
+            if(string.IsNullOrWhiteSpace(specializationCode.ToString())) {
+                return null;
+            }
+
+            var specializationSearched = await context.Specializations
+                .FirstOrDefaultAsync(p => p.specializationCode.Equals(specializationCode)); 
     
             return specializationSearched;  
         }
