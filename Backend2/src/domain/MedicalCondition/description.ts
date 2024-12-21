@@ -25,10 +25,6 @@ export class Description extends ValueObject<DescriptionProps> {
         if (!guardResult.succeeded) {
             throw new AppError("DESCRIPTION_NULL_UNDEFINED"); 
         }
-
-        if(description.trim().length === 0) {
-            throw new AppError("DESCRIPTION_INVALID_WHITESPACE");
-        }
         
         if(description.trim().length > 2048) {
             throw new AppError("DESCRIPTION_INVALID_LENGTH");

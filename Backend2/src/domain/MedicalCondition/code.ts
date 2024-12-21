@@ -29,7 +29,7 @@ export class Code extends ValueObject<CodeProps> {
         
         this.validateICD11Code(trimmedCode);
         
-        return Result.ok<Code>(new Code({value: code}))
+        return Result.ok<Code>(new Code({value: trimmedCode}))
 
     }
 

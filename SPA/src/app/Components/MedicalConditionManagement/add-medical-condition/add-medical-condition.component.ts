@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {MedicalConditionDTO} from '../../../DTOs/general/medicalConditionDTO';
-import {MedicalConditionService} from '../../../services/MedicalCondition/medicalConditionService';
+import {MedicalConditionService} from '../../../services/MedicalConditionService/medicalConditionService';
+import {Router} from '@angular/router';
+import {MedicalConditionMapper} from '../../../DTOs/mappers/medicalConditionMapper';
+import {MedicalConditionDTO} from '../../../DTOs/GenericDTOs/medicalConditionDTO';
 
 @Component({
   selector: 'app-add-medical-condition',
@@ -14,38 +16,50 @@ export class AddMedicalConditionComponent {
     code: '',
     designation: '',
     description: '',
-    symptomsList: [],
   };
 
+  symptomsList: string[] = [];
   newSymptom: string = '';
+  description: string = '';
 
-  constructor(private medicalConditionService: MedicalConditionService) {}
+
+  constructor(private medicalConditionService: MedicalConditionService, private router: Router) {}
 
   addMedicalCondition() {
 
-    console.log(this.medicalConditionDTO);
+    if(this.symptomsList.length > 0) {
+      this.medicalConditionDTO.symptomsList = this.symptomsList;
+    }
 
-    this.medicalConditionService.addMedicalCondition(this.medicalConditionDTO).subscribe(
+    if(this.description === undefined || this.description!.trim().length === 0) {
+      this.medicalConditionDTO.description = "No Description Provided";
+    } else {
+      this.medicalConditionDTO.description = this.description;
+    }
+
+    const medicalCondition = MedicalConditionMapper.dtoToDomain(this.medicalConditionDTO);
+
+    this.medicalConditionService.addMedicalCondition(medicalCondition).subscribe(
       (response: any) => {
         alert('Medical Condition added successfully!');
+
+        this.router.navigate(['/admin/allergyManagement']);
       },
       (error: any) => {
         alert(error || 'An unknown error occurred.');
       }
     );
-
-    alert('Medical Condition added successfully!');
   }
 
   addSymptom() {
     if (this.newSymptom.trim()) {
-      this.medicalConditionDTO.symptomsList.push(this.newSymptom.trim());
+      this.symptomsList.push(this.newSymptom.trim());
       this.newSymptom = '';
     }
   }
 
   removeSymptom(index: number) {
-    this.medicalConditionDTO.symptomsList.splice(index, 1); // Remove symptom by index
+    this.symptomsList.splice(index, 1);
   }
 }
 

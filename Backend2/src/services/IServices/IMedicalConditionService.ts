@@ -2,5 +2,5 @@
 import IMedicalConditionDTO from "../../dto/IMedicalConditionDTO";
 
 export default interface IMedicalConditionService  {
-    createMedicalCondition(medicalCondition: IMedicalConditionDTO): Promise<Result<any>>;
+    createMedicalCondition(medicalCondition: IMedicalConditionDTO): Promise<any>;
 }

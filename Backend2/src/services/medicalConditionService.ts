@@ -6,6 +6,7 @@ import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {Code} from "../domain/MedicalCondition/code";
 import {Designation} from "../domain/MedicalCondition/designation";
 import {Description} from "../domain/MedicalCondition/description";
+import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 
 @Service()
 export default class MedicalConditionService implements IMedicalConditionService {
@@ -14,32 +15,17 @@ export default class MedicalConditionService implements IMedicalConditionService
     ) {
     }
 
-    public async createMedicalCondition(medicalConditionDTO: any): Promise<any> {
-        
+    public async createMedicalCondition(medicalConditionDTO: IMedicalConditionDTO): Promise<any> {
+
         const medicalConditionProps = {
             code: Code.create(medicalConditionDTO.code).getValue(),
             designation: Designation.create(medicalConditionDTO.designation).getValue(),
             description: Description.create(medicalConditionDTO.description).getValue(),
             symptomsList: medicalConditionDTO.symptomsList
         };
-        
-        const medicalCondition = MedicalCondition.create(medicalConditionProps).getValue();
-        
-        if (medicalConditionDTO.domainId === undefined) {
-            
-            console.log("DomainId is undefined");
-            
-           const medSaved = await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
-        
-            console.log("Medical Condition saved: " + medSaved);
-        
-        } else {
-            
-            console.log("DomainId is defined");
-            
-           const medSaved = await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
 
-            console.log("Medical Condition saved: " + medSaved);
-        }
+        const medicalCondition = MedicalCondition.create(medicalConditionProps).getValue();
+
+        await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
     }
 }

@@ -29,7 +29,7 @@
       <input
         id="description"
         type="text"
-        [(ngModel)]="medicalConditionDTO.description"
+        [(ngModel)]="description"
         name="description"
         placeholder="Enter the description... (Maximum 2048 characters)"
       />
@@ -45,10 +45,10 @@
           name="symptom"
           placeholder="Enter a symptom"
         />
-        <button type="button" (click)="addSymptom()" [disabled]="!newSymptom">Add</button>
+        <button type="button" (click)="addSymptom()" [disabled]="!newSymptom.trim()">Add</button>
       </div>
       <div class="symptoms-list">
-        <div class="symptom-item" *ngFor="let symptom of medicalConditionDTO.symptomsList; let i = index">
+        <div class="symptom-item" *ngFor="let symptom of symptomsList; let i = index">
           <span>{{ symptom }}</span>
           <button type="button" (click)="removeSymptom(i)">x</button>
         </div>

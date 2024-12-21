@@ -5,6 +5,7 @@ import {Container} from "typedi";
 import IMedicalConditionController from "../../controllers/IControllers/IMedicalConditionController";
 
 import config from "../../../config";
+import {checkRoleAndProceed} from "../middlewares/validateUserRole";
 
 const route = Router();
 
@@ -16,14 +17,13 @@ export default (app: Router) => {
     route.post('/',
         celebrate({
             body: Joi.object({
-                domainId: Joi.number(),
                 code: Joi.string().required(),
                 designation: Joi.string().required(),
                 description: Joi.string().optional(),
                 symptomsList: Joi.array().items(Joi.string()).optional(),
             }),
         }),
-         (req, res, next) => {
+        checkRoleAndProceed(['admin']), (req, res, next) => {
             ctrl.createMedicalCondition(req, res, next);
         });
 };

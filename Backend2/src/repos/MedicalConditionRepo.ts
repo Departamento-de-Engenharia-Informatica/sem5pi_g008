@@ -20,16 +20,9 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
             id = await this.getLastId() + 1;
         }
         
-        console.log('Entrou no Repo')
-        
         const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
         
-        console.log("Aquiii agora");
-        
         const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
-
-        console.log("Aquiii agora 2");
-
 
         return MedicalConditionMap.toDomain(medicalConditionCreated);
     }
