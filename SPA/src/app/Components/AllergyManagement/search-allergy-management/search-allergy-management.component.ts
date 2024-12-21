@@ -32,13 +32,9 @@ export class SearchAllergyManagementComponent implements OnInit {
   constructor(@Inject(AuthService) auth: AuthService, @Inject(AllergyService) allergyService: AllergyService) {
     this.auth = auth;
     this.allergyService = allergyService;
-    this.validateUserRole();
   }
 
-  private validateUserRole() {
-    const expectedRole = "Staff";
-    this.auth.validateUserRole(expectedRole);
-  }
+
 
   private loadAllergies() {
     this.allergyService.getAllAllergies().subscribe(
