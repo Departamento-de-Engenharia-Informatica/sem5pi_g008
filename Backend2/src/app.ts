@@ -82,8 +82,8 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordCondition = MedicalRecordCondition.create(medicalRecordConditionProps);
   const medicalRecordCondition2 = MedicalRecordCondition.create(medicalRecordConditionProps2);
-  await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
-  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
+ // await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
+//  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
 
   const medicalAllergyRepo = Container.get(AllergyRepo);
   const allergyProps = {
@@ -134,12 +134,12 @@ async function startServer() {
   
   const medicalRecordRepo = Container.get(MedicalRecordRepo);
   
-   // const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
+   // const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200003");
   
-  const medicalRecord =  await medicalRecordRepo.getMedicalRecordById("20241200007");
+  const medicalRecord =  await medicalRecordRepo.getMedicalRecordById("20241200003");
   
   if(medicalRecord !== null) {
-  //  await seedData(medicalRecord.props._id);
+//    await seedData(medicalRecord.props._id);
   }
 
 

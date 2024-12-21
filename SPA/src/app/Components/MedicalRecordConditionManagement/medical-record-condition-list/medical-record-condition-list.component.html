@@ -1,0 +1,16 @@
+<h2 class="sub-header">Medical Conditions</h2>
+<div *ngIf="errorMessage" class="no-medical-record-conditions">
+  <p>{{ errorMessage }}</p>
+</div>
+<div class="medical-record-condition-list-container">
+  <div *ngFor="let medicalRecordCondition of medicalRecordConditions" class="medical-record-condition-item">
+    <div class="medical-record-condition-details">
+      <p><strong>Condition:</strong> {{ medicalRecordCondition.conditionDesignation }}</p>
+      <p><strong>This Condition Was Created By:</strong> {{ medicalRecordCondition.doctorId }}</p>
+      <p><strong>Comment:</strong> {{ medicalRecordCondition.comment }}</p>
+    </div>
+    <div class="medical-record-condition-actions">
+      <button class="edit-button">Edit</button>
+    </div>
+  </div>
+</div>

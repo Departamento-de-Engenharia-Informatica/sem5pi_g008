@@ -5,6 +5,7 @@ import IMedicalRecordConditionService from "./IServices/IMedicalRecordConditionS
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
 import IMedicalRecordRepo from "./IRepos/IMedicalRecordRepo";
 import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
+import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 
 @Service()
 export default class MedicalRecordConditionService implements IMedicalRecordConditionService {
@@ -20,7 +21,11 @@ export default class MedicalRecordConditionService implements IMedicalRecordCond
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordById(medicalRecordId);
 
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
-
+        
+        if (medicalRecordConditionList.length === 0) {
+            throw new NoMedicalRecordConditionsException();
+        }
+        
         const medicalRecordConditionDTOList = [];
         
         for (const medicalRecordCondition of medicalRecordConditionList) {

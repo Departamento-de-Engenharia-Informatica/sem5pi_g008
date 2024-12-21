@@ -38,7 +38,7 @@ export class PatientManagementAsDoctorComponent implements OnInit {
 
     console.log("Viewing patient medical record with id: " + id);
 
-    this.router.navigate(['staff/patients/medicalRecord'], {state: {medicalRecord: medicalRecord}});
+    this.router.navigate(['staff/patients/medicalRecord'], {state: {medicalRecord: id}});
   }
 
 }

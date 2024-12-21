@@ -2,6 +2,7 @@
 import config from "../../config";
 import IMedicalRecordConditionService from "../services/IServices/IMedicalRecordConditionService";
 import IMedicalRecordConditionController from "./IControllers/IMedicalRecordConditionController";
+import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 
 
 @Service()
@@ -13,6 +14,7 @@ export default class MedicalRecordConditionController implements IMedicalRecordC
     
     public async getMedicalRecordConditions(req: any, res: any): Promise<void> {
         try {
+            
             const recordNumberId = req.query.recordNumberId;
 
             const medicalConditionDTOList = await this.medicalRecordMedicalConditionService.getMedicalRecordConditions(recordNumberId);
@@ -22,10 +24,16 @@ export default class MedicalRecordConditionController implements IMedicalRecordC
             });
             
         } catch (error) {
-            console.error('Error getting medical record conditions:', error.message);
-
+            
+            if (error instanceof NoMedicalRecordConditionsException) {
+                res.status(error.code).json({
+                    message: error.message
+                });
+                return;
+            }
+            
             res.status(500).json({
-                message: 'Error getting medical record conditions',
+                message: 'Error getting medical record conditions.',
 
             });
         }
