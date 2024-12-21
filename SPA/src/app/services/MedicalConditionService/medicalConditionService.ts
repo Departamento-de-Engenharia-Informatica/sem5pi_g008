@@ -11,7 +11,7 @@ import {MedicalConditionMapper} from '../../DTOs/mappers/medicalConditionMapper'
 
 export class MedicalConditionService {
 
-  private apiUrl = json.backend2ApiUrl + '/medicalConditions';
+  private apiUrl = json.backendApi["2"].url + '/medicalConditions';
 
   constructor(private http: HttpClient) {
   }
