@@ -2,12 +2,22 @@
 import {Entity} from "../../core/domain/Entity";
 
 export class MedicalConditionId extends Entity<any> {
-    
-    get id() : UniqueEntityID {
+
+    get id(): UniqueEntityID {
         return this._id;
     }
 
-    private constructor (id?: UniqueEntityID) {
+    public constructor(id: UniqueEntityID) {
+        if(!id) {
+            throw new Error("MedicalConditionId must not be null");
+        }
+
+        const auxId = id.toString();
+        let regex = /^\d+$/;
+        if(!regex.test(auxId)) {
+            throw new Error("AllergyId must contain only digits");
+        }
+        
         super(null, id)
     }
 }

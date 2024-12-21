@@ -26,6 +26,9 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
+import {
+  AddMedicalConditionComponent
+} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
 import {
   CreateAppointmentComponent
@@ -61,6 +64,7 @@ export const routes: Routes = [
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
+      { path: 'medicalCondition/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
       { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
