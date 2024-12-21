@@ -22,9 +22,9 @@ public class OperationTypeBootstrap
             new OperationName("Heart Surgery Simple"),
             new List<RequiredStaff>
             {
-                new RequiredStaff(new NumberOfStaff(1), new Specialization(new SpecializationName("Cardiologist 1"))),
-                new RequiredStaff(new NumberOfStaff(3), new Specialization(new SpecializationName("Nurse 1"))),
-                new RequiredStaff(new NumberOfStaff(2), new Specialization(new SpecializationName("Surgeon 1")))
+                new RequiredStaff(new NumberOfStaff(1), new Specialization(new SpecializationName("Cardiologist 1"), new SpecializationCode("C2"), new SpecializationDescription("Cardiologist specialization"))),
+                new RequiredStaff(new NumberOfStaff(3), new Specialization(new SpecializationName("Nurse 1"), new SpecializationCode("N2"), new SpecializationDescription("Nurse specialization"))),
+                new RequiredStaff(new NumberOfStaff(2), new Specialization(new SpecializationName("Surgeon 1"), new SpecializationCode("S1"), new SpecializationDescription("Surgeon specialization")))
             },
             TimeSpan.FromHours(3),
             TimeSpan.FromHours(4),
@@ -36,8 +36,8 @@ public class OperationTypeBootstrap
             new OperationName("Knee Surgery"),
             new List<RequiredStaff>
             {
-                new RequiredStaff(new NumberOfStaff(2), new Specialization(new SpecializationName("Nurse 2"))),
-                new RequiredStaff(new NumberOfStaff(1), new Specialization(new SpecializationName("Surgeon 2")))
+                new RequiredStaff(new NumberOfStaff(2), new Specialization(new SpecializationName("Nurse 2"), new SpecializationCode("N3"), new SpecializationDescription("Nurse specialization"))),
+                new RequiredStaff(new NumberOfStaff(1), new Specialization(new SpecializationName("Surgeon 2"), new SpecializationCode("S2"), new SpecializationDescription("Surgeon specialization")))
             },
             TimeSpan.FromHours(1),
             TimeSpan.FromHours(2),

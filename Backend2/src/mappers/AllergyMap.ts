@@ -7,6 +7,7 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {Allergy} from "../domain/Allergy/Allergy";
 import IAllergyDTO from "../dto/IAllergyDTO";
 import {IAllergyPersistence} from "../dataschema/IAllergyPersistence";
+import {ALL} from "node:dns";
 
 export class AllergyMap extends Mapper<Allergy> {
 
@@ -35,14 +36,16 @@ export class AllergyMap extends Mapper<Allergy> {
       return {
         domainId: allergy.domainId.id.toValue(),
         allergy: allergy.allergy,
-        effect: allergy.effect
+        effect: allergy.effect,
+        isDeleted: allergy.isDeleted,
       }
     }
 
     return {
       domainId: id,
       allergy: allergy.allergy,
-      effect: allergy.effect
+      effect: allergy.effect,
+      isDeleted: allergy.isDeleted,
     }
   }
 

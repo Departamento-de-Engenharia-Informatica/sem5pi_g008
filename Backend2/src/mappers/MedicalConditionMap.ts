@@ -14,11 +14,13 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
             designation: medicalCondition.designation.value,
             description: medicalCondition.description.value,
             symptomsList: medicalCondition.symptomsList
+
+
         } as IMedicalConditionDTO;
     }
 
     public static toDomain (medicalCondition: any | Model<IMedicalConditionPersistence & Document> ): MedicalCondition {
-        
+
         const medicalConditionOrError = MedicalCondition.create(
             medicalCondition,
             new UniqueEntityID(medicalCondition.domainId)
@@ -49,5 +51,5 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
             symptomsList: medicalCondition.symptomsList
         }
     }
-    
+
 }

@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Create Appointment</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="createAppointment()" novalidate>
+    <!-- Surgery Date -->
+    <div class="form-group">
+      <label for="surgeryDate">Surgery Date</label>
+      <input
+        type="date"
+        id="surgeryDate"
+        class="form-control"
+        formControlName="surgeryDate"
+        name="surgeryDate"
+        required
+      />
+      <div *ngIf="registrationForm.get('surgeryDate')?.invalid && registrationForm.get('surgeryDate')?.touched" class="text-danger">
+        Surgery date is required.
+      </div>
+    </div>
+
+    <!-- Surgery Room -->
+    <div class="form-group">
+      <label for="surgeryRoom">Surgery Room</label>
+      <input
+        type="text"
+        id="surgeryRoom"
+        class="form-control"
+        formControlName="surgeryRoom"
+        placeholder="Enter Surgery Room"
+        required
+      />
+      <div *ngIf="registrationForm.get('surgeryRoom')?.invalid && registrationForm.get('surgeryRoom')?.touched" class="text-danger">
+        Surgery room is required.
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">
+      Create Appointment
+    </button>
+  </form>
+</div>

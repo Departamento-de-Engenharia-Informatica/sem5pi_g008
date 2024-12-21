@@ -25,4 +25,10 @@ export default (app: Router) => {
     checkRoleAndProceed(['admin']), (req, res, next) => {
     ctrl.createAllergy(req, res, next);
   });
+
+  route.get('/',
+    checkRoleAndProceed(['admin','doctor']), (req, res, next) => {
+    ctrl.getAllAllergies(req, res, next);
+  });
+
 };

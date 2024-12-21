@@ -9,7 +9,7 @@ import {CreateStaff} from '../../../Domain/CreateStaff';
   templateUrl: './create-specialization.component.html',
   styleUrl: './create-specialization.component.css'
 })
-export class CreateSpecializationComponent  implements OnInit {
+export class CreateSpecializationComponent implements OnInit {
 
   private specializationService: SpecializationService;
   private router: Router;
@@ -25,18 +25,24 @@ export class CreateSpecializationComponent  implements OnInit {
   ngOnInit() {
 
     this.newSpecialization = {} as SpecializationDTO;
-
     this.newSpecialization.specializationName = '';
+    this.newSpecialization.specializationCode = '';
+    this.newSpecialization.specializationDescription = '';
   }
 
   public isFieldFilled(): boolean {
 
-    return this.newSpecialization?.specializationName?.trim().length > 0;
-
-    }
+    return this.newSpecialization?.specializationName?.trim().length > 0 &&
+      this.newSpecialization?.specializationCode?.trim().length > 0;
+  }
 
 
   public createSpecialization() {
+
+    if (this.newSpecialization.specializationDescription === '') {
+      this.newSpecialization.specializationDescription = 'No description provided.';
+    }
+
     this.specializationService.createSpecialization(this.newSpecialization).subscribe(
       () => {
         this.router.navigate(['/admin/specialization']).then(() => {
@@ -45,7 +51,7 @@ export class CreateSpecializationComponent  implements OnInit {
       },
       (error) => {
 
-        if(error.status === 652) {
+        if (error.status === 652) {
 
           this.errorMessage = 'Specialization with this name already exists.';
 

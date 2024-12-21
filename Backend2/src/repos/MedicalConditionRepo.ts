@@ -6,7 +6,7 @@ import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
 
-@Service() 
+@Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
     constructor(
@@ -39,10 +39,10 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
     public async getOne(): Promise<MedicalCondition> {
         const medicalCondition = await this.medicalConditionSchema.findOne();
-        
+
         return MedicalConditionMap.toDomain(medicalCondition);
     }
-    
+
 
     public async exists(medicalConditionId: MedicalConditionId | string): Promise<boolean> {
 
