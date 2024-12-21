@@ -14,6 +14,24 @@ export class AllergyMapper {
     };
   }
 
+  public static displayDtoToDomain(allergy: DisplayAllergyDTO): Allergy {
+
+    return {
+      domainId: -1,
+      allergy: allergy.allergy,
+      effect: allergy.effect
+    };
+  }
+
+  public static backendDtoToDomain(allergy: BackendAllergyDTO): Allergy {
+
+    return {
+      domainId: allergy.domainId || -1,
+      allergy: allergy.allergy,
+      effect: allergy.effect
+    };
+  }
+
   public static domainToDisplayDto(allergy: Allergy): DisplayAllergyDTO {
 
     let effect = allergy.effect;

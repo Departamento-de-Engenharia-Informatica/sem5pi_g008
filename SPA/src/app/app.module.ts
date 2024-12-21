@@ -56,6 +56,9 @@ import {ErrorMessageComponent} from './Components/Shared/error-message/error-mes
 import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-button.component';
 import { CreateSpecializationComponent } from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
+import {
+  SearchAllergyManagementComponent
+} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +113,8 @@ import {AllergyManagementComponent} from './Components/AllergyManagement/allergy
     SpecializationListComponent,
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
-    AllergyManagementComponent
+    AllergyManagementComponent,
+    SearchAllergyManagementComponent
   ],
   imports: [
     BrowserModule,

@@ -52,8 +52,6 @@ export default class AllergyController implements IAllergyController {
 
     public async searchAllergies( req: any, res: any, next: any): Promise<any> {
         
-        console.log(req.params);   
-        console.log(req.params.filter);
         try {
             const allergies = await this.allergyServiceInstance.searchAllergies(req.params.filter);
             res.status(200).json({
