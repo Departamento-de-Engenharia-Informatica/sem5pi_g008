@@ -55,6 +55,10 @@ export default {
       name: "MedicalConditionController",
       path: "../controllers/MedicalConditionController"
     },
+    medicalRecord: {
+      name:"MedicalRecordController",
+      path:"../controllers/MedicalRecordController"
+    },
   },
 
   repos: {
@@ -73,7 +77,23 @@ export default {
     allergy: {
       name: "AllergyRepo",
       path: "../repos/AllergyRepo"
-    }
+    },
+    medicalRecord: {
+      name:"MedicalRecordRepo",
+      path:"../repos/MedicalRecordRepo"
+    },
+    medicalRecordAllergy: {
+      name: "MedicalRecordAllergyRepo",
+      path: "../repos/MedicalRecordAllergyRepo"
+    },
+    medicalRecordCondition: {
+      name: "MedicalRecordConditionRepo",
+      path: "../repos/MedicalRecordConditionRepo"
+    },
+    medicalRecordFreeText: {
+      name: "MedicalRecordFreeTextRepo",
+      path: "../repos/MedicalRecordFreeTextRepo"
+    },
   },
 
   services: {
@@ -88,6 +108,10 @@ export default {
     medicalCondition: {
       name: "MedicalConditionService",
       path: "../services/MedicalConditionService"
+    },
+    medicalRecord:{
+      name: "MedicalRecordService",
+      path:"../services/MedicalRecordService"
     },
   },
   

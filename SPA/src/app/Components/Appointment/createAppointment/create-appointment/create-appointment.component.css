@@ -1,0 +1,147 @@
+/* Definir uma largura máxima para o conteúdo e centralizá-lo */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Fundo leve para o container */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Adicionar algum espaçamento entre os campos do formulário */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Estilo para os campos de input */
+.form-control {
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  font-size: 14px;
+}
+
+/* Estilo para o botão de pesquisa */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Alterar o estilo do botão ao passar o mouse */
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Estilo para os botões de ação dentro da tabela */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Alterar o estilo do botão ao passar o mouse */
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Estilo para a tabela de resultados */
+.table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-bordered th, .table-bordered td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+
+/* Estilo para mensagens de erro de validação */
+.text-danger {
+  font-size: 12px;
+  color: #dc3545;
+}
+
+/* Estilo de ícones e botões */
+button:focus {
+  outline: none;
+}
+
+/* Responsividade: melhorar a exibição em dispositivos móveis */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .form-control {
+    font-size: 12px;
+  }
+
+  .btn-primary, .btn-success {
+    width: 100%;
+  }
+
+  .table th, .table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Estilo para o cabeçalho da página */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilo para as seções dentro do formulário de agendamento */
+form div {
+  margin-top: 20px;
+}
+
+/* Campo de entrada de dados para data */
+input[type="date"] {
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Estilos para o campo de entrada de texto */
+input[type="text"] {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+/* Estilos para o campo de entrada de números */
+input[type="number"] {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}

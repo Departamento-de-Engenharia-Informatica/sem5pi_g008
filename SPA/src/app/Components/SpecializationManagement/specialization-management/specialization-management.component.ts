@@ -59,12 +59,7 @@ export class SpecializationManagementComponent implements OnInit {
       return;
     }
 
-    const specializationDTO: SpecializationDTO = {
-      specializationName: trimmedFilterName
-    };
-
-
-    this.specializationService.listSpecializationByName(specializationDTO).subscribe(
+    this.specializationService.listSpecializationByName(trimmedFilterName).subscribe(
       (data: SpecializationDTO) => {
 
         this.specializationList = [];
@@ -92,11 +87,7 @@ export class SpecializationManagementComponent implements OnInit {
 
   public deleteSpecialization(specializationName: string) {
 
-    const specializationDTO: SpecializationDTO = {
-      specializationName: specializationName
-    };
-
-    this.specializationService.deleteSpecialization(specializationDTO).subscribe(
+    this.specializationService.deleteSpecialization(specializationName).subscribe(
       response => {
 
         this.specializationList = this.specializationList.filter(specialization => specialization.specializationName !== specializationName);

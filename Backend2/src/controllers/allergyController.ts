@@ -29,4 +29,22 @@ export default class AllergyController implements IAllergyController {
       });
     }
   }
+
+  public async getAllAllergies(req: any, res: any): Promise<any> {
+    try {
+      let allergies = await this.allergyServiceInstance.getAllAllergies();
+
+      res.status(200).json({
+        allergies: allergies
+      });
+
+    } catch (error) {
+      console.error('Error getting allergies:', error.message);
+
+      res.status(500).json({
+        message: 'Error getting allergies',
+      });
+    }
+  }
+
 }

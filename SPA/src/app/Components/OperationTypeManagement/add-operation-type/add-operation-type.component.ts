@@ -24,7 +24,13 @@ export class AddOperationTypeComponent {
     numberOfStaff: 0
   };
 
+  specializations: string[] = [];
+
   constructor(private operationTypeService: OperationTypeService, private router: Router) {}
+
+  ngOnInit() {
+    this.getSpecializations();
+  }
 
   addRequiredStaff() {
     if (this.newRequiredStaff.specialization && this.newRequiredStaff.numberOfStaff > 0) {
@@ -59,7 +65,6 @@ export class AddOperationTypeComponent {
     }
   }
 
-
   resetFields() {
     this.operation = {
       operationName: '',
@@ -73,6 +78,12 @@ export class AddOperationTypeComponent {
       specialization: '',
       numberOfStaff: 0
     };
+  }
+
+  getSpecializations(): void {
+    this.operationTypeService.getSpecializations().subscribe(specializations => {
+      this.specializations = specializations;
+    });
   }
 
   isOperationTypeValid(): boolean {

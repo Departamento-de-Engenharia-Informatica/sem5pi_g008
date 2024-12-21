@@ -5,7 +5,8 @@ const AllergySchema = new mongoose.Schema(
   {
       domainId: { type: Number, unique: true },
       allergy: { type: String, unique: true },
-      effect: { type: String }
+      effect: { type: String },
+      isDeleted: { type: Boolean, default: false }
   },
   {
       timestamps: true

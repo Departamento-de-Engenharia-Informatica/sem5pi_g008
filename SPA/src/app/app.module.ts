@@ -56,6 +56,14 @@ import {ErrorMessageComponent} from './Components/Shared/error-message/error-mes
 import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-button.component';
 import { CreateSpecializationComponent } from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 import { AddMedicalConditionComponent } from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
+import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
+import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  CreateAppointmentComponent
+} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +119,10 @@ import { AddMedicalConditionComponent } from './Components/MedicalConditionManag
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
     AddMedicalConditionComponent
+    AllergyManagementComponent,
+    PatientManagementAsDoctorComponent,
+    CreateAppointmentComponent,
+    EditSpecializationComponent
   ],
   imports: [
     BrowserModule,

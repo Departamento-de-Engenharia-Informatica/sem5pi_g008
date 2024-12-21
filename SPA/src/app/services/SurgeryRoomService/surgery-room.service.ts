@@ -8,7 +8,7 @@ import json from '../../appsettings.json';
 })
 export class SurgeryRoomService {
 
-  private apiUrl = json.apiUrl + '/surgeryRoom';
+  private apiUrl = json.backendApi["1"].url + '/surgeryRoom';
 
   constructor(private http: HttpClient) {
   }
