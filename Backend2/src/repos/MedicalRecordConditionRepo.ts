@@ -1,6 +1,5 @@
 ﻿import {Inject, Service} from "typedi";
 import {Document, Model} from "mongoose";
-import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordConditionPersistence";
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionRepo from "../services/IRepos/IMedicalRecordConditionRepo";
@@ -40,5 +39,10 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
     }
 
     return number;
+  }
+  
+  public async getMedicalRecordConditions(medicalRecordId: string): Promise<MedicalRecordCondition[]> {
+    const medicalRecordConditions = await this.medicalRecordConditionSchema.find({medicalRecordId: medicalRecordId});
+    return medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
   }
 }
