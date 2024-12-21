@@ -8,25 +8,25 @@ import {ObjectId} from "mongodb";
 
 
 @Service()
-export default class MedicalRecordRepo implements IMedicalRecordRepo{
-    constructor(@Inject('medicalRecordSchema') private medicalRecordSchema: Model<IMedicalRecordPersistence & Document>,) {
-    }
+export default class MedicalRecordRepo implements IMedicalRecordRepo {
+  constructor(@Inject('medicalRecordSchema') private medicalRecordSchema: Model<IMedicalRecordPersistence & Document>,) {
+  }
 
-    exists(t: MedicalRecord): Promise<boolean> {
-        return Promise.resolve(false);
-    }
+  exists(t: MedicalRecord): Promise<boolean> {
+    return Promise.resolve(false);
+  }
 
-    public async save(medicalRecord: MedicalRecord, medicalRecordId?: string ): Promise<MedicalRecord> {
+  public async save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
 
-      const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
+    const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
 
-      const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
+    const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
 
-      return MedicalRecordMapper.toDomain(medicalRecordCreated);
-    }
+    return MedicalRecordMapper.toDomain(medicalRecordCreated);
+  }
 
 
-  public async getLastId(): Promise<number> {
+  private async getLastId(): Promise<number> {
     let number = 1;
 
     const medicalRecord = await this.medicalRecordSchema.find();
@@ -48,5 +48,18 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo{
 
     return medicalRecords.map(MedicalRecordMapper.toDomain);
   }
+
+  public async getMedicalRecordById(medicalRecordId: string): Promise<MedicalRecord> {
+    const medicalRecord = await this.medicalRecordSchema
+      .findOne({domainId: medicalRecordId})
+      .exec();
+
+    if (!medicalRecord) {
+      throw new Error(`Medical record with ID ${medicalRecordId} not found`);
+    }
+
+    return MedicalRecordMapper.toDomain(medicalRecord);
+  }
+
 
 }

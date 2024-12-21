@@ -33,7 +33,9 @@ public class OperationRequestTest
     private Specialization CreateSpecialization()
     {
         var name = new SpecializationName("Cardiologia");
-        return new Specialization(name);
+        var code = new SpecializationCode("C1");
+        var description = new SpecializationDescription("Especialização em Cardiologia");
+        return new Specialization(name, code, description);
     }
 
     private Staff CreateStaff()

@@ -26,9 +26,18 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
+import {
+  AddMedicalConditionComponent
+} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
-import { PatientManagementAsDoctorComponent } from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
-import { MedicalRecordDetailsComponent } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
+import {
+  CreateAppointmentComponent
+} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import{  PatientManagementAsDoctorComponent
+} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 
 export const routes: Routes = [
   {
@@ -55,8 +64,10 @@ export const routes: Routes = [
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
-      {path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
-      {path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
+      { path: 'medicalConditionManagement/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
+      { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
+      { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
+      { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
     ],
   },
 
@@ -69,8 +80,6 @@ export const routes: Routes = [
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
-      { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
-      { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
     ],
   },
 

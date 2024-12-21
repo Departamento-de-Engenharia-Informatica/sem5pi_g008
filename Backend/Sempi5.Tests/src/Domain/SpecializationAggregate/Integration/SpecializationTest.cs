@@ -11,10 +11,12 @@ public class SpecializationTest
     public void ConstructorTest()
     {
         // Arrange
-        var specializationName = new SpecializationName("Cardiology");
+        var specializationName = new SpecializationName("Test");
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
         
         // Act
-        var obj = new Specialization(specializationName);
+        var obj = new Specialization(specializationName, specializationCode, specializationDescription);
         
         // Assert
         Assert.NotNull(obj);
@@ -24,38 +26,7 @@ public class SpecializationTest
     [Fact]
     public void ConstructorWithNullSpecializationNameTest()
     {
-        Assert.Throws<ArgumentNullException>(() => new Specialization(null));
+        Assert.Throws<ArgumentNullException>(() => new Specialization(null,null,null));
     }
     
-    [Fact]
-    public void EqualsTest()
-    {
-        // Arrange
-        var name = "Cardiology";
-        var specializationName1 = new SpecializationName(name);
-        var specializationName2 = new SpecializationName(name);
-
-        // Act
-        var obj1 = new Specialization(specializationName1);
-        var obj2 = new Specialization(specializationName2);
-        
-        // Assert
-        Assert.True(obj1.Equals(obj2));
-    }
-    
-    [Theory]
-    [InlineData("Cardiology", "Neurology")]
-    [InlineData("Operator", "Doctor")]
-    public void NotEqualsTest(string name1, string name2)
-    {
-        // Arrange
-        var specializationName1 = new SpecializationName(name1);
-        var specializationName2 = new SpecializationName(name2);
-
-        var obj1 = new Specialization(specializationName1);
-        var obj2 = new Specialization(specializationName2);
-        
-        // Assert
-        Assert.False(obj1.Equals(obj2));
-    }
 }

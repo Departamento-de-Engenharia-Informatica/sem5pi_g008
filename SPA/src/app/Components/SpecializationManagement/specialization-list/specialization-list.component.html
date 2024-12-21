@@ -1,12 +1,21 @@
 <div class="specialization-list">
-
   <div *ngFor="let specialization of specializationList" class="specialization-item">
-    <p><strong>Specialization:</strong> {{ specialization.specializationName }}</p>
+    <div class="specialization-details">
+      <p><strong>Name:</strong> {{ specialization.specializationName }}</p>
+      <p *ngIf="specialization.specializationCode"><strong>Code:</strong> {{ specialization.specializationCode }}</p>
+      <p *ngIf="specialization.specializationDescription">
+        <strong>Description:</strong> {{ specialization.specializationDescription }}
+      </p>
+    </div>
 
-  <app-delete-button
-    (delete)="deleteSpecialization.emit(specialization.specializationName)"
-  ></app-delete-button>
+    <div class="action-buttons">
+      <!-- View Button -->
+      <button class="edit-button" (click)="editSpecialization(specialization)">Edit</button>
 
+      <!-- Delete Button Component -->
+      <app-delete-button
+        (delete)="deleteSpecialization.emit(specialization.specializationName)"
+      ></app-delete-button>
+    </div>
   </div>
 </div>
-

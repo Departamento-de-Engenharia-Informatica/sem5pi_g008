@@ -21,7 +21,7 @@ public class SpecializationService
         
         var specializationNameObj = new SpecializationName(specializationName);
         
-        var specialization = await _specializationRepository.GetActiveBySpecializationName(new Specialization(specializationNameObj));
+        var specialization = await _specializationRepository.GetActiveBySpecializationName(specializationNameObj);
         
         if(specialization == null)
         {
@@ -48,8 +48,9 @@ public class SpecializationService
     
     public async Task DeleteSpecialization(string specializationName)
     {
+        var specializationNameObj = new SpecializationName(specializationName);
         
-        var specialization = await _specializationRepository.GetActiveBySpecializationName(new Specialization(new SpecializationName(specializationName)));
+        var specialization = await _specializationRepository.GetActiveBySpecializationName(specializationNameObj);
 
         if (specialization == null) throw new SpecializationNotFoundException("Specialization not found.");
         
@@ -58,17 +59,24 @@ public class SpecializationService
         await _unitOfWork.CommitAsync();
     }
     
-    public async Task<SpecializationDTO> CreateSpecialization(string specializationName)
+    public async Task<SpecializationDTO> CreateSpecialization(SpecializationDTO dto)
     {
         
-        var specialization = new Specialization(new SpecializationName(specializationName));
+        var specializationName = new SpecializationName(dto.specializationName);
+        var specializationCode = new SpecializationCode(dto.specializationCode);
+
         
-        var spec = await _specializationRepository.GetBySpecializationName(specialization);
+        var spec = await _specializationRepository.GetBySpecializationName(specializationName);
+        var spec2 = await _specializationRepository.GetBySpecializationCode(specializationCode);
         
-        if(spec != null)
+        if(spec != null || spec2 != null)
         {
             throw new SpecializationInUseException("Specialization already exists.");
         }
+        
+        var specializationDescription = new SpecializationDescription(dto.specializationDescription);
+        
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
         
         await _specializationRepository.AddAsync(specialization);
         
@@ -87,6 +95,36 @@ public class SpecializationService
         }
         
         return specializationDTOs;
+    }
+    
+    public async Task UpdateSpecializationName(int specializationId, string newSpecializationName)
+    {
+        
+        var specialization = await _specializationRepository.GetActiveBySpecializationID(new SpecializationID(specializationId));
+        
+        if(specialization == null)
+        {
+            throw new SpecializationNotFoundException("Specialization not found.");
+        }
+        
+        specialization.specializationName = new SpecializationName(newSpecializationName);
+        
+        await _unitOfWork.CommitAsync();
+    }
+    
+    public async Task UpdateSpecializationDescription(int specializationId, string newSpecializationDescription)
+    {
+        
+        var specialization = await _specializationRepository.GetActiveBySpecializationID(new SpecializationID(specializationId));
+        
+        if(specialization == null)
+        {
+            throw new SpecializationNotFoundException("Specialization not found.");
+        }
+        
+        specialization.specializationDescription = new SpecializationDescription(newSpecializationDescription);
+        
+        await _unitOfWork.CommitAsync();
     }
     
 }
