@@ -390,6 +390,9 @@ namespace Sempi5.Services
                             operationRequestDataDto.status = appointment.Status.ToString();
                             operationRequests_status.Add(operationRequestDataDto);
                         }
+                    }else
+                    {
+                        operationRequests_status.Add(operationRequestDataDto);
                     }
                 }
 

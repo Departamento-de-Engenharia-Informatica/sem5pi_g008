@@ -38,6 +38,7 @@ import{  PatientManagementAsDoctorComponent
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {UpdateAppointmentComponent} from './Components/Appointment/update-appointment/update-appointment.component';
 
 export const routes: Routes = [
   {
@@ -78,6 +79,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
       {path: 'appointment', component: CreateAppointmentComponent, title: 'CreateAppointment'},
+      {path: 'appointment/update', component: UpdateAppointmentComponent, title: 'UpdateAppointment'},
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },

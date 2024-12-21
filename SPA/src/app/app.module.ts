@@ -64,6 +64,7 @@ import {
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import { UpdateAppointmentComponent } from './Components/Appointment/update-appointment/update-appointment.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import {
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
     CreateAppointmentComponent,
-    EditSpecializationComponent
+    EditSpecializationComponent,
+    UpdateAppointmentComponent
   ],
   imports: [
     BrowserModule,

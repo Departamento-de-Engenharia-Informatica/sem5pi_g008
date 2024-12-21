@@ -35,11 +35,20 @@ public class AppointmentRepository : BaseRepository<Appointment, AppointmentID>,
 
     public Task<Appointment?> GetAppointmentById(int appointmentId)
     {
-        return context.Appointments.Where(a=>a.Id.Equals(new AppointmentID(appointmentId))).FirstOrDefaultAsync();
+        return context.Appointments.Where(a => a.Id.Equals(new AppointmentID(appointmentId))).FirstOrDefaultAsync();
     }
+
     public async Task addAppointment(Appointment appointment)
     {
         await context.Appointments.AddAsync(appointment);
         await context.SaveChangesAsync();
+    }
+
+    public async Task<List<Appointment>> GetAllAppointmentsAsync()
+    {
+        return await context.Appointments
+            .Include(a => a.OperationRequest)
+            .Include(a => a.SurgeryRoom)
+            .ToListAsync();
     }
 }

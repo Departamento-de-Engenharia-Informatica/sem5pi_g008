@@ -22,12 +22,16 @@ public class AppointmentService
 
     public async Task createAppointment(AppointmentDto appointmentDto)
     {
-        var operationRequest = await _operationRequestRepository.GetOperationRequestById(appointmentDto.operationRequestId);
-        int roomID = int.Parse(appointmentDto.surgeryRoomId);
-        var surgeryRoom = await _surgeryRoomRepository.GetSurgeryRoomById(roomID);
-        DateTime date = DateTime.Parse(appointmentDto.surgeryDate);
-        var appointment = new Appointment(operationRequest, surgeryRoom, date, StatusEnum.SCHEDULED);
-        await _appointmentRepository.addAppointment(appointment);
+        if (appointmentDto.operationRequestId != null)
+        {
+            var operationRequest =
+                await _operationRequestRepository.GetOperationRequestById(appointmentDto.operationRequestId);
+            int roomID = int.Parse(appointmentDto.surgeryRoomId);
+            var surgeryRoom = await _surgeryRoomRepository.GetSurgeryRoomById(roomID);
+            DateTime date = DateTime.Parse(appointmentDto.surgeryDate);
+            var appointment = new Appointment(operationRequest, surgeryRoom, date, StatusEnum.SCHEDULED);
+            await _appointmentRepository.addAppointment(appointment);
+        }
     }
 
     public async Task updateAppointment(AppointmentDto appointmentDto)
@@ -43,5 +47,23 @@ public class AppointmentService
             if (appointmentDto.surgeryRoomId != null) appointment.SurgeryRoom = surgeryRoom;
             await _appointmentRepository.updataAppointment(appointment);
         }
+    }
+
+    public async Task<List<AppointmentDto>> getAppointments()
+    {
+        var appointmentDtoList = new List<AppointmentDto>();
+        var appointment = await _appointmentRepository.GetAllAppointmentsAsync();
+        for (int i = 0; i < appointment.Count; i++)
+        {
+            var appointmentDto = new AppointmentDto();
+            appointmentDto.id = appointment[i].Id.AsString();
+            appointmentDto.operationRequestId = appointment[i].OperationRequest.Id.AsString();
+            appointmentDto.surgeryRoomId = appointment[i].SurgeryRoom.Id.AsString();
+            appointmentDto.surgeryDate = appointment[i].Date.ToString();
+            appointmentDto.status = appointment[i].Status.ToString();
+            appointmentDtoList.Add(appointmentDto);
+        }
+
+        return appointmentDtoList;
     }
 }
