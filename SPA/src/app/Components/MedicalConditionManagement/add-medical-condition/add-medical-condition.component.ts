@@ -41,7 +41,7 @@ export class AddMedicalConditionComponent {
       (response: any) => {
         alert('Medical Condition added successfully!');
 
-        this.router.navigate(['/admin/allergyManagement']);
+        this.router.navigate(['/admin/medicalConditionManagement']);
       },
       (error: any) => {
         alert(error || 'An unknown error occurred.');

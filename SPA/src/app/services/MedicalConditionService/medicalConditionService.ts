@@ -11,7 +11,7 @@ import {MedicalConditionDTO} from "../../DTOs/GenericDTOs/medicalConditionDTO";
 
 export class MedicalConditionService {
 
-  private apiUrl = json.backendApi["2"].url+ '/medicalConditions';
+  private apiUrl = json.backendApi["2"].url + '/medicalConditions';
 
   constructor(private http: HttpClient) {
   }

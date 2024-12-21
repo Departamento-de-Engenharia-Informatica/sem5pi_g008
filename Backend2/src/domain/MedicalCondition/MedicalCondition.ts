@@ -7,7 +7,7 @@ import {Designation} from "./designation";
 import {Description} from "./description";
 
 interface MedicalConditionProps {
-
+    _id?: string;
     code: Code;
     designation: Designation;
     description: Description;

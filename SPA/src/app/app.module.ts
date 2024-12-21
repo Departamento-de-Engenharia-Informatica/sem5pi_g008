@@ -118,7 +118,7 @@ import {
     SpecializationListComponent,
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
-    AddMedicalConditionComponent
+    AddMedicalConditionComponent,
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
     CreateAppointmentComponent,
