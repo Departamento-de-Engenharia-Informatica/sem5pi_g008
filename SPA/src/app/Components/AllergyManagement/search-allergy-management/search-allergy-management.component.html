@@ -15,7 +15,7 @@
 <div class="content">
 
   <app-filter-button
-    *ngIf="allergies.length ==0 && showFilterButton"
+    *ngIf="allergies.length >0 && showFilterButton"
     [filters]="['Allergy']"
     (filterSelected)="handleSelectedFilter($event)"
   ></app-filter-button>
