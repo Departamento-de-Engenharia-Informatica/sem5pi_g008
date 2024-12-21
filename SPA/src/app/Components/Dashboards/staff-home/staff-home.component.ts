@@ -49,6 +49,7 @@ export class StaffHomeComponent {
       case 'doctor':
         return [
           { title: 'Operation Request Management', icon: 'assets/icons/operationRequest.png', link: '/staff/operationRequests' },
+          { title: 'Allergies', icon: 'assets/icons/allergies.png', link:'/staff/searchAllergy'},
           ...commonMenuItems,
         ];
       case 'nurse':

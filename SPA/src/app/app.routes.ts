@@ -70,8 +70,7 @@ export const routes: Routes = [
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
-      { path: 'allergyManagement', component: AllergyManagementComponent, title:'AllergyManagement'},
-      { path: 'allergyManagement/search', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
     ],
   },
 
