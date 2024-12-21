@@ -37,9 +37,7 @@ export class AddMedicalConditionComponent {
       this.medicalConditionDTO.description = this.description;
     }
 
-    const medicalCondition = MedicalConditionMapper.dtoToDomain(this.medicalConditionDTO);
-
-    this.medicalConditionService.addMedicalCondition(medicalCondition).subscribe(
+    this.medicalConditionService.addMedicalCondition(this.medicalConditionDTO).subscribe(
       (response: any) => {
         alert('Medical Condition added successfully!');
 

@@ -64,7 +64,7 @@ export const routes: Routes = [
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
-      { path: 'medicalCondition/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
+      { path: 'medicalConditionManagement/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
       { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
