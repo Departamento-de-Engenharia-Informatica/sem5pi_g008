@@ -1,5 +1,5 @@
 ﻿import {Inject, Service} from "typedi";
-import {Document, Model} from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
 import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordConditionPersistence";
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionRepo from "../services/IRepos/IMedicalRecordConditionRepo";
@@ -40,9 +40,16 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
 
     return number;
   }
-  
-  public async getMedicalRecordConditions(medicalRecordId: string): Promise<MedicalRecordCondition[]> {
-    const medicalRecordConditions = await this.medicalRecordConditionSchema.find({medicalRecordId: medicalRecordId});
-    return medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
+
+  public async getMedicalRecordConditionsWithIds(medicalRecordId: string): Promise<any[]> {
+   
+      const objectId = new mongoose.Types.ObjectId(medicalRecordId);
+
+      const medicalRecordConditions = await this.medicalRecordConditionSchema.find({ medicalRecordId: objectId });
+      
+      medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
+      
+      return medicalRecordConditions;
   }
+
 }

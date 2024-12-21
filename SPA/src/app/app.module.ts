@@ -64,6 +64,9 @@ import {
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {
+  MedicalRecordDetailsComponent
+} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +125,8 @@ import {
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
     CreateAppointmentComponent,
-    EditSpecializationComponent
+    EditSpecializationComponent,
+    MedicalRecordDetailsComponent
   ],
   imports: [
     BrowserModule,

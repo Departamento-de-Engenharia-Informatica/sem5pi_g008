@@ -7,7 +7,18 @@ import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordCo
 
 export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition> {
 
-  public static toDTO(domain: MedicalRecordCondition): IMedicalRecordConditionDTO {
+  public static toDTO(domain: any, medicalConditionDesignation?: string, medicalConditionBusinessId?: string, medicalRecordBusinessId?: string): IMedicalRecordConditionDTO {
+    
+    if (medicalConditionBusinessId && medicalConditionDesignation && medicalRecordBusinessId) {
+      return {
+        conditionId: medicalConditionBusinessId.toString(),
+        conditionDesignation: medicalConditionDesignation,
+        medicalRecordId: medicalRecordBusinessId.toString(),
+        doctorId: domain.doctorId,
+        comment: domain.comment
+      } as IMedicalRecordConditionDTO;
+    }
+
     return {
       conditionId: domain.condition,
       medicalRecordId: domain.medicalRecord,
@@ -17,7 +28,7 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
   }
 
   public static toDomain (medicalRecordCondition: any | Model<IMedicalRecordConditionPersistence & Document> ): MedicalRecordCondition {
-
+    
     const medicalRecordConditionResult = MedicalRecordCondition.create(
       medicalRecordCondition,
       new UniqueEntityID(medicalRecordCondition.domainId)
@@ -47,5 +58,6 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
       doctorId: medicalRecordCondition.doctorId,
     }
   }
-
+  
+  
 }

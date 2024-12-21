@@ -3,5 +3,5 @@ import {MedicalRecordCondition} from "../../domain/MedicalRecordCondition/Medica
 
 export default interface IMedicalRecordConditionRepo extends Repo<MedicalRecordCondition> {
   save(medicalCondition: MedicalRecordCondition): Promise<MedicalRecordCondition>;
-  getMedicalRecordConditions(medicalRecordId: string): Promise<MedicalRecordCondition[]>;
+  getMedicalRecordConditionsWithIds(medicalRecordId: string): Promise<any[]>;
 }

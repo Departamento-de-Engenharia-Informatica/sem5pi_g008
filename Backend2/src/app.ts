@@ -134,12 +134,12 @@ async function startServer() {
   
   const medicalRecordRepo = Container.get(MedicalRecordRepo);
   
-    const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
+   // const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
   
   const medicalRecord =  await medicalRecordRepo.getMedicalRecordById("20241200007");
   
   if(medicalRecord !== null) {
-    await seedData(medicalRecord.props._id);
+  //  await seedData(medicalRecord.props._id);
   }
 
 

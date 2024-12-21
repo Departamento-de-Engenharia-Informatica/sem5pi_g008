@@ -38,6 +38,9 @@ import{  PatientManagementAsDoctorComponent
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {
+  MedicalRecordDetailsComponent
+} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +83,8 @@ export const routes: Routes = [
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
+      { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
+      { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
     ],
   },
 

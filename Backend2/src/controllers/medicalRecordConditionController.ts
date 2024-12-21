@@ -8,17 +8,27 @@ import IMedicalRecordConditionController from "./IControllers/IMedicalRecordCond
 export default class MedicalRecordConditionController implements IMedicalRecordConditionController {
 
     constructor(
-        @Inject(config.services.medicalRecordMedicalCondition.name) private medicalRecordMedicalConditionService: IMedicalRecordConditionService) { }
+        @Inject(config.services.medicalRecordCondition.name) private medicalRecordMedicalConditionService: IMedicalRecordConditionService) { }
     
     
     public async getMedicalRecordConditions(req: any, res: any): Promise<void> {
-        
-        let medicalRecordId = req.query.recordNumberId;
-        
-        console.log("AQUIIII - " + medicalRecordId);
-        
-        await this.medicalRecordMedicalConditionService.getMedicalRecordConditions(medicalRecordId);
-        
+        try {
+            const recordNumberId = req.query.recordNumberId;
+
+            const medicalConditionDTOList = await this.medicalRecordMedicalConditionService.getMedicalRecordConditions(recordNumberId);
+
+            res.status(200).json({
+                medicalRecordConditions: medicalConditionDTOList
+            });
+            
+        } catch (error) {
+            console.error('Error getting medical record conditions:', error.message);
+
+            res.status(500).json({
+                message: 'Error getting medical record conditions',
+
+            });
+        }
     }
     
     
