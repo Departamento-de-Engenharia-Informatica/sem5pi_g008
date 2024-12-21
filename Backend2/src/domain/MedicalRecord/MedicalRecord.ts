@@ -17,13 +17,16 @@ interface MedicalRecordProps {
 
 export class MedicalRecord extends AggregateRoot<MedicalRecordProps> {
 
-
   get id(): UniqueEntityID {
     return this._id;
   }
 
   get domainId(): MedicalRecordId {
     return MedicalRecordId.caller(this.id);
+  }
+
+  getPrivateId(): string {
+    return this.props._id;
   }
 
   get medicalRecordConditions(): MedicalRecordCondition[] {

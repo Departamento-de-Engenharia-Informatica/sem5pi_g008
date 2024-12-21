@@ -14,7 +14,9 @@ export class SpecializationMap {
 
     return {
       specializationID: specializationDTO.specializationID,
-      specializationName: specializationDTO.specializationName
+      specializationName: specializationDTO.specializationName,
+      specializationCode: specializationDTO.specializationCode,
+      specializationDescription: specializationDTO.specializationDescription
     } as Specialization;
 
   }

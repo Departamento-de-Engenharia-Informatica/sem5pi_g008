@@ -46,12 +46,17 @@
     <h3>Required Staff</h3>
     <div class="form-group inline-fields">
       <label for="specialization">Specialization</label>
-      <input
+      <select
         id="specialization"
-        type="text"
         [(ngModel)]="newRequiredStaff.specialization"
         name="specialization"
-      />
+        required
+      >
+        <option *ngFor="let specialization of specializations" [value]="specialization">
+          {{ specialization }}
+        </option>
+      </select>
+
 
       <label for="numberOfStaff">Number</label>
       <input

@@ -15,7 +15,7 @@ import {BackendAllergyDTO} from '../../DTOs/backendDTOs/backendAllergyDTO';
 
 export class AllergyService {
 
-  private apiUrl = json.backend2ApiUrl + '/allergy';
+  private apiUrl = json.backendApi["2"].url + '/allergy';
 
   constructor(private http: HttpClient) {
   }

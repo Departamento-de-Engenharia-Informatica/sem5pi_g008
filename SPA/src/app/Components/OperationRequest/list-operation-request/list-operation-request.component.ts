@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {OperationRequestService} from '../../../services/OperationRequestService/operation-request.service';
-import {OperationRequest} from '../../../Domain/OperationRequest';
-import {Router} from '@angular/router';
-import {PatientProfile} from '../../../Domain/PatientProfile';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { OperationRequestService } from '../../../services/OperationRequestService/operation-request.service';
+import { OperationRequest } from '../../../Domain/OperationRequest';
+import { Router } from '@angular/router';
+import { PatientProfile } from '../../../Domain/PatientProfile';
 
 @Component({
   selector: 'app-list-operation-request',
@@ -10,7 +10,8 @@ import {PatientProfile} from '../../../Domain/PatientProfile';
   styleUrl: './list-operation-request.component.css',
   standalone: false
 })
-export class ListOperationRequestComponent  {
+export class ListOperationRequestComponent {
+  @Output() dataEmitter = new EventEmitter<any>();
 
   searchFilters = {
     patientName: null,
@@ -20,7 +21,7 @@ export class ListOperationRequestComponent  {
   };
 
   searchResults: any[] = [];
-
+  selectedRequest: any = null;  // Para armazenar a requisição de operação selecionada
 
   constructor(private requisitionService: OperationRequestService, private router: Router) {}
 
@@ -35,9 +36,9 @@ export class ListOperationRequestComponent  {
       }
     });
   }
+
   deleteRequest(index: number): void {
     const requestToDeleteId = this.searchResults[index].id.value;
-
 
     const confirmDelete = window.confirm('Are you sure you want to delete this operation requisition?');
 
@@ -55,10 +56,12 @@ export class ListOperationRequestComponent  {
       console.log('Delete action cancelled.');
     }
   }
+  activeTab: string = 'add-request';
 
-  public editRequest(operation: MouseEvent){
+  public editRequest(operation: MouseEvent) {
     this.router.navigate(['staff/operationRequest/edit'], { state: { operation: operation } });
   }
+
   hasStatusColumn(): boolean {
     return this.searchResults.some(result => result.status);
   }
@@ -67,4 +70,21 @@ export class ListOperationRequestComponent  {
     this.router.navigate(['staff/operationRequest/add']);
   }
 
+  // Método para selecionar a requisição de operação
+  public selectRequest(request: any): void {
+    this.selectedRequest = request;
+    console.log('Selected Request:', this.selectedRequest);
+  }
+
+  // Método para criar um agendamento com a requisição selecionada
+  public createAppointment(request: any): void {
+    if (request) {
+      this.dataEmitter.emit(request);
+      console.log('Creating appointment for request ID:', request.id);
+      // Redireciona para a página de criação de agendamento, passando o ID da requisição
+      this.router.navigate(['staff/appointment'], { state: { operationRequestId: request.id } });
+    } else {
+      alert('Please select a request first.');
+    }
+  }
 }

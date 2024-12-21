@@ -2,9 +2,7 @@ import expressLoader from './express';
 import dependencyInjectorLoader from './dependencyInjector';
 import mongooseLoader from './mongoose';
 import Logger from './logger';
-
 import config from '../../config';
-import AllergyService from "../services/allergyService";
 
 export default async ({ expressApp }) => {
   const mongoConnection = await mongooseLoader();
@@ -63,6 +61,16 @@ export default async ({ expressApp }) => {
     path: config.controllers.allergy.path
   }
 
+  const medicalRecordController = {
+    name: config.controllers.medicalRecord.name,
+    path: config.controllers.medicalRecord.path
+  }
+
+  const medicalConditionController = {
+        name: config.controllers.medicalCondition.name,
+        path: config.controllers.medicalCondition.path
+    }
+  
   const roleRepo = {
     name: config.repos.role.name,
     path: config.repos.role.path
@@ -73,10 +81,10 @@ export default async ({ expressApp }) => {
     path: config.repos.user.path
   }
 
-  const medicalConditionRepo = {
-    name: config.repos.medicalCondition.name,
-    path: config.repos.medicalCondition.path
-  }
+   const medicalConditionRepo = {
+        name: config.repos.medicalCondition.name,
+        path: config.repos.medicalCondition.path
+    }
 
   const allergyRepo = {
     name: config.repos.allergy.name,
@@ -112,6 +120,16 @@ export default async ({ expressApp }) => {
     name: config.services.allergy.name,
     path: config.services.allergy.path
   }
+  
+  const medicalConditionService = {
+        name: config.services.medicalCondition.name,
+        path: config.services.medicalCondition.path
+    }
+
+  const medicalRecordService = {
+    name: config.services.medicalRecord.name,
+    path: config.services.medicalRecord.path
+  }
 
   await dependencyInjectorLoader({
     mongoConnection,
@@ -127,7 +145,9 @@ export default async ({ expressApp }) => {
     ],
     controllers: [
       roleController,
-      allergyController
+      allergyController,
+      medicalRecordController,
+      medicalConditionController
     ],
     repos: [
       roleRepo,
@@ -141,7 +161,9 @@ export default async ({ expressApp }) => {
     ],
     services: [
       roleService,
-      allergyService
+      allergyService,
+      medicalRecordService,
+      medicalConditionService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');
