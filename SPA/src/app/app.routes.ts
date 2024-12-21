@@ -26,7 +26,10 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
+import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
 import {
+  SearchAllergyManagementComponent
+} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
   AddMedicalConditionComponent
 } from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
@@ -38,6 +41,7 @@ import{  PatientManagementAsDoctorComponent
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+
 
 export const routes: Routes = [
   {
@@ -80,6 +84,7 @@ export const routes: Routes = [
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
+      { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
     ],
   },
 

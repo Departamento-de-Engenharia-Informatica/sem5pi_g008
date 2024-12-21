@@ -57,6 +57,11 @@ import {DeleteButtonComponent} from './Components/Shared/delete-button/delete-bu
 import { CreateSpecializationComponent } from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 import { AddMedicalConditionComponent } from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
+
+import {
+  SearchAllergyManagementComponent
+} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
+
 import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
 import {
   CreateAppointmentComponent
@@ -64,6 +69,7 @@ import {
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+
 
 @NgModule({
   declarations: [
@@ -118,6 +124,8 @@ import {
     SpecializationListComponent,
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
+    AllergyManagementComponent,
+    SearchAllergyManagementComponent
     AddMedicalConditionComponent,
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
