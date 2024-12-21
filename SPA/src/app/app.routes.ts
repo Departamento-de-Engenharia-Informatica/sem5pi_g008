@@ -27,7 +27,9 @@ import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/ad
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
-import {SearchAllergyComponent} from './Components/AllergyManagement/search-allergy/search-allergy.component';
+import {
+  SearchAllergyManagementComponent
+} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 
 export const routes: Routes = [
   {
@@ -69,7 +71,7 @@ export const routes: Routes = [
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title:'AllergyManagement'},
-      { path: 'allergyManagement/search', component: SearchAllergyComponent, title: 'SearchAllergy'},
+      { path: 'allergyManagement/search', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
     ],
   },
 
