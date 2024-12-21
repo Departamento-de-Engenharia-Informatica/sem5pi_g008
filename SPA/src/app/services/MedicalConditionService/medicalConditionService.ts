@@ -2,8 +2,8 @@
 import json from "../../appsettings.json"
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
-import {MedicalCondition} from '../../Domain/MedicalCondition';
 import {MedicalConditionMapper} from '../../DTOs/mappers/medicalConditionMapper';
+import {MedicalConditionDTO} from "../../DTOs/GenericDTOs/medicalConditionDTO";
 
 @Injectable ({
   providedIn: 'root',
@@ -16,11 +16,12 @@ export class MedicalConditionService {
   constructor(private http: HttpClient) {
   }
 
-  addMedicalCondition(medicalCondition: MedicalCondition): Observable<string> {
+  addMedicalCondition(medicalConditionDTO: MedicalConditionDTO): Observable<string> {
 
-    const medicalConditionDTO = MedicalConditionMapper.domainToBackendDto(medicalCondition);
+    const medicalCondition = MedicalConditionMapper.domainToBackendDto(medicalConditionDTO);
+    const medicalConditionBackendDTO = MedicalConditionMapper.domainToBackendDto(medicalCondition);
 
-    return this.http.post<string>(this.apiUrl, medicalConditionDTO, {
+    return this.http.post<string>(this.apiUrl, medicalConditionBackendDTO, {
       withCredentials: true,
   }).pipe(
 
