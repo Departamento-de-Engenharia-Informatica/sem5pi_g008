@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Sempi5.Domain.AppointmentAggregate;
 using Sempi5.Domain.Encrypt;
 using Sempi5.Domain.OperationRequestAggregate;
+using Sempi5.Domain.OperationRequestAggregate.DTOs;
 using Sempi5.Domain.PatientAggregate;
 using Sempi5.Domain.PersonalData;
 using Sempi5.Domain.PersonalData.Exceptions;
@@ -348,37 +349,48 @@ namespace Sempi5.Services
         }
 
 
-        public async Task<List<OperationRequest>> SearchRequestsAsync(string patientName, string type, string priority,
+        public async Task<List<OperationRequestDataDto>> SearchRequestsAsync(string patientName, string type,
+            string priority,
             string status, string doctorEmail)
         {
             try
             {
                 string doctorId = (await _staffRepository.GetByEmail(doctorEmail)).Id.AsString();
                 List<OperationRequest> operationRequests = new List<OperationRequest>();
-                List<OperationRequest> operationRequests_status = new List<OperationRequest>();
+                List<OperationRequestDataDto> operationRequests_status = new List<OperationRequestDataDto>();
                 operationRequests =
                     await _operationRequestRepository.SearchAsyncWithDoctocId(patientName, type, priority, doctorId);
-
-                if (status != null)
+                for (int i = 0; i < operationRequests.Count; i++)
                 {
-                    for (int i = 0; i < operationRequests.Count; i++)
+                    var operationRequestDataDto = new OperationRequestDataDto();
+                    var operationRequest = operationRequests[i];
+                    var appointment =
+                        await _appointmentRepository.getAppointmentByOperationRequestID(
+                            operationRequest.Id.AsLong());
+
+                    operationRequestDataDto.operationRequestId = operationRequest.Id.AsString();
+                    operationRequestDataDto.patientName = operationRequest.Patient.Person.FullName.ToString();
+                    operationRequestDataDto.operationName = operationRequest.OperationType.Name.ToString();
+                    operationRequestDataDto.operationType = operationRequest.OperationType.Name.ToString();
+                    operationRequestDataDto.deadline = operationRequest.DeadLineDate.ToString();
+                    operationRequestDataDto.priority = operationRequest.PriorityEnum.ToString();
+
+                    if (appointment != null)
                     {
-                        var operationRequest = operationRequests[i];
-                        var appointment =
-                            await _appointmentRepository.getAppointmentByOperationRequestID(
-                                operationRequest.Id.AsLong());
-                        if (appointment != null)
+                        if (status != null)
                         {
                             if (appointment.Status.ToString().ToLower().Equals(status.ToLower()))
                             {
-                                operationRequests_status.Add(appointment.OperationRequest);
+                                operationRequestDataDto.status = appointment.Status.ToString();
+                                operationRequests_status.Add(operationRequestDataDto);
                             }
                         }
+                        else
+                        {
+                            operationRequestDataDto.status = appointment.Status.ToString();
+                            operationRequests_status.Add(operationRequestDataDto);
+                        }
                     }
-                }
-                else
-                {
-                    operationRequests_status = operationRequests;
                 }
 
                 return operationRequests_status;

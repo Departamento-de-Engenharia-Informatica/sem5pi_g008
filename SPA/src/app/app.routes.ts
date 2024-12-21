@@ -77,6 +77,7 @@ export const routes: Routes = [
     data: { roles: appSettings.userRoles.staff},
     children: [
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
+      {path: 'appointment', component: CreateAppointmentComponent, title: 'CreateAppointment'},
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
