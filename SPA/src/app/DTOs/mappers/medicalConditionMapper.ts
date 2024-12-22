@@ -35,4 +35,14 @@ export class MedicalConditionMapper {
     };
   }
 
+  public static backendDtoToDomain(medicalCondition: BackendMedicalConditionDTO): MedicalCondition {
+
+      return {
+        code: medicalCondition.code,
+        designation: medicalCondition.designation,
+        description: medicalCondition.description,
+        symptomsList: medicalCondition.symptomsList
+      };
+    }
+
 }

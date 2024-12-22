@@ -28,7 +28,7 @@ export default (app: Router) => {
     });
 
   route.get('/',
-    //checkRoleAndProceed(['admin']),
+    checkRoleAndProceed(['admin']),
     (req, res, next) => {
       ctrl.getAllMedicalConditions(req, res, next);
     });

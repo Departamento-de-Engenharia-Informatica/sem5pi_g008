@@ -21,7 +21,7 @@ export default {
    */
  /** databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/admin",
   */
-  databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/admin",
+  databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/Mateus?authSource=admin",
 
   /**
    * Your secret sauce
@@ -122,7 +122,7 @@ export default {
         path: "../services/MedicalRecordConditionService"
     }
   },
-  
+
   Google: {
     ClientId: "367986401250-0qiqdf0cot2g1bpu9l0qppcf33633amd.apps.googleusercontent.com",
     Client_Secret: "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"

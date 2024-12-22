@@ -53,7 +53,7 @@ export default class MedicalConditionController implements IMedicalConditionCont
             });
         } catch (error) {
             res.status(500).json({
-                message: 'Error fetching medical conditions',
+                message: 'Error fetching medical conditions' + error,
             });
         }
     }
