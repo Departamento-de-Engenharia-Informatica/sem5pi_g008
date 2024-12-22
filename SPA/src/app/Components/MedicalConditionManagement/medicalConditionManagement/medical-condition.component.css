@@ -93,8 +93,8 @@ h1 {
 .no-conditions-message {
     padding: 15px;
     margin: 20px 0;
-    background-color: #fff3cd; /* Light yellow background */
-    color: #856404; /* Dark yellow text */
+    background-color: #fff3cd;
+    color: #856404;
     border: 1px solid #ffeeba;
     border-radius: 5px;
     text-align: center;

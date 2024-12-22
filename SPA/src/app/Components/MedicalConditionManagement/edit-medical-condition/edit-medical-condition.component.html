@@ -1,0 +1,62 @@
+<div class="edit-medical-condition">
+  <h2>Edit Medical Condition</h2>
+
+  <form (ngSubmit)="editMedicalCondition()">
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input
+        id="code"
+        type="text"
+        [(ngModel)]="updatedMedicalCondition.code"
+        name="code"
+        readonly
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="designation">Designation</label>
+      <input
+        id="designation"
+        type="text"
+        [(ngModel)]="updatedMedicalCondition.designation"
+        name="designation"
+        readonly
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        id="description"
+        type="text"
+        [(ngModel)]="updatedMedicalCondition.description"
+        name="description"
+        placeholder="Enter the description... (Maximum 2048 characters)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="symptom">Symptoms</label>
+      <div class="symptom-input">
+        <input
+          id="symptom"
+          type="text"
+          [(ngModel)]="newSymptom"
+          name="symptom"
+          placeholder="Enter a symptom"
+        />
+        <button type="button" (click)="addSymptom()" [disabled]="!newSymptom.trim()">Add</button>
+      </div>
+      <div class="symptoms-list">
+        <div class="symptom-item" *ngFor="let symptom of updatedMedicalCondition.symptomsList; let i = index">
+          <span>{{ symptom }}</span>
+          <button type="button" (click)="removeSymptom(i)">x</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!updatedMedicalCondition.code.trim() || !updatedMedicalCondition.designation.trim()">Edit Medical Condition</button>
+  </form>
+
+  <app-home-button></app-home-button>
+</div>

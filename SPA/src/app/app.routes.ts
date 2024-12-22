@@ -39,6 +39,9 @@ import {
 import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
+import {
+  EditMedicalConditionComponent
+} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +70,7 @@ export const routes: Routes = [
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
       { path: 'medicalConditionManagement', component: MedicalConditionManagementComponent, title: 'MedicalConditionManagement'},
       { path: 'medicalConditionManagement/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
+      { path: 'medicalConditionManagement/edit', component: EditMedicalConditionComponent, title: 'EditMedicalCondition' },
       { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
