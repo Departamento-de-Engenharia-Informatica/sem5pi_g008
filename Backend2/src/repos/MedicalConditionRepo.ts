@@ -5,6 +5,10 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
+import {Designation} from "../domain/MedicalCondition/designation";
+import {Description} from "../domain/MedicalCondition/description";
+import {Code} from "../domain/MedicalCondition/code";
+import {cloneWith} from "lodash";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
@@ -52,6 +56,47 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
         const userDocument = await this.medicalConditionSchema.findOne(query);
 
         return !!userDocument === true;
+    }
+    
+    public async getMedicalConditionByCode(code: Code): Promise<MedicalCondition> {
+        const query = {code: code.value};
+        const medicalCondition = await this.medicalConditionSchema.findOne(query);
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    } 
+    public async searchDesignation(query: string): Promise<MedicalCondition[]> { 
+        try {
+            const conditions = await this.medicalConditionSchema.find(
+                    { designation: query}).exec();
+            console.log("Conditions: ", conditions);
+            
+
+            if (!conditions || conditions.length === 0) {
+                return [];
+            } 
+
+            return conditions.map((condition) => MedicalConditionMap.toDomain(condition));
+        } catch (error) {
+            console.error("Error while searching for medical conditions:", error);
+            throw new Error("Failed to search medical conditions.");
+        } 
+    }
+    public async searchCode(query: string): Promise<MedicalCondition[]> {
+        try {
+            const conditions = await this.medicalConditionSchema.find(
+                { code: query}).exec();
+            console.log("Conditions: ", conditions);
+
+
+            if (!conditions || conditions.length === 0) {
+                return [];
+            }
+
+            return conditions.map((condition) => MedicalConditionMap.toDomain(condition));
+        } catch (error) {
+            console.error("Error while searching for medical conditions:", error);
+            throw new Error("Failed to search medical conditions.");
+        }
     }
 
     public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {

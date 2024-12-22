@@ -15,9 +15,10 @@ export class MedicalConditionId extends Entity<any> {
         const auxId = id.toString();
         let regex = /^\d+$/;
         if(!regex.test(auxId)) {
-            throw new Error("AllergyId must contain only digits");
+            throw new Error("MedicalConditionId must contain only digits");
         }
         
         super(null, id)
     }
 }
+ 
