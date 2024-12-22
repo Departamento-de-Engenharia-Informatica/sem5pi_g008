@@ -1,7 +1,7 @@
-﻿export interface MedicalRecordCondition {
-  conditionId: string;
+﻿export interface BackendMedicalRecordConditionDTO{
+  conditionId?: string;
   conditionDesignation: string;
-  medicalRecordId: string;
+  medicalRecordId?: string;
   doctorName: string;
   doctorLicenseNumber?: number;
   comment: string;

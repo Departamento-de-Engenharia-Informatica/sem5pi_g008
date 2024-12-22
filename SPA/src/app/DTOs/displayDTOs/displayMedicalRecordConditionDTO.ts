@@ -1,7 +1,6 @@
 ﻿export interface DisplayMedicalRecordConditionDTO{
-  conditionId: string;
   conditionDesignation: string;
-  medicalRecordId: string;
-  doctorId: string;
+  doctorName: string;
+  doctorLicenseNumber?: number;
   comment: string;
 }

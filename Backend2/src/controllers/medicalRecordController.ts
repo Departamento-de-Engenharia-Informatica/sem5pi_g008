@@ -3,15 +3,15 @@ import IMedicalRecordController from "./IControllers/IMedicalRecordController";
 import config from "../../config";
 import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
+import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
+import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
 
 
 @Service()
 export default class MedicalRecordController implements IMedicalRecordController {
 
   constructor(
-    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService
-  ) {
-  }
+    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,) {}
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -35,6 +35,44 @@ export default class MedicalRecordController implements IMedicalRecordController
           details: error.message
         });
       }
+    }
+  }
+
+  public async getMedicalRecordConditions(req: any, res: any): Promise<void> {
+    try {
+
+      let medicalRecordId = req.params.id;
+
+      console.log('medicalRecordId:', medicalRecordId);
+      
+      const medicalConditionDTOList = await this.medicalRecordInstance.getMedicalRecordConditions(medicalRecordId);
+
+      res.status(200).json({
+        medicalRecordConditions: medicalConditionDTOList
+      });
+
+    } catch (error) {
+
+      if (error instanceof NoMedicalRecordConditionsException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }      
+      
+      console.log(error);
+      
+      res.status(500).json({
+        message: 'Error getting medical record conditions.',
+
+      });
     }
   }
 

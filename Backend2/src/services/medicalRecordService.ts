@@ -8,6 +8,13 @@ import IMedicalRecordAllergyRepo from "./IRepos/IMedicalRecordAllergyRepo";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
+import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
+import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
+import IStaffDetailsDTO from "../dto/IStaffDetailsDTO";
+import http from "node:http";
+import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
+import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
+import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
 
 
 @Service()
@@ -15,7 +22,9 @@ export default class MedicalRecordService implements IMedicalRecordService{
     constructor(
         @Inject(config.repos.medicalRecord.name) private medicalRecordRepo:IMedicalRecordRepo,
         @Inject(config.repos.medicalRecordAllergy.name) private medicalRecordAllergyRepo: IMedicalRecordAllergyRepo,
-        @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo
+        @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo,
+        @Inject(config.repos.medicalRecordCondition.name) private medicalRecordConditionRepo: IMedicalRecordConditionRepo,
+        @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
     ) {}
 
     public async createMedicalRecord(medicalRecordId:string): Promise<void> {
@@ -53,6 +62,68 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
     private async getDoctorName(doctorId: string): Promise<string> {
       return "Doctor";
+    }
+
+    public async getMedicalRecordConditions(medicalRecordId: string): Promise<any> {
+
+        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+        
+        if(!medicalRecord) {
+            throw new NoMedicalRecordException();
+        }
+        
+        console.log('medicalRecord:', medicalRecord);
+        
+        console.log('medicalRecord.props._id:', medicalRecord.props._id.toString());
+        
+        const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
+
+        if (medicalRecordConditionList.length === 0) {
+            throw new NoMedicalRecordConditionsException();
+        }
+
+        const medicalRecordConditionDTOList = [];
+
+        for (const medicalRecordCondition of medicalRecordConditionList) {
+
+            const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
+
+            const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
+
+            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition, condition.designation, condition.id, medicalRecord.id, staffDetailsDTO);
+
+            medicalRecordConditionDTOList.push(medicalConditionDTO);
+        }
+
+        return medicalRecordConditionDTOList;
+    }
+
+    private async getStaffDetails(staffId: string): Promise<IStaffDetailsDTO> {
+
+        const url = config.Backend1.URL + '/Staff';
+        const urlApi = `${url}/by-id/${staffId}`;
+
+        return new Promise((resolve, reject) => {
+            http.get(urlApi, (res) => {
+                let data = '';
+
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                res.on('end', () => {
+
+                    try {
+                        const staff: IStaffDetailsDTO = JSON.parse(data);
+                        resolve(staff);
+                    } catch (error) {
+                        resolve(undefined);
+                    }
+                });
+            }).on('error', (error) => {
+                reject(error);
+            });
+        });
     }
 }
 

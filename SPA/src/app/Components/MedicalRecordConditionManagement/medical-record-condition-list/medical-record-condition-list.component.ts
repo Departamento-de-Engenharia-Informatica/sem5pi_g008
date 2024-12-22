@@ -23,22 +23,17 @@ export class MedicalRecordConditionListComponent implements OnInit {
     this.fetchMedicalRecordConditions();
   }
 
-  fetchMedicalRecordConditions() {
-    this.medicalRecordConditionService.listMedicalRecordConditionsByMedicalRecordId(this.medicalRecordId).subscribe(
-      (medicalRecordConditions) => {
-        for (let medicalCondition of medicalRecordConditions.medicalRecordConditions) {
-
-          this.medicalRecordConditions.push(MedicalRecordConditionMapper.domainToDisplayDto(medicalCondition));
-
+  fetchMedicalRecordConditions(): void {
+    this.medicalRecordConditionService.listMedicalRecordConditionsByMedicalRecordId(this.medicalRecordId)
+      .subscribe(
+        (response : any) => {
+          this.medicalRecordConditions = response.medicalRecordConditions;
+        },
+        (error) => {
+          this.errorMessage = error;
+          console.error('Failed to load medical record conditions:', error);
         }
-      },
-      (error) => {
-
-        this.errorMessage = error;
-
-        console.error('Failed to load allergies:', error);
-      }
-    );
+      );
   }
 
 

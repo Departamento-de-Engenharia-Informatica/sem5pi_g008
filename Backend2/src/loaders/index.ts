@@ -71,11 +71,6 @@ export default async ({ expressApp }) => {
         path: config.controllers.medicalCondition.path
     }
     
-    const medicalRecordConditionController = {
-        name: config.controllers.medicalRecordCondition.name,
-      path: config.controllers.medicalRecordCondition.path
-    }
-  
   const roleRepo = {
     name: config.repos.role.name,
     path: config.repos.role.path
@@ -135,11 +130,6 @@ export default async ({ expressApp }) => {
     name: config.services.medicalRecord.name,
     path: config.services.medicalRecord.path
   }
-  
-  const medicalRecordConditionService = {
-        name: config.services.medicalRecordCondition.name,
-    path: config.services.medicalRecordCondition.path
-    }
 
   await dependencyInjectorLoader({
     mongoConnection,
@@ -158,7 +148,6 @@ export default async ({ expressApp }) => {
       allergyController,
       medicalRecordController,
       medicalConditionController,
-        medicalRecordConditionController
     ],
     repos: [
       roleRepo,
@@ -174,8 +163,7 @@ export default async ({ expressApp }) => {
       roleService,
       allergyService,
       medicalRecordService,
-      medicalConditionService,
-        medicalRecordConditionService
+      medicalConditionService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

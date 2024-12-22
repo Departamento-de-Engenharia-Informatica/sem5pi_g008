@@ -26,6 +26,7 @@ using Sempi5.Infrastructure.SpecializationRepository;
 using Sempi5.Infrastructure.StaffAggregate;
 using Sempi5.Infrastructure.StaffRepository;
 using Sempi5.Infrastructure.UserRepository;
+using Sempi5.Mappers;
 
 namespace Sempi5.Services
 {
@@ -138,6 +139,20 @@ namespace Sempi5.Services
             }
 
             return staff;
+        }
+        
+        public async Task<StaffDetailsDTO> GetStaffDetailsById(string id)
+        {
+            var staff = await _staffRepository.GetActiveStaffById(new StaffId(id));
+            
+            if (staff == null)
+            {
+                throw new ArgumentException("Staff not found.");
+            }
+
+            var staffDTO = StaffMapper.toDTO(staff);
+            
+            return staffDTO;
         }
 
 

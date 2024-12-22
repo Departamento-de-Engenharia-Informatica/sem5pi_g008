@@ -56,7 +56,7 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
       .exec();
 
     if (!medicalRecord) {
-      throw new Error(`Medical record with ID ${medicalRecordId} not found`);
+      return undefined;
     }
 
     return MedicalRecordMapper.toDomain(medicalRecord);

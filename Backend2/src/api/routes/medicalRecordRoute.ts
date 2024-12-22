@@ -28,4 +28,11 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
+
+    route.get('/:id/condition',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getMedicalRecordConditions(req, res, next);
+        }
+    );
 };
