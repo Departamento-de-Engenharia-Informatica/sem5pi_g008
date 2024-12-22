@@ -4,4 +4,6 @@
 export default interface IMedicalRecordController{
     createMedicalRecord(req: Request, res: Response, next: NextFunction);
     getAllergies(req: Request, res: Response, next: NextFunction);
+    addFreeText(req: Request, res: Response, next: NextFunction);
+
 }

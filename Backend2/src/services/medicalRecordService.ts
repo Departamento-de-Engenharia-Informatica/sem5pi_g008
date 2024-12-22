@@ -8,6 +8,9 @@ import IMedicalRecordAllergyRepo from "./IRepos/IMedicalRecordAllergyRepo";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
+import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
+import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
+import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 
 
 @Service()
@@ -15,7 +18,8 @@ export default class MedicalRecordService implements IMedicalRecordService{
     constructor(
         @Inject(config.repos.medicalRecord.name) private medicalRecordRepo:IMedicalRecordRepo,
         @Inject(config.repos.medicalRecordAllergy.name) private medicalRecordAllergyRepo: IMedicalRecordAllergyRepo,
-        @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo
+        @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo,
+        @Inject(config.repos.medicalRecordFreeText.name) private medicalRecordFreeTextRepo: IMedicalRecordFreeTextRepo
     ) {}
 
     public async createMedicalRecord(medicalRecordId:string): Promise<void> {
@@ -54,5 +58,16 @@ export default class MedicalRecordService implements IMedicalRecordService{
     private async getDoctorName(doctorId: string): Promise<string> {
       return "Doctor";
     }
+
+
+    public async addFreeText(medicalRecord: any): Promise<any> {
+
+        const medicalRecordDomain=MedicalRecordFreeTextMap.toDomain(medicalRecord);
+        await this.medicalRecordFreeTextRepo.save(medicalRecordDomain);
+
+    }
+
 }
+
+
 
