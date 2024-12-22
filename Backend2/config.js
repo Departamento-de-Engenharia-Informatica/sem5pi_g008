@@ -59,6 +59,10 @@ export default {
       name:"MedicalRecordController",
       path:"../controllers/MedicalRecordController"
     },
+      medicalRecordCondition: {
+          name: "MedicalRecordConditionController",
+          path: "../controllers/MedicalRecordConditionController"
+      }
   },
 
   repos: {
@@ -113,6 +117,10 @@ export default {
       name: "MedicalRecordService",
       path:"../services/MedicalRecordService"
     },
+    medicalRecordCondition: {
+        name: "MedicalRecordConditionService",
+        path: "../services/MedicalRecordConditionService"
+    }
   },
   
   Google: {
