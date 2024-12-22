@@ -82,8 +82,8 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordCondition = MedicalRecordCondition.create(medicalRecordConditionProps);
   const medicalRecordCondition2 = MedicalRecordCondition.create(medicalRecordConditionProps2);
-  await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
-  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
+ // await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
+//  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
 
   const medicalAllergyRepo = Container.get(AllergyRepo);
   const allergyProps = {
@@ -102,15 +102,15 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordAllergyRepo = Container.get(MedicalRecordAllergyRepo);
   const medicalRecordAllergyProps = {
-    allergy: a1.props._id,
-    medicalRecord: medicalRecordId,
+    allergyId: a1.props._id,
+    medicalRecordId: medicalRecordId,
     doctorId: "N202400005",
     comment: "THE GUY IS ALLERGIC TO PENICILLIN"
   }
 
   const medicalRecordAllergyProps2 = {
-    allergy: a2.props._id,
-    medicalRecord: medicalRecordId,
+    allergyId: a2.props._id,
+    medicalRecordId: medicalRecordId,
     doctorId: "N202400005",
     comment: "THE GUY IS ALLERGIC TO ASPIRIN"
   }
@@ -127,13 +127,14 @@ async function startServer() {
 
   await require('./loaders').default({expressApp: app});
 
+
   try {
     const medicalRecordProps = {}
      const medicalRecordd = MedicalRecord.create(medicalRecordProps).getValue();
     const medicalRecordRepo = Container.get(MedicalRecordRepo);
     const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
     const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200007");
-
+    
     if (medicalRecord !== null) {
       await seedData(medicalRecord.props._id);
     }
