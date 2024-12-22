@@ -68,6 +68,11 @@ export default class AllergyRepo implements IAllergyRepo {
         return aux;
     }
 
+
+  public async getById(id: string): Promise<Allergy> {
+    return this.allergySchema.findOne({_id: id});
+  }
+  
     public async search(allergy: string): Promise<Allergy> {
         
         const allergies = await this.allergySchema.findOne({allergy: allergy});

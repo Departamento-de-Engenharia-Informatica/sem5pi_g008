@@ -22,4 +22,10 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.createMedicalRecord(req, res, next);
     });
+
+  route.get('/:id/allergy',
+    //checkRoleAndProceed(['admin','doctor']),
+    (req, res, next) => {
+      ctrl.getAllergies(req, res, next);
+    });
 };

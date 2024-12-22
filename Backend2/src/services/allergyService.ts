@@ -33,4 +33,8 @@ export default class AllergyService implements IAllergyService {
     return AllergyMap.toDTO(aux);
   }
 
+  public async getAllergyFromId(id: string): Promise<any> {
+    return await this.allergyRepo.getById(id);
+  }
+
 }
