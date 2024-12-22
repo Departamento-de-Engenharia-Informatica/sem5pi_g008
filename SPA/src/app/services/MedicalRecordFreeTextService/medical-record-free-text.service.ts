@@ -2,7 +2,6 @@
 import json from '../../appsettings.json';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
-import {MedicalRecordCondition} from '../../Domain/MedicalRecordCondition';
 import {MedicalRecordFreeText} from '../../Domain/MedicalRecordFreeText';
 
 
@@ -33,5 +32,26 @@ export class MedicalRecordFreeTextService{
         return throwError(errorMessage);
       })
     );
+  }
+
+  addMedicalRecordFreeText(medicalRecordFreeText: MedicalRecordFreeText ): Observable<{medicalRecordFreeText: MedicalRecordFreeText}>{
+    const url = `${this.apiUrl}?recordNumberId=${medicalRecordFreeText.medicalRecordId}`;
+
+    return this.http.post<{medicalRecordFreeText:MedicalRecordFreeText }>(url, {
+      withCredentials:true
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An unknown error occurred.';
+
+        if(error.status === 850) {
+          errorMessage = error.error.message;
+        }
+
+        return throwError(errorMessage);
+      })
+    );
+
+
+
   }
 }

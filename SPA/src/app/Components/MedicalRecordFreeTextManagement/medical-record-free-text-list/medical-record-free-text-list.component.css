@@ -80,3 +80,26 @@
 .medical-record-free-text-item {
   margin-bottom: 10px;
 }
+
+.add-button {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  background-color: #2196f3; /* Changed to blue */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #1976d2; /* Darker shade of blue for hover effect */
+}
+
+.button-container {
+  display: flex;
+  align-items: center; /* Alinha os botões verticalmente */
+  gap: 10px; /* Espaçamento entre os botões */
+}

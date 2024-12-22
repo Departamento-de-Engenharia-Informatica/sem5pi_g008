@@ -77,6 +77,9 @@ import {
   MedicalRecordFreeTextListComponent
 } from './Components/MedicalRecordFreeTextManagement/medical-record-free-text-list/medical-record-free-text-list.component';
 import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextService/medical-record-free-text.service';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
 
 
 @NgModule({
@@ -141,7 +144,8 @@ import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextServ
     EditSpecializationComponent,
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
-    MedicalRecordFreeTextListComponent
+    MedicalRecordFreeTextListComponent,
+    AddMedicalRecordFreeTextComponent
   ],
   imports: [
     BrowserModule,
