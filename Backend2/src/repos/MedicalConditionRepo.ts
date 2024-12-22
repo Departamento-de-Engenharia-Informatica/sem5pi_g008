@@ -1,6 +1,6 @@
 ﻿import {Service, Inject} from 'typedi';
 import IMedicalConditionRepo from "../services/IRepos/IMedicalConditionRepo";
-import {Document, Model} from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
 import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersistence";
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
@@ -53,5 +53,15 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
         return !!userDocument === true;
     }
+
+    public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {
+        
+        const objectId = new mongoose.Types.ObjectId(medicalConditionId);
+        
+        const medicalCondition = await this.medicalConditionSchema.findOne( { _id: objectId }).exec();
+        
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+
 
 }
