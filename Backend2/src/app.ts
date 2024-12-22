@@ -50,7 +50,7 @@ async function seedData(medicalRecordId: string) {
     designation: Designation.create("CANCER").getValue(),
     description: Description.create("CANCER IS A BAD CONDITION").getValue(),
     symptomsList: ["COUGH", "HEADACHE"]
-    
+
   };
 
   const medicalConditionProps2 = {
@@ -82,8 +82,8 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordCondition = MedicalRecordCondition.create(medicalRecordConditionProps);
   const medicalRecordCondition2 = MedicalRecordCondition.create(medicalRecordConditionProps2);
- // await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
-//  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
+  await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
+  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
 
   const medicalAllergyRepo = Container.get(AllergyRepo);
   const allergyProps = {
@@ -134,11 +134,11 @@ async function startServer() {
     const medicalRecordRepo = Container.get(MedicalRecordRepo);
     const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
     const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200007");
-    
+
     if (medicalRecord !== null) {
       await seedData(medicalRecord.props._id);
     }
-    
+
   } catch (ignored) {}
 
 

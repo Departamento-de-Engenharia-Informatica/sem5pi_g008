@@ -15,13 +15,13 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     }
 
     public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
-        
+
         if(id === undefined) {
             id = await this.getLastId() + 1;
         }
-        
+
         const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
-        
+
         const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
 
         return MedicalConditionMap.toDomain(medicalConditionCreated);
@@ -55,13 +55,17 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     }
 
     public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {
-        
+
         const objectId = new mongoose.Types.ObjectId(medicalConditionId);
-        
+
         const medicalCondition = await this.medicalConditionSchema.findOne( { _id: objectId }).exec();
-        
+
         return MedicalConditionMap.toDomain(medicalCondition);
     }
 
+    public async getAll(): Promise<MedicalCondition[]> {
+        const medicalConditions = await this.medicalConditionSchema.find();
+        return medicalConditions.map((medicalCondition) => MedicalConditionMap.toDomain(medicalCondition));
+    }
 
 }

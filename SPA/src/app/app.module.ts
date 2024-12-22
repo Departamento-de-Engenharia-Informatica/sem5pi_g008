@@ -73,6 +73,9 @@ import {
   MedicalRecordDetailsComponent
 } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import { MedicalRecordConditionListComponent } from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
+import {
+  MedicalConditionManagementComponent
+} from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 
 
 @NgModule({
@@ -136,7 +139,8 @@ import { MedicalRecordConditionListComponent } from './Components/MedicalRecordC
     CreateAppointmentComponent,
     EditSpecializationComponent,
     MedicalRecordDetailsComponent,
-    MedicalRecordConditionListComponent
+    MedicalRecordConditionListComponent,
+    MedicalConditionManagementComponent
   ],
   imports: [
     BrowserModule,

@@ -21,41 +21,41 @@ export class MedicalCondition extends AggregateRoot<MedicalConditionProps> {
     }
 
     get domainId(): MedicalConditionId {
-        return MedicalConditionId.caller(this.id);
+      return new MedicalConditionId(this.id);
     }
 
     get code(): Code {
         return this.props.code;
     }
-    
+
     get designation(): Designation {
         return this.props.designation;
     }
-    
+
     get description(): Description {
         return this.props.description;
     }
-    
+
     get symptomsList(): string[] {
         return this.props.symptomsList;
     }
-    
+
     private setCode(code: Code): void {
         this.props.code = code;
     }
-    
+
     private setDesignation(designation: Designation): void {
         this.props.designation = designation;
     }
-    
+
     private setDescription(description: Description): void {
         this.props.description = description;
     }
-    
+
     private setSymptomsList(symptomsList: string[]): void {
         this.props.symptomsList = symptomsList;
     }
-    
+
 
     private constructor(props: MedicalConditionProps, id?: UniqueEntityID) {
         if (id) {

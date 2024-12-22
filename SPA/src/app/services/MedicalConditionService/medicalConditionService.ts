@@ -1,9 +1,10 @@
 ﻿import {Injectable} from '@angular/core';
 import json from "../../appsettings.json"
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, map, Observable, throwError} from 'rxjs';
 import {MedicalConditionMapper} from '../../DTOs/mappers/medicalConditionMapper';
 import {MedicalConditionDTO} from "../../DTOs/GenericDTOs/medicalConditionDTO";
+import {BackendMedicalConditionDTO} from '../../DTOs/backendDTOs/backendMedicalConditionDTO';
 
 @Injectable ({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class MedicalConditionService {
 
   addMedicalCondition(medicalConditionDTO: MedicalConditionDTO): Observable<string> {
 
-    const medicalCondition = MedicalConditionMapper.domainToBackendDto(medicalConditionDTO);
+    const medicalCondition = MedicalConditionMapper.dtoToDomain(medicalConditionDTO);
     const medicalConditionBackendDTO = MedicalConditionMapper.domainToBackendDto(medicalCondition);
 
     return this.http.post<string>(this.apiUrl, medicalConditionBackendDTO, {
@@ -40,6 +41,38 @@ export class MedicalConditionService {
       })
     );
   }
+
+  getAllMedicalConditions(): Observable<any[]> {
+    return this.http.get<any>(this.apiUrl, { withCredentials: true }).pipe(
+      map((response: any) => {
+        if (response && Array.isArray(response.medicalConditions)) {
+          return response.medicalConditions.map((backendDto: BackendMedicalConditionDTO) => {
+            const domainModel = MedicalConditionMapper.backendDtoToDomain(backendDto);
+            return MedicalConditionMapper.domainToDisplayDto(domainModel);
+          });
+        } else {
+          throw new TypeError('medicalConditions is not an array or is missing');
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An unknown error occurred.';
+
+        if (error.status >= 805 && error.status <= 809) {
+          errorMessage = error.error?.message || 'Backend-specific error occurred.';
+        }
+
+        if (error.status === 500) {
+          errorMessage = error.error?.message || 'Internal server error.';
+        }
+
+        console.error('Error loading medical conditions:', error);
+
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+
 }
 
 
