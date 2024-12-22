@@ -21,7 +21,7 @@ export default {
    */
  /** databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/admin",
   */
-  databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/Mateus?authSource=admin",
+  databaseURL: process.env.MONGODB_URI || "mongodb://mongoadmin:0660b65e64513ce6c40897aa@vsgate-s1.dei.isep.ipp.pt:10782/admin",
 
   /**
    * Your secret sauce
