@@ -36,7 +36,7 @@ export class MedicalRecordConditionListComponent implements OnInit {
 
         this.errorMessage = error;
 
-        console.error('Failed to load allergies:', error);
+        console.error('Failed to load medical conditions:', error);
       }
     );
   }

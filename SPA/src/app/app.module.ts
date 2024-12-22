@@ -73,6 +73,10 @@ import {
   MedicalRecordDetailsComponent
 } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import { MedicalRecordConditionListComponent } from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
+import {
+  MedicalRecordFreeTextListComponent
+} from './Components/MedicalRecordFreeTextManagement/medical-record-free-text-list/medical-record-free-text-list.component';
+import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextService/medical-record-free-text.service';
 
 
 @NgModule({
@@ -136,7 +140,8 @@ import { MedicalRecordConditionListComponent } from './Components/MedicalRecordC
     CreateAppointmentComponent,
     EditSpecializationComponent,
     MedicalRecordDetailsComponent,
-    MedicalRecordConditionListComponent
+    MedicalRecordConditionListComponent,
+    MedicalRecordFreeTextListComponent
   ],
   imports: [
     BrowserModule,

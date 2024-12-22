@@ -1,0 +1,50 @@
+﻿import {Component, Inject, Input, OnInit} from '@angular/core';
+import {
+  MedicalRecordFreeTextService
+} from '../../../services/MedicalRecordFreeTextService/medical-record-free-text.service';
+import {MedicalRecordFreeTextMapper} from '../../../DTOs/mappers/medicalRecordFreeTextMapper';
+import {DisplayMedicalRecordFreeTextDTO} from '../../../DTOs/displayDTOs/displayMedicalRecordFreeTextDTO';
+
+@Component({
+  selector:'app-medical-record-free-text-list',
+  templateUrl:'app-medical-record-free-text-list.component.html',
+  styleUrl:'app-medical-record-free-text-list.component.css'
+})
+
+export class MedicalRecordFreeTextListComponent implements OnInit{
+
+  constructor(@Inject(MedicalRecordFreeTextService) private medicalRecordFreeTextService : MedicalRecordFreeTextService) {
+  }
+
+
+  public errorMessage: string = "";
+  public medicalRecordFreeTexts: DisplayMedicalRecordFreeTextDTO[] = [];
+  @Input() public medicalRecordId: string = "";
+
+
+
+  ngOnInit(): void {
+    this.fetchMedicalRecordFreeTexts();
+  }
+
+  fetchMedicalRecordFreeTexts() {
+    this.medicalRecordFreeTextService.listMedicalRecordFreeTextByMedicalRecordId(this.medicalRecordId).subscribe(
+      (medicalRecordFreeTexts) => {
+        for (let freeText of medicalRecordFreeTexts.medicalRecordFreeText) {
+
+          this.medicalRecordFreeTexts.push(MedicalRecordFreeTextMapper.domainToDisplayDto(freeText));
+
+        }
+      },
+      (error) => {
+
+        this.errorMessage = error;
+
+        console.error('Failed to load comments:', error);
+      }
+    );
+  }
+
+
+
+}
