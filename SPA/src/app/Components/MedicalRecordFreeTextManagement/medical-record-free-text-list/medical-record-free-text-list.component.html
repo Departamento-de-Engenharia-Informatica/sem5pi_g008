@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+﻿<h2 class="sub-header">Comments</h2>
+<div *ngIf="errorMessage" class="no-medical-record-free-text">
+  <p>{{ errorMessage }}</p>
+</div>
+<div class="medical-record-free-text-list-container">
+  <div *ngFor="let medicalRecordFreeText of medicalRecordFreeTexts" class="medical-record-free-text-item">
+    <div class="medical-record-free-text-details">
+      <p><strong>Commented By:</strong> {{ medicalRecordFreeText.doctorId }}</p>
+      <p><strong>Comment:</strong> {{ medicalRecordFreeText.comment }}</p>
+    </div>
+  </div>
+</div>

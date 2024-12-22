@@ -7,8 +7,8 @@ import {DisplayMedicalRecordFreeTextDTO} from '../../../DTOs/displayDTOs/display
 
 @Component({
   selector:'app-medical-record-free-text-list',
-  templateUrl:'app-medical-record-free-text-list.component.html',
-  styleUrl:'app-medical-record-free-text-list.component.css'
+  templateUrl:'./medical-record-free-text-list.component.html',
+  styleUrl:'./medical-record-free-text-list.component.css'
 })
 
 export class MedicalRecordFreeTextListComponent implements OnInit{
