@@ -41,4 +41,12 @@ export default class MedicalRecordAllergyRepo implements IMedicalRecordAllergyRe
     return number;
   }
 
+  public async getByMedicalId(medicalRecordId: string): Promise<MedicalRecordAllergy[]> {
+    const medicalRecordAllergies = await this.medicalRecordAllergySchema
+      .find({medicalRecordId: medicalRecordId})
+      .exec();
+
+    return medicalRecordAllergies.map(MedicalRecordAllergyMapper.toDomain);
+  }
+
 }

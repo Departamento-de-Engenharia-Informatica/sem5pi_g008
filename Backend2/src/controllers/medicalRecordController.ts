@@ -2,7 +2,7 @@ import {Inject, Service} from "typedi";
 import IMedicalRecordController from "./IControllers/IMedicalRecordController";
 import config from "../../config";
 import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
-import IMedicalRecordDTO from "../dto/IMedicalRecordDTO";
+import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 
 
 @Service()
@@ -36,5 +36,23 @@ export default class MedicalRecordController implements IMedicalRecordController
         });
       }
     }
+  }
+
+  public async getAllergies(req: any, res: any): Promise<IMedicalRecordAllergyDTO[]> {
+    let medicalRecordId = req.params.id;
+
+    try {
+      res.status(200).json({
+        body: await this.medicalRecordInstance.getAllergies(medicalRecordId)
+      });
+    } catch (error) {
+      console.error('Error getting allergies:', error.message);
+      res.status(500).json({
+        message: 'Error getting allergies',
+        details: error.message
+      });
+    }
+
+    return null;
   }
 }

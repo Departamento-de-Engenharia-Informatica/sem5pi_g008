@@ -27,5 +27,14 @@ export default class AllergyService implements IAllergyService {
     }
     return dtoArray;
   }
+  
+  public async searchAllergies(allergy: string): Promise<any>{
+    let aux = await this.allergyRepo.search(allergy);
+    return AllergyMap.toDTO(aux);
+  }
+
+  public async getAllergyFromId(id: string): Promise<any> {
+    return await this.allergyRepo.getById(id);
+  }
 
 }

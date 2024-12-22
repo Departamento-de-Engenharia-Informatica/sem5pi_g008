@@ -1,0 +1,83 @@
+﻿home-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.profile-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.3s ease-in-out;
+
+  display: flex; /* Adiciona display: flex */
+  flex-direction: column; /* Organiza os itens em coluna */
+}
+
+.container:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-0.5px);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 30px;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+
+
+.button-container {
+  display: flex;
+  align-items: center; /* Alinha os botões verticalmente */
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+
+.reset-filter-button {
+  padding: 8px 12px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px; /* Adiciona espaço abaixo do botão */
+}
+
+.reset-filter-button:hover {
+  background-color: #1976d2;
+}
+
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}

@@ -6,4 +6,5 @@ export default interface IMedicalRecordRepo extends Repo<MedicalRecord>{
     getAll(): Promise<MedicalRecord[]>;
     getMedicalRecordById(medicalRecordId: string): Promise<any>;
 
+
 }

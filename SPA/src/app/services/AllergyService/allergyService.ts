@@ -1,9 +1,12 @@
 ﻿import {Injectable} from '@angular/core';
 import json from "../../appsettings.json"
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, Observable, of, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {catchError, map, Observable, of, throwError} from 'rxjs';
 import {Allergy} from '../../Domain/Allergy';
 import {AllergyMapper} from '../../DTOs/mappers/allergyMapper';
+import {DisplayAllergyDTO} from '../../DTOs/displayDTOs/displayAllergyDTO';
+import {BackendAllergyDTO} from '../../DTOs/backendDTOs/backendAllergyDTO';
+
 
 
 @Injectable({
@@ -29,14 +32,10 @@ export class AllergyService {
 
         if (error.status >= 400 && error.status < 500) {
           errorMessage = error.error.message || 'There was an issue with your request. Please check the data you entered.';
-        }
-
-        else if (error.status >= 500 && error.status < 600) {
+        } else if (error.status >= 500 && error.status < 600) {
           errorMessage = error.error.message || 'An error occurred on the server. Please try again later.';
-        }
-
-        else if (error.error instanceof ErrorEvent) {
-          errorMessage = error.error.message ||'A network error occurred. Please check your connection and try again.';
+        } else if (error.error instanceof ErrorEvent) {
+          errorMessage = error.error.message || 'A network error occurred. Please check your connection and try again.';
         }
 
         return throwError(errorMessage);
@@ -46,7 +45,7 @@ export class AllergyService {
 
   getAllAllergies(): Observable<{ allergies: Allergy[] }> {
 
-    return this.http.get<{allergies: Allergy[]}>(this.apiUrl, {
+    return this.http.get<{ allergies: Allergy[] }>(this.apiUrl, {
       withCredentials: true
     }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -54,19 +53,54 @@ export class AllergyService {
 
         if (error.status >= 400 && error.status < 500) {
           errorMessage = error.error.message || 'There was an issue with your request. Please check the data you entered.';
-        }
-
-        else if (error.status >= 500 && error.status < 600) {
+        } else if (error.status >= 500 && error.status < 600) {
           errorMessage = error.error.message || 'An error occurred on the server. Please try again later.';
-        }
-
-        else if (error.error instanceof ErrorEvent) {
-          errorMessage = error.error.message ||'A network error occurred. Please check your connection and try again.';
+        } else if (error.error instanceof ErrorEvent) {
+          errorMessage = error.error.message || 'A network error occurred. Please check your connection and try again.';
         }
 
         return throwError(errorMessage);
       })
     );
   }
+
+  searchAllergies(allergy: string): Observable<{ allergies: DisplayAllergyDTO }> {
+    const params = new HttpParams().set('allergy', allergy);
+
+    return this.http
+      .get<{ allergies: BackendAllergyDTO }>(this.apiUrl, {
+        params: params,
+        withCredentials: true,
+      })
+      .pipe(
+        map((response) => {
+          const allergyDomain = AllergyMapper.backendDtoToDomain(response.allergies);
+          const displayAllergyDto = AllergyMapper.domainToDisplayDto(allergyDomain);
+
+          return { allergies: displayAllergyDto };
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'An unknown error occurred.';
+
+          if (error.status >= 400 && error.status < 500) {
+            errorMessage =
+              error.error.message ||
+              'There was an issue with your request. Please check the data you entered.';
+          } else if (error.status >= 500 && error.status < 600) {
+            errorMessage =
+              error.error.message ||
+              'An error occurred on the server. Please try again later.';
+          } else if (error.error instanceof ErrorEvent) {
+            errorMessage =
+              error.error.message ||
+              'A network error occurred. Please check your connection and try again.';
+          }
+
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+
 
 }

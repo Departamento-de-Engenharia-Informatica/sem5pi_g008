@@ -26,21 +26,13 @@ import { EditOperationRequestComponent } from './Components/OperationRequest/edi
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
-import {
-  AddMedicalConditionComponent
-} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
-import {
-  CreateAppointmentComponent
-} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
-import{  PatientManagementAsDoctorComponent
-} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
-import {
-  EditSpecializationComponent
-} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
-import {
-  MedicalRecordDetailsComponent
-} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
+import {MedicalRecordDetailsComponent} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
+import {SearchAllergyManagementComponent} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
+import {AddMedicalConditionComponent} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
+import {CreateAppointmentComponent} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {EditSpecializationComponent} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 
 export const routes: Routes = [
   {
@@ -85,6 +77,7 @@ export const routes: Routes = [
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
+      { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
     ],
   },
 

@@ -50,6 +50,7 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
   }
 
   public async getMedicalRecordById(medicalRecordId: string): Promise<any> {
+
     const medicalRecord = await this.medicalRecordSchema
       .findOne({domainId: medicalRecordId})
       .exec();
