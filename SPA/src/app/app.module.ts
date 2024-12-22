@@ -125,7 +125,7 @@ import {
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
     AllergyManagementComponent,
-    SearchAllergyManagementComponent
+    SearchAllergyManagementComponent,
     AddMedicalConditionComponent,
     AllergyManagementComponent,
     PatientManagementAsDoctorComponent,
