@@ -5,7 +5,7 @@ import config from '../config';
 import express from 'express';
 
 import Logger from './loaders/logger';
-import { Container } from "typedi";
+import {Container} from "typedi";
 import MedicalRecordRepo from "./repos/MedicalRecordRepo";
 import {MedicalRecordFreeText} from "./domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import MedicalRecordFreeTextRepo from "./repos/MedicalRecordFreeTextRepo";
@@ -114,15 +114,19 @@ async function seedData(medicalRecordId: string) {
 async function startServer() {
   const app = express();
 
-  await require('./loaders').default({ expressApp: app });
+  await require('./loaders').default({expressApp: app});
 
-  const medicalRecordRepo = Container.get(MedicalRecordRepo);
-  const medicalRecord =  await medicalRecordRepo.getMedicalRecordById("20241200007");
+  try {
 
-  if(medicalRecord !== null) {
-    await seedData(medicalRecord.props._id);
+    const medicalRecordRepo = Container.get(MedicalRecordRepo);
+    const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200007");
+
+    if (medicalRecord !== null) {
+      await seedData(medicalRecord.props._id);
+    }
+
+  } catch (ignored) {
   }
-
 
 
   app.listen(config.port, () => {

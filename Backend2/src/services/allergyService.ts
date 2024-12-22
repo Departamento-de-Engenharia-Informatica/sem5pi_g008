@@ -28,4 +28,8 @@ export default class AllergyService implements IAllergyService {
     return dtoArray;
   }
 
+  public async getAllergyFromId(id: string): Promise<any> {
+    return await this.allergyRepo.getById(id);
+  }
+
 }

@@ -4,8 +4,8 @@ import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {Result} from "../../core/logic/Result";
 
 interface MedicalRecordAllergyProps {
-  allergy: string;
-  medicalRecord: string;
+  allergyId: string;
+  medicalRecordId: string;
   doctorId: string;
   comment: string;
 }
@@ -21,11 +21,11 @@ export class MedicalRecordAllergy extends AggregateRoot<MedicalRecordAllergyProp
   }
 
   get allergy(): string {
-    return this.props.allergy;
+    return this.props.allergyId;
   }
 
   get medicalRecord(): string {
-    return this.props.medicalRecord;
+    return this.props.medicalRecordId;
   }
 
   get doctorId(): string {
