@@ -40,6 +40,26 @@ export class MedicalConditionService {
       })
     );
   }
+
+  getAllMedicalConditions(): Observable<any> {
+    return this.http.get<any>(this.apiUrl, {
+      withCredentials: true,
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An unknown error occurred.';
+
+        if(error.status >= 805 && error.status <= 809) {
+          errorMessage = error.error.message;
+        }
+
+        if(error.status === 500) {
+          errorMessage = error.error.message;
+        }
+
+        return throwError(errorMessage);
+      })
+    );
+  }
 }
 
 
