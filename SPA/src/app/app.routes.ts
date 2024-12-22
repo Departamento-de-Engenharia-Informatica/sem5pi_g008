@@ -28,6 +28,12 @@ import {SpecializationManagementComponent} from './Components/SpecializationMana
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
 import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
 import {
+  SearchAllergyManagementComponent
+} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
+  AddMedicalConditionComponent
+} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
+import {AllergyManagementComponent} from './Components/AllergyManagement/allergy-management/allergy-management.component';
+import {
   CreateAppointmentComponent
 } from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
 import{  PatientManagementAsDoctorComponent
@@ -35,6 +41,7 @@ import{  PatientManagementAsDoctorComponent
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+
 
 export const routes: Routes = [
   {
@@ -61,6 +68,7 @@ export const routes: Routes = [
       { path: 'patient/edit', component: EditPatientProfileComponent, title: 'EditPatientProfile' },
       { path: 'allergyManagement', component: AllergyManagementComponent, title: 'AllergyManagement' },
       { path: 'allergyManagement/add', component: AddAllergyComponent, title: 'AddAllergy' },
+      { path: 'medicalConditionManagement/add', component: AddMedicalConditionComponent, title: 'AddMedicalCondition' },
       { path: 'specialization', component: SpecializationManagementComponent, title: 'SpecializationManagement' },
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
@@ -76,6 +84,7 @@ export const routes: Routes = [
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
+      { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
     ],
   },
 

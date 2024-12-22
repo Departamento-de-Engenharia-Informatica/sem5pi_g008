@@ -14,12 +14,14 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     ) {
     }
 
-    public async save(medicalCondition: MedicalCondition): Promise<MedicalCondition> {
-
-        const idToUse = await this.getLastId() + 1;
-
-        const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, idToUse);
-
+    public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
+        
+        if(id === undefined) {
+            id = await this.getLastId() + 1;
+        }
+        
+        const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
+        
         const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
 
         return MedicalConditionMap.toDomain(medicalConditionCreated);

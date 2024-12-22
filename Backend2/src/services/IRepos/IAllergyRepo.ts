@@ -5,4 +5,5 @@ export default interface IAllergyRepo extends Repo<Allergy> {
   save(allergy: Allergy,  number?: number): Promise<Allergy>;
   getAll(): Promise<Allergy[]>;
   getById(id: string): Promise<Allergy>;
+  search(allergy: any): Promise<any>;
 }

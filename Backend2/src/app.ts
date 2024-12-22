@@ -17,6 +17,10 @@ import AllergyRepo from "./repos/AllergyRepo";
 import {Allergy} from "./domain/Allergy/Allergy";
 import MedicalRecordAllergyRepo from "./repos/MedicalRecordAllergyRepo";
 import {MedicalRecordAllergy} from "./domain/MedicalRecordAllergy/MedicalRecordAllergy";
+import {Code} from "./domain/MedicalCondition/code";
+import {Designation} from "./domain/MedicalCondition/designation";
+import {Description} from "./domain/MedicalCondition/description";
+import {MedicalRecord} from "./domain/MedicalRecord/MedicalRecord";
 
 
 async function seedData(medicalRecordId: string) {
@@ -42,11 +46,18 @@ async function seedData(medicalRecordId: string) {
   const medicalRecordRepo = Container.get(MedicalConditionRepo);
 
   const medicalConditionProps = {
-    condition: "CANCER"
+    code: Code.create("CA12").getValue(),
+    designation: Designation.create("CANCER").getValue(),
+    description: Description.create("CANCER IS A BAD CONDITION").getValue(),
+    symptomsList: ["COUGH", "HEADACHE"]
+    
   };
 
   const medicalConditionProps2 = {
-    condition: "HEART ATTACK"
+    code: Code.create("HA12").getValue(),
+    designation: Designation.create("HEART ATTACK").getValue(),
+    description: Description.create("HEART ATTACK IS A BAD CONDITION").getValue(),
+    symptomsList: ["CHEST PAIN", "SHORTNESS OF BREATH"]
   };
 
   const medicalCondition = MedicalCondition.create(medicalConditionProps);
@@ -117,16 +128,17 @@ async function startServer() {
   await require('./loaders').default({expressApp: app});
 
   try {
-
+    const medicalRecordProps = {}
+     const medicalRecordd = MedicalRecord.create(medicalRecordProps).getValue();
     const medicalRecordRepo = Container.get(MedicalRecordRepo);
+    const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
     const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200007");
 
     if (medicalRecord !== null) {
       await seedData(medicalRecord.props._id);
     }
-
-  } catch (ignored) {
-  }
+    
+  } catch (ignored) {}
 
 
   app.listen(config.port, () => {

@@ -5,4 +5,5 @@ export default interface IAllergyService {
   createAllergy(allergy: IAllergyDTO): Promise<any>;
   getAllAllergies(): Promise<Allergy[]>;
   getAllergyFromId(id: string): Promise<Allergy>;
+  searchAllergies(allergy: string): Promise<any>;
 }
