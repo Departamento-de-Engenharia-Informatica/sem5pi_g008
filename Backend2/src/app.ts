@@ -102,15 +102,15 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordAllergyRepo = Container.get(MedicalRecordAllergyRepo);
   const medicalRecordAllergyProps = {
-    allergy: a1.props._id,
-    medicalRecord: medicalRecordId,
+    allergyId: a1.props._id,
+    medicalRecordId: medicalRecordId,
     doctorId: "N202400005",
     comment: "THE GUY IS ALLERGIC TO PENICILLIN"
   }
 
   const medicalRecordAllergyProps2 = {
-    allergy: a2.props._id,
-    medicalRecord: medicalRecordId,
+    allergyId: a2.props._id,
+    medicalRecordId: medicalRecordId,
     doctorId: "N202400005",
     comment: "THE GUY IS ALLERGIC TO ASPIRIN"
   }

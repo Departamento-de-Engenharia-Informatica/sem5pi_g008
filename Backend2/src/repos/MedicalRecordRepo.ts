@@ -49,7 +49,7 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
     return medicalRecords.map(MedicalRecordMapper.toDomain);
   }
 
-  public async getMedicalRecordById(medicalRecordId: string): Promise<any> {
+  public async getMedicalRecordByDomainId(medicalRecordId: string): Promise<any> {
 
     const medicalRecord = await this.medicalRecordSchema
       .findOne({domainId: medicalRecordId})
