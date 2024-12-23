@@ -44,7 +44,9 @@ export class EditMedicalConditionComponent implements OnInit{
     let successful = true;
     if (this.updatedMedicalCondition.description !== this.originalMedicalCondition.description) {
       this.medicalConditionService.updateMedicalConditionDescription(this.updatedMedicalCondition.domainId!, this.updatedMedicalCondition.description).subscribe(
-        () => {},
+        () => {
+          successful = true;
+        },
         error => {
           successful = false;
           console.error('Error updating description:', error);
@@ -58,7 +60,9 @@ export class EditMedicalConditionComponent implements OnInit{
 
     if (addedSymptoms.length > 0 || removedSymptoms.length > 0) {
       this.medicalConditionService.updateMedicalConditionSymptoms(this.updatedMedicalCondition.domainId!, this.updatedMedicalCondition.symptomsList!).subscribe(
-        () => {},
+        () => {
+          successful = true;
+        },
         error => {
           successful = false;
           console.error('Error updating symptoms:', error);
