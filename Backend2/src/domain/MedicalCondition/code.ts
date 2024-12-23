@@ -37,7 +37,7 @@ export class Code extends ValueObject<CodeProps> {
 
         const icd11Regex = /^[A-Z]{1,2}[0-9]{2,3}(\.[0-9]{1,2})?$/;
 
-        if (!code || /\s/.test(code)) {
+        if (code.length === 0) {
             throw new AppError("CODE_INVALID_WHITESPACE");
         }
 

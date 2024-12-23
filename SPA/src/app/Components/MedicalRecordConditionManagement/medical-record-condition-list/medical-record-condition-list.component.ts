@@ -1,10 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {
-  MedicalRecordMedicalConditionService
-} from '../../../services/MedicalRecordMedicalConditionService/medical-record-medical-condition.service';
-import {AllergyMapper} from '../../../DTOs/mappers/allergyMapper';
+import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import { MedicalRecordMedicalConditionService } from '../../../services/MedicalRecordMedicalConditionService/medical-record-medical-condition.service';
 import {DisplayMedicalRecordConditionDTO} from '../../../DTOs/displayDTOs/displayMedicalRecordConditionDTO';
-import {MedicalRecordConditionMapper} from '../../../DTOs/mappers/medicalRecordConditionMapper';
+import {EnterFilterNameComponent} from '../../Shared/enter-filter-name/enter-filter-name.component';
 
 @Component({
   selector: 'app-medical-record-condition-list',
@@ -15,9 +12,12 @@ export class MedicalRecordConditionListComponent implements OnInit {
   constructor(@Inject(MedicalRecordMedicalConditionService) private medicalRecordConditionService: MedicalRecordMedicalConditionService) {
   }
 
+  public currentFilter: string = '';
   public errorMessage: string = "";
   public medicalRecordConditions: DisplayMedicalRecordConditionDTO[] = [];
+  public medicalRecordConditionsAux: DisplayMedicalRecordConditionDTO[] = [];
   @Input() public medicalRecordId: string = "";
+  @ViewChild(EnterFilterNameComponent) enterFilterName!: EnterFilterNameComponent;
 
   ngOnInit(): void {
     this.fetchMedicalRecordConditions();
@@ -28,6 +28,7 @@ export class MedicalRecordConditionListComponent implements OnInit {
       .subscribe(
         (response : any) => {
           this.medicalRecordConditions = response.medicalRecordConditions;
+          this.medicalRecordConditionsAux = this.medicalRecordConditions;
         },
         (error) => {
           this.errorMessage = error;
@@ -36,5 +37,29 @@ export class MedicalRecordConditionListComponent implements OnInit {
       );
   }
 
+  handleSelectedFilter(filter: string): void {
+    if(filter === 'Code') {
+      this.enterFilterName.open("Code");
+    }
+
+    if(filter === 'Designation') {
+      this.enterFilterName.open("Designation");
+    }
+  }
+
+  handleEnterFilterValue(filterValue: string) {
+    if (this.currentFilter === 'Code') {
+      this.applyCodeFilter(filterValue);
+    }
+    if (this.currentFilter === 'Designation') {
+      this.applyDesignationFilter(filterValue);
+    }
+  }
+
+  applyCodeFilter(filterValue: string) {
+  }
+
+  applyDesignationFilter(filterValue: string) {
+  }
 
 }

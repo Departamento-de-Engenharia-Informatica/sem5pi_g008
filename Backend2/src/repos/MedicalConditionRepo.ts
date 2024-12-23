@@ -5,6 +5,8 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
+import {Code} from "../domain/MedicalCondition/code";
+import {Designation} from "../domain/MedicalCondition/designation";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
@@ -62,7 +64,37 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
         return MedicalConditionMap.toDomain(medicalCondition);
     }
+    
+    public async getMedicalConditionByCode(code: Code): Promise<any> {
+        
+        const medicalConditionCode = code.value;
+        
+        const medicalCondition = await this.medicalConditionSchema.findOne( { code: medicalConditionCode }).exec();
+        
+        console.log(medicalCondition);
+        
+        if (!medicalCondition) {
+            return undefined;
+        }
+        
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
 
+    public async getMedicalConditionByDesignation(designation: Designation): Promise<any> {
+
+        const medicalConditionDesignation = designation.value;
+
+        console.log("|" + medicalConditionDesignation + "|");
+        
+        const medicalCondition = await this.medicalConditionSchema.findOne( { designation : medicalConditionDesignation }).exec();
+        
+        if (!medicalCondition) {
+            return undefined;
+        }
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+    
     public async getAll(): Promise<MedicalCondition[]> {
         const medicalConditions = await this.medicalConditionSchema.find();
         return medicalConditions.map((medicalCondition) => MedicalConditionMap.toDomain(medicalCondition));

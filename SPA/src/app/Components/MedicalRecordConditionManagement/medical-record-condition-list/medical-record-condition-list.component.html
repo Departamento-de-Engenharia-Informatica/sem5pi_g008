@@ -1,4 +1,8 @@
 <h2 class="sub-header">Medical Conditions</h2>
+<app-filter-button *ngIf="medicalRecordConditions.length > 0"
+  [filters]="['Code','Designation']"
+  (filterSelected)="handleSelectedFilter($event)">
+</app-filter-button>
 <div *ngIf="errorMessage" class="no-medical-record-conditions">
   <p>{{ errorMessage }}</p>
 </div>
@@ -23,3 +27,7 @@
     </div>
   </div>
 </div>
+<app-enter-filter-name
+  (filterTypeToEmit)="currentFilter = $event"
+  (nameToFilter)="handleEnterFilterValue($event)"
+>></app-enter-filter-name>

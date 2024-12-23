@@ -2,7 +2,6 @@
 import IMedicalRecordService from "./IServices/IMedicalRecordService";
 import config from "../../config";
 import IMedicalRecordRepo from "./IRepos/IMedicalRecordRepo";
-import IMedicalRecordDTO from "../dto/IMedicalRecordDTO";
 import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 import IMedicalRecordAllergyRepo from "./IRepos/IMedicalRecordAllergyRepo";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
@@ -15,6 +14,15 @@ import http from "node:http";
 import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
 import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
+import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
+import {
+    MedicalConditionNotFoundException
+} from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
+import {
+    MedicalRecordConditionNotFoundException
+} from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
+import {Code} from "../domain/MedicalCondition/code";
+import {Designation} from "../domain/MedicalCondition/designation";
 
 
 @Service()
@@ -64,17 +72,13 @@ export default class MedicalRecordService implements IMedicalRecordService{
       return "Doctor";
     }
 
-    public async getMedicalRecordConditions(medicalRecordId: string): Promise<any> {
+    public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
         
         if(!medicalRecord) {
             throw new NoMedicalRecordException();
         }
-        
-        console.log('medicalRecord:', medicalRecord);
-        
-        console.log('medicalRecord.props._id:', medicalRecord.props._id.toString());
         
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
 
@@ -98,6 +102,62 @@ export default class MedicalRecordService implements IMedicalRecordService{
         return medicalRecordConditionDTOList;
     }
 
+    public async getMedicalRecordConditionByCode(medicalRecordId: string, conditionCode: string): Promise<IMedicalRecordConditionDTO> {
+
+        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+
+        if(!medicalRecord) {
+            throw new NoMedicalRecordException();
+        }
+        
+        const code = Code.create(conditionCode);
+        
+        const medicalCondition = await this.medicalConditionRepo.getMedicalConditionByCode(code.getValue());
+        
+        if(!medicalCondition) {
+            throw new MedicalConditionNotFoundException("No Medical Condition registered in the system with this Code.");
+        }
+        
+        const medicalRecordCondition = await this.medicalRecordConditionRepo.getMedicalRecordConditionByMedicalRecordIdAndConditionId(
+            medicalRecord.props._id.toString(), medicalCondition.props._id.toString());
+        
+        if(!medicalRecordCondition) {
+            throw new MedicalRecordConditionNotFoundException("No Medical Condition found for this Code.");
+        }
+
+        const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
+
+        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition.designation, medicalCondition.id, medicalRecord.id, staffDetailsDTO);
+    }
+
+    public async getMedicalRecordConditionByDesignation(medicalRecordId: string, conditionDesignation: string): Promise<IMedicalRecordConditionDTO> {
+
+        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+
+        if(!medicalRecord) {
+            throw new NoMedicalRecordException();
+        }
+
+        const designation = Designation.create(conditionDesignation);
+
+        const medicalCondition = await this.medicalConditionRepo.getMedicalConditionByDesignation(designation.getValue());
+
+        if(!medicalCondition) {
+            throw new MedicalConditionNotFoundException("No Medical Condition registered in the system with this Designation.");
+        }
+
+        const medicalRecordCondition = await this.medicalRecordConditionRepo.getMedicalRecordConditionByMedicalRecordIdAndConditionId(
+            medicalRecord.props._id.toString(), medicalCondition.props._id.toString());
+
+        if(!medicalRecordCondition) {
+            throw new MedicalRecordConditionNotFoundException("No Medical Condition found for this Designation.");
+        }
+
+        const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
+
+        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition.designation, medicalCondition.id, medicalRecord.id, staffDetailsDTO);
+    }
+    
     private async getStaffDetails(staffId: string): Promise<IStaffDetailsDTO> {
 
         const url = config.Backend1.URL + '/Staff';

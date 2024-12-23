@@ -24,6 +24,7 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
     public static toDomain (medicalCondition: any | Model<IMedicalConditionPersistence & Document> ): MedicalCondition {
 
         const medicalConditionProps = {
+            _id: medicalCondition._id.toString(),
             code: Code.create(medicalCondition.code).getValue(),
             designation: Designation.create(medicalCondition.designation).getValue(),
             description: Description.create(medicalCondition.description).getValue(),

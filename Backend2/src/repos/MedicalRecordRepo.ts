@@ -4,7 +4,6 @@ import {Document, Model} from "mongoose";
 import {IMedicalRecordPersistence} from "../dataschema/IMedicalRecordPersistence";
 import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 import {MedicalRecordMapper} from "../mappers/MedicalRecordMapper";
-import {ObjectId} from "mongodb";
 
 
 @Service()
@@ -61,6 +60,5 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
 
     return MedicalRecordMapper.toDomain(medicalRecord);
   }
-
-
+  
 }
