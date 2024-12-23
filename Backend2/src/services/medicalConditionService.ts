@@ -34,4 +34,17 @@ export default class MedicalConditionService implements IMedicalConditionService
     const medicalConditions = await this.medicalConditionRepo.getAll();
     return medicalConditions.map((medicalCondition) => MedicalConditionMap.toDTO(medicalCondition));
   }
+
+  public async updateMedicalConditionDescription(id: string, newDescription:string): Promise<any> {
+    const medicalCondition = await this.medicalConditionRepo.getByDomainId(Number.parseInt(id));
+    medicalCondition.description = Description.create(newDescription).getValue();
+    await this.medicalConditionRepo.update(medicalCondition);
+  }
+
+  public async updateMedicalConditionSymptoms(id: string,newSymptoms: string[]): Promise<IMedicalConditionDTO> {
+    const medicalCondition = await this.medicalConditionRepo.getByDomainId(Number.parseInt(id));
+    medicalCondition.updateSymptomsList(newSymptoms);
+    await this.medicalConditionRepo.update(medicalCondition);
+    return MedicalConditionMap.toDTO(medicalCondition);
+  }
 }

@@ -5,6 +5,8 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
+import * as domain from "node:domain";
+import {NotFoundException} from "../Exceptions/NotFoundException";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
@@ -44,14 +46,10 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     }
 
 
-    public async exists(medicalConditionId: MedicalConditionId | string): Promise<boolean> {
+    public async exists(medicalConditionId: MedicalCondition | string): Promise<boolean> {
 
-        const idX = medicalConditionId instanceof MedicalConditionId ? (<MedicalConditionId>medicalConditionId).id.toValue() : medicalConditionId;
-
-        const query = {domainId: idX};
-        const userDocument = await this.medicalConditionSchema.findOne(query);
-
-        return !!userDocument === true;
+        console.log("Not Implemented Yet");
+        return false;
     }
 
     public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {
@@ -63,9 +61,53 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
         return MedicalConditionMap.toDomain(medicalCondition);
     }
 
+    public async getByDomainId(id: number): Promise<MedicalCondition> {
+        const medicalCondition = await this.medicalConditionSchema.findOne({domainId: id});
+
+        if(!medicalCondition) {
+            throw new NotFoundException("Medical Condition not found");
+        }
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+
     public async getAll(): Promise<MedicalCondition[]> {
         const medicalConditions = await this.medicalConditionSchema.find();
         return medicalConditions.map((medicalCondition) => MedicalConditionMap.toDomain(medicalCondition));
     }
 
+    public async update(medicalCondition: MedicalCondition): Promise<MedicalCondition> {
+      const privateId = medicalCondition.props._id;
+      const domainId = medicalCondition.domainId.value;
+      const rawMedicalCondition = MedicalConditionMap.toPersistence(medicalCondition, domainId);
+
+      const updatedMedicalCondition = await this.medicalConditionSchema.findOneAndUpdate(
+        {privateId: privateId},
+        rawMedicalCondition,
+        {new: true}
+      );
+
+      if (!updatedMedicalCondition) {
+        throw new NotFoundException("Medical Condition not found");
+      }
+
+      return MedicalConditionMap.toDomain(updatedMedicalCondition);
+    }
+
+    public  async updateUsingDomainId(medicalCondition: MedicalCondition): Promise<MedicalCondition> {
+        const domainId = medicalCondition.domainId.value;
+        const rawMedicalCondition = MedicalConditionMap.toPersistence(medicalCondition, domainId);
+
+        const updatedMedicalCondition = await this.medicalConditionSchema.findOneAndUpdate(
+            {domainId: domainId},
+            rawMedicalCondition,
+            {new: true}
+        );
+
+        if (!updatedMedicalCondition) {
+            throw new NotFoundException("Medical Condition not found");
+        }
+
+        return MedicalConditionMap.toDomain(updatedMedicalCondition);
+    }
 }

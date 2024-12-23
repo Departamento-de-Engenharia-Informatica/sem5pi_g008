@@ -41,19 +41,35 @@ export class EditMedicalConditionComponent implements OnInit{
   }
 
   editMedicalCondition() {
+    let successful = true;
     if (this.updatedMedicalCondition.description !== this.originalMedicalCondition.description) {
-      console.log(`Updating description with ID: ${this.originalMedicalCondition.domainId}`);
+      this.medicalConditionService.updateMedicalConditionDescription(this.updatedMedicalCondition.domainId!, this.updatedMedicalCondition.description).subscribe(
+        () => {},
+        error => {
+          successful = false;
+          console.error('Error updating description:', error);
+          alert('Error updating medical condition description.');
+        }
+      );
     }
 
     const addedSymptoms = this.updatedMedicalCondition.symptomsList!.filter(symptom => !this.originalMedicalCondition.symptomsList!.includes(symptom));
     const removedSymptoms = this.originalMedicalCondition.symptomsList!.filter(symptom => !this.updatedMedicalCondition.symptomsList!.includes(symptom));
 
-    if (addedSymptoms.length > 0) {
-      console.log('Added symptoms:', addedSymptoms);
+    if (addedSymptoms.length > 0 || removedSymptoms.length > 0) {
+      this.medicalConditionService.updateMedicalConditionSymptoms(this.updatedMedicalCondition.domainId!, this.updatedMedicalCondition.symptomsList!).subscribe(
+        () => {},
+        error => {
+          successful = false;
+          console.error('Error updating symptoms:', error);
+          alert('Error updating medical condition symptoms.');
+        }
+      );
     }
 
-    if (removedSymptoms.length > 0) {
-      console.log('Removed symptoms:', removedSymptoms);
+    if (successful) {
+      alert('Medical condition updated successfully.');
+      this.router.navigate(['/admin/medicalConditionManagement']);
     }
 
   }

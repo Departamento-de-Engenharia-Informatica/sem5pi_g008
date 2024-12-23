@@ -39,8 +39,16 @@ export class MedicalConditionService {
     );
   }
 
-  editMedicalCondition(originalMedicalConditionDTO: MedicalConditionDTO, updatedMedicalConditionDTO: MedicalConditionDTO): void {
-   console.log("Not implemented yet.");
+  updateMedicalConditionDescription(id: string, newDescription: string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/description`, { description: newDescription }, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
+  }
+
+  updateMedicalConditionSymptoms(id: string, newSymptoms: string[]): Observable<MedicalConditionDTO> {
+    return this.http.patch<MedicalConditionDTO>(`${this.apiUrl}/${id}/symptoms`, { symptomsList: newSymptoms }, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -55,4 +63,6 @@ export class MedicalConditionService {
     console.error('HTTP Error:', error);
     return throwError(() => new Error(errorMessage));
   }
+
+
 }
