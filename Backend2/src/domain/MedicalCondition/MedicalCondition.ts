@@ -36,9 +36,19 @@ export class MedicalCondition extends AggregateRoot<MedicalConditionProps> {
         return this.props.description;
     }
 
+    set description(newDescription: Description) {
+        this.props.description = newDescription;
+    }
+
     get symptomsList(): string[] {
         return this.props.symptomsList;
     }
+
+    public updateSymptomsList(symptomsList: string[]): void {
+        this.setSymptomsList(symptomsList);
+    }
+
+
 
     private setCode(code: Code): void {
         this.props.code = code;
