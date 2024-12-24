@@ -28,4 +28,11 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
+  
+
+    route.put(
+        '/recordConditions/'
+        ,(req, res, next) => ctrl.updateMedicalRecordConditions(req, res, next),
+    );
+
 };

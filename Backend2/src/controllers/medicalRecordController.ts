@@ -55,4 +55,29 @@ export default class MedicalRecordController implements IMedicalRecordController
 
     return null;
   }
+
+  public async updateMedicalRecordConditions(req: any, res: any): Promise<void> {
+    const medicalRecordId = req.body.medicalRecordID;
+    const updatedConditions = req.body.recordConditions;
+    console.log("Updating medical conditions for medical record with ID CONTROLLER:", medicalRecordId);
+    console.log("Updated conditions:", updatedConditions);
+
+    try {
+      await this.medicalRecordInstance.updateMedicalConditions(medicalRecordId, updatedConditions);
+      res.status(200).json({
+        message: 'Medical conditions updated successfully',
+      });
+    } catch (error: any) {
+      console.error('Error updating medical conditions:', {
+        message: error.message,
+        stack: error.stack,
+      });  
+
+      res.status(500).json({
+        message: 'Error updating medical conditions',
+        details: error.message,
+      });
+    }
+  }
+
 }

@@ -52,4 +52,12 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
       return medicalRecordConditions;
   }
 
+  public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
+    console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
+    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});
+
+    return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
+  }
+  
+
 }
