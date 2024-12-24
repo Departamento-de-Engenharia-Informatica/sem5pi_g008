@@ -9,55 +9,55 @@ import {ObjectId} from "mongodb";
 
 @Service()
 export default class MedicalRecordRepo implements IMedicalRecordRepo {
-    constructor(@Inject('medicalRecordSchema') private medicalRecordSchema: Model<IMedicalRecordPersistence & Document>,) {
+  constructor(@Inject('medicalRecordSchema') private medicalRecordSchema: Model<IMedicalRecordPersistence & Document>,) {
+  }
+
+  exists(t: MedicalRecord): Promise<boolean> {
+    return Promise.resolve(false);
+  }
+
+  public async save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
+
+    const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
+
+    const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
+
+    return MedicalRecordMapper.toDomain(medicalRecordCreated);
+  }
+
+
+  private async getLastId(): Promise<number> {
+    let number = 1;
+
+    const medicalRecord = await this.medicalRecordSchema.find();
+
+    if (medicalRecord.length > 0) {
+      number = medicalRecord.length + 1;
     }
 
-    exists(t: MedicalRecord): Promise<boolean> {
-        return Promise.resolve(false);
+    return number;
+  }
+
+  public async getAll(): Promise<MedicalRecord[]> {
+    const medicalRecords = await this.medicalRecordSchema
+      .find()
+      .populate('medicalRecordConditions')
+      .populate('medicalRecordAllergies')
+      .populate('freeText')
+      .exec();
+
+    return medicalRecords.map(MedicalRecordMapper.toDomain);
+  }
+
+  public async getMedicalRecordByDomainId(medicalRecordId: string): Promise<any> {
+
+    const medicalRecord = await this.medicalRecordSchema
+      .findOne({domainId: medicalRecordId})
+      .exec();
+
+    if (!medicalRecord) {
+      return undefined;
     }
-
-    public async save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
-
-        const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
-
-        const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
-
-        return MedicalRecordMapper.toDomain(medicalRecordCreated);
-    }
-
-
-    private async getLastId(): Promise<number> {
-        let number = 1;
-
-        const medicalRecord = await this.medicalRecordSchema.find();
-
-        if (medicalRecord.length > 0) {
-            number = medicalRecord.length + 1;
-        }
-
-        return number;
-    }
-
-    public async getAll(): Promise<MedicalRecord[]> {
-        const medicalRecords = await this.medicalRecordSchema
-            .find()
-            .populate('medicalRecordConditions')
-            .populate('medicalRecordAllergies')
-            .populate('freeText')
-            .exec();
-
-        return medicalRecords.map(MedicalRecordMapper.toDomain);
-    }
-
-    public async getMedicalRecordByDomainId(medicalRecordId: string): Promise<any> {
-
-        const medicalRecord = await this.medicalRecordSchema
-            .findOne({domainId: medicalRecordId})
-            .exec();
-
-        if (!medicalRecord) {
-            throw new Error(`Medical record with ID ${medicalRecordId} not found`);
-        }
 
         return MedicalRecordMapper.toDomain(medicalRecord);
     }

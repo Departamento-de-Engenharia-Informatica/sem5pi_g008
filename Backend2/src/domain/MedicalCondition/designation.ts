@@ -26,15 +26,17 @@ export class Designation extends ValueObject<DesignationProps> {
             throw new AppError("DESIGNATION_NULL_UNDEFINED");
         }
 
-        if(designation.trim().length === 0) {
+        const trimmedDesignation = designation.trim();
+        
+        if(trimmedDesignation.length === 0) {
             throw new AppError("DESIGNATION_INVALID_WHITESPACE");
         }
         
-        if (designation.length > 100) {
+        if (trimmedDesignation.length > 100) {
             throw new AppError("DESIGNATION_INVALID_LENGTH");
         }
         
-        return Result.ok<Designation>(new Designation({value: designation}))
+        return Result.ok<Designation>(new Designation({value: trimmedDesignation}))
     }
 
 }

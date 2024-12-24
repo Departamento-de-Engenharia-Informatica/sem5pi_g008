@@ -60,4 +60,17 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
   }
   
 
+  public async getMedicalRecordConditionByMedicalRecordIdAndConditionId(medicalRecordId: string, medicalConditionCode: string): Promise<any> {
+    
+    const objectId = new mongoose.Types.ObjectId(medicalRecordId);
+    
+    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({ medicalRecordId: objectId, conditionId : medicalConditionCode });
+    
+    if(!medicalRecordCondition) {
+      return undefined;
+    }
+    
+    return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
+  }
+
 }

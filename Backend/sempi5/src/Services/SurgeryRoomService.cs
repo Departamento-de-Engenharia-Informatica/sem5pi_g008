@@ -25,4 +25,25 @@ public class SurgeryRoomService
      }
      return occupancy;
  }
+ 
+ public async Task<List<List<Dictionary<string, string>>>> getRoomsInfo()
+ {
+     var dummyData = new List<List<Dictionary<string, string>>>();
+
+     for (var i = 1; i <= 6; i++)
+     {
+         var roomData = new List<Dictionary<string, string>>
+         {
+             
+             new Dictionary<string, string> { { "title", $"Parameter  CHANGE" }, { "body", $"Value  BACKEND" } },
+             new Dictionary<string, string> { { "title", $"Parameter  NOT" }, { "body", $"Value  IMPLEMENTED" } }
+         };
+
+         dummyData.Add(roomData);
+     }
+
+     return await Task.FromResult(dummyData);
+ }
+
+
 }

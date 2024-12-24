@@ -1,18 +1,29 @@
 <div class="modal-overlay" (click)="close()" *ngIf="isVisible">
   <div class="modal-content" (click)="$event.stopPropagation()">
+
     <h3>Filter By {{ filterType | titlecase }}</h3>
-    <div class="modal-form">
-      <label for="name-input">Enter the {{ filterType }}:</label>
-      <input
-        type="text"
-        id="name-input"
-        [(ngModel)]="nameInput"
-        [placeholder]="'Type the ' + filterType + ' here...'"
-      />
-    </div>
-    <div class="modal-actions">
-      <button (click)="confirmName()">Confirm</button>
-      <button (click)="close()">Cancel</button>
-    </div>
+    <form (ngSubmit)="confirmName()">
+      <div class="modal-form">
+        <label for="name-input">Enter the {{ filterType }}:</label>
+        <input
+          type="text"
+          id="name-input"
+          [(ngModel)]="nameInput"
+          name="nameInput"
+          [placeholder]="'Type the ' + filterType + ' here...'"
+        />
+      </div>
+      <div class="modal-actions">
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="!nameInput.trim()">Confirm</button>
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="close()">Cancel</button>
+      </div>
+    </form>
+
   </div>
 </div>
