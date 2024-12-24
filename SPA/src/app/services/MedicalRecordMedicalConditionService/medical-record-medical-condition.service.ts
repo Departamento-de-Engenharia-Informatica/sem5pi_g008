@@ -52,4 +52,86 @@ export class MedicalRecordMedicalConditionService {
     );
   }
 
+  filterMedicalRecordConditionsByCode(medicalRecordId: string, code: string) : Observable<{ filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO }> {
+    const url = `${this.apiUrl}/${medicalRecordId}/condition/by-code/${code}`;
+
+    console.log(url);
+
+    return this.http
+      .get<{ medicalRecordCondition: BackendMedicalRecordConditionDTO }>(url, {
+        withCredentials: true
+      }).pipe(
+        map((response) => {
+
+            const medicalRecordConditionDomain = MedicalRecordConditionMapper.backendDisplayDTOToDomain(response.medicalRecordCondition);
+            const displayMedicalRecordConditionDTO = MedicalRecordConditionMapper.domainToDisplayDTO(medicalRecordConditionDomain);
+
+          return { filteredMedicalRecordConditions: displayMedicalRecordConditionDTO };
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'An unknown error occurred.';
+
+          if(error.status === 900) {
+            errorMessage = error.error.message;
+          }
+
+          if(error.status >= 801 && error.status <= 809) {
+            errorMessage = error.error.message;
+          }
+
+          if (error.status === 810) {
+            errorMessage = error.error.message;
+          }
+
+          if (error.status === 851) {
+            errorMessage = error.error.message;
+          }
+
+          return throwError(errorMessage);
+        })
+      );
+
+  }
+
+  filterMedicalRecordConditionsByDesignation(medicalRecordId: string, designation: string) : Observable<{ filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO }> {
+    const url = `${this.apiUrl}/${medicalRecordId}/condition/by-designation/${designation}`;
+
+    console.log(url);
+
+    return this.http
+      .get<{ medicalRecordCondition: BackendMedicalRecordConditionDTO }>(url, {
+        withCredentials: true
+      }).pipe(
+        map((response) => {
+
+          const medicalRecordConditionDomain = MedicalRecordConditionMapper.backendDisplayDTOToDomain(response.medicalRecordCondition);
+          const displayMedicalRecordConditionDTO = MedicalRecordConditionMapper.domainToDisplayDTO(medicalRecordConditionDomain);
+
+          return { filteredMedicalRecordConditions: displayMedicalRecordConditionDTO };
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'An unknown error occurred.';
+
+          if(error.status === 900) {
+            errorMessage = error.error.message;
+          }
+
+          if(error.status >= 801 && error.status <= 809) {
+            errorMessage = error.error.message;
+          }
+
+          if (error.status === 810) {
+            errorMessage = error.error.message;
+          }
+
+          if (error.status === 851) {
+            errorMessage = error.error.message;
+          }
+
+          return throwError(errorMessage);
+        })
+      );
+
+  }
+
 }

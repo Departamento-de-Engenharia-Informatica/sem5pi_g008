@@ -12,6 +12,7 @@ export class MedicalRecordConditionListComponent implements OnInit {
   constructor(@Inject(MedicalRecordMedicalConditionService) private medicalRecordConditionService: MedicalRecordMedicalConditionService) {
   }
 
+  public filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO | null = null;
   public currentFilter: string = '';
   public errorMessage: string = "";
   public medicalRecordConditions: DisplayMedicalRecordConditionDTO[] = [];
@@ -56,10 +57,46 @@ export class MedicalRecordConditionListComponent implements OnInit {
     }
   }
 
+  handleResetFilter() {
+    this.medicalRecordConditions = this.medicalRecordConditionsAux;
+    this.errorMessage = "";
+    this.currentFilter = '';
+    this.filteredMedicalRecordConditions = null;
+  }
+
   applyCodeFilter(filterValue: string) {
+
+    this.medicalRecordConditions = [];
+
+    this.medicalRecordConditionService.filterMedicalRecordConditionsByCode(this.medicalRecordId, filterValue)
+      .subscribe(
+        (response : any) => {
+          this.filteredMedicalRecordConditions = response.filteredMedicalRecordConditions;
+          if(this.filteredMedicalRecordConditions )
+          this.medicalRecordConditions.push(this.filteredMedicalRecordConditions);
+        },
+        (error) => {
+          this.errorMessage = error;
+          console.error('Failed to filter medical record conditions:', error);
+        }
+      );
   }
 
   applyDesignationFilter(filterValue: string) {
+    this.medicalRecordConditions = [];
+
+    this.medicalRecordConditionService.filterMedicalRecordConditionsByDesignation(this.medicalRecordId, filterValue)
+      .subscribe(
+        (response : any) => {
+          this.filteredMedicalRecordConditions = response.filteredMedicalRecordConditions;
+          if(this.filteredMedicalRecordConditions )
+            this.medicalRecordConditions.push(this.filteredMedicalRecordConditions);
+        },
+        (error) => {
+          this.errorMessage = error;
+          console.error('Failed to filter medical record conditions:', error);
+        }
+      );
   }
 
 }

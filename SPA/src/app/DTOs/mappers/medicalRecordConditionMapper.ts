@@ -9,6 +9,7 @@ export class MedicalRecordConditionMapper {
 
         if(!medicalRecordCondition.doctorLicenseNumber) {
             return {
+                conditionCode: medicalRecordCondition.conditionCode,
                 conditionDesignation: medicalRecordCondition.conditionDesignation,
                 doctorName: medicalRecordCondition.doctorName,
                 comment: medicalRecordCondition.comment
@@ -16,6 +17,7 @@ export class MedicalRecordConditionMapper {
         }
 
         return {
+            conditionCode: medicalRecordCondition.conditionCode,
             conditionDesignation: medicalRecordCondition.conditionDesignation,
             doctorName: medicalRecordCondition.doctorName,
             doctorLicenseNumber: medicalRecordCondition.doctorLicenseNumber,
@@ -27,6 +29,8 @@ export class MedicalRecordConditionMapper {
 
         if(!backendDisplayMedicalRecordConditionDTO.doctorLicenseNumber) {
             return {
+                conditionId: backendDisplayMedicalRecordConditionDTO.conditionId,
+                conditionCode: backendDisplayMedicalRecordConditionDTO.conditionCode,
                 conditionDesignation: backendDisplayMedicalRecordConditionDTO.conditionDesignation,
                 doctorName: backendDisplayMedicalRecordConditionDTO.doctorName,
                 comment: backendDisplayMedicalRecordConditionDTO.comment
@@ -34,6 +38,8 @@ export class MedicalRecordConditionMapper {
         }
 
         return {
+            conditionId: backendDisplayMedicalRecordConditionDTO.conditionId,
+            conditionCode: backendDisplayMedicalRecordConditionDTO.conditionCode,
             conditionDesignation: backendDisplayMedicalRecordConditionDTO.conditionDesignation,
             doctorName: backendDisplayMedicalRecordConditionDTO.doctorName,
             doctorLicenseNumber: backendDisplayMedicalRecordConditionDTO.doctorLicenseNumber,

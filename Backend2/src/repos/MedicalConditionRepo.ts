@@ -89,12 +89,14 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     }
 
     public async getMedicalConditionByDesignation(designation: Designation): Promise<any> {
-
         const medicalConditionDesignation = designation.value;
 
         console.log("|" + medicalConditionDesignation + "|");
 
-        const medicalCondition = await this.medicalConditionSchema.findOne( { designation : medicalConditionDesignation }).exec();
+        // Usando collation para ignorar a diferença de maiúsculas e minúsculas
+        const medicalCondition = await this.medicalConditionSchema.findOne({
+            designation: medicalConditionDesignation
+        }).collation({ locale: 'en', strength: 2 }).exec();  // strength: 2 ignora diferença entre maiúsculas/minúsculas
 
         if (!medicalCondition) {
             return undefined;
@@ -102,6 +104,7 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
         return MedicalConditionMap.toDomain(medicalCondition);
     }
+
 
 
     public async getAll(): Promise<MedicalCondition[]> {

@@ -94,7 +94,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
             const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
 
-            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition, condition.designation, condition.id, medicalRecord.id, staffDetailsDTO);
+            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition, condition, medicalRecord.id, staffDetailsDTO);
 
             medicalRecordConditionDTOList.push(medicalConditionDTO);
         }
@@ -127,7 +127,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
         const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
 
-        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition.designation, medicalCondition.id, medicalRecord.id, staffDetailsDTO);
+        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition, medicalRecord.id, staffDetailsDTO);
     }
 
     public async getMedicalRecordConditionByDesignation(medicalRecordId: string, conditionDesignation: string): Promise<IMedicalRecordConditionDTO> {
@@ -155,7 +155,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
         const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
 
-        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition.designation, medicalCondition.id, medicalRecord.id, staffDetailsDTO);
+        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition, medicalRecord.id, staffDetailsDTO);
     }
     
     private async getStaffDetails(staffId: string): Promise<IStaffDetailsDTO> {

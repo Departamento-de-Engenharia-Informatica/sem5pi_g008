@@ -180,8 +180,6 @@ export default class MedicalRecordController implements IMedicalRecordController
         return;
       }      
       
-      console.log(error);
-      
       res.status(500).json({
         message: 'Error getting medical record conditions.',
 
