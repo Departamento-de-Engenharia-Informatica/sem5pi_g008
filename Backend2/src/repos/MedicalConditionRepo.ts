@@ -5,45 +5,47 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
+import {Code} from "../domain/MedicalCondition/code";
+import {Designation} from "../domain/MedicalCondition/designation";
 import * as domain from "node:domain";
 import {NotFoundException} from "../Exceptions/NotFoundException";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
-  constructor(
-    @Inject('medicalConditionSchema') private medicalConditionSchema: Model<IMedicalConditionPersistence & Document>,
-  ) {
-  }
-
-  public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
-
-    if (id === undefined) {
-      id = await this.getLastId() + 1;
+    constructor(
+        @Inject('medicalConditionSchema') private medicalConditionSchema: Model<IMedicalConditionPersistence & Document>,
+    ) {
     }
 
-    const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
+    public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
 
-    const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
+        if(id === undefined) {
+            id = await this.getLastId() + 1;
+        }
 
-    return MedicalConditionMap.toDomain(medicalConditionCreated);
-  }
+        const rawMedicalCondition: any = MedicalConditionMap.toPersistence(medicalCondition, id);
 
-  public async getLastId(): Promise<number> {
-    const lastElement = await this.medicalConditionSchema.find().sort({domainId: -1}).limit(1);
+        const medicalConditionCreated = await this.medicalConditionSchema.create(rawMedicalCondition);
 
-    if (lastElement.length === 0) {
-      return 0;
+        return MedicalConditionMap.toDomain(medicalConditionCreated);
     }
 
-    return lastElement[0].domainId;
-  }
+    public async getLastId(): Promise<number> {
+        const lastElement = await this.medicalConditionSchema.find().sort({domainId: -1}).limit(1);
 
-  public async getOne(): Promise<MedicalCondition> {
-    const medicalCondition = await this.medicalConditionSchema.findOne();
+        if (lastElement.length === 0) {
+            return 0;
+        }
 
-    return MedicalConditionMap.toDomain(medicalCondition);
-  }
+        return lastElement[0].domainId;
+    }
+
+    public async getOne(): Promise<MedicalCondition> {
+        const medicalCondition = await this.medicalConditionSchema.findOne();
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
 
 
   public async exists(medicalConditionId: MedicalCondition | string): Promise<boolean> {
@@ -52,11 +54,11 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     return false;
   }
 
-  public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {
+    public async getMedicalConditionByBusinessId(medicalConditionId: string): Promise<any> {
 
-    const objectId = new mongoose.Types.ObjectId(medicalConditionId);
+        const objectId = new mongoose.Types.ObjectId(medicalConditionId);
 
-    const medicalCondition = await this.medicalConditionSchema.findOne({_id: objectId}).exec();
+        const medicalCondition = await this.medicalConditionSchema.findOne( { _id: objectId }).exec();
 
     return MedicalConditionMap.toDomain(medicalCondition);
   }
@@ -71,7 +73,41 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
     return MedicalConditionMap.toDomain(medicalCondition);
   }
 
-  public async getAll(): Promise<MedicalCondition[]> {
+    public async getMedicalConditionByCode(code: Code): Promise<any> {
+
+        const medicalConditionCode = code.value;
+
+        const medicalCondition = await this.medicalConditionSchema.findOne( { code: medicalConditionCode }).exec();
+
+        console.log(medicalCondition);
+
+        if (!medicalCondition) {
+            return undefined;
+        }
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+
+    public async getMedicalConditionByDesignation(designation: Designation): Promise<any> {
+        const medicalConditionDesignation = designation.value;
+
+        console.log("|" + medicalConditionDesignation + "|");
+
+        // Usando collation para ignorar a diferença de maiúsculas e minúsculas
+        const medicalCondition = await this.medicalConditionSchema.findOne({
+            designation: medicalConditionDesignation
+        }).collation({ locale: 'en', strength: 2 }).exec();  // strength: 2 ignora diferença entre maiúsculas/minúsculas
+
+        if (!medicalCondition) {
+            return undefined;
+        }
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+
+
+
+    public async getAll(): Promise<MedicalCondition[]> {
     const medicalConditions = await this.medicalConditionSchema.find();
     return medicalConditions.map((medicalCondition) => MedicalConditionMap.toDomain(medicalCondition));
   }

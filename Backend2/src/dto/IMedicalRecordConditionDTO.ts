@@ -5,6 +5,8 @@ export default interface IMedicalRecordConditionDTO{
   conditionId: string;
   conditionDesignation?: string;
   medicalRecordId: string;
-  doctorId: string;
+  doctorId?: string;
+  doctorName?: string;
+  doctorLicenseNumber?: number;
   comment: string;
 }

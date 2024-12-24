@@ -247,7 +247,28 @@ namespace Sempi5.Controllers.StaffControllers
                 return BadRequest(e.Message);
             }
         }
-
+        
+        [HttpGet("by-id/{staffId}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetStaffById(string staffId)
+        {
+            try
+            {
+                var staffDetailsDTO = await _staffService.GetStaffDetailsById(staffId);
+                
+                return Ok(staffDetailsDTO);
+            }
+            catch (StaffProfilesNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        
         [HttpDelete("request/deleteRequest/{requestId}")]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> DeleteRequest(string requestId)
