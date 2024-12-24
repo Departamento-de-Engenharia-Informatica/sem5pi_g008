@@ -8,6 +8,7 @@ export class MedicalConditionMapper {
   public static dtoToDomain(medicalCondition: MedicalConditionDTO): MedicalCondition {
 
       return {
+        domainId: medicalCondition.domainId,
         code: medicalCondition.code,
         designation: medicalCondition.designation,
         description: medicalCondition.description,
@@ -18,6 +19,7 @@ export class MedicalConditionMapper {
   public static domainToDisplayDto(medicalCondition: MedicalCondition): DisplayMedicalConditionDTO {
 
     return {
+      domainId: medicalCondition.domainId,
       code: medicalCondition.code,
       designation: medicalCondition.designation,
       description: medicalCondition.description,
@@ -28,6 +30,7 @@ export class MedicalConditionMapper {
   public static domainToBackendDto(medicalCondition: MedicalCondition): BackendMedicalConditionDTO {
 
     return {
+      domainId: medicalCondition.domainId,
       code: medicalCondition.code,
       designation: medicalCondition.designation,
       description: medicalCondition.description,
@@ -38,6 +41,7 @@ export class MedicalConditionMapper {
   public static backendDtoToDomain(medicalCondition: BackendMedicalConditionDTO): MedicalCondition {
 
       return {
+        domainId: medicalCondition.domainId,
         code: medicalCondition.code,
         designation: medicalCondition.designation,
         description: medicalCondition.description,

@@ -33,4 +33,31 @@ export default (app: Router) => {
       ctrl.getAllMedicalConditions(req, res, next);
     });
 
+  route.patch('/:id/description',
+    celebrate({
+      params: Joi.object({
+        id: Joi.string().required(),
+      }),
+      body: Joi.object({
+        description: Joi.string().required(),
+      }),
+    }),
+    //checkRoleAndProceed(['admin']),
+    (req, res, next) => {
+      ctrl.updateMedicalConditionDescription(req, res, next);
+    });
+
+  route.patch('/:id/symptoms',
+    celebrate({
+      params: Joi.object({
+        id: Joi.string().required(),
+      }),
+      body: Joi.object({
+        symptomsList: Joi.array().items(Joi.string()).required(),
+      }),
+    }),
+    //checkRoleAndProceed(['admin']),
+    (req, res, next) => {
+      ctrl.updateMedicalConditionSymptoms(req, res, next);
+    });
 };
