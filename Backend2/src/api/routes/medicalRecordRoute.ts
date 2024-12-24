@@ -24,7 +24,7 @@ export default (app: Router) => {
     });
 
   route.get('/:id/allergy',
-    checkRoleAndProceed(['admin','doctor']),
+    //checkRoleAndProceed(['admin','doctor']),
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
