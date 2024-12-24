@@ -1,0 +1,82 @@
+﻿.sub-header {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #555;
+  text-align: center;
+}
+
+.no-medical-record-allergies {
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+
+.medical-record-allergy-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.medical-record-allergy-item:hover {
+}
+
+.medical-record-allergy-details {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.medical-record-allergy-details p {
+  margin: 5px 0;
+  color: black;
+  text-align: left;
+  font-size: 14px;
+}
+
+.edit-button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 14px;
+  width: 65px;
+}
+
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+}
+
+.medical-record-allergy-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.medical-record-allergy-list-container {
+  max-height: calc(2 * 125px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.medical-record-allergy-item {
+  margin-bottom: 10px;
+}

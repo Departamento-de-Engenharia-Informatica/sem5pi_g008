@@ -1,0 +1,16 @@
+﻿<h2 class="sub-header">Allergies</h2>
+<div *ngIf="errorMessage" class="no-medical-record-allergies">
+  <p>{{ errorMessage }}</p>
+</div>
+<div class="medical-record-allergies-list-container">
+  <div *ngFor="let medicalRecordAllergy of medicalRecordAllergies" class="medical-record-allergy-item">
+    <div class="medical-record-allergy-details">
+      <p><strong>Condition:</strong> {{ medicalRecordAllergy.allergy }}</p>
+      <p><strong>This Condition Was Created By:</strong> {{ medicalRecordAllergy.doctor }}</p>
+      <p><strong>Comment:</strong> {{ medicalRecordAllergy.comment }}</p>
+    </div>
+    <div class="medical-record-allergy-actions">
+      <button class="edit-button">Edit</button>
+    </div>
+  </div>
+</div>
