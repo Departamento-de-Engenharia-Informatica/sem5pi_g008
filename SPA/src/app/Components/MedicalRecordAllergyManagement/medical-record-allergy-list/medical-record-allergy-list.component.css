@@ -5,6 +5,27 @@
   text-align: center;
 }
 
+.search-container {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.search-input {
+  width: 80%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: box-shadow 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #007bff;
+}
+
 .no-medical-record-allergies {
   text-align: center;
   color: #555;
