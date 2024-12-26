@@ -109,6 +109,32 @@ export default class MedicalRecordService implements IMedicalRecordService{
       return "Doctor";
     }
 
+    async getAllMedicalRecordConditions(): Promise<IMedicalRecordConditionDTO[]> {
+        const medicalRecordConditionList = await this.medicalRecordConditionRepo.getAllMedicalRecordConditions();
+        console.log('medicalRecordConditionList', medicalRecordConditionList);
+
+        if (medicalRecordConditionList.length === 0) {
+            throw new NoMedicalRecordConditionsException();
+        } 
+console.log('medicalRecordConditionList2');
+        const medicalRecordConditionDTOList: IMedicalRecordConditionDTO[] = []; // Fixed declaration syntax
+
+        for (const medicalRecordCondition of medicalRecordConditionList) {
+            const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
+            const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
+            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO( 
+                medicalRecordCondition,  
+                condition,
+                medicalRecordCondition.id, // Fixed `medicalRecord.id` to `medicalRecordCondition.id`
+                staffDetailsDTO
+            );
+            medicalRecordConditionDTOList.push(medicalConditionDTO);
+        }
+        console.log('medicalRecordConditionDTOList', medicalRecordConditionDTOList);
+
+        return medicalRecordConditionDTOList;
+    }
+    
     public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);

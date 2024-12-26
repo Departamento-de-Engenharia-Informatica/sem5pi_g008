@@ -22,6 +22,7 @@ export class MedicalConditionManagementComponent {
   }
 
   private loadMedicalConditions() {
+    console.log('Loading medical conditions');
     this.medicalConditionService.getAllMedicalConditions().subscribe(
         (response) => {
           console.log('Medical conditions loaded:', response);

@@ -42,6 +42,9 @@ import {
 import {
   EditMedicalConditionComponent
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
+import {
+  UpdateMedicalRecorConditionsComponent
+} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
 
 export const routes: Routes = [
   {
@@ -89,6 +92,7 @@ export const routes: Routes = [
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      {path: 'medicalRecordCondition', component: UpdateMedicalRecorConditionsComponent, title: 'UpdateMedicalRecordCondition'},
     ],
   },
 

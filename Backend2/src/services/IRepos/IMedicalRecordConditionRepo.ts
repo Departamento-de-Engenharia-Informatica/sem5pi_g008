@@ -6,4 +6,5 @@ export default interface IMedicalRecordConditionRepo extends Repo<MedicalRecordC
   save(medicalCondition: MedicalRecordCondition): Promise<MedicalRecordCondition>;
   getMedicalRecordConditionsWithIds(medicalRecordId: string): Promise<any[]>;
   getMedicalRecordConditionByMedicalRecordIdAndConditionId(medicalRecordId: string, medicalConditionCode: string): Promise<any>;
+    getAllMedicalRecordConditions(): Promise<MedicalRecordCondition>;
 }

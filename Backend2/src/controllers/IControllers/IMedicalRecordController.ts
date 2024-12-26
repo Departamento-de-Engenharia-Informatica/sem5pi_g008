@@ -9,4 +9,6 @@ export default interface IMedicalRecordController{
     getMedicalRecordConditionByDesignation(req: Request, res: Response, next: NextFunction);
 
     updateMedicalRecordConditions(req, res, next);
+
+    getAllMedicalRecordConditions(req, res, next);
 }

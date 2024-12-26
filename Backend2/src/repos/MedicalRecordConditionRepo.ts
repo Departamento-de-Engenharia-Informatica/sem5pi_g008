@@ -4,6 +4,8 @@ import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordCo
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionRepo from "../services/IRepos/IMedicalRecordConditionRepo";
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
+import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
+import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 
 
 @Service()
@@ -73,4 +75,9 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
     return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
   }
 
+  public async getAllMedicalRecordConditions(): Promise<MedicalRecordCondition> {
+    const medicalRecordConditions = await this.medicalRecordConditionSchema.find();
+    return MedicalRecordConditionMapper.toDomain(medicalRecordConditions);
+    
+  }
 }

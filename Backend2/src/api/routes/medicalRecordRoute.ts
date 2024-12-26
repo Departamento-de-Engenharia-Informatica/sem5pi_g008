@@ -35,6 +35,12 @@ export default (app: Router) => {
             ctrl.getMedicalRecordConditions(req, res, next);
         }
     );
+    route.get('/Allcondition',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getAllMedicalRecordConditions(req, res, next);
+        }
+    );
 
     route.get('/:id/condition/by-code/:code',
         //checkRoleAndProceed(['admin','doctor']),  
@@ -58,7 +64,7 @@ export default (app: Router) => {
   
 
     route.put(
-        '/recordConditions/'
+        '/recordConditions'
         ,(req, res, next) => ctrl.updateMedicalRecordConditions(req, res, next),
     );
 

@@ -78,6 +78,8 @@ import {
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
 import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
+import { UpdateMedicalRecorConditionsComponent } from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
+
 
 @NgModule({
   declarations: [
@@ -141,6 +143,8 @@ import {EditMedicalConditionComponent} from './Components/MedicalConditionManage
     EditSpecializationComponent,
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
+    MedicalConditionManagementComponent,
+    UpdateMedicalRecorConditionsComponent,
     MedicalConditionManagementComponent,
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,

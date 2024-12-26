@@ -19,6 +19,21 @@ export default class MedicalRecordController implements IMedicalRecordController
 
   constructor(
     @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,) {}
+  
+  public async getAllMedicalRecordConditions(req: any, res: any): Promise<void> {
+    try {
+      const medicalConditionDTOList = await this.medicalRecordInstance.getAllMedicalRecordConditions();
+      res.status(200).json({
+        medicalRecordConditions: medicalConditionDTOList
+      });
+    } catch (error) {
+      console.error('Error getting medical record conditions:', error.message);
+      res.status(500).json({
+        message: 'Error getting medical record conditions',
+        details: error.message
+      });
+    }
+  }
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 

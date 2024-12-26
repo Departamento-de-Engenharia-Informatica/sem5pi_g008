@@ -46,6 +46,11 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
         return MedicalConditionMap.toDomain(medicalCondition);
     }
+    public async getMedicalConditionById(medicalConditionId:string): Promise<MedicalCondition> {
+        const medicalCondition = await this.medicalConditionSchema.findOne({id:medicalConditionId});
+
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
 
 
   public async exists(medicalConditionId: MedicalCondition | string): Promise<boolean> {
