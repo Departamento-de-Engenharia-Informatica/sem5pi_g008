@@ -22,8 +22,10 @@ export class SearchAllergyManagementComponent implements OnInit {
   public showEmptyFilterError: boolean = false;
   allergy:string='';
   allergyDTO: DisplayAllergyDTO={
-    allergy: '',
-    effect:''
+    code: '',
+    designation: '',
+    description: '',
+    effects: []
   };
   currentFilter: string = '';
   @ViewChild(EnterFilterNameComponent) enterFilter!: EnterFilterNameComponent;

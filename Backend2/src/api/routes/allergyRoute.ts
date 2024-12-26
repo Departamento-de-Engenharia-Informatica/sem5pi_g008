@@ -18,11 +18,15 @@ export default (app: Router) => {
         celebrate({
             body: Joi.object({
                 domainId: Joi.number().optional(),
-                allergy: Joi.string().required(),
-                effect: Joi.string().optional()
+                code: Joi.string().required(),
+                designation: Joi.string().required(),
+                description: Joi.string().required(),
+                effects: Joi.array().items(Joi.string()).required(),
+                isDeleted: Joi.boolean().optional(),
             }),
         }),
-        checkRoleAndProceed(['admin']), (req, res, next) => {
+        //checkRoleAndProceed(['admin']),
+           (req, res, next) => {
             ctrl.createAllergy(req, res, next);
         });
 

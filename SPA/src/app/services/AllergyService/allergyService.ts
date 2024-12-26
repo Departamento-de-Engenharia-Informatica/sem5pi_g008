@@ -6,6 +6,7 @@ import {Allergy} from '../../Domain/Allergy';
 import {AllergyMapper} from '../../DTOs/mappers/allergyMapper';
 import {DisplayAllergyDTO} from '../../DTOs/displayDTOs/displayAllergyDTO';
 import {BackendAllergyDTO} from '../../DTOs/backendDTOs/backendAllergyDTO';
+import {CreateAllergyDTO} from '../../DTOs/createDTOs/createAllergyDTO';
 
 
 
@@ -20,11 +21,12 @@ export class AllergyService {
   constructor(private http: HttpClient) {
   }
 
-  addAllergy(allergy: Allergy): Observable<string> {
+  addAllergy(allergyDTO: CreateAllergyDTO): Observable<string> {
 
-    const allergyDTO = AllergyMapper.domainToBackendDto(allergy);
+    const allergy = AllergyMapper.createDtoToDomain(allergyDTO);
+    const backendAllergyDTO = AllergyMapper.domainToBackendDto(allergy);
 
-    return this.http.post<string>(this.apiUrl, allergyDTO, {
+    return this.http.post<string>(this.apiUrl, backendAllergyDTO, {
       withCredentials: true,
     }).pipe(
       catchError((error: HttpErrorResponse) => {

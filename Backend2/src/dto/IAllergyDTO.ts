@@ -1,5 +1,8 @@
 ﻿export default interface IAllergyDTO {
   domainId?: number;
-  allergy: string;
-  effect?: string;
+  code: string;
+  designation: string;
+  description: string;
+  effects: string[];
+  isDeleted?: boolean;
 }
