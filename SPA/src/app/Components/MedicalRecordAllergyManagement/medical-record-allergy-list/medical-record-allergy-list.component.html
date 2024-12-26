@@ -1,36 +1,36 @@
 ﻿<h2 class="sub-header">Allergies</h2>
 
-<!-- Search Input -->
-<div class="search-container">
-    <input
-            type="text"
-            [(ngModel)]="searchQuery"
-            (input)="searchAllergy()"
-            placeholder="Search allergies..."
-            class="search-input"
-    />
+<!-- Show Search Input Only if There Are Allergies -->
+<div *ngIf="filteredAllergies.length > 0" class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    (input)="searchAllergy()"
+    placeholder="Search allergies..."
+    class="search-input"
+  />
 </div>
 
 <!-- Error Message -->
 <div *ngIf="errorMessage" class="no-medical-record-allergies">
-    <p>{{ errorMessage }}</p>
+  <p>{{ errorMessage }}</p>
 </div>
 
 <!-- No Results Message -->
 <div *ngIf="filteredAllergies.length === 0 && searchQuery.trim() !== ''" class="no-search-results">
-    <p>No allergies found for "{{ searchQuery }}".</p>
+  <p>No allergies found for "{{ searchQuery }}".</p>
 </div>
 
 <!-- Allergies List -->
 <div class="medical-record-allergies-list-container" *ngIf="filteredAllergies.length > 0">
-    <div *ngFor="let medicalRecordAllergy of filteredAllergies" class="medical-record-allergy-item">
-        <div class="medical-record-allergy-details">
-            <p><strong>Condition:</strong> {{ medicalRecordAllergy.allergy }}</p>
-            <p><strong>This Condition Was Created By:</strong> {{ medicalRecordAllergy.doctor }}</p>
-            <p><strong>Comment:</strong> {{ medicalRecordAllergy.comment }}</p>
-        </div>
-        <div class="medical-record-allergy-actions">
-            <button class="edit-button">Edit</button>
-        </div>
+  <div *ngFor="let medicalRecordAllergy of filteredAllergies" class="medical-record-allergy-item">
+    <div class="medical-record-allergy-details">
+      <p><strong>Allergy:</strong> {{ medicalRecordAllergy.allergy }}</p>
+      <p><strong>This Allergy Was Registered By:</strong> {{ medicalRecordAllergy.doctor }}</p>
+      <p><strong>Comment:</strong> {{ medicalRecordAllergy.comment }}</p>
     </div>
+    <div class="medical-record-allergy-actions">
+      <button class="edit-button">Edit</button>
+    </div>
+  </div>
 </div>

@@ -63,23 +63,21 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
     private async fixDto(dto: IMedicalRecordAllergyDTO): Promise<IMedicalRecordAllergyDTO> {
       const allergy = await this.allergyRepo.getById(dto.allergy);
-      dto.allergy = allergy.allergy;
-      dto.doctor = await this.getDoctorName(dto.doctor);
+      dto.allergy = allergy.designation;
+      const doctor = await this.getStaffDetails(dto.doctor);
+      dto.doctor = doctor.firstName + " " + doctor.lastName;
       return dto;
     }
 
-    private async getDoctorName(doctorId: string): Promise<string> {
-      return "Doctor";
-    }
 
     public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
-        
+
         if(!medicalRecord) {
             throw new NoMedicalRecordException();
         }
-        
+
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
 
         if (medicalRecordConditionList.length === 0) {
@@ -109,18 +107,18 @@ export default class MedicalRecordService implements IMedicalRecordService{
         if(!medicalRecord) {
             throw new NoMedicalRecordException();
         }
-        
+
         const code = Code.create(conditionCode);
-        
+
         const medicalCondition = await this.medicalConditionRepo.getMedicalConditionByCode(code.getValue());
-        
+
         if(!medicalCondition) {
             throw new MedicalConditionNotFoundException("No Medical Condition registered in the system with this Code.");
         }
-        
+
         const medicalRecordCondition = await this.medicalRecordConditionRepo.getMedicalRecordConditionByMedicalRecordIdAndConditionId(
             medicalRecord.props._id.toString(), medicalCondition.props._id.toString());
-        
+
         if(!medicalRecordCondition) {
             throw new MedicalRecordConditionNotFoundException("No Medical Condition found for this Code.");
         }
@@ -157,7 +155,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
         return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition, medicalRecord.id, staffDetailsDTO);
     }
-    
+
     private async getStaffDetails(staffId: string): Promise<IStaffDetailsDTO> {
 
         const url = config.Backend1.URL + '/Staff';
