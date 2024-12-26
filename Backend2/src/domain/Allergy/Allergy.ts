@@ -3,12 +3,17 @@ import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {AllergyId} from "./AllergyId";
 import {Result} from "../../core/logic/Result";
 import {ObjectId} from "mongodb";
+import {Code} from "../MedicalCondition/code";
+import {Designation} from "../MedicalCondition/designation";
+import {Description} from "../MedicalCondition/description";
 
 export interface AllergyProps {
-    _id?: string;
-    allergy: string;
-    effect?: string;
-    isDeleted?: boolean;
+  _id?: string;
+  code: Code;
+  designation: Designation;
+  description: Description;
+  effects: string[];
+  isDeleted?: boolean;
 }
 
 export class Allergy extends AggregateRoot<AllergyProps> {
@@ -21,28 +26,24 @@ export class Allergy extends AggregateRoot<AllergyProps> {
         return new AllergyId(this.id);
     }
 
-    get allergy(): string {
-        return this.props.allergy;
+    get code(): string {
+        return this.props.code.value;
     }
 
-    set allergy(value: string) {
-        this.props.allergy = value;
+    get designation(): string {
+        return this.props.designation.value;
     }
 
-    get effect(): string {
-        return this.props.effect;
+    get description(): string {
+        return this.props.description.value;
     }
 
-    set effect(value: string) {
-        this.props.effect = value;
+    get effects(): string[] {
+        return this.props.effects;
     }
 
     get isDeleted(): boolean {
         return this.props.isDeleted;
-    }
-
-    public deleteAllergy(): void {
-        this.props.isDeleted = true;
     }
 
     private constructor(props: AllergyProps, id?: UniqueEntityID) {

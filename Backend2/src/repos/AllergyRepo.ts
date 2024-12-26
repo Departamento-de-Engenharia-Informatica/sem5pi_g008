@@ -27,7 +27,7 @@ export default class AllergyRepo implements IAllergyRepo {
 
     public async exists(allergy: Allergy): Promise<boolean> {
         try {
-            const existingAllergy = await this.allergySchema.findOne({allergy: allergy.allergy});
+            const existingAllergy = await this.allergySchema.findOne({allergy: allergy.designation});
 
             existingAllergy || await this.allergySchema.findOne({domainId: allergy.domainId.id.toValue()});
 
@@ -72,12 +72,12 @@ export default class AllergyRepo implements IAllergyRepo {
   public async getById(id: string): Promise<Allergy> {
     return this.allergySchema.findOne({_id: id});
   }
-  
+
     public async search(allergy: string): Promise<Allergy> {
-        
+
         const allergies = await this.allergySchema.findOne({allergy: allergy});
         console.log(allergies);
-        
+
         return AllergyMap.toDomain(allergies);
     }
 }

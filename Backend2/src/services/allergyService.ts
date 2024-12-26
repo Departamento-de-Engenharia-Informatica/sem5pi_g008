@@ -3,6 +3,11 @@ import IAllergyService from "./IServices/IAllergyService";
 import config from "../../config";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
 import {AllergyMap} from "../mappers/AllergyMap";
+import {Allergy} from "../domain/Allergy/Allergy";
+import IAllergyDTO from "../dto/IAllergyDTO";
+import {Code} from "../domain/MedicalCondition/code";
+import {Designation} from "../domain/MedicalCondition/designation";
+import {Description} from "../domain/MedicalCondition/description";
 
 @Service()
 export default class AllergyService implements IAllergyService {
@@ -10,12 +15,21 @@ export default class AllergyService implements IAllergyService {
       @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo
   ) {}
 
-  public async createAllergy(allergy: any): Promise<any> {
+  public async createAllergy(allergyDTO: IAllergyDTO): Promise<any> {
 
-      if(allergy.domainId === undefined) {
-        await this.allergyRepo.save(allergy);
+    const allergyProps = {
+      code: Code.create(allergyDTO.code).getValue(),
+      designation: Designation.create(allergyDTO.designation).getValue(),
+      description: Description.create(allergyDTO.description).getValue(),
+      effects: allergyDTO.effects
+    };
+
+    const allergyDomain = Allergy.create(allergyProps);
+
+      if(allergyDTO.domainId === undefined) {
+        await this.allergyRepo.save(allergyDomain.getValue());
       } else {
-        await this.allergyRepo.save(allergy, allergy.domainId);
+        await this.allergyRepo.save(allergyDomain.getValue(), allergyDTO.domainId);
       }
   }
 
@@ -27,7 +41,7 @@ export default class AllergyService implements IAllergyService {
     }
     return dtoArray;
   }
-  
+
   public async searchAllergies(allergy: string): Promise<any>{
     let aux = await this.allergyRepo.search(allergy);
     return AllergyMap.toDTO(aux);

@@ -12,16 +12,20 @@ import {CreateAllergyDTO} from '../../../DTOs/createDTOs/createAllergyDTO';
 export class AddAllergyComponent {
 
   allergyDTO: CreateAllergyDTO = {
-    allergy: '',
+    allergyCode: '',
+    allergyDesignation: '',
+    allergyDescription: '',
+    allergyEffects: []
   };
+
+  newEffect: string = '';
+
 
   constructor(private allergyService: AllergyService, private router: Router) {}
 
   addAllergy() {
 
-    const allergy = AllergyMapper.createDtoToDomain(this.allergyDTO);
-
-    this.allergyService.addAllergy(allergy).subscribe(
+    this.allergyService.addAllergy(this.allergyDTO).subscribe(
       (response: any) => {
         alert('Allergy added successfully!');
         this.router.navigate(['/admin/allergyManagement']);
@@ -31,4 +35,16 @@ export class AddAllergyComponent {
       }
     );
   }
+
+  addEffect() {
+    if (this.newEffect.trim()) {
+      this.allergyDTO.allergyEffects.push(this.newEffect.trim());
+      this.newEffect = '';
+    }
+  }
+
+  removeEffect(index: number) {
+    this.allergyDTO.allergyEffects.splice(index, 1);
+  }
+
 }

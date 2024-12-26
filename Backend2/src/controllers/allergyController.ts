@@ -3,7 +3,6 @@ import IAllergyController from "./IControllers/IAllergyController";
 import config from "../../config";
 import IAllergyService from "../services/IServices/IAllergyService";
 import IAllergyDTO from "../dto/IAllergyDTO";
-import {Allergy} from "../domain/Allergy/Allergy";
 
 @Service()
 export default class AllergyController implements IAllergyController {
@@ -51,13 +50,13 @@ export default class AllergyController implements IAllergyController {
     }
 
     public async searchAllergies( req: any, res: any, next: any): Promise<any> {
-        
+
         try {
             const allergies = await this.allergyServiceInstance.searchAllergies(req.params.filter);
             res.status(200).json({
                 allergies: allergies
             });
-            
+
         } catch (error) {
             console.error('Error getting allergies:', error.message);
 

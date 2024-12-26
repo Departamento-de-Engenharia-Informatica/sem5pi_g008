@@ -87,11 +87,17 @@ async function seedData(medicalRecordId: string) {
 
   const medicalAllergyRepo = Container.get(AllergyRepo);
   const allergyProps = {
-    allergy: "PENICILLIN"
+    code: Code.create("AL10").getValue(),
+    designation: Designation.create("PENICILLIN").getValue(),
+    description: Description.create("PENICILLIN IS A BAD ALLERGY").getValue(),
+    effects: ["RASH", "ITCHING"]
   };
 
   const allergyProps2 = {
-    allergy: "ASPIRIN"
+    code: Code.create("AL11").getValue(),
+    designation: Designation.create("ASPIRIN").getValue(),
+    description: Description.create("ASPIRIN IS A BAD ALLERGY").getValue(),
+    effects: ["HEADACHE", "NAUSEA"]
   };
 
   const allergy = Allergy.create(allergyProps);

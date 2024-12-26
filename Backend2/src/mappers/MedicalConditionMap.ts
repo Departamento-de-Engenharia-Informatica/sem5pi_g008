@@ -41,11 +41,11 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
         return medicalConditionOrError.isSuccess ? medicalConditionOrError.getValue() : null;
     }
 
-    public static toPersistence (medicalCondition: MedicalCondition, id: Number): any {
+    public static toPersistence (medicalCondition: MedicalCondition, id: Number): IMedicalConditionPersistence {
 
         if(id === undefined) {
             return {
-                domainId: medicalCondition.domainId.id.toValue(),
+                domainId: <number>medicalCondition.domainId.id.toValue(),
                 code: medicalCondition.code.value,
                 designation: medicalCondition.designation.value,
                 description: medicalCondition.description.value,
@@ -54,7 +54,7 @@ export class MedicalConditionMap extends Mapper<MedicalCondition> {
         }
 
         return {
-            domainId: id,
+            domainId: <number>id,
             code: medicalCondition.code.value,
             designation: medicalCondition.designation.value,
             description: medicalCondition.description.value,
