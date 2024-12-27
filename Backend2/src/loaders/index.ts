@@ -50,6 +50,10 @@ export default async ({expressApp}) => {
         name: 'medicalRecordFreeTextSchema',
         schema: '../persistence/schemas/medicalRecordFreeTextSchema',
     };
+    const medicalRecordFamilyHistorySchema = {
+        name: 'medicalRecordFamilyHistorySchema',
+        schema: '../persistence/schemas/medicalRecordFamilyHistorySchema',
+    };
 
     const roleController = {
         name: config.controllers.role.name,
@@ -110,6 +114,10 @@ export default async ({expressApp}) => {
         name: config.repos.medicalRecordFreeText.name,
         path: config.repos.medicalRecordFreeText.path
     }
+    const medicalRecordFamilyHistoryRepo = {
+        name: config.repos.medicalRecordFamilyHistory.name,
+        path: config.repos.medicalRecordFamilyHistory.path
+    }
 
     const roleService = {
         name: config.services.role.name,
@@ -141,7 +149,8 @@ export default async ({expressApp}) => {
             allergySchema,
             medicalRecordAllergySchema,
             medicalRecordConditionSchema,
-            medicalRecordFreeTextSchema
+            medicalRecordFreeTextSchema,
+            medicalRecordFamilyHistorySchema
         ],
         controllers: [
             roleController,
@@ -157,7 +166,8 @@ export default async ({expressApp}) => {
             medicalRecordRepo,
             medicalRecordAllergyRepo,
             medicalRecordConditionRepo,
-            medicalRecordFreeTextRepo
+            medicalRecordFreeTextRepo,
+            medicalRecordFamilyHistoryRepo
         ],
         services: [
             roleService,

@@ -26,6 +26,8 @@ import {
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
 import {Code} from "../domain/MedicalCondition/code";
 import {Designation} from "../domain/MedicalCondition/designation";
+import IMedicalRecordFamilyHistoryRepo from "./IRepos/IMedicalRecordFamilyHistoryRepo";
+import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 
 
 @Service()
@@ -35,7 +37,8 @@ export default class MedicalRecordService implements IMedicalRecordService{
         @Inject(config.repos.medicalRecordAllergy.name) private medicalRecordAllergyRepo: IMedicalRecordAllergyRepo,
         @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo,
         @Inject(config.repos.medicalRecordCondition.name) private medicalRecordConditionRepo: IMedicalRecordConditionRepo,
-        @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
+        @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo,
+        @Inject(config.repos.medicalRecordFamilyHistory.name) private medicalRecordFamilyHistory: IMedicalRecordFamilyHistoryRepo
     ) {}
        
 
@@ -44,6 +47,23 @@ export default class MedicalRecordService implements IMedicalRecordService{
       const medicalRecord = MedicalRecord.create(medicalProps);
       await this.medicalRecordRepo.save(medicalRecord.getValue(), medicalRecordId);
     }
+    async createFamilyHistory(medicalRecordID: any, familyHistory: any) {
+        const medicalRecord = this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordID);
+
+        if (!medicalRecord) {
+            throw new Error(`Medical record with ID ${medicalRecordID} not found`);
+        }
+        const familylist = [];
+        for (const familyHistoryDTO of familyHistory) {
+            console.log('familyHistoryDTO', familyHistoryDTO);
+            const familyhistory = MedicalRecordFamilyHistoryMap.toDomain(familyHistoryDTO);
+            console.log('familyhistory', familyhistory);
+            familylist.push(familyhistory);
+        }
+        console.log('guardar');
+        await this.medicalRecordRepo.saveFamilyHistory(medicalRecord, familylist);
+    } 
+    
     public async updateMedicalConditions(medicalRecordId: string, conditions: IMedicalRecordConditionDTO[]): Promise<void> {
         console.log("Updating medical conditions for medical record with ID SERVICE:", medicalRecordId);
         
@@ -111,30 +131,35 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
     async getAllMedicalRecordConditions(): Promise<IMedicalRecordConditionDTO[]> {
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getAllMedicalRecordConditions();
-        console.log('medicalRecordConditionList', medicalRecordConditionList);
-
+ 
         if (medicalRecordConditionList.length === 0) {
             throw new NoMedicalRecordConditionsException();
         } 
 console.log('medicalRecordConditionList2');
-        const medicalRecordConditionDTOList: IMedicalRecordConditionDTO[] = []; // Fixed declaration syntax
-
+        const medicalRecordConditionDTOList = [];
+        console.log('medicalRecordConditionList', medicalRecordConditionList[0].condition.toString());
+        console.log('medicalRecordConditionList', medicalRecordConditionList[0].comment.toString());
+        console.log('medicalRecordConditionList', medicalRecordConditionList[0].medicalRecord);   
+        console.log('medicalRecordConditionList', medicalRecordConditionList[0].doctorId);
+ 
+  
         for (const medicalRecordCondition of medicalRecordConditionList) {
-            const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
-            const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
-            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO( 
-                medicalRecordCondition,  
-                condition,
-                medicalRecordCondition.id, // Fixed `medicalRecord.id` to `medicalRecordCondition.id`
-                staffDetailsDTO
-            );
-            medicalRecordConditionDTOList.push(medicalConditionDTO);
-        }
-        console.log('medicalRecordConditionDTOList', medicalRecordConditionDTOList);
 
+            const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
+ 
+            const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
+
+            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
+
+            medicalRecordConditionDTOList.push(medicalConditionDTO); 
+        }
+ 
         return medicalRecordConditionDTOList;
-    }
-    
+        console.log('medicalRecordConditionDTOList', medicalRecordConditionDTOList); 
+ 
+        return medicalRecordConditionDTOList;
+    } 
+     
     public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);

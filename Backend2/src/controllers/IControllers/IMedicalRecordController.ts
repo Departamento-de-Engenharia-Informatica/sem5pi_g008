@@ -11,4 +11,6 @@ export default interface IMedicalRecordController{
     updateMedicalRecordConditions(req, res, next);
 
     getAllMedicalRecordConditions(req, res, next);
+
+    createFamilyHistory(req, res, next);
 }

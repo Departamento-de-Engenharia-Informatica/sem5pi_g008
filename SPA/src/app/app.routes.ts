@@ -45,6 +45,7 @@ import {
 import {
   UpdateMedicalRecorConditionsComponent
 } from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
+import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
 
 export const routes: Routes = [
   {
@@ -93,6 +94,7 @@ export const routes: Routes = [
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
       {path: 'medicalRecordCondition', component: UpdateMedicalRecorConditionsComponent, title: 'UpdateMedicalRecordCondition'},
+      {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
     ],
   },
 

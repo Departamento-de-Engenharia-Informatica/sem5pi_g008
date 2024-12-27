@@ -5,6 +5,8 @@ import {IMedicalRecordPersistence} from "../dataschema/IMedicalRecordPersistence
 import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 import {MedicalRecordMapper} from "../mappers/MedicalRecordMapper";
 import {ObjectId} from "mongodb";
+import {MedicalRecordFamilyHistory} from "../domain/MedicalRecordFamilyHistory/MedicalRecordFamilyHistory";
+import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 
 
 @Service()
@@ -23,10 +25,18 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
     const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
 
     return MedicalRecordMapper.toDomain(medicalRecordCreated);
-  }
+  } 
 
-
-  private async getLastId(): Promise<number> {
+    public async saveFamilyHistory(medicalRecord: Promise<any>, familylist: any[]): any { 
+      console.log('FAMILY LIST', familylist);
+      const rawFamilyHistory: any = MedicalRecordFamilyHistoryMap.toPersistence(medicalRecord, familylist);
+      console.log('RAW FAMILY HISTORY', rawFamilyHistory);
+      const familyHistoryCreated = this.medicalRecordSchema.create(rawFamilyHistory);
+      console.log('FAMILY HISTORY CREATED', familyHistoryCreated);
+        return MedicalRecordFamilyHistoryMap.toDomain(familyHistoryCreated); 
+    }  
+ 
+    private async getLastId(): Promise<number> {
     let number = 1;
 
     const medicalRecord = await this.medicalRecordSchema.find();

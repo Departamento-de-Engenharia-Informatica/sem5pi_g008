@@ -171,10 +171,13 @@ export class MedicalRecordMedicalConditionService {
 
   listMedicalRecordConditions(): Observable<{ medicalRecordConditions: DisplayMedicalRecordConditionDTO[] }> {
     const url = `${this.apiUrl}/Allcondition`;
+    console.log('Loading medical record conditions...');
 
     return this.http.get<{ medicalRecordConditions: BackendMedicalRecordConditionDTO[] }>(url, { withCredentials: true })
       .pipe(
         map((response) => {
+console.log('MRespopnse:', response);
+          console.log('Medical record conditions loaded:', response.medicalRecordConditions);
           const medicalRecordConditions = response.medicalRecordConditions.map(
             (backendDTO) => MedicalRecordConditionMapper.domainToDisplayDTO(
               MedicalRecordConditionMapper.backendDisplayDTOToDomain(backendDTO)

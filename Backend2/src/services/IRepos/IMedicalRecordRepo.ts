@@ -6,6 +6,5 @@ export default interface IMedicalRecordRepo extends Repo<MedicalRecord>{
     getAll(): Promise<MedicalRecord[]>;
     getMedicalRecordByDomainId(medicalRecordId: string): Promise<any>;
     getMedicalRecordById(medicalRecordId: string): Promise<MedicalRecord>;
-
-
+    saveFamilyHistory(medicalRecord: Promise<any>, familylist: any[]): any;
 }
