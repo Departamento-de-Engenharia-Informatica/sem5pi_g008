@@ -23,6 +23,7 @@ export default (app: Router) => {
             ctrl.createMedicalRecord(req, res, next);
         });
 
+
     route.post('/freeText',
         celebrate({
             body: Joi.object({
@@ -42,4 +43,40 @@ export default (app: Router) => {
         (req, res, next) => {
             ctrl.getAllergies(req, res, next);
         });
+
+
+    route.get('/:id/allergy',
+        checkRoleAndProceed(['admin', 'doctor']),
+        (req, res, next) => {
+            ctrl.getAllergies(req, res, next);
+        });
+
+    route.get('/:id/condition',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getMedicalRecordConditions(req, res, next);
+        }
+    );
+
+    route.get('/:id/condition/by-code/:code',
+        //checkRoleAndProceed(['admin','doctor']),  
+        (req, res, next) => {
+            ctrl.getMedicalRecordConditionByCode(req, res, next);
+        }
+    );
+
+    route.get('/:id/condition/by-designation/:designation',
+        //checkRoleAndProceed(['admin','doctor']),  
+        (req, res, next) => {
+            ctrl.getMedicalRecordConditionByDesignation(req, res, next);
+        }
+    );
+    
+  route.get('/:id/allergy',
+    //checkRoleAndProceed(['admin','doctor']),
+    (req, res, next) => {
+      ctrl.getAllergies(req, res, next);
+    });
+
 };
+

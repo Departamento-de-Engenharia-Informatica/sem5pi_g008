@@ -6,7 +6,7 @@
 <div class="container">
   <div class="header">
     <h1>Medical Record Details</h1>
-    <h2 class="sub-header">Allergies</h2>
+    <app-medical-record-allergy-list [medicalRecordId]="medicalRecordId"></app-medical-record-allergy-list>
 
     <div class="content">
 
@@ -15,6 +15,8 @@
 
     <app-medical-record-free-text-list [medicalRecordId]="medicalRecordId"></app-medical-record-free-text-list>
 
+
+    <h2 class="sub-header">Comments</h2>
     </div>
   </div>
 

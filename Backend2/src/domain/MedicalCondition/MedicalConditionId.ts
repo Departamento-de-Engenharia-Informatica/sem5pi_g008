@@ -17,7 +17,11 @@ export class MedicalConditionId extends Entity<any> {
         if(!regex.test(auxId)) {
             throw new Error("AllergyId must contain only digits");
         }
-        
+
         super(null, id)
+    }
+
+    get value(): number {
+        return <number>this.id.toValue();
     }
 }

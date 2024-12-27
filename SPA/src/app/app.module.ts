@@ -81,6 +81,11 @@ import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
 
+  MedicalConditionManagementComponent
+} from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
+import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
+import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
+
 
 @NgModule({
   declarations: [
@@ -146,6 +151,9 @@ import {
     MedicalRecordConditionListComponent,
     MedicalRecordFreeTextListComponent,
     AddMedicalRecordFreeTextComponent
+    MedicalConditionManagementComponent,
+    MedicalRecordAllergyListComponent,
+    EditMedicalConditionComponent,
   ],
   imports: [
     BrowserModule,

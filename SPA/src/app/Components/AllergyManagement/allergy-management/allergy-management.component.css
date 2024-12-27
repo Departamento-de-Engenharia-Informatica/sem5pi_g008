@@ -106,7 +106,7 @@ h1 {
 }
 
 .edit-button {
-  background-color: #4caf50;
+  background-color: #4caf50; /* Green for edit */
   color: white;
 }
 
@@ -115,11 +115,10 @@ h1 {
 }
 
 .view-button {
-  background-color: #ff9800;
+  background-color: #2196f3; /* Blue for view */
   color: white;
 }
 
 .view-button:hover {
-  background-color: #f57c00;
+  background-color: #1976d2;
 }
-

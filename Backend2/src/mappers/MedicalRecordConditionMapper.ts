@@ -4,17 +4,34 @@ import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
 import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordConditionPersistence";
+import IStaffDetailsDTO from "../dto/IStaffDetailsDTO";
+import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
+import {cond} from "lodash";
 
 export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition> {
 
-  public static toDTO(domain: any, medicalConditionDesignation?: string, medicalConditionBusinessId?: string, medicalRecordBusinessId?: string): IMedicalRecordConditionDTO {
+  public static toDTO(domain: any, condition?: MedicalCondition, medicalRecordBusinessId?: string, staffDetailsDTO?: IStaffDetailsDTO): IMedicalRecordConditionDTO {
     
-    if (medicalConditionBusinessId && medicalConditionDesignation && medicalRecordBusinessId) {
+    if (condition && medicalRecordBusinessId) {
+      
+      if(staffDetailsDTO) {
+        return {
+          conditionId: condition.id.toString(),
+          conditionCode: condition.code.value,
+          conditionDesignation: condition.designation.value,
+          medicalRecordId: medicalRecordBusinessId.toString(),
+          doctorName: staffDetailsDTO.firstName + ' ' + staffDetailsDTO.lastName, 
+          doctorLicenseNumber: staffDetailsDTO.licenseNumber,
+          comment: domain.comment
+        } as IMedicalRecordConditionDTO;
+      }
+      
       return {
-        conditionId: medicalConditionBusinessId.toString(),
-        conditionDesignation: medicalConditionDesignation,
+        conditionId: condition.id.toString(),
+        conditionCode: condition.code.value,
+        conditionDesignation: condition.designation.value,
         medicalRecordId: medicalRecordBusinessId.toString(),
-        doctorId: domain.doctorId,
+        doctorName: "Invalid",
         comment: domain.comment
       } as IMedicalRecordConditionDTO;
     }

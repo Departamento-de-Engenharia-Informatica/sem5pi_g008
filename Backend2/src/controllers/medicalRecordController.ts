@@ -4,6 +4,15 @@ import config from "../../config";
 import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
+import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
+import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
+import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
+import {
+  MedicalConditionNotFoundException
+} from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
+import {
+  MedicalRecordConditionNotFoundException
+} from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
 
 
 @Service()
@@ -13,6 +22,8 @@ export default class MedicalRecordController implements IMedicalRecordController
     @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
   ) {
   }
+    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,) {}
+
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -36,6 +47,148 @@ export default class MedicalRecordController implements IMedicalRecordController
           details: error.message
         });
       }
+    }
+  }
+  
+  public async getMedicalRecordConditionByCode(req: any, res: any) {
+    
+    try {
+      
+      let medicalRecordId = req.params.id;
+      let conditionCode = req.params.code;
+      
+      console.log(medicalRecordId, conditionCode);
+      
+
+      const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByCode(medicalRecordId, conditionCode);
+
+      res.status(200).json({
+        medicalRecordCondition: medicalRecordConditionDTO
+      });
+      
+    } catch (error) {
+      if (error instanceof NoMedicalRecordException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof AppError) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof MedicalConditionNotFoundException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+      
+      if (error instanceof MedicalRecordConditionNotFoundException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+      
+      console.log(error);
+
+      res.status(500).json({
+        message: 'Error getting medical record condition.',
+
+      });
+    }
+  }
+
+  public async getMedicalRecordConditionByDesignation(req: any, res: any) {
+
+    try {
+
+      let medicalRecordId = req.params.id;
+      let conditionDesignation = req.params.designation;
+
+      console.log(medicalRecordId, conditionDesignation);
+      
+      const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByDesignation(medicalRecordId, conditionDesignation);
+
+      res.status(200).json({
+        medicalRecordCondition: medicalRecordConditionDTO
+      });
+
+    } catch (error) {
+      if (error instanceof NoMedicalRecordException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof AppError) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof MedicalConditionNotFoundException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof MedicalRecordConditionNotFoundException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      console.log(error);
+
+      res.status(500).json({
+        message: 'Error getting medical record conditions.',
+
+      });
+    }
+  }
+
+
+  public async getMedicalRecordConditions(req: any, res: any): Promise<void> {
+    try {
+
+      let medicalRecordId = req.params.id;
+      
+      const medicalConditionDTOList = await this.medicalRecordInstance.getMedicalRecordConditions(medicalRecordId);
+
+      res.status(200).json({
+        medicalRecordConditions: medicalConditionDTOList
+      });
+
+    } catch (error) {
+
+      if (error instanceof NoMedicalRecordConditionsException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(error.code).json({
+          message: error.message
+        });
+        return;
+      }      
+      
+      res.status(500).json({
+        message: 'Error getting medical record conditions.',
+
+      });
     }
   }
 

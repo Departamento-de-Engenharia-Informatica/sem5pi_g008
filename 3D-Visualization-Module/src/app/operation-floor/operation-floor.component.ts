@@ -114,6 +114,9 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
         this.receivedData = arrayData;
 
         if (this.receivedData.length !== this.roomNumber) {
+          console.log(this.receivedData.length);
+          console.log(this.receivedData);
+          console.log(this.roomNumber);
           console.error("The number of rooms is not equal to the number of received data");
         }
         for (let i = 0; i < this.receivedData.length; i++) {

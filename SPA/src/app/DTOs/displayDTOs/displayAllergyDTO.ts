@@ -1,4 +1,6 @@
 ﻿export interface DisplayAllergyDTO{
-  allergy: string;
-  effect: string;
+  code: string;
+  designation: string;
+  description: string;
+  effects: string[];
 }

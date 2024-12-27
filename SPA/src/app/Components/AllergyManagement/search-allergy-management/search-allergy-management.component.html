@@ -15,26 +15,35 @@
 <div class="content">
 
   <app-filter-button
-    *ngIf="allergies.length >0 && showFilterButton"
+    *ngIf="allergies.length > 0 && showFilterButton"
     [filters]="['Allergy']"
     (filterSelected)="handleSelectedFilter($event)"
   ></app-filter-button>
 
   <div *ngFor="let allergy of allergies" class="allergy-item">
     <div class="allergy-details">
-      <p><strong>Allergy:</strong> {{ allergy.allergy }}</p>
-      <p><strong>Effect:</strong> {{ allergy.effect }}</p>
+      <p><strong>Code:</strong> {{ allergy.code }}</p>
+      <p><strong>Designation:</strong> {{ allergy.designation }}</p>
+      <p><strong>Description:</strong> {{ allergy.description }}</p>
+      <p><strong>Effects:</strong></p>
+      <ul>
+        <li *ngFor="let effect of allergy.effects">{{ effect }}</li>
+      </ul>
     </div>
-
   </div>
-  <button class="reset-filter-button" (click)="resetFilter()" *ngIf="showResetFilterButton">Reset Filter</button>
-</div>
 
+  <button
+    class="reset-filter-button"
+    (click)="resetFilter()"
+    *ngIf="showResetFilterButton"
+  >
+    Reset Filter
+  </button>
+</div>
 
 <div class="error-message" *ngIf="showNoAllergiesFound; else invalidFields">
   <p>No allergy found.</p>
 </div>
-
 
 <ng-template #invalidFields>
   <div class="error-message" *ngIf="showEmptyFilterError">
@@ -44,6 +53,5 @@
 
 <app-enter-filter-name
   (filterTypeToEmit)="currentFilter = $event"
-  (nameToFilter)="handleFilterSelection($event)">
-</app-enter-filter-name>
-
+  (nameToFilter)="handleFilterSelection($event)"
+></app-enter-filter-name>

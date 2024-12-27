@@ -1,4 +1,6 @@
 ﻿export interface CreateAllergyDTO{
-  allergy: string;
-  effect?: string;
+  allergyCode: string;
+  allergyDesignation: string;
+  allergyDescription: string;
+  allergyEffects: string[];
 }

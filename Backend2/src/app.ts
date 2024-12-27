@@ -23,7 +23,27 @@ import {Description} from "./domain/MedicalCondition/description";
 import {MedicalRecord} from "./domain/MedicalRecord/MedicalRecord";
 
 
-async function seedData(medicalRecordId: string) {
+async function seedData() {
+
+  const medicalRecordProps = {}
+  const medicalRecordDomain = MedicalRecord.create(medicalRecordProps).getValue();
+  const medicalRecordRepo = Container.get(MedicalRecordRepo);
+  await medicalRecordRepo.save(medicalRecordDomain, "20241200007");
+
+  const medicalRecordDomain2 = MedicalRecord.create(medicalRecordProps).getValue();
+  await medicalRecordRepo.save(medicalRecordDomain2, "20241200003");
+
+  const medicalRecordDomain3 = MedicalRecord.create(medicalRecordProps).getValue();
+  await medicalRecordRepo.save(medicalRecordDomain3, "20241200004");
+
+  const medicalRecordDomain4 = MedicalRecord.create(medicalRecordProps).getValue();
+  await medicalRecordRepo.save(medicalRecordDomain4, "20241200005");
+
+
+  const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200005");
+
+  const medicalRecordId = medicalRecord.props._id;
+
   const medicalRecordFreeTextRepo = Container.get(MedicalRecordFreeTextRepo);
   const medicalRecordFreeTextProps = {
     medicalRecord: medicalRecordId,
@@ -43,14 +63,12 @@ async function seedData(medicalRecordId: string) {
   await medicalRecordFreeTextRepo.save(medicalRecordFreeText2.getValue());
 
 
-  const medicalRecordRepo = Container.get(MedicalConditionRepo);
-
   const medicalConditionProps = {
     code: Code.create("CA12").getValue(),
     designation: Designation.create("CANCER").getValue(),
     description: Description.create("CANCER IS A BAD CONDITION").getValue(),
     symptomsList: ["COUGH", "HEADACHE"]
-    
+
   };
 
   const medicalConditionProps2 = {
@@ -60,10 +78,12 @@ async function seedData(medicalRecordId: string) {
     symptomsList: ["CHEST PAIN", "SHORTNESS OF BREATH"]
   };
 
+  const medicalConditionRepo = Container.get(MedicalConditionRepo);
+
   const medicalCondition = MedicalCondition.create(medicalConditionProps);
   const medicalCondition2 = MedicalCondition.create(medicalConditionProps2);
-  const medC = await medicalRecordRepo.save(medicalCondition.getValue());
-  const medC2 = await medicalRecordRepo.save(medicalCondition2.getValue());
+  const medC = await medicalConditionRepo.save(medicalCondition.getValue());
+  const medC2 = await medicalConditionRepo.save(medicalCondition2.getValue());
 
   const medicalRecordConditionRepo = Container.get(MedicalRecordConditionRepo);
   const medicalRecordConditionProps = {
@@ -82,16 +102,22 @@ async function seedData(medicalRecordId: string) {
 
   const medicalRecordCondition = MedicalRecordCondition.create(medicalRecordConditionProps);
   const medicalRecordCondition2 = MedicalRecordCondition.create(medicalRecordConditionProps2);
- // await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
-//  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
+  await medicalRecordConditionRepo.save(medicalRecordCondition.getValue());
+  await medicalRecordConditionRepo.save(medicalRecordCondition2.getValue());
 
   const medicalAllergyRepo = Container.get(AllergyRepo);
   const allergyProps = {
-    allergy: "PENICILLIN"
+    code: Code.create("AL10").getValue(),
+    designation: Designation.create("PENICILLIN").getValue(),
+    description: Description.create("PENICILLIN IS A BAD ALLERGY").getValue(),
+    effects: ["RASH", "ITCHING"]
   };
 
   const allergyProps2 = {
-    allergy: "ASPIRIN"
+    code: Code.create("AL11").getValue(),
+    designation: Designation.create("ASPIRIN").getValue(),
+    description: Description.create("ASPIRIN IS A BAD ALLERGY").getValue(),
+    effects: ["HEADACHE", "NAUSEA"]
   };
 
   const allergy = Allergy.create(allergyProps);
@@ -127,20 +153,11 @@ async function startServer() {
 
   await require('./loaders').default({expressApp: app});
 
-
   try {
-    const medicalRecordProps = {}
-     const medicalRecordd = MedicalRecord.create(medicalRecordProps).getValue();
-    const medicalRecordRepo = Container.get(MedicalRecordRepo);
-    const medicalRecordSaved = await medicalRecordRepo.save(medicalRecordd, "20241200007");
-    const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200007");
-    
-    if (medicalRecord !== null) {
-      await seedData(medicalRecord.props._id);
-    }
-    
-  } catch (ignored) {}
-
+      await seedData();
+  } catch (error) {
+    console.log("Error seeding data: ", error);
+  }
 
   app.listen(config.port, () => {
     console.log("Server listening on port: " + config.port);

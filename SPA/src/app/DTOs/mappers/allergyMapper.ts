@@ -9,17 +9,10 @@ export class AllergyMapper {
 
     return {
       domainId: -1,
-      allergy: allergy.allergy,
-      effect: allergy.effect
-    };
-  }
-
-  public static displayDtoToDomain(allergy: DisplayAllergyDTO): Allergy {
-
-    return {
-      domainId: -1,
-      allergy: allergy.allergy,
-      effect: allergy.effect
+      code: allergy.allergyCode,
+      designation: allergy.allergyDesignation,
+      description: allergy.allergyDescription,
+      effects: allergy.allergyEffects
     };
   }
 
@@ -27,22 +20,20 @@ export class AllergyMapper {
 
     return {
       domainId: allergy.domainId || -1,
-      allergy: allergy.allergy,
-      effect: allergy.effect
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 
   public static domainToDisplayDto(allergy: Allergy): DisplayAllergyDTO {
 
-    let effect = allergy.effect;
-
-    if (effect === undefined) {
-      effect = "No effect specified";
-    }
-
     return {
-      allergy: allergy.allergy,
-      effect: effect
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 
@@ -58,8 +49,10 @@ export class AllergyMapper {
 
     return {
       domainId: domainId,
-      allergy: allergy.allergy,
-      effect: allergy.effect
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 }

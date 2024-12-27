@@ -80,3 +80,21 @@
 .medical-record-condition-item {
   margin-bottom: 10px; /* Espaçamento entre itens */
 }
+
+/* Contêiner para alinhar os botões */
+.filter-buttons-container {
+  display: flex; /* Ativa o layout flexbox */
+  justify-content: space-between; /* Alinha os itens aos extremos do contêiner */
+  align-items: center; /* Alinha verticalmente no centro */
+  margin-bottom: 10px; /* Espaçamento abaixo dos botões */
+}
+
+/* Botão Reset Filter */
+app-reset-filter-button {
+  margin-right: auto; /* Move o botão para a extrema esquerda */
+}
+
+/* Botão Filter */
+app-filter-button {
+  margin-left: auto; /* Move o botão para a extrema direita */
+}

@@ -18,7 +18,8 @@ export class AdminMenuComponent {
     {title: 'Delete Pendent Users', icon: 'assets/icons/patient.png', link: '/patient/checkUserToDelete'},
     {title: '3D', icon: 'assets/icons/3d.png', link: '/3d'},
     {title: 'Specialization Management', icon: 'assets/icons/dashboard.png', link: '/admin/specialization'},
-    {title: 'Allergy Management', icon: 'assets/icons/dashboard.png', link: '/admin/allergyManagement'}
+    {title: 'Allergy Management', icon: 'assets/icons/dashboard.png', link: '/admin/allergyManagement'},
+    {title: 'Medical Condition Management', icon: 'assets/icons/dashboard.png', link: '/admin/medicalConditionManagement'},
   ];
 
   constructor(@Inject(AuthService) auth: AuthService) {
