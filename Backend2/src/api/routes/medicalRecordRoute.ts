@@ -23,6 +23,28 @@ export default (app: Router) => {
             ctrl.createMedicalRecord(req, res, next);
         });
 
+
+    route.post('/freeText',
+        celebrate({
+            body: Joi.object({
+                domainId: Joi.string().optional(),
+                medicalRecordId: Joi.string().required(),
+                doctorId: Joi.string().required(),
+                comment: Joi.string().required()
+            }),
+        }),
+       // checkRoleAndProceed(['doctor']),
+        (req, res, next) => {
+            ctrl.addFreeText(req, res, next);
+        });
+
+    route.get('/:id/allergy',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getAllergies(req, res, next);
+        });
+
+
     route.get('/:id/allergy',
         checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
@@ -55,5 +77,6 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
+
 };
 
