@@ -8,6 +8,9 @@ import IAllergyDTO from "../dto/IAllergyDTO";
 import {Code} from "../domain/MedicalCondition/code";
 import {Designation} from "../domain/MedicalCondition/designation";
 import {Description} from "../domain/MedicalCondition/description";
+import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
+import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
+import {all} from "axios";
 
 @Service()
 export default class AllergyService implements IAllergyService {
@@ -33,7 +36,28 @@ export default class AllergyService implements IAllergyService {
       }
   }
 
-  public async getAllAllergies(): Promise<any> {
+  public async updateAllergyDesignation(id: string, designation: string): Promise<any> {
+    const allergy = await this.allergyRepo.getByDomainId(Number.parseInt(id));
+    allergy.designation = Designation.create(designation).getValue();
+    await this.allergyRepo.updateUsingDomainId(allergy, 'designation');
+    return AllergyMap.toDTO(allergy);
+  }
+
+  public async updateAllergyDescription(id: string, description: string): Promise<any> {
+    const allergy = await this.allergyRepo.getByDomainId(Number.parseInt(id));
+    allergy.description = Description.create(description).getValue();
+    await this.allergyRepo.updateUsingDomainId(allergy, 'description');
+    return AllergyMap.toDTO(allergy);
+  }
+
+  public async updateAllergyEffects(id: string, effects: string[]): Promise<any> {
+    const allergy = await this.allergyRepo.getByDomainId(Number.parseInt(id));
+    allergy.updateEffects(effects);
+    await this.allergyRepo.updateUsingDomainId(allergy,'effects');
+    return AllergyMap.toDTO(allergy);
+  }
+  
+    public async getAllAllergies(): Promise<any> {
     let aux = await this.allergyRepo.getAll();
     let dtoArray = new Array(aux.length);
     for(let i = 0; i < aux.length; i++) {
