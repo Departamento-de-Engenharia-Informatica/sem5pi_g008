@@ -48,7 +48,19 @@ export default {
     allergy: {
       name: "AllergyController",
       path: "../controllers/AllergyController"
-    }
+    },
+    medicalCondition: {
+      name: "MedicalConditionController",
+      path: "../controllers/MedicalConditionController"
+    },
+    medicalRecord: {
+      name:"MedicalRecordController",
+      path:"../controllers/MedicalRecordController"
+    },
+      medicalRecordCondition: {
+          name: "MedicalRecordConditionController",
+          path: "../controllers/MedicalRecordConditionController"
+      }
   },
 
   repos: {
@@ -67,7 +79,23 @@ export default {
     allergy: {
       name: "AllergyRepo",
       path: "../repos/AllergyRepo"
-    }
+    },
+    medicalRecord: {
+      name:"MedicalRecordRepo",
+      path:"../repos/MedicalRecordRepo"
+    },
+    medicalRecordAllergy: {
+      name: "MedicalRecordAllergyRepo",
+      path: "../repos/MedicalRecordAllergyRepo"
+    },
+    medicalRecordCondition: {
+      name: "MedicalRecordConditionRepo",
+      path: "../repos/MedicalRecordConditionRepo"
+    },
+    medicalRecordFreeText: {
+      name: "MedicalRecordFreeTextRepo",
+      path: "../repos/MedicalRecordFreeTextRepo"
+    },
   },
 
   services: {
@@ -78,6 +106,18 @@ export default {
     allergy: {
       name: "AllergyService",
       path: "../services/AllergyService"
+    },
+    medicalCondition: {
+      name: "MedicalConditionService",
+      path: "../services/MedicalConditionService"
+    },
+    medicalRecord:{
+      name: "MedicalRecordService",
+      path:"../services/MedicalRecordService"
+    },
+    medicalRecordCondition: {
+        name: "MedicalRecordConditionService",
+        path: "../services/MedicalRecordConditionService"
     }
   },
 
