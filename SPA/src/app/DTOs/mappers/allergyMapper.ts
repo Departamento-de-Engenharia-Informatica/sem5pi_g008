@@ -30,6 +30,7 @@ export class AllergyMapper {
   public static domainToDisplayDto(allergy: Allergy): DisplayAllergyDTO {
 
     return {
+      domainId: allergy.domainId.toString(),
       code: allergy.code,
       designation: allergy.designation,
       description: allergy.description,

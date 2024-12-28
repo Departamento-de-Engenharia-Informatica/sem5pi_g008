@@ -4,6 +4,9 @@ import {Document, Model} from "mongoose";
 import {IAllergyPersistence} from "../dataschema/IAllergyPersistence";
 import {Allergy} from "../domain/Allergy/Allergy";
 import {AllergyMap} from "../mappers/AllergyMap";
+import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
+import {NotFoundException} from "../Exceptions/NotFoundException";
+import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 
 
 @Service()
@@ -80,4 +83,50 @@ export default class AllergyRepo implements IAllergyRepo {
 
         return AllergyMap.toDomain(allergies);
     }
+
+    public async getByDomainId(id: number): Promise<Allergy> {
+        const allergy = await this.allergySchema.findOne({domainId: id});
+
+        if (!allergy) {
+            throw new NotFoundException("Allergy not found");
+        }
+
+        return AllergyMap.toDomain(allergy);
+    }
+
+    public async updateUsingDomainId(allergy: Allergy, ...fieldsToUpdate: string[]): Promise<Allergy> {
+        const domainId = allergy.domainId.value;
+        const rawAllergy = AllergyMap.toPersistence(allergy, domainId);
+
+        delete rawAllergy.code;
+        delete rawAllergy.domainId;
+        delete rawAllergy.isDeleted;
+
+        const remainingFields = ['description', 'designation', 'effects'];
+
+        for (const field of fieldsToUpdate) {
+            if (!remainingFields.includes(field)) {
+                throw new Error("Invalid field to update");
+            }
+        }
+
+        Object.keys(rawAllergy).forEach((key) => {
+            if (!fieldsToUpdate.includes(key)) {
+                delete rawAllergy[key];
+            }
+        });
+
+        const updatedAllergy = await this.allergySchema.findOneAndUpdate(
+            {domainId: domainId},
+            rawAllergy,
+            {new: true}
+        );
+
+        if (!updatedAllergy) {
+            throw new NotFoundException("Allergy not found");
+        }
+
+        return AllergyMap.toDomain(updatedAllergy);
+    }
+    
 }

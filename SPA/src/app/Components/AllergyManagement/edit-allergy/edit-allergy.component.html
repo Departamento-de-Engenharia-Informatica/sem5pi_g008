@@ -1,0 +1,63 @@
+<div class="edit-allergy">
+  <h2>Edit Medical Condition</h2>
+
+  <form (ngSubmit)="editAllergy()">
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input
+        id="code"
+        type="text"
+        [(ngModel)]="updatedAllergy.code"
+        name="code"
+        readonly
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="designation">Designation</label>
+      <input
+        id="designation"
+        type="text"
+        [(ngModel)]="updatedAllergy.designation"
+        name="designation"
+        placeholder="Enter the designation... (Maximum 100 characters)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        id="description"
+        type="text"
+        [(ngModel)]="updatedAllergy.description"
+        name="description"
+        placeholder="Enter the description... (Maximum 2048 characters)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="effect">Effects</label>
+      <div class="effect-input">
+        <input
+          id="effect"
+          type="text"
+          [(ngModel)]="newEffect"
+          name="effect"
+          placeholder="Enter an Effect"
+        />
+        <button type="button" (click)="addEffect()" [disabled]="!newEffect.trim()">Add</button>
+      </div>
+      <div class="effects-list">
+        <div class="effect-item" *ngFor="let effect of updatedAllergy.effects; let i = index">
+          <span>{{ effect }}</span>
+          <button type="button" (click)="removeEffect(i)">x</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!isAtLeastOneFieldDifferent()">Edit Allergy</button>
+  </form>
+
+  <app-home-button></app-home-button>
+  <app-go-back-button [goBackPath]="'/admin/allergyManagement'" ></app-go-back-button>
+</div>

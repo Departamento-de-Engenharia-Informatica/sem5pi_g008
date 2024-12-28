@@ -40,4 +40,8 @@ export class AllergyManagementComponent {
   public addAllergy() {
     this.router.navigate(['admin/allergyManagement/add']);
   }
+
+  public editAllergy(allergy: DisplayAllergyDTO) {
+    this.router.navigate(['admin/allergyManagement/edit'], { state : {allergy : allergy }});
+  }
 }
