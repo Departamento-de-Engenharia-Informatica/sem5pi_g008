@@ -7,6 +7,9 @@ import IMedicalRecordAllergyRepo from "./IRepos/IMedicalRecordAllergyRepo";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
+import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
+import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
+import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
 import IStaffDetailsDTO from "../dto/IStaffDetailsDTO";
@@ -25,14 +28,17 @@ import {Code} from "../domain/MedicalCondition/code";
 import {Designation} from "../domain/MedicalCondition/designation";
 
 
+
 @Service()
 export default class MedicalRecordService implements IMedicalRecordService{
     constructor(
         @Inject(config.repos.medicalRecord.name) private medicalRecordRepo:IMedicalRecordRepo,
         @Inject(config.repos.medicalRecordAllergy.name) private medicalRecordAllergyRepo: IMedicalRecordAllergyRepo,
         @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo,
+        @Inject(config.repos.medicalRecordFreeText.name) private medicalRecordFreeTextRepo: IMedicalRecordFreeTextRepo
         @Inject(config.repos.medicalRecordCondition.name) private medicalRecordConditionRepo: IMedicalRecordConditionRepo,
         @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
+
     ) {}
 
     public async createMedicalRecord(medicalRecordId:string): Promise<void> {
@@ -183,5 +189,16 @@ export default class MedicalRecordService implements IMedicalRecordService{
             });
         });
     }
+
+
+    public async addFreeText(medicalRecord: any): Promise<any> {
+
+        const medicalRecordDomain=MedicalRecordFreeTextMap.toDomain(medicalRecord);
+        await this.medicalRecordFreeTextRepo.save(medicalRecordDomain);
+
+    }
+
 }
+
+
 

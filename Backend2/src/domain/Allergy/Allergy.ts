@@ -46,6 +46,18 @@ export class Allergy extends AggregateRoot<AllergyProps> {
         return this.props.isDeleted;
     }
 
+    set designation(newDesignation: Designation) {
+        this.props.designation = newDesignation;
+    }
+    
+    set description(newDescription: Description) {
+        this.props.description = newDescription;
+    }
+    
+    public updateEffects(newEffects: string[]): void {
+        this.setEffectsList(newEffects);
+    }
+    
     private constructor(props: AllergyProps, id?: UniqueEntityID) {
         if (id) {
             new AllergyId(id);
@@ -66,6 +78,10 @@ export class Allergy extends AggregateRoot<AllergyProps> {
         } catch (e) {
             return Result.fail<Allergy>(e.message);
         }
+    }
+
+    private setEffectsList(effects: string[]): void {
+        this.props.effects = effects;
     }
 }
 

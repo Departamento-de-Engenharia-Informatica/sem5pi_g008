@@ -74,10 +74,19 @@ import {
 } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import { MedicalRecordConditionListComponent } from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
 import {
+  MedicalRecordFreeTextListComponent
+} from './Components/MedicalRecordFreeTextManagement/medical-record-free-text-list/medical-record-free-text-list.component';
+import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextService/medical-record-free-text.service';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
+
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
 import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
+import { EditAllergyComponent } from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
+
 
 @NgModule({
   declarations: [
@@ -141,9 +150,12 @@ import {EditMedicalConditionComponent} from './Components/MedicalConditionManage
     EditSpecializationComponent,
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
+    MedicalRecordFreeTextListComponent,
+    AddMedicalRecordFreeTextComponent
     MedicalConditionManagementComponent,
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,
+    EditAllergyComponent,
   ],
   imports: [
     BrowserModule,

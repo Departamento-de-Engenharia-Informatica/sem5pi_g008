@@ -8,7 +8,7 @@ import {IMedicalRecordFreeTextPersistence} from "../dataschema/IMedicalRecordFre
 
 export class MedicalRecordFreeTextMap extends Mapper<MedicalRecordFreeText> {
 
-  public static toDTO(domain: MedicalRecordAllergy): IMedicalRecordFreeTextDTO {
+  public static toDTO(domain: MedicalRecordFreeText): IMedicalRecordFreeTextDTO {
     return {
       doctorId: domain.doctorId,
       medicalRecordId: domain.medicalRecord,
@@ -16,9 +16,9 @@ export class MedicalRecordFreeTextMap extends Mapper<MedicalRecordFreeText> {
     } as IMedicalRecordFreeTextDTO;
   }
 
-  public static toDomain(medicalRecordFreeText: any | Model<IMedicalRecordFreeTextPersistence & Document>): MedicalRecordAllergy {
+  public static toDomain(medicalRecordFreeText: any | Model<IMedicalRecordFreeTextPersistence & Document>): MedicalRecordFreeText {
 
-    const medicalRecordFreeTextResult = MedicalRecordAllergy.create(
+    const medicalRecordFreeTextResult = MedicalRecordFreeText.create(
       medicalRecordFreeText,
       new UniqueEntityID(medicalRecordFreeText.domainId)
     );

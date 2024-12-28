@@ -3,6 +3,7 @@ import IMedicalRecordController from "./IControllers/IMedicalRecordController";
 import config from "../../config";
 import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
+import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
 import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
@@ -18,7 +19,11 @@ import {
 export default class MedicalRecordController implements IMedicalRecordController {
 
   constructor(
+    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
+  ) {
+  }
     @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,) {}
+
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -203,5 +208,21 @@ export default class MedicalRecordController implements IMedicalRecordController
     }
 
     return null;
+  }
+
+  public async addFreeText(req: any, res: any): Promise<any> {
+    let freeText: IMedicalRecordFreeTextDTO = req.body;
+
+    try {
+      await this.medicalRecordInstance.addFreeText(freeText);
+
+      res.status(200).json({
+        message: 'Comment Added Successfully'
+      });
+
+    } catch (error) {
+      console.error('Error adding comment:', error.message);
+
+    }
   }
 }

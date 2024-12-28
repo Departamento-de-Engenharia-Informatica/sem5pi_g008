@@ -57,11 +57,17 @@ export class MedicalRecordConditionListComponent implements OnInit {
     }
   }
 
+
+        console.error('Failed to load medical conditions:', error);
+      }
+    );
+
   handleResetFilter() {
     this.medicalRecordConditions = this.medicalRecordConditionsAux;
     this.errorMessage = "";
     this.currentFilter = '';
     this.filteredMedicalRecordConditions = null;
+
   }
 
   applyCodeFilter(filterValue: string) {

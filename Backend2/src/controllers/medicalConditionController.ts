@@ -40,7 +40,7 @@ export default class MedicalConditionController implements IMedicalConditionCont
 
       } else {
         res.status(500).json({
-          message: 'Error creating medical condition - Code/Designation already exists',
+          message: 'Code/Designation already exists',
         });
       }
     }
