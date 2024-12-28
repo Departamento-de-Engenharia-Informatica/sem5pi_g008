@@ -35,7 +35,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
         @Inject(config.repos.medicalRecord.name) private medicalRecordRepo:IMedicalRecordRepo,
         @Inject(config.repos.medicalRecordAllergy.name) private medicalRecordAllergyRepo: IMedicalRecordAllergyRepo,
         @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo,
-        @Inject(config.repos.medicalRecordFreeText.name) private medicalRecordFreeTextRepo: IMedicalRecordFreeTextRepo
+        @Inject(config.repos.medicalRecordFreeText.name) private medicalRecordFreeTextRepo: IMedicalRecordFreeTextRepo,
         @Inject(config.repos.medicalRecordCondition.name) private medicalRecordConditionRepo: IMedicalRecordConditionRepo,
         @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
 

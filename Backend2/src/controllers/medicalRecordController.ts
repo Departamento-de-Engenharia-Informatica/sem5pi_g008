@@ -20,10 +20,7 @@ export default class MedicalRecordController implements IMedicalRecordController
 
   constructor(
     @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
-  ) {
-  }
-    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,) {}
-
+  ) {}
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -49,23 +46,23 @@ export default class MedicalRecordController implements IMedicalRecordController
       }
     }
   }
-  
+
   public async getMedicalRecordConditionByCode(req: any, res: any) {
-    
+
     try {
-      
+
       let medicalRecordId = req.params.id;
       let conditionCode = req.params.code;
-      
+
       console.log(medicalRecordId, conditionCode);
-      
+
 
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByCode(medicalRecordId, conditionCode);
 
       res.status(200).json({
         medicalRecordCondition: medicalRecordConditionDTO
       });
-      
+
     } catch (error) {
       if (error instanceof NoMedicalRecordException) {
         res.status(error.code).json({
@@ -87,14 +84,14 @@ export default class MedicalRecordController implements IMedicalRecordController
         });
         return;
       }
-      
+
       if (error instanceof MedicalRecordConditionNotFoundException) {
         res.status(error.code).json({
           message: error.message
         });
         return;
       }
-      
+
       console.log(error);
 
       res.status(500).json({
@@ -112,7 +109,7 @@ export default class MedicalRecordController implements IMedicalRecordController
       let conditionDesignation = req.params.designation;
 
       console.log(medicalRecordId, conditionDesignation);
-      
+
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByDesignation(medicalRecordId, conditionDesignation);
 
       res.status(200).json({
@@ -162,7 +159,7 @@ export default class MedicalRecordController implements IMedicalRecordController
     try {
 
       let medicalRecordId = req.params.id;
-      
+
       const medicalConditionDTOList = await this.medicalRecordInstance.getMedicalRecordConditions(medicalRecordId);
 
       res.status(200).json({
@@ -183,8 +180,8 @@ export default class MedicalRecordController implements IMedicalRecordController
           message: error.message
         });
         return;
-      }      
-      
+      }
+
       res.status(500).json({
         message: 'Error getting medical record conditions.',
 
