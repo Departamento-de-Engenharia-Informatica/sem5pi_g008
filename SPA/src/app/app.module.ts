@@ -78,6 +78,7 @@ import {
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
 import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
+import { EditAllergyComponent } from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import {EditMedicalConditionComponent} from './Components/MedicalConditionManage
     MedicalConditionManagementComponent,
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,
+    EditAllergyComponent,
   ],
   imports: [
     BrowserModule,

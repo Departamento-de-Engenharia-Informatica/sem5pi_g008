@@ -66,6 +66,25 @@ export class AllergyService {
     );
   }
 
+  updateAllergyDesignation(id: string, newDesignation: string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/designation`, { designation: newDesignation }, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
+  }
+
+  updateAllergyDescription(id: string, newDescription: string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/description`, { description: newDescription }, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
+  }
+
+  updateAllergyEffects(id: string, newEffects: string[]): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${id}/effects`, { effects: newEffects }, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
+  }
+
+
   searchAllergies(allergy: string): Observable<{ allergies: DisplayAllergyDTO }> {
     const params = new HttpParams().set('allergy', allergy);
 
@@ -103,6 +122,18 @@ export class AllergyService {
       );
   }
 
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An unknown error occurred.';
+
+    if (error.status >= 805 && error.status <= 809) {
+      errorMessage = error.error?.message || 'Backend-specific error occurred.';
+    } else if (error.status === 500) {
+      errorMessage = error.error?.message || 'Internal server error.';
+    }
+
+    console.error('HTTP Error:', error);
+    return throwError(() => new Error(errorMessage));
+  }
 
 
 }
