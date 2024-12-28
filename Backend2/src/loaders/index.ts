@@ -8,20 +8,7 @@ export default async ({expressApp}) => {
     const mongoConnection = await mongooseLoader();
     Logger.info('✌️ DB loaded and connected!');
 
-    const userSchema = {
-        // compare with the approach followed in repos and services
-        name: 'userSchema',
-        schema: '../persistence/schemas/userSchema',
-    };
-
-    const roleSchema = {
-        // compare with the approach followed in repos and services
-        name: 'roleSchema',
-        schema: '../persistence/schemas/roleSchema',
-    };
-
     const medicalConditionSchema = {
-        // compare with the approach followed in repos and services
         name: 'medicalConditionSchema',
         schema: '../persistence/schemas/medicalConditionSchema',
     };
@@ -51,11 +38,6 @@ export default async ({expressApp}) => {
         schema: '../persistence/schemas/medicalRecordFreeTextSchema',
     };
 
-    const roleController = {
-        name: config.controllers.role.name,
-        path: config.controllers.role.path
-    }
-
     const allergyController = {
         name: config.controllers.allergy.name,
         path: config.controllers.allergy.path
@@ -69,16 +51,6 @@ export default async ({expressApp}) => {
     const medicalConditionController = {
         name: config.controllers.medicalCondition.name,
         path: config.controllers.medicalCondition.path
-    }
-
-    const roleRepo = {
-        name: config.repos.role.name,
-        path: config.repos.role.path
-    }
-
-    const userRepo = {
-        name: config.repos.user.name,
-        path: config.repos.user.path
     }
 
     const medicalConditionRepo = {
@@ -111,11 +83,6 @@ export default async ({expressApp}) => {
         path: config.repos.medicalRecordFreeText.path
     }
 
-    const roleService = {
-        name: config.services.role.name,
-        path: config.services.role.path
-    }
-
     const allergyService = {
         name: config.services.allergy.name,
         path: config.services.allergy.path
@@ -130,12 +97,10 @@ export default async ({expressApp}) => {
         name: config.services.medicalRecord.name,
         path: config.services.medicalRecord.path
     }
-    
+
     await dependencyInjectorLoader({
         mongoConnection,
         schemas: [
-            userSchema,
-            roleSchema,
             medicalRecordSchema,
             medicalConditionSchema,
             allergySchema,
@@ -144,14 +109,11 @@ export default async ({expressApp}) => {
             medicalRecordFreeTextSchema
         ],
         controllers: [
-            roleController,
             allergyController,
             medicalRecordController,
             medicalConditionController
         ],
         repos: [
-            roleRepo,
-            userRepo,
             medicalConditionRepo,
             allergyRepo,
             medicalRecordRepo,
@@ -160,7 +122,6 @@ export default async ({expressApp}) => {
             medicalRecordFreeTextRepo
         ],
         services: [
-            roleService,
             allergyService,
             medicalRecordService,
             medicalConditionService,
