@@ -37,22 +37,15 @@ module.exports = function(config) {
       },
     },
 
-    // Test results reporter to use
-    reporters: ['progress', 'kjhtml'], // Use Jasmine HTML reporter for better UI
+    reporters: ['progress', 'kjhtml'],
     client: {
-      clearContext: false, // Keep Jasmine Spec Runner output visible in the browser
+      clearContext: false,
     },
 
-    // Web server port
     port: 9876,
 
-    // Enable/disable colors in the output (reporters and logs)
     colors: true,
 
-    // Level of logging
-    logLevel: config.LOG_INFO,
-
-    // Enable/disable watching files and executing tests on file changes
     autoWatch: true,
 
     // Start these browsers
