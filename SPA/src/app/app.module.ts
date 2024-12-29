@@ -81,6 +81,7 @@ import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
 
+import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
@@ -151,7 +152,7 @@ import { EditAllergyComponent } from './Components/AllergyManagement/edit-allerg
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
     MedicalRecordFreeTextListComponent,
-    AddMedicalRecordFreeTextComponent
+    AddMedicalRecordFreeTextComponent,
     MedicalConditionManagementComponent,
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,
