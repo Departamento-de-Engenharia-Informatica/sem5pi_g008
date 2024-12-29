@@ -10,6 +10,16 @@ import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMap
 export default class MedicalRecordConditionRepo implements IMedicalRecordConditionRepo{
   constructor(@Inject('medicalRecordConditionSchema') private medicalRecordConditionSchema: Model<IMedicalRecordConditionPersistence & Document>,) {
   }
+
+  
+  public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
+    console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
+    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});
+
+    return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
+  }
+
+
   public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
     console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
     const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});

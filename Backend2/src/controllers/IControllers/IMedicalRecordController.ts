@@ -10,6 +10,7 @@ export default interface IMedicalRecordController{
     getMedicalRecordConditions(req: Request, res: Response, next: NextFunction);
     getMedicalRecordConditionByCode(req: Request, res: Response, next: NextFunction);
     getMedicalRecordConditionByDesignation(req: Request, res: Response, next: NextFunction);
+    updateMedicalRecordConditions(req, res, next);
 
 
     createFamilyHistory(req: Request, res: Response, next: NextFunction);

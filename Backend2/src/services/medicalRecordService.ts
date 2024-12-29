@@ -98,7 +98,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
         // Atualiza as condições no registro médico
         medicalRecord.medicalRecordConditions = updatedConditions;
         // Salva o registro médico atualizado
-        await this.medicalRecordRepo.save(medicalRecord, medicalRecordId);
+        await this.medicalRecordRepo.saveUpdate(medicalRecord, medicalRecordId);
     }
 
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {

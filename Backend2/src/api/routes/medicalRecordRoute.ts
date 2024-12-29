@@ -84,5 +84,11 @@ export default (app: Router) => {
             ctrl.getAllMedicalRecordConditions(req, res, next);
         }
     );
+
+    route.put(
+        '/recordConditions'
+        ,(req, res, next) => ctrl.updateMedicalRecordConditions(req, res, next),
+    );
+
 };
 

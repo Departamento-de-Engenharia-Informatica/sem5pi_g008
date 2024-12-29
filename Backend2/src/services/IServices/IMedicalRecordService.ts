@@ -11,5 +11,6 @@ export default interface IMedicalRecordService{
     getMedicalRecordConditionByDesignation(medicalRecordId: string, conditionDesignation: string): Promise<any>;
     createFamilyHistory(medicalRecordID: any, familyHistory: any): void;
     getAllMedicalRecordConditions():Promise<IMedicalRecordConditionDTO[]>;
+    updateMedicalConditions(medicalRecordId: any, updatedConditions: any): any;
 
 }
