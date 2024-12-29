@@ -13,6 +13,7 @@ import {
 import {
   MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
+import {error} from "winston";
 
 
 @Service()
@@ -220,6 +221,40 @@ export default class MedicalRecordController implements IMedicalRecordController
     } catch (error) {
       console.error('Error adding comment:', error.message);
 
+    }
+  }
+
+  createFamilyHistory(req: any, res: any, next: any): void {
+    try {
+      console.log("Creating family history for medical record with ID:", req.body.medicalRecordID);
+      console.log("Family history:", req.body.familyHistory);
+      this.medicalRecordInstance.createFamilyHistory(req.body.medicalRecordID, req.body.familyHistory);
+      res.status(201).json({
+        message: 'Family history created successfully',
+      });
+    }catch (error) {
+      console.error('Error creating family history:', error.message);
+      res.status(500).json({
+        message: 'Error creating family history',
+        details: error.message
+      });
+    }
+  }
+
+  public async getAllMedicalRecordConditions(req: any, res: any): Promise<void> {
+    try {
+      const medicalConditionDTOList = await this.medicalRecordInstance.getAllMedicalRecordConditions();
+      console.log('DTO CONTROLLER',medicalConditionDTOList);
+
+      res.status(200).json({
+        medicalRecordConditions: medicalConditionDTOList
+      });
+    } catch (error) {
+      console.error('Error getting medical record conditions:', error.message);
+      res.status(500).json({
+        message: 'Error getting medical record conditions',
+        details: error.message
+      });
     }
   }
 }

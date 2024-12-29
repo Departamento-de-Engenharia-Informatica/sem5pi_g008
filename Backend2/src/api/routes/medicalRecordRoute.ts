@@ -77,6 +77,12 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
-
+  
+    route.get('/Allcondition',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getAllMedicalRecordConditions(req, res, next);
+        }
+    );
 };
 

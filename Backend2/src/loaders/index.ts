@@ -9,6 +9,7 @@ export default async ({expressApp}) => {
     Logger.info('✌️ DB loaded and connected!');
 
     const medicalConditionSchema = {
+        // compare with the approach followed in repos and services
         name: 'medicalConditionSchema',
         schema: '../persistence/schemas/medicalConditionSchema',
     };
@@ -37,6 +38,12 @@ export default async ({expressApp}) => {
         name: 'medicalRecordFreeTextSchema',
         schema: '../persistence/schemas/medicalRecordFreeTextSchema',
     };
+    const medicalRecordFamilyHistorySchema = {
+        name: 'medicalRecordFamilyHistorySchema',
+        schema: '../persistence/schemas/medicalRecordFamilyHistorySchema',
+    };
+
+
 
     const allergyController = {
         name: config.controllers.allergy.name,
@@ -52,6 +59,7 @@ export default async ({expressApp}) => {
         name: config.controllers.medicalCondition.name,
         path: config.controllers.medicalCondition.path
     }
+    
 
     const medicalConditionRepo = {
         name: config.repos.medicalCondition.name,
@@ -82,6 +90,11 @@ export default async ({expressApp}) => {
         name: config.repos.medicalRecordFreeText.name,
         path: config.repos.medicalRecordFreeText.path
     }
+    const medicalRecordFamilyHistoryRepo = {
+        name: config.repos.medicalRecordFamilyHistory.name,
+        path: config.repos.medicalRecordFamilyHistory.path
+    }
+    
 
     const allergyService = {
         name: config.services.allergy.name,
@@ -106,20 +119,22 @@ export default async ({expressApp}) => {
             allergySchema,
             medicalRecordAllergySchema,
             medicalRecordConditionSchema,
-            medicalRecordFreeTextSchema
+            medicalRecordFreeTextSchema,
+            medicalRecordFamilyHistorySchema
         ],
         controllers: [
             allergyController,
             medicalRecordController,
             medicalConditionController
-        ],
+        ], 
         repos: [
             medicalConditionRepo,
             allergyRepo,
             medicalRecordRepo,
             medicalRecordAllergyRepo,
             medicalRecordConditionRepo,
-            medicalRecordFreeTextRepo
+            medicalRecordFreeTextRepo,
+            medicalRecordFamilyHistoryRepo
         ],
         services: [
             allergyService,

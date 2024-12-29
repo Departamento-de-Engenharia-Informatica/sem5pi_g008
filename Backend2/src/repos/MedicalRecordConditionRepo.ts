@@ -10,7 +10,12 @@ import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMap
 export default class MedicalRecordConditionRepo implements IMedicalRecordConditionRepo{
   constructor(@Inject('medicalRecordConditionSchema') private medicalRecordConditionSchema: Model<IMedicalRecordConditionPersistence & Document>,) {
   }
+  public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
+    console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
+    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});
 
+    return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
+  }
   exists(t: MedicalRecordCondition): Promise<boolean> {
     //TODO:Implement exists method
     return Promise.resolve(false);
@@ -63,6 +68,12 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
     }
     
     return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
+  }
+
+  public async getAllMedicalRecordConditions(): Promise<MedicalRecordCondition> {
+    const medicalRecordConditions = await this.medicalRecordConditionSchema.find();
+    return MedicalRecordConditionMapper.toDomain(medicalRecordConditions);
+
   }
 
 }

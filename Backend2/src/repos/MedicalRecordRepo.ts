@@ -15,6 +15,18 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
     return Promise.resolve(false);
   }
 
+  public async getMedicalRecordById(medicalRecordId: string): Promise<MedicalRecord> {
+    const medicalRecord = await this.medicalRecordSchema
+        .findOne({domainId: medicalRecordId})
+        .exec();
+
+    if (!medicalRecord) {
+      throw new Error(`Medical record with ID ${medicalRecordId} not found`);
+    }
+
+    return MedicalRecordMapper.toDomain(medicalRecord);
+  }
+  
   public async save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
 
     const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
