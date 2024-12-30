@@ -2,10 +2,9 @@
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {AllergyId} from "./AllergyId";
 import {Result} from "../../core/logic/Result";
-import {ObjectId} from "mongodb";
-import {Code} from "../MedicalCondition/code";
-import {Designation} from "../MedicalCondition/designation";
-import {Description} from "../MedicalCondition/description";
+import {Code} from "../Shared/code";
+import {Designation} from "../Shared/designation";
+import {Description} from "../Shared/description";
 
 export interface AllergyProps {
   _id?: string;
@@ -49,15 +48,15 @@ export class Allergy extends AggregateRoot<AllergyProps> {
     set designation(newDesignation: Designation) {
         this.props.designation = newDesignation;
     }
-    
+
     set description(newDescription: Description) {
         this.props.description = newDescription;
     }
-    
+
     public updateEffects(newEffects: string[]): void {
         this.setEffectsList(newEffects);
     }
-    
+
     private constructor(props: AllergyProps, id?: UniqueEntityID) {
         if (id) {
             new AllergyId(id);

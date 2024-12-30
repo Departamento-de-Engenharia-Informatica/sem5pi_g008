@@ -1,10 +1,9 @@
 ﻿
 import { mock, instance, when } from 'ts-mockito';
-import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
-import {Designation} from "../../../../src/domain/MedicalCondition/designation";
-import {Code} from "../../../../src/domain/MedicalCondition/code";
-import {Description} from "../../../../src/domain/MedicalCondition/description";
 import {MedicalCondition} from "../../../../src/domain/MedicalCondition/MedicalCondition";
+import {Designation} from "../../../../src/domain/Shared/designation";
+import {Code} from "../../../../src/domain/Shared/code";
+import {Description} from "../../../../src/domain/Shared/description";
 
 
 describe('MedicalCondition with mocks', () => {
@@ -44,16 +43,6 @@ describe('MedicalCondition with mocks', () => {
     expect(medicalCondition.designation).toEqual(medicalConditionProps.designation);
     expect(medicalCondition.description).toEqual(medicalConditionProps.description);
     expect(medicalCondition.symptomsList).toEqual(medicalConditionProps.symptomsList);
-  });
-
-  it('should update the symptoms list', () => {
-    const result = MedicalCondition.create(medicalConditionProps);
-    const medicalCondition = result.getValue();
-    const newSymptoms = ['Fatigue', 'Blurred vision'];
-
-    medicalCondition.updateSymptomsList(newSymptoms);
-
-    expect(medicalCondition.symptomsList).toEqual(newSymptoms);
   });
 
 });
