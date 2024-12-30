@@ -17,10 +17,10 @@ import AllergyRepo from "./repos/AllergyRepo";
 import {Allergy} from "./domain/Allergy/Allergy";
 import MedicalRecordAllergyRepo from "./repos/MedicalRecordAllergyRepo";
 import {MedicalRecordAllergy} from "./domain/MedicalRecordAllergy/MedicalRecordAllergy";
-import {Code} from "./domain/MedicalCondition/code";
-import {Designation} from "./domain/MedicalCondition/designation";
-import {Description} from "./domain/MedicalCondition/description";
 import {MedicalRecord} from "./domain/MedicalRecord/MedicalRecord";
+import {Designation} from "./domain/Shared/designation";
+import {Code} from "./domain/Shared/code";
+import {Description} from "./domain/Shared/description";
 
 
 async function seedData() {

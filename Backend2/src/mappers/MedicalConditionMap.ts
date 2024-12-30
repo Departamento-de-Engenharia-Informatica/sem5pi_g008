@@ -4,9 +4,9 @@ import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 import {Document, Model} from "mongoose";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersistence";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
-import {Description} from "../domain/MedicalCondition/description";
+import {Code} from "../domain/Shared/code";
+import {Designation} from "../domain/Shared/designation";
+import {Description} from "../domain/Shared/description";
 
 export class MedicalConditionMap extends Mapper<MedicalCondition> {
 

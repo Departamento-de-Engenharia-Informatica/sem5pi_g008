@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = function(config) {
   config.set({
 
@@ -33,7 +35,17 @@ module.exports = function(config) {
         ],
       },
       resolve: {
-        extensions: ['.ts', '.js'], // Resolve TypeScript and JavaScript files
+        extensions: ['.ts', '.js'],
+        alias: {
+          config: path.resolve(__dirname, 'src/config.ts'), // Add alias for config
+        },
+        fallback: {
+          os: require.resolve('os-browserify/browser'),
+          crypto: require.resolve('crypto-browserify'),
+          stream: require.resolve('stream-browserify'),
+          vm: require.resolve('vm-browserify'),
+          util: require.resolve('util/'),
+        },
       },
     },
 
@@ -49,7 +61,7 @@ module.exports = function(config) {
     autoWatch: true,
 
     // Start these browsers
-    browsers: ['Chrome'],
+    browsers: [],
 
     // Continuous Integration mode
     singleRun: false,

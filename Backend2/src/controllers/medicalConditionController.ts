@@ -3,8 +3,8 @@ import IMedicalConditionController from "./IControllers/IMedicalConditionControl
 import config from "../../config";
 import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 import IMedicalConditionService from "../services/IServices/IMedicalConditionService";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
 import {NotFoundException} from "../Exceptions/NotFoundException";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 @Service()
 export default class MedicalConditionController implements IMedicalConditionController {

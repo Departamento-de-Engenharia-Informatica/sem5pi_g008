@@ -4,7 +4,7 @@ import config from "../../config";
 import IAllergyService from "../services/IServices/IAllergyService";
 import IAllergyDTO from "../dto/IAllergyDTO";
 import {NotFoundException} from "../Exceptions/NotFoundException";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 @Service()
 export default class AllergyController implements IAllergyController {

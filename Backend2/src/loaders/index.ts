@@ -124,7 +124,6 @@ export default async ({expressApp}) => {
         services: [
             allergyService,
             medicalRecordService,
-            medicalConditionService,
             medicalConditionService
         ]
     });

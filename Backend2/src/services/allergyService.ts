@@ -5,12 +5,9 @@ import IAllergyRepo from "./IRepos/IAllergyRepo";
 import {AllergyMap} from "../mappers/AllergyMap";
 import {Allergy} from "../domain/Allergy/Allergy";
 import IAllergyDTO from "../dto/IAllergyDTO";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
-import {Description} from "../domain/MedicalCondition/description";
-import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
-import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
-import {all} from "axios";
+import {Code} from "../domain/Shared/code";
+import {Designation} from "../domain/Shared/designation";
+import {Description} from "../domain/Shared/description";
 
 @Service()
 export default class AllergyService implements IAllergyService {
