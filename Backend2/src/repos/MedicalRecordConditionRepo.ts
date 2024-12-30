@@ -14,24 +14,20 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
   
   public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
     console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
-    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});
+    const number=Number(s);
+    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({domainId:number});
+    console.log('medicalRecordCondition', medicalRecordCondition);
 
     return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
-  }
+  } 
 
-
-  public async getMedicalRecordConditionById(s: string): Promise<MedicalRecordCondition> {
-    console.log('RepoESTOYRepoESTOYRepoESTOYRepoESTOY');
-    const medicalRecordCondition = await this.medicalRecordConditionSchema.findOne({id:s});
-
-    return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
-  }
-  exists(t: MedicalRecordCondition): Promise<boolean> {
-    //TODO:Implement exists method
+  
+  exists(t: MedicalRecordCondition): Promise<boolean> { 
+    //TODO:Implement exists method    
     return Promise.resolve(false);
   }
 
-  public async save(medicalRecordCondition: MedicalRecordCondition): Promise<MedicalRecordCondition> {
+  public async save(medicalRecordCondition: MedicalRecordCondition): Promise<MedicalRecordCondition> { 
 
     const id = await this.getLastId();
 
@@ -80,10 +76,10 @@ export default class MedicalRecordConditionRepo implements IMedicalRecordConditi
     return MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
   }
 
-  public async getAllMedicalRecordConditions(): Promise<MedicalRecordCondition> {
+  public async getAllMedicalRecordConditions(): Promise<MedicalRecordCondition[]> {
     const medicalRecordConditions = await this.medicalRecordConditionSchema.find();
-    return MedicalRecordConditionMapper.toDomain(medicalRecordConditions);
-
+    medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
+    return medicalRecordConditions;
   }
 
 }

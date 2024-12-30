@@ -87,6 +87,9 @@ import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
+import {
+  UpdateMedicalRecorConditionsComponent
+} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
 
 
 @NgModule({
@@ -157,7 +160,8 @@ import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/f
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,
     EditAllergyComponent,
-    FamilyHistoryComponent
+    FamilyHistoryComponent,
+    UpdateMedicalRecorConditionsComponent
   ],
   imports: [
     BrowserModule,

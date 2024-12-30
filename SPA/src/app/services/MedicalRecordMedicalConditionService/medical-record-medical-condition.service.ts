@@ -16,6 +16,63 @@ export class MedicalRecordMedicalConditionService {
   constructor(private http: HttpClient) {
   }
 
+  listMedicalRecordConditions(): Observable<{ medicalRecordConditions: DisplayMedicalRecordConditionDTO[] }> {
+    const url = `${this.apiUrl}/Allcondition`;
+
+    return this.http.get<{ medicalRecordConditions: BackendMedicalRecordConditionDTO[] }>(url, { withCredentials: true })
+  }
+
+  saveSelectedMedicalRecordConditions(conditions: any[]): Observable<any> {
+    const url = `${this.apiUrl}/saveConditions`;
+    console.log('Conditions to save:', conditions);
+    return this.http.post(url, { conditions }, { withCredentials: true }).pipe(
+      map((response) => {
+        console.log('Conditions saved successfully:', response);
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Failed to save conditions:', error);
+        return throwError('Failed to save conditions.');
+      })
+    );
+  }
+
+  getAllMedicalRecordConditions(medicalRecordId: string) : Observable<{ medicalRecordConditions: DisplayMedicalRecordConditionDTO[] }>{
+    const url = `${this.apiUrl}/Allcondition`;
+
+    return this.http
+      .get<{ medicalRecordConditions: BackendMedicalRecordConditionDTO[] }>(url, {
+        withCredentials: true
+      }).pipe(
+        map((response) => {
+
+          const medicalRecordConditions: DisplayMedicalRecordConditionDTO[] = [];
+
+          for (const backendMedicalRecordConditionDTO of response.medicalRecordConditions) {
+            const medicalRecordConditionDomain = MedicalRecordConditionMapper.backendDisplayDTOToDomain(backendMedicalRecordConditionDTO);
+            const displayMedicalRecordConditionDTO = MedicalRecordConditionMapper.domainToDisplayDTO(medicalRecordConditionDomain);
+
+            medicalRecordConditions.push(displayMedicalRecordConditionDTO);
+          }
+
+          return { medicalRecordConditions: medicalRecordConditions };
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'An unknown error occurred.';
+
+          if(error.status === 850) {
+            errorMessage = error.error.message;
+          }
+
+          if(error.status === 900) {
+            errorMessage = "This section is empty due to not founding the medical record.";
+          }
+
+          return throwError(errorMessage);
+        })
+      );
+  }
+
   listMedicalRecordConditionsByMedicalRecordId(medicalRecordId: string) : Observable<{ medicalRecordConditions: DisplayMedicalRecordConditionDTO[] }>{
     const url = `${this.apiUrl}/${medicalRecordId}/condition`;
 

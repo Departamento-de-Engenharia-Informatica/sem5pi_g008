@@ -94,9 +94,12 @@ export default class MedicalRecordService implements IMedicalRecordService{
             // Adiciona ao array de condições atualizadas
             updatedConditions.push(conditionDomain);
         }
-
+        console.log('Passou3');
         // Atualiza as condições no registro médico
+        console.log('updatedConditions before', medicalRecord.medicalRecordConditions);
         medicalRecord.medicalRecordConditions = updatedConditions;
+        console.log('updatedConditions after', medicalRecord.medicalRecordConditions);
+
         // Salva o registro médico atualizado
         await this.medicalRecordRepo.saveUpdate(medicalRecord, medicalRecordId);
     }
@@ -140,29 +143,17 @@ export default class MedicalRecordService implements IMedicalRecordService{
         }
         console.log('medicalRecordConditionList2');
         const medicalRecordConditionDTOList = [];
-        console.log('medicalRecordConditionList', medicalRecordConditionList[0].condition.toString());
-        console.log('medicalRecordConditionList', medicalRecordConditionList[0].comment.toString());
-        console.log('medicalRecordConditionList', medicalRecordConditionList[0].medicalRecord);
-        console.log('medicalRecordConditionList', medicalRecordConditionList[0].doctorId);
-
+  
 
         for (const medicalRecordCondition of medicalRecordConditionList) {
-
-            const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
-
-            const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
-
             const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
-
             medicalRecordConditionDTOList.push(medicalConditionDTO);
-        }
+        } 
 
         return medicalRecordConditionDTOList;
-        console.log('medicalRecordConditionDTOList', medicalRecordConditionDTOList);
 
-        return medicalRecordConditionDTOList;
     }
-
+ 
     public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);

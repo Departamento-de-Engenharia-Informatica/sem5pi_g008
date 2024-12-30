@@ -40,6 +40,7 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
 
   public async saveUpdate(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
     const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
+    console.log('rawMedicalRecord', rawMedicalRecord);
 
     if (medicalRecordId) {
       // Update existing record
@@ -49,11 +50,11 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
           {new: true} // Return the updated document
       ).exec();
 
-      if (!updatedRecord) {
+      if (!updatedRecord) { 
         throw new Error(`Medical record with ID ${medicalRecordId} not found for update.`);
       }
 
-      return MedicalRecordMapper.toDomain(updatedRecord);
+      return MedicalRecordMapper.toDomain(updatedRecord);  
     } else {
       // Create a new record
       const createdRecord = await this.medicalRecordSchema.create(rawMedicalRecord);
