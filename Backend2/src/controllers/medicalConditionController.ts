@@ -13,14 +13,14 @@ export default class MedicalConditionController implements IMedicalConditionCont
   ) {
   }
   public async searchMedicalConditionsCode(req: any, res: any) {
-    const { query } = req.body; // Expecting a query string in the body
+    const  query  = req.params.code; // Expecting a query string in the body
     console.log("Query: ", query);
 
     try {
       const medicalConditions = await this.medicalConditionServiceInstance.searchMedicalConditionsCode(query);
       console.log("Medical Conditions CONTROLLER: "+medicalConditions);
 
-      res.status(200).json({
+      res.status(200).json({ 
         data: medicalConditions,
       });
     } catch (error) {
@@ -38,7 +38,7 @@ export default class MedicalConditionController implements IMedicalConditionCont
     }
   }
   public async searchMedicalConditionsDesignation(req: any, res: any) {
-    const { query } = req.body; // Expecting a query string in the body
+    const  query  = req.params.designation; // Expecting a query string in the body
     console.log("Query: ", query);
 
     try {
