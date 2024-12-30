@@ -53,11 +53,12 @@ export class MedicalRecordConditionListComponent implements OnInit {
     }
   }
 
-  handleResetFilter(): void {
-    this.medicalRecordConditions = [...this.medicalRecordConditionsAux];
-    this.errorMessage = '';
+  handleResetFilter() {
+    this.medicalRecordConditions = this.medicalRecordConditionsAux;
+    this.errorMessage = "";
     this.currentFilter = '';
     this.filteredMedicalRecordConditions = null;
+
   }
 
   applyCodeFilter(filterValue: string): void {
