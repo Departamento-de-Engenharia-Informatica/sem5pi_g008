@@ -60,4 +60,20 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.updateMedicalConditionSymptoms(req, res, next);
     });
+
+    route.get('/code',
+        (req, res, next) => {
+            console.log("I am here");
+            next(); 
+        },
+        (req, res, next) => ctrl.searchMedicalConditionsCode(req, res, next)
+    );
+    route.get('/designation',
+        (req, res, next) => {
+            console.log("I am here");
+            next();
+        },
+        (req, res, next) => ctrl.searchMedicalConditionsDesignation(req, res, next)
+    );
+
 };

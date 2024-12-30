@@ -17,7 +17,46 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
         @Inject('medicalConditionSchema') private medicalConditionSchema: Model<IMedicalConditionPersistence & Document>,
     ) {
     }
+    public async getMedicalConditionByCode(code: Code): Promise<MedicalCondition> {
+        const query = {code: code.value};
+        const medicalCondition = await this.medicalConditionSchema.findOne(query);
 
+        return MedicalConditionMap.toDomain(medicalCondition);
+    }
+    public async searchDesignation(query: string): Promise<MedicalCondition[]> {
+        try {
+            const conditions = await this.medicalConditionSchema.find(
+                { designation: query}).exec();
+            console.log("Conditions: ", conditions);
+
+
+            if (!conditions || conditions.length === 0) {
+                return [];
+            }
+
+            return conditions.map((condition) => MedicalConditionMap.toDomain(condition));
+        } catch (error) {
+            console.error("Error while searching for medical conditions:", error);
+            throw new Error("Failed to search medical conditions.");
+        }
+    }
+    public async searchCode(query: string): Promise<MedicalCondition[]> {
+        try {
+            const conditions = await this.medicalConditionSchema.find(
+                { code: query}).exec();
+            console.log("Conditions: ", conditions);
+
+
+            if (!conditions || conditions.length === 0) {
+                return [];
+            }
+
+            return conditions.map((condition) => MedicalConditionMap.toDomain(condition));
+        } catch (error) {
+            console.error("Error while searching for medical conditions:", error);
+            throw new Error("Failed to search medical conditions.");
+        }
+    }
     public async save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition> {
 
         if(id === undefined) {

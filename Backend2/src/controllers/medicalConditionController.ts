@@ -12,7 +12,56 @@ export default class MedicalConditionController implements IMedicalConditionCont
     @Inject(config.services.medicalCondition.name) private medicalConditionServiceInstance: IMedicalConditionService
   ) {
   }
+  public async searchMedicalConditionsCode(req: any, res: any) {
+    const { query } = req.body; // Expecting a query string in the body
+    console.log("Query: ", query);
 
+    try {
+      const medicalConditions = await this.medicalConditionServiceInstance.searchMedicalConditionsCode(query);
+      console.log("Medical Conditions CONTROLLER: "+medicalConditions);
+
+      res.status(200).json({
+        data: medicalConditions,
+      });
+    } catch (error) {
+      if (error instanceof AppError) {
+        console.error(`AppError: ${error.code} - ${error.message}`);
+        res.status(error.code).json({
+          message: error.message,
+        });
+      } else {
+        console.error('Error searching medical conditions:', error);
+        res.status(500).json({
+          message: 'An error occurred while searching for medical conditions.',
+        });
+      }
+    }
+  }
+  public async searchMedicalConditionsDesignation(req: any, res: any) {
+    const { query } = req.body; // Expecting a query string in the body
+    console.log("Query: ", query);
+
+    try {
+      const medicalConditions = await this.medicalConditionServiceInstance.searchMedicalConditionsDesignation(query);
+      console.log("Medical Conditions CONTROLLER: "+medicalConditions);
+
+      res.status(200).json({
+        data: medicalConditions,
+      });
+    } catch (error) {
+      if (error instanceof AppError) {
+        console.error(`AppError: ${error.code} - ${error.message}`);
+        res.status(error.code).json({
+          message: error.message,
+        });
+      } else {
+        console.error('Error searching medical conditions:', error);
+        res.status(500).json({
+          message: 'An error occurred while searching for medical conditions.',
+        });
+      }
+    }
+  }
 
   public async createMedicalCondition(req: any, res: any) {
 

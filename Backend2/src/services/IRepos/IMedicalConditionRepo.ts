@@ -12,5 +12,6 @@ export default interface IMedicalConditionRepo extends Repo<MedicalCondition> {
     getAll(): Promise<MedicalCondition[]>;
     getMedicalConditionByCode(code: Code): Promise<any>;
     getMedicalConditionByDesignation(designation: Designation): Promise<any>;
-
+    searchCode(query: any): Promise<MedicalCondition[]>
+    searchDesignation(query: any): Promise<MedicalCondition[]>
 }
