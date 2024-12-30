@@ -15,6 +15,9 @@ export default (app: Router) => {
     route.post('/'
         ,(req, res, next) => ctrl.createFamilyHistory(req, res, next),
     );
+    route.get('/:id'
+        ,(req, res, next) => ctrl.getMedicalRecordFamilyHistoryWithIds(req, res, next),
+    );
 
 };
 

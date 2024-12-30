@@ -7,7 +7,7 @@ let Schema = mongoose.Schema;
 const MedicalRecordFamilyHistorySchema = new mongoose.Schema(
     {
         domainId: { type: Number, unique: true, required: true }, // Unique identifier
-        medicalRecordId: { type: Schema.Types.ObjectId, ref: 'MedicalRecord', required: false }, // Reference to the medical record
+        medicalRecordId: { type: String, ref: 'MedicalRecord', required: false }, // Reference to the medical record
         familyMember: { type: String, required: true }, // Family member (e.g., father, mother, etc.)
         condition: { type: String, required: true }, // Medical condition
     }, 

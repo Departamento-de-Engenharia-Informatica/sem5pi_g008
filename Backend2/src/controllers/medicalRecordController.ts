@@ -22,6 +22,22 @@ export default class MedicalRecordController implements IMedicalRecordController
   constructor(
     @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
   ) {}
+  
+  public async getMedicalRecordFamilyHistoryWithIds(req: any, res: any): Promise<void> {
+    try {
+      const medicalRecordId = req.params.id;
+      const medicalRecordFamilyHistory = await this.medicalRecordInstance.getMedicalRecordFamilyHistoryWithIds(medicalRecordId);
+      res.status(200).json({
+        medicalRecordFamilyHistory: medicalRecordFamilyHistory
+      });
+    } catch (error) {
+      console.error('Error getting medical record family history:', error.message);
+      res.status(500).json({
+        message: 'Error getting medical record family history',
+        details: error.message
+      });
+    }
+  }
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -223,12 +239,15 @@ export default class MedicalRecordController implements IMedicalRecordController
 
     }
   }
-
+ 
   createFamilyHistory(req: any, res: any, next: any): void {
     try {
       console.log("Creating family history for medical record with ID:", req.body.medicalRecordID);
       console.log("Family history:", req.body.familyHistory);
-      this.medicalRecordInstance.createFamilyHistory(req.body.medicalRecordID, req.body.familyHistory);
+      console.log("Family history:", req.body.familyMember);
+      console.log("Family history:", req.body.condition);
+      console.log("Family history:", req.body.payload);
+      this.medicalRecordInstance.createFamilyHistory(req.body.medicalRecordID, req.body);
       res.status(201).json({
         message: 'Family history created successfully',
       });
@@ -237,7 +256,7 @@ export default class MedicalRecordController implements IMedicalRecordController
       res.status(500).json({
         message: 'Error creating family history',
         details: error.message
-      });
+      }); 
     }
   }
 

@@ -4,6 +4,7 @@ import {IMedicalRecordConditionPersistence} from "../dataschema/IMedicalRecordCo
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionRepo from "../services/IRepos/IMedicalRecordConditionRepo";
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
+import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 
 
 @Service()

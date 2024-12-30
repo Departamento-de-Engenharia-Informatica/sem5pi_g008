@@ -4,6 +4,7 @@ import mongoose, {Document, Model} from "mongoose";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {IMedicalRecordFamilyHistoryPersistence} from "../dataschema/IMedicalRecordFamilyHistoryPersistence";
 import {IMedicalRecordFamilyHistoryDTO} from "../dto/IMedicalRecordFamilyHistoryDTO";
+import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 
 export class MedicalRecordFamilyHistoryMap extends Mapper<MedicalRecordFamilyHistory> {
 
@@ -35,10 +36,10 @@ export class MedicalRecordFamilyHistoryMap extends Mapper<MedicalRecordFamilyHis
     // Convert the domain object to persistence format (e.g., for MongoDB storage)
 
 
-   public static toPersistence(medicalRecordId: string, familylist: any) {
+   public static toPersistence(familylist: any, id: any) {
         const rawFamilyHistory: any = {
-            domainId: 1,
-            medicalRecordId: medicalRecordId,
+            domainId: id,
+            medicalRecordId: familylist.medicalRecordId,
             familyMember: familylist.familyMember,
             condition: familylist.condition,
         };

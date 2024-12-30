@@ -56,15 +56,13 @@ export default class MedicalRecordService implements IMedicalRecordService{
         if (!medicalRecord) {
             throw new Error(`Medical record with ID ${medicalRecordID} not found`);
         }
-        const familylist = [];
-        for (const familyHistoryDTO of familyHistory) {
-            console.log('familyHistoryDTO', familyHistoryDTO);
-            const familyhistory = MedicalRecordFamilyHistoryMap.toDomain(familyHistoryDTO);
-            console.log('familyhistory', familyhistory);
-            familylist.push(familyhistory);
-        }
+       console.log('Dto in Service', familyHistory);
         console.log('guardar');
-        await this.medicalRecordFamilyHistory.saveFamilyHistory(medicalRecordID, familylist);
+        await this.medicalRecordFamilyHistory.save(familyHistory);
+    }
+    async getMedicalRecordFamilyHistoryWithIds(medicalRecordId: string): Promise<any[]> {
+        const medicalRecordFamilyHistory = await this.medicalRecordFamilyHistory.getMedicalRecordFamilyHistoryWithIds(medicalRecordId);
+        return medicalRecordFamilyHistory;
     }
 
     public async updateMedicalConditions(medicalRecordId: string, conditions: IMedicalRecordConditionDTO[]): Promise<void> {
