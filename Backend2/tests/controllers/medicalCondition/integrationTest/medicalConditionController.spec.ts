@@ -1,13 +1,14 @@
 ﻿import 'reflect-metadata';
 import * as sinon from 'sinon';
-import { Response, Request, NextFunction } from 'express';
+import { Response, Request } from 'express';
 import { Container } from 'typedi';
-import IMedicalConditionService from '../../../../src/services/IServices/IMedicalConditionService';
-import IMedicalConditionDTO from '../../../../src/dto/IMedicalConditionDTO';
 import MedicalConditionController from "../../../../src/controllers/medicalConditionController";
-import {AppError} from "../../../../src/domain/Shared/Exceptions/AppError";
+import IMedicalConditionService from "../../../../src/services/IServices/IMedicalConditionService";
+import MedicalConditionService from "../../../../src/services/medicalConditionService";
+import IMedicalConditionDTO from "../../../../src/dto/IMedicalConditionDTO";
+import IMedicalConditionRepo from "../../../../src/services/IRepos/IMedicalConditionRepo";
 
-describe('MedicalConditionController', function () {
+describe('MedicalConditionController Integration Test', function () {
     const sandbox = sinon.createSandbox();
 
     beforeEach(function () {
@@ -23,18 +24,17 @@ describe('MedicalConditionController', function () {
         const medicalConditionServiceClass = require('../../../../src/services/medicalConditionService').default;
         const medicalConditionServiceInstance = Container.get(medicalConditionServiceClass);
         Container.set('MedicalConditionService', medicalConditionServiceInstance);
-        
+
         const medicalConditionControllerClass = require('../../../../src/controllers/medicalConditionController').default;
         const medicalConditionControllerInstance = Container.get(medicalConditionControllerClass);
         Container.set('medicalConditionController', medicalConditionControllerInstance);
+        
     });
-
     afterEach(function () {
         sandbox.restore();
     });
 
-    it('should create a medical condition successfully using service stub', async function () {
-        // Arrange
+    it('should create a medical condition successfully', async function () {
         const body: IMedicalConditionDTO = {
             code: 'C123',
             designation: 'Hypertension',
@@ -46,17 +46,26 @@ describe('MedicalConditionController', function () {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
-        const next: Partial<NextFunction> = () => {};
 
-        const medicalConditionServiceInstance = Container.get('MedicalConditionService') as IMedicalConditionService;
-        sinon.stub(medicalConditionServiceInstance, 'createMedicalCondition').resolves();
-
-        const controller = new MedicalConditionController(medicalConditionServiceInstance);
+        const medicalConditionRepo = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+        const saveStub = sinon.stub(medicalConditionRepo, 'save').resolves();
+        const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
 
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
+        console.log('Arguments passed to save:', saveStub.args);
+
+        sinon.assert.calledOnce(saveStub);
+        sinon.assert.calledWith(
+            saveStub,
+            sinon.match((obj: any) =>
+                obj.props.code.props.value === body.code &&
+                obj.props.designation.props.value === body.designation &&
+                obj.props.description.props.value === body.description &&
+                JSON.stringify(obj.props.symptomsList) === JSON.stringify(body.symptomsList)
+            ),
+            sinon.match.any 
+        );
         sinon.assert.calledOnce(res.status);
         sinon.assert.calledWith(res.status, 200);
         sinon.assert.calledOnce(res.json);
@@ -65,10 +74,10 @@ describe('MedicalConditionController', function () {
         });
     });
 
-    it('should return an error if service throws AppError', async function () {
 
+    it('should return an error if a required property is invalid', async function () {
         const body: IMedicalConditionDTO = {
-            code: 'C123',
+            code: '',
             designation: 'Hypertension',
             description: 'High blood pressure',
             symptomsList: ['Headache', 'Blurred vision'],
@@ -78,58 +87,76 @@ describe('MedicalConditionController', function () {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
-        const next: Partial<NextFunction> = () => {};
 
-        const medicalConditionServiceInstance = Container.get('MedicalConditionService') as IMedicalConditionService;
-        const error = new AppError("CODE_NULL_UNDEFINED");
-        sinon.stub(medicalConditionServiceInstance, 'createMedicalCondition').rejects(error);
-
-        const controller = new MedicalConditionController(medicalConditionServiceInstance);
+        const medicalConditionRepo = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+        sinon.stub(medicalConditionRepo, 'save').resolves();
+        const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
 
-        // 
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
+        sinon.assert.notCalled(medicalConditionRepo.save); 
         sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, error.code);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, { message: error.message });
-        
-    });
-
-    it('should return a 500 error for unexpected exceptions', async function () {
-        // Arrange
-        const body: IMedicalConditionDTO = {
-            code: 'C123',
-            designation: 'Hypertension',
-            description: 'High blood pressure',
-            symptomsList: ['Headache', 'Blurred vision'],
-        };
-        const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
-            status: sinon.stub().returnsThis(),
-            json: sinon.spy(),
-        };
-        const next: Partial<NextFunction> = () => {};
-
-        const medicalConditionServiceInstance = Container.get('MedicalConditionService') as IMedicalConditionService;
-        const error = new Error('Unexpected error');
-        sinon.stub(medicalConditionServiceInstance, 'createMedicalCondition').rejects(error);
-
-        const controller = new MedicalConditionController(medicalConditionServiceInstance);
-
-        // Act
-        await controller.createMedicalCondition(req as Request, res as Response);
-
-        // Assert
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 500);
+        sinon.assert.calledWith(res.status, 804);
         sinon.assert.calledOnce(res.json);
         sinon.assert.calledWith(res.json, {
-            message: 'Code/Designation already exists',
+            message: 'Code can not be empty.',
         });
     });
+
+    it('should return an error if the designation is invalid', async function () {
+        const body: IMedicalConditionDTO = {
+            code: 'C123',
+            designation: '',
+            description: 'High blood pressure',
+            symptomsList: ['Headache', 'Blurred vision'],
+        };
+        const req: Partial<Request> = { body };
+        const res: Partial<Response> = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy(),
+        };
+
+        const medicalConditionRepo = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+        sinon.stub(medicalConditionRepo, 'save').resolves();
+        const controller = Container.get<MedicalConditionController>('medicalConditionController');
+
+        await controller.createMedicalCondition(req as Request, res as Response);
+
+        sinon.assert.notCalled(medicalConditionRepo.save);
+        sinon.assert.calledOnce(res.status);
+        sinon.assert.calledWith(res.status, 806);
+        sinon.assert.calledOnce(res.json);
+        sinon.assert.calledWith(res.json, {
+            message: 'Designation can not be empty.',
+        });
+    });
+
+    it('should return an error if the description is invalid', async function () {
+        const body: IMedicalConditionDTO = {
+            code: 'C123',
+            designation: 'Hypertension',
+            description: null,
+            symptomsList: ['Headache', 'Blurred vision'],
+        };
+        const req: Partial<Request> = { body };
+        const res: Partial<Response> = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy(),
+        };
+
+        const medicalConditionRepo = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+        sinon.stub(medicalConditionRepo, 'save').resolves();
+        const controller = Container.get<MedicalConditionController>('medicalConditionController');
+
+        await controller.createMedicalCondition(req as Request, res as Response);
+
+        sinon.assert.notCalled(medicalConditionRepo.save);
+        sinon.assert.calledOnce(res.status);
+        sinon.assert.calledWith(res.status, 802);
+        sinon.assert.calledOnce(res.json);
+        sinon.assert.calledWith(res.json, {
+            message: 'Description can not be null or undefined.',
+        });
+    });
+
 });

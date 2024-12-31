@@ -31,7 +31,7 @@ export const checkRoleAndProceed = (allowedRoles: string[]) => {
       console.error('Error fetching role:', error.message);
       res.status(500).json({
         message: 'Error fetching role',
-        error: error.message
+        error: error.message || 'Check if Backend1 is running'
       });
     }
   };
