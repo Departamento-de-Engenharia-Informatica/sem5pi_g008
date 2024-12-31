@@ -9,7 +9,7 @@ import {AppError} from "../domain/Shared/Exceptions/AppError";
 @Service()
 export default class MedicalConditionController implements IMedicalConditionController {
   constructor(
-    @Inject(config.services.medicalCondition.name) private medicalConditionServiceInstance: IMedicalConditionService
+    @Inject("MedicalConditionService") private medicalConditionServiceInstance: IMedicalConditionService
   ) {
   }
 
@@ -32,6 +32,9 @@ export default class MedicalConditionController implements IMedicalConditionCont
 
         if (error.code >= 800 && error.code <= 804) {
           console.log("Error: " + error.code + " - " + error.message);
+            res.status(error.code).json({
+                message: error.message
+            });
         } else {
           res.status(error.code).json({
             message: error.message

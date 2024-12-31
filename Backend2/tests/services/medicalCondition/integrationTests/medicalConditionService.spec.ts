@@ -11,15 +11,15 @@ describe('MedicalConditionService', function () {
 
     beforeEach(function () {
         Container.reset();
-        let medicalConditionSchemaInstance = require('../../../../src/persistence/schemas/medicalConditionSchema').default;
+        const medicalConditionSchemaInstance = require('../../../../src/persistence/schemas/medicalConditionSchema').default;
         Container.set('medicalConditionSchema', medicalConditionSchemaInstance);
 
-        let medicalConditionRepoClass = require('../../../../src/repos/MedicalConditionRepo').default;
-        let medicalConditionRepoInstance = Container.get(medicalConditionRepoClass);
+        const medicalConditionRepoClass = require('../../../../src/repos/MedicalConditionRepo').default;
+        const medicalConditionRepoInstance = Container.get(medicalConditionRepoClass);
         Container.set('MedicalConditionRepo', medicalConditionRepoInstance);
 
-        let medicalConditionServiceClass = require('../../../../src/services/medicalConditionService').default;
-        let medicalConditionServiceInstance = Container.get(medicalConditionServiceClass);
+        const medicalConditionServiceClass = require('../../../../src/services/medicalConditionService').default;
+        const medicalConditionServiceInstance = Container.get(medicalConditionServiceClass);
         Container.set('medicalConditionService', medicalConditionServiceInstance);
     });
 
@@ -28,26 +28,59 @@ describe('MedicalConditionService', function () {
     });
 
     it('should create a medical condition successfully using service mock', async function () {
-        // Arrange
         const medicalConditionDTO: IMedicalConditionDTO = {
             code: 'C123',
             designation: 'Hypertension',
             description: 'High blood pressure',
             symptomsList: ['Headache', 'Blurred vision'],
         };
-        
-        let repoInstance = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
-        sinon.stub(repoInstance, 'save').returns();
-        
 
-        let medicalConditionService = Container.get('medicalConditionService') as MedicalConditionService;
+        // Arrange
+        const repoInstance = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+        const saveStub = sinon.stub(repoInstance, 'save').resolves();
+        const medicalConditionService = Container.get('medicalConditionService') as MedicalConditionService;
 
         // Act
         await medicalConditionService.createMedicalCondition(medicalConditionDTO);
 
         // Assert
-        sinon.assert.calledOnce(repoInstance.save);
-        sinon.assert.calledWith(repoInstance.save, sinon.match.instanceOf(MedicalCondition), sinon.match.any);
+        expect(saveStub.calledOnce).toBe(true);
+        const savedArgument = saveStub.firstCall.args[0];
+        expect(savedArgument).toBeInstanceOf(MedicalCondition);
+
+        saveStub.restore();
     });
-    
+
+    const nullFieldTestCases = [
+        { field: 'code', value: null },
+        { field: 'designation', value: null },
+        { field: 'description', value: null },
+    ];
+
+    nullFieldTestCases.forEach(({ field, value }) => {
+        it(`should fail to save if ${field} is null`, async function () {
+            const medicalConditionDTO: IMedicalConditionDTO = {
+                code: 'C123',
+                designation: 'Hypertension',
+                description: 'High blood pressure',
+                symptomsList: ['Headache', 'Blurred vision'],
+            };
+
+            (medicalConditionDTO as any)[field] = value;
+
+            const repoInstance = Container.get('MedicalConditionRepo') as IMedicalConditionRepo;
+            const saveStub = sinon.stub(repoInstance, 'save').resolves();
+            const medicalConditionService = Container.get('medicalConditionService') as MedicalConditionService;
+
+            try {
+                await medicalConditionService.createMedicalCondition(medicalConditionDTO);
+                fail(`Expected an error to be thrown for invalid ${field}`);
+            } catch (error: any) {
+                expect(error.message.toLowerCase()).toContain(`${field} can not be null or undefined`.toLowerCase());
+            }
+
+            expect(saveStub.called).toBe(false);
+            saveStub.restore();
+        });
+    });
 });
