@@ -1767,7 +1767,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "a54e0643-2352-4300-a666-5a52032e2ef4",
+				"id": "26ebb686-94ae-4c07-ad1e-f2bb905a17c4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1777,7 +1777,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "d2411e39-e752-424a-a48d-ee3d137df287",
+				"id": "6befca94-fd3a-4c0a-a82d-fc9cf72ef55b",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1790,6 +1790,11 @@
 			"key": "base_url",
 			"value": "http://localhost:5001",
 			"type": "default"
+		},
+		{
+			"key": "backend2_url",
+			"value": "http://localhost:4000",
+			"type": "string"
 		},
 		{
 			"key": "AdminCookie",
