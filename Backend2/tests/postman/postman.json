@@ -1746,25 +1746,160 @@
 					"item": [
 						{
 							"name": "Add Medical Condition - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "b35718e3-0034-4fbf-be6f-d383a3648de7",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
 							},
 							"response": []
 						},
 						{
-							"name": "Add Medical Condition Duplicate- Insuccess",
-							"id": "1fba88cc-63ba-4967-9bef-98075d971ec6",
+							"name": "Add Medical Condition Duplicate - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "77a02ef9-1429-42a7-8b82-d8e5c5f7afa7",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Medical Condition Duplicate - Failure Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "65e62718-802e-45ca-a1af-27feb1cbed59",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
 							},
 							"response": []
 						}
