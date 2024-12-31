@@ -1858,19 +1858,19 @@
 									"script": {
 										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
 										"exec": [
-											"pm.test(\"Response status code is 201\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 201\");\r",
+											"pm.test(\"Response status code is 805\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(805, \"Expected status code to be 201\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response has the required fields and correct message\", function () {\r",
 											"  const responseData = pm.response.json();\r",
 											"\r",
+											"  console.log(responseData);\r",
+											"\r",
 											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Validation failed', \"Message should match expected text\");\r",
-											"});\r",
-											"\r",
-											""
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1892,7 +1892,60 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"code\": \"\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"raw": "{\r\n  \"code\": \"C-122\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Medical Condition Invalid Code - Failure Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 805\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(805, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  console.log(responseData);\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "760f94fd-355d-4267-82b2-55b36fedd439",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C-122\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
