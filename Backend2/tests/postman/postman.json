@@ -1755,6 +1755,18 @@
 								"header": []
 							},
 							"response": []
+						},
+						{
+							"name": "Add Medical Condition Duplicate- Insuccess",
+							"id": "1fba88cc-63ba-4967-9bef-98075d971ec6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					],
 					"id": "720df71f-ca54-4806-82d8-8d6c34dfaf73"
