@@ -277,26 +277,26 @@ export default class MedicalRecordController implements IMedicalRecordController
     }
   }
 
-
-  public async updateMedicalRecordConditions(req: any, res: any): Promise<void> {
-    const medicalRecordId = req.body.medicalRecordID;
-    const updatedConditions = req.body.recordConditions;
-    console.log("Updating medical conditions for medical record with ID CONTROLLER:", medicalRecordId);
-    console.log("Updated conditions:", updatedConditions);
+  public async updateMedicalRecordConditionComment(req: any, res: any): Promise<void> {
+    const medicalRecordId = req.body.id;
+    const updatedComment = req.body.comment;
+   // console.log("Updating medical condition description for medical record with ID CONTROLLER:", medicalRecordId);
+    console.log("Condition code:", medicalRecordId);
+    console.log("Updated description:", updatedComment);
 
     try {
-      await this.medicalRecordInstance.updateMedicalConditions(medicalRecordId, updatedConditions);
+      await this.medicalRecordInstance.updateMedicalRecordConditionComment(medicalRecordId, updatedComment);
       res.status(200).json({
-        message: 'Medical conditions updated successfully',
+        message: 'Medical condition description updated successfully',
       });
     } catch (error: any) {
-      console.error('Error updating medical conditions:', {
+      console.error('Error updating medical condition description:', {
         message: error.message,
         stack: error.stack,
       });
 
       res.status(500).json({
-        message: 'Error updating medical conditions',
+        message: 'Error updating medical condition description',
         details: error.message,
       });
     }

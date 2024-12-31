@@ -30,6 +30,9 @@ import IMedicalRecordFamilyHistoryRepo from "./IRepos/IMedicalRecordFamilyHistor
 import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
+import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
+import {Description} from "../domain/MedicalCondition/description";
+import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 
 
 @Service()
@@ -64,42 +67,18 @@ export default class MedicalRecordService implements IMedicalRecordService{
         const medicalRecordFamilyHistory = await this.medicalRecordFamilyHistory.getMedicalRecordFamilyHistoryWithIds(medicalRecordId);
         return medicalRecordFamilyHistory;
     }
+    
 
-    public async updateMedicalConditions(medicalRecordId: string, conditions: IMedicalRecordConditionDTO[]): Promise<void> {
-        console.log("Updating medical conditions for medical record with ID SERVICE:", medicalRecordId);
-
-        // Busca o registro médico pelo ID
-        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordById(medicalRecordId);
-        if (!medicalRecord) {
-            throw new Error(`Medical record with ID ${medicalRecordId} not found`);
-        }
-        // Inicializa o array de condições atualizadas
-        const updatedConditions: MedicalRecordCondition[] = [];
-        console.log('Passou1');
-        // Processa cada condição do DTO
-        for (const conditionDTO of conditions) {
-            // Busca a condição médica no repositório usando o ID
-            console.log('IDIDID',(conditionDTO.domainId.toString()));
-            const medicalRecordCondition = await this.medicalRecordConditionRepo.getMedicalRecordConditionById(conditionDTO.domainId.toString());
-            console.log('Passou2');
-            if (!medicalRecordCondition) {
-                throw new Error(`Medical condition with ID ${conditionDTO.domainId} not found`);
-            }
-
-            // Converte a condição médica para o domínio
-            const conditionDomain = MedicalRecordConditionMapper.toDomain(medicalRecordCondition);
-
-            // Adiciona ao array de condições atualizadas
-            updatedConditions.push(conditionDomain);
-        }
-        console.log('Passou3');
-        // Atualiza as condições no registro médico
-        console.log('updatedConditions before', medicalRecord.medicalRecordConditions);
-        medicalRecord.medicalRecordConditions = updatedConditions;
-        console.log('updatedConditions after', medicalRecord.medicalRecordConditions);
-
-        // Salva o registro médico atualizado
-        await this.medicalRecordRepo.saveUpdate(medicalRecord, medicalRecordId);
+    public async updateMedicalRecordConditionComment(id: string, newComment:string): Promise<IMedicalRecordConditionDTO> {
+        console.log('id', id);
+        const medicalRecordCondition = await this.medicalRecordConditionRepo.getByDomainId(Number.parseInt(id));
+        console.log('medicalRecordCondition', medicalRecordCondition);
+        console.log('pass1');
+        medicalRecordCondition.comment = newComment;
+        console.log('pass2');
+        await this.medicalRecordConditionRepo.updateUsingDomainId(medicalRecordCondition, "comment");
+        console.log('pass3');
+        return MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
     }
 
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {
@@ -159,6 +138,8 @@ export default class MedicalRecordService implements IMedicalRecordService{
         if(!medicalRecord) {
             throw new NoMedicalRecordException();
         }
+        console.log('medicalRecord', medicalRecord);
+        console.log('medicalRecord.props._id.toString()', medicalRecord.props._id.toString());
 
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
 

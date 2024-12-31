@@ -8,4 +8,7 @@ export default interface IMedicalRecordConditionRepo extends Repo<MedicalRecordC
   getAllMedicalRecordConditions(): Promise<MedicalRecordCondition[]>;
   getMedicalRecordConditionById(id: string): Promise<MedicalRecordCondition>;
 
+  getByDomainId(number: number): Promise<MedicalRecordCondition>;
+
+  updateUsingDomainId(medicalCondition: any, description: string): Promise<MedicalRecordCondition>;
 }
