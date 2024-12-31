@@ -278,8 +278,9 @@ export default class MedicalRecordController implements IMedicalRecordController
   }
 
   public async updateMedicalRecordConditionComment(req: any, res: any): Promise<void> {
-    const medicalRecordId = req.body.id;
-    const updatedComment = req.body.comment;
+    console.log(req.body);
+    const medicalRecordId = req.body.payload.id;
+    const updatedComment = req.body.payload.comment;
    // console.log("Updating medical condition description for medical record with ID CONTROLLER:", medicalRecordId);
     console.log("Condition code:", medicalRecordId);
     console.log("Updated description:", updatedComment);
