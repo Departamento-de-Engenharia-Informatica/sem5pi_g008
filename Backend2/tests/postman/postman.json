@@ -1805,8 +1805,8 @@
 									"script": {
 										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
 										"exec": [
-											"pm.test(\"Response status code is 201\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -1814,7 +1814,7 @@
 											"\r",
 											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"  pm.expect(responseData.message).to.equal('Code/Designation already exists', \"Message should match expected text\");\r",
 											"});\r",
 											"\r",
 											""
@@ -1851,7 +1851,7 @@
 							"response": []
 						},
 						{
-							"name": "Add Medical Condition Duplicate - Failure Copy",
+							"name": "Add Medical Condition Invalid Code - Failure",
 							"event": [
 								{
 									"listen": "test",
@@ -1859,7 +1859,7 @@
 										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
 										"exec": [
 											"pm.test(\"Response status code is 201\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 201\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -1867,7 +1867,7 @@
 											"\r",
 											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"  pm.expect(responseData.message).to.equal('Validation failed', \"Message should match expected text\");\r",
 											"});\r",
 											"\r",
 											""
@@ -1892,7 +1892,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"raw": "{\r\n  \"code\": \"\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
