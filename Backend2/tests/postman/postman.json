@@ -1904,7 +1904,7 @@
 							"response": []
 						},
 						{
-							"name": "Add Medical Condition Invalid Code - Failure Copy",
+							"name": "Add Medical Condition Invalid Designation- Failure",
 							"event": [
 								{
 									"listen": "test",
