@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { MedicalConditionService } from './medicalConditionService';
 import { MedicalConditionMapper } from '../../DTOs/mappers/medicalConditionMapper';
 import { MedicalConditionDTO } from '../../DTOs/GenericDTOs/medicalConditionDTO';
-import { BackendMedicalConditionDTO } from '../../DTOs/backendDTOs/backendMedicalConditionDTO';
 import json from '../../appsettings.json';
 
 describe('MedicalConditionService', () => {
@@ -14,19 +13,18 @@ describe('MedicalConditionService', () => {
   const apiUrl = `${json.backendApi['2'].url}/medicalConditions`;
 
   beforeEach(() => {
-    // Create a spy object for the MedicalConditionMapper
     mockMapper = jasmine.createSpyObj('MedicalConditionMapper', ['dtoToDomain', 'domainToBackendDto']);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Import HttpClientTestingModule
+      imports: [HttpClientTestingModule],
       providers: [
-        MedicalConditionService, // Provide the service under test
-        { provide: MedicalConditionMapper, useValue: mockMapper }, // Provide the mocked mapper
+        MedicalConditionService,
+        { provide: MedicalConditionMapper, useValue: mockMapper },
       ],
     });
 
-    service = TestBed.inject(MedicalConditionService); // Inject the service
-    httpMock = TestBed.inject(HttpTestingController); // Inject the HttpTestingController
+    service = TestBed.inject(MedicalConditionService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {

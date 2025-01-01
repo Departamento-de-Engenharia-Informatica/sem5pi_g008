@@ -19,7 +19,6 @@ describe('AllergyService', () => {
   });
 
   afterEach(() => {
-    // Verify that no requests are outstanding
     httpMock.verify();
   });
 
@@ -54,7 +53,7 @@ describe('AllergyService', () => {
     const newEffects = ['Effect1', 'Effect2'];
 
     service.updateAllergyEffects(allergyId, newEffects).subscribe((response: any) => {
-      expect(response).toBeUndefined(); // Expect void return type
+      expect(response).toBeUndefined();
     });
 
     const req = httpMock.expectOne(`${apiUrl}/allergy/${allergyId}/effects`);
