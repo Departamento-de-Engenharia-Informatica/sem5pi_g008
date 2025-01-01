@@ -1963,16 +1963,147 @@
 					"name": "US-7.2.7",
 					"item": [
 						{
-							"name": "Get Medical Record Condition - Success",
-							"id": "3f69ee05-b989-4315-865b-451a0a47c2db",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
+							"name": "Get Medical Record Conditions",
+							"item": [
+								{
+									"name": "Get Medical Record Condition - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'medicalRecordConditions' array with exactly two elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordConditions').that.is.an('array').with.lengthOf(2, \"Array 'medicalRecordConditions' should have exactly 2 elements\");\r",
+													"  \r",
+													"  // Optionally, check that each element in the array has the required fields\r",
+													"  pm.expect(responseData.medicalRecordConditions[0]).to.have.all.keys(\r",
+													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
+													"  );\r",
+													"  pm.expect(responseData.medicalRecordConditions[1]).to.have.all.keys(\r",
+													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
+													"  );\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3f69ee05-b989-4315-865b-451a0a47c2db",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 900\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(900, \"Expected status code to be 900\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  console.log(responseData);\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "50081506-e75d-4e3d-8e1d-04f61fe6421e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/123123123/condition"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Medical Record - Failure Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 900\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(900, \"Expected status code to be 900\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  console.log(responseData);\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c174cb7a-f752-43cc-b45d-e3d299942f8f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/123123123/condition"
+									},
+									"response": []
+								}
+							],
+							"id": "15a6b7f2-3d7b-4f82-91ff-c0b4cc346a60"
 						}
 					],
 					"id": "7e937876-b45c-4ea8-b74a-49ff6a699a39"
