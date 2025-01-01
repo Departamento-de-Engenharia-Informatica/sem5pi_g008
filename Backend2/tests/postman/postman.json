@@ -2644,7 +2644,7 @@
 													"    var requestJson = JSON.parse(requestBody); \r",
 													"    var expectedDescription = requestJson.description;  \r",
 													"    \r",
-													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDescription);  \r",
+													"    pm.expect(jsonResponse.allergy.description).to.eql(expectedDescription);  \r",
 													"});\r",
 													"\r",
 													""
@@ -2669,7 +2669,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"description\": \"TESTE2\"\r\n}",
+											"raw": "{\r\n    \"description\": \"TESTE3\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
