@@ -2359,15 +2359,15 @@
 									"response": []
 								},
 								{
-									"name": "Get Medical Record Condition - Non existent Medical Record - Failure Copy",
+									"name": "Get Medical Record Condition - Non existent Condition - Failure",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 850\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(850, \"Expected status code to be 850\");\r",
+													"pm.test(\"Response status code is 810\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -2375,7 +2375,7 @@
 													"\r",
 													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('No conditions found for this medical record.', \"Message should match expected text\");\r",
+													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Designation.', \"Message should match expected text\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -2383,7 +2383,7 @@
 											}
 										}
 									],
-									"id": "66a5331f-c7e0-4725-b096-9539878e4f69",
+									"id": "5b9f630e-04ed-44d5-a9fb-46ce0cbe155b",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -2396,7 +2396,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/20241200004/condition"
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/CANCER2"
 									},
 									"response": []
 								}
