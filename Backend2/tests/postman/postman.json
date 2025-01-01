@@ -2354,7 +2354,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/123123123/condition"
+										"url": "{{backend2_url}}/medicalRecord/123123123/condition/by-designation/CANCER"
 									},
 									"response": []
 								},
@@ -2397,6 +2397,48 @@
 											}
 										],
 										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/CANCER2"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Invalid Designation- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 806\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(806, \"Expected status code to be 806\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ca278075-7d15-4d4e-9b75-358bc51d8cc1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/  "
 									},
 									"response": []
 								}
