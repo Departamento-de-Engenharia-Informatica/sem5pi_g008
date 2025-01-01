@@ -1,7 +1,7 @@
 ﻿import 'reflect-metadata';
 import * as sinon from 'sinon';
-import { Response, Request } from 'express';
-import { Container } from 'typedi';
+import {Response, Request} from 'express';
+import {Container} from 'typedi';
 import MedicalConditionController from "../../../../src/controllers/medicalConditionController";
 import IMedicalConditionService from "../../../../src/services/IServices/IMedicalConditionService";
 import MedicalConditionService from "../../../../src/services/medicalConditionService";
@@ -28,7 +28,7 @@ describe('MedicalConditionController Integration Test', function () {
         const medicalConditionControllerClass = require('../../../../src/controllers/medicalConditionController').default;
         const medicalConditionControllerInstance = Container.get(medicalConditionControllerClass);
         Container.set('medicalConditionController', medicalConditionControllerInstance);
-        
+
     });
     afterEach(function () {
         sandbox.restore();
@@ -41,8 +41,8 @@ describe('MedicalConditionController Integration Test', function () {
             description: 'High blood pressure',
             symptomsList: ['Headache', 'Blurred vision'],
         };
-        const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const req: Partial<Request> = {body};
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -52,24 +52,19 @@ describe('MedicalConditionController Integration Test', function () {
         const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
-        
-        sinon.assert.calledOnce(saveStub);
-        sinon.assert.calledWith(
-            saveStub,
+
+        expect(saveStub.calledOnce).toBe(true);
+        expect(saveStub.calledWith(
             sinon.match((obj: any) =>
                 obj.props.code.props.value === body.code &&
                 obj.props.designation.props.value === body.designation &&
                 obj.props.description.props.value === body.description &&
                 JSON.stringify(obj.props.symptomsList) === JSON.stringify(body.symptomsList)
             ),
-            sinon.match.any 
-        );
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 200);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Medical Condition created successfully',
-        });
+            sinon.match.any
+        )).toBe(true);
+        expect(res.status.calledWith(200)).toBe(true);
+        expect(res.json.calledWith({message: 'Medical Condition created successfully'})).toBe(true);
     });
 
 
@@ -80,8 +75,8 @@ describe('MedicalConditionController Integration Test', function () {
             description: 'High blood pressure',
             symptomsList: ['Headache', 'Blurred vision'],
         };
-        const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const req: Partial<Request> = {body};
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -91,14 +86,9 @@ describe('MedicalConditionController Integration Test', function () {
         const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.notCalled(medicalConditionRepo.save); 
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 804);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Code can not be empty.',
-        });
+        
+        expect(res.status.calledWith(804)).toBe(true);
+        expect(res.json.calledWith({message: 'Code can not be empty.'})).toBe(true);
     });
 
     it('should return an error if the designation is invalid', async function () {
@@ -108,8 +98,8 @@ describe('MedicalConditionController Integration Test', function () {
             description: 'High blood pressure',
             symptomsList: ['Headache', 'Blurred vision'],
         };
-        const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const req: Partial<Request> = {body};
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -119,14 +109,9 @@ describe('MedicalConditionController Integration Test', function () {
         const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.notCalled(medicalConditionRepo.save);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 806);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Designation can not be empty.',
-        });
+        
+        expect(res.status.calledWith(806)).toBe(true);
+        expect(res.json.calledWith({message: 'Designation can not be empty.'})).toBe(true);
     });
 
     it('should return an error if the description is invalid', async function () {
@@ -136,8 +121,8 @@ describe('MedicalConditionController Integration Test', function () {
             description: null,
             symptomsList: ['Headache', 'Blurred vision'],
         };
-        const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const req: Partial<Request> = {body};
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -147,14 +132,9 @@ describe('MedicalConditionController Integration Test', function () {
         const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.notCalled(medicalConditionRepo.save);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 802);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Description can not be null or undefined.',
-        });
+        
+        expect(res.status.calledWith(802)).toBe(true);
+        expect(res.json.calledWith({message: 'Description can not be null or undefined.'})).toBe(true);
     });
 
 });

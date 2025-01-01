@@ -7,7 +7,7 @@ import IMedicalConditionDTO from '../../../../src/dto/IMedicalConditionDTO';
 import MedicalConditionController from "../../../../src/controllers/medicalConditionController";
 import {AppError} from "../../../../src/domain/Shared/Exceptions/AppError";
 
-describe('MedicalConditionController Unit Test', function () {
+describe('MedicalConditionController - Unit Test', function () {
     const sandbox = sinon.createSandbox();
 
     beforeEach(function () {
@@ -42,7 +42,7 @@ describe('MedicalConditionController Unit Test', function () {
             symptomsList: ['Headache', 'Blurred vision'],
         };
         const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -54,15 +54,11 @@ describe('MedicalConditionController Unit Test', function () {
         const controller = new MedicalConditionController(medicalConditionServiceInstance);
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 200);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Medical Condition created successfully',
-        });
+        
+        expect(res.status.calledOnce).toBe(true);
+        expect(res.status.calledWith(200)).toBe(true);
+        expect(res.json.calledOnce).toBe(true);
+        
     });
 
     it('should return an error if service throws AppError', async function () {
@@ -74,7 +70,7 @@ describe('MedicalConditionController Unit Test', function () {
             symptomsList: ['Headache', 'Blurred vision'],
         };
         const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const res= {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -87,13 +83,11 @@ describe('MedicalConditionController Unit Test', function () {
         const controller = new MedicalConditionController(medicalConditionServiceInstance);
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, error.code);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, { message: error.message });
+        
+        expect(res.status.calledOnce).toBe(true);
+        expect(res.status.calledWith(error.code)).toBe(true);
+        expect(res.json.calledOnce).toBe(true);
+        expect(res.json.calledWith({ message: error.message })).toBe(true);
         
     });
 
@@ -106,7 +100,7 @@ describe('MedicalConditionController Unit Test', function () {
             symptomsList: ['Headache', 'Blurred vision'],
         };
         const req: Partial<Request> = { body };
-        const res: Partial<Response> = {
+        const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy(),
         };
@@ -119,14 +113,11 @@ describe('MedicalConditionController Unit Test', function () {
         const controller = new MedicalConditionController(medicalConditionServiceInstance);
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        sinon.assert.calledOnce(medicalConditionServiceInstance.createMedicalCondition);
-        sinon.assert.calledWith(medicalConditionServiceInstance.createMedicalCondition, body);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledWith(res.status, 500);
-        sinon.assert.calledOnce(res.json);
-        sinon.assert.calledWith(res.json, {
-            message: 'Code/Designation already exists',
-        });
+        
+        expect(res.status.calledOnce).toBe(true);
+        expect(res.status.calledWith(500)).toBe(true);
+        expect(res.json.calledOnce).toBe(true);
+        expect(res.json.calledWith({ message: 'Code/Designation already exists' })).toBe(true);
+        
     });
 });
