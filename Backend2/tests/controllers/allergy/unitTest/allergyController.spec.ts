@@ -199,12 +199,12 @@ describe('AllergyController - Unit Test', function () {
 
             const controller = new AllergyController(allergyServiceInstance);
 
-            await controller.updateAllergyEffects(req as Request, res as Response);
+            const updatedAllergy = await controller.updateAllergyEffects(req as Request, res as Response);
 
             expect(res.status.calledOnce).toBe(true);
             expect(res.status.calledWith(200)).toBe(true);
             expect(res.json.calledOnce).toBe(true);
-            expect(res.json.calledWith({ message: 'Medical Condition symptoms updated successfully' })).toBe(true);
+            expect(res.json.calledWith({ allergy: updatedAllergy })).toBe(true);
         });
 
         it('should return a 404 error if the allergy is not found', async function () {
