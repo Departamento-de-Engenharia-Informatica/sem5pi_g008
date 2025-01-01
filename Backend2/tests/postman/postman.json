@@ -2450,7 +2450,20 @@
 				},
 				{
 					"name": "US-7.2.16",
-					"item": [],
+					"item": [
+						{
+							"name": "New Request",
+							"id": "06bf823a-8d23-45f9-ac65-b1bd6e1b5737",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
 				}
 			],
