@@ -2452,16 +2452,45 @@
 					"name": "US-7.2.16",
 					"item": [
 						{
-							"name": "New Request",
-							"id": "06bf823a-8d23-45f9-ac65-b1bd6e1b5737",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
+							"name": "Patch Allergy Designation",
+							"item": [
+								{
+									"name": "Allergy Not Found By Designation - Failure",
+									"id": "06bf823a-8d23-45f9-ac65-b1bd6e1b5737",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "97e8553d-c2e3-427a-b03a-fb6406c2c803"
+						},
+						{
+							"name": "Patch Allergy Description",
+							"item": [
+								{
+									"name": "Allergy Not Found By Description- Failure",
+									"id": "d4304dd7-b489-4034-a1a4-736c79414154",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "32555542-49c0-4ce6-bc54-b6bdf7b40bb8"
+						},
+						{
+							"name": "Patch Allergy Effects",
+							"item": [],
+							"id": "4c283474-9c51-43c6-ade8-33b9cd071ae9"
 						}
 					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
