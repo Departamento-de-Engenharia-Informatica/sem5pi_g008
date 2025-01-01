@@ -1958,6 +1958,24 @@
 						}
 					],
 					"id": "720df71f-ca54-4806-82d8-8d6c34dfaf73"
+				},
+				{
+					"name": "US-7.2.7",
+					"item": [
+						{
+							"name": "New Request",
+							"id": "3f69ee05-b989-4315-865b-451a0a47c2db",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
+					"id": "7e937876-b45c-4ea8-b74a-49ff6a699a39"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
@@ -1967,7 +1985,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "80a52a45-a415-47e5-96a8-0ca618938fbf",
+				"id": "ead49b62-4c17-48e0-8471-0c739e9831b4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1977,7 +1995,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "69cb4c50-339c-4c85-b403-88a32b131c63",
+				"id": "151bd727-9311-479d-a937-5b3e9692bebf",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2050,6 +2068,11 @@
 		{
 			"key": "ruteDoctorCookie",
 			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGTtkhVfuzuzM1ecMGtf97iYMK3ATjeJYaBZ0weLGUJlXR2aJheVnjlB8r07ZbD5n-advayALlubk9JNPKSv4SEudn6RuUvOVSKEMDs89lySsODcuiPpkgerHRaU1uLBtAtH1lIgTViyU8trGILWeqnuxibkb-6ZgLHZqPaXsf1WZNqQ40f9xJWp7AY-wOWPKgM6KJHYJmUAoJVrKC8per8VRfWg29bFS9V5PylrwvG4VkuUG9TDN6flBFqZ33umOBoLKlrR6p7Vx_FQ2EmfYbBRqtigZSFrmaz5dqdt2kB3jl9935VDcnXaCQDEL2Ij9JijfFdA1Lr8OjAbSwQsgUEJbRnYmLYXHl8ZjSaUKObQzk1y05pN5qf26u7CYxSxA_bjTMaY_ZfQ4U2eFKa-PRbsBs6YatyTsKqcJtoK0gI6Lgl7uXUyT1p91TQ_csE3UTgW4NMVNWYVdUtxcusfQbFP6EozoeqNg34cjsbCam8FEs3QCAuUaWyzTOxerjmcUliilBDNxFPmRB9Ww99yzS1F4dLJprTx0xPVlEeejd1w7GjiOWjygJLfe5NA9F_wij8zemADrn6zcRelWXWO5yBA66VgHf5qbe4_aXqmGQz_ho4hO3r7AoZBLK8XXYmRNWysYrjtmP50ep7ufApC1fv9MQwHvEI5GWOG_twl4_4W3hQeUXilWBsBy1LrCE4rCe3gUZhBKg3XW0kDstce-DmZ7OfaJY4OQ7RGq8Twna0SfwebMwZbUjAtiq1S31bVghpZfgSPie3oZVcLd4OqY22gao7FvSR3ktV67lANfYAS5PZIAYOso0EnGyPwANdpvny5O-BEev861C_62Veal1TNdC2AU8NUjHu2-kgvxPf4t80ivMJc8zrECl_Kpu764vJhDtyCPV-K01LWlD8syeiGYCE_iM2r6k2BVcFzhGuMRbpcNP6PV2ezIW8YSCWkauCEcTemkWsDieUuoO_g4ERZHbQRKrUMlYK44UA8KhZ11HLbCwpz80hsoHfwWnVjTQ9KbvDx_1U8CppdvcIJL5mSg4rCavJCsx2ReSe4LcnWfUu7ZISVx6d47R4JZyLWjDKqpoc2i7afxBVYRb_7JMQDvraXqvEUNz8iuXsPH96YafPKLcVWfN1qLPem2CXAoKfuO_Op59PP8AaG7463T1KGWeAZ4t-HySg5fi5XVHSanlaLUiWRsIw8ydzBnCKGGoleCFnQQyCIDl1WlmYFP6jakz-56ycJL_V0fz-daiylm7o_-qY0V3S0Z9KHZZ2y48F6XBJR3S6IKlBH8yPhZhfn4AaYx8x0oSluJ92LKL3tLtaiciErq2TmqiTV1FIl6hMZvDQ-71QrggI9Xj7gjQF7dWywH2n1vx968LDhJB0zMJtjHH86M0WvLEP9ANTTWo1aA8n8DpP3rH8tPK_BJALS"
+		},
+		{
+			"key": "medicalRecordID",
+			"value": "20241200005",
+			"type": "string"
 		}
 	]
 }
