@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = function(config) {
   config.set({
 
@@ -5,7 +7,7 @@ module.exports = function(config) {
     basePath: '',
 
     // Frameworks to use
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine','sinon'],
 
     // List of files/patterns to load in the browser
     files: [
@@ -33,26 +35,30 @@ module.exports = function(config) {
         ],
       },
       resolve: {
-        extensions: ['.ts', '.js'], // Resolve TypeScript and JavaScript files
+        extensions: ['.ts', '.js'],
+        alias: {
+          config: path.resolve(__dirname, 'src/config.ts'), // Add alias for config
+        },
+        fallback: {
+          os: require.resolve('os-browserify/browser'),
+          crypto: require.resolve('crypto-browserify'),
+          stream: require.resolve('stream-browserify'),
+          vm: require.resolve('vm-browserify'),
+          util: require.resolve('util/'),
+          http: require.resolve('stream-http')
+        },
       },
     },
 
-    // Test results reporter to use
-    reporters: ['progress', 'kjhtml'], // Use Jasmine HTML reporter for better UI
+    reporters: ['progress', 'kjhtml'],
     client: {
-      clearContext: false, // Keep Jasmine Spec Runner output visible in the browser
+      clearContext: false,
     },
 
-    // Web server port
     port: 9876,
 
-    // Enable/disable colors in the output (reporters and logs)
     colors: true,
 
-    // Level of logging
-    logLevel: config.LOG_INFO,
-
-    // Enable/disable watching files and executing tests on file changes
     autoWatch: true,
 
     // Start these browsers

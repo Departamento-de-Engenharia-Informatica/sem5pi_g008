@@ -5,17 +5,14 @@ import IAllergyRepo from "./IRepos/IAllergyRepo";
 import {AllergyMap} from "../mappers/AllergyMap";
 import {Allergy} from "../domain/Allergy/Allergy";
 import IAllergyDTO from "../dto/IAllergyDTO";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
-import {Description} from "../domain/MedicalCondition/description";
-import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
-import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
-import {all} from "axios";
+import {Code} from "../domain/Shared/code";
+import {Designation} from "../domain/Shared/designation";
+import {Description} from "../domain/Shared/description";
 
 @Service()
 export default class AllergyService implements IAllergyService {
   constructor(
-      @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo
+      @Inject("AllergyRepo") private allergyRepo: IAllergyRepo
   ) {}
 
   public async createAllergy(allergyDTO: IAllergyDTO): Promise<any> {
@@ -25,7 +22,7 @@ export default class AllergyService implements IAllergyService {
       designation: Designation.create(allergyDTO.designation).getValue(),
       description: Description.create(allergyDTO.description).getValue(),
       effects: allergyDTO.effects
-    };
+    };  
 
     const allergyDomain = Allergy.create(allergyProps);
 

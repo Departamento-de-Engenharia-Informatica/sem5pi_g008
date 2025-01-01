@@ -6,20 +6,20 @@ import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
 import {
   MedicalConditionNotFoundException
 } from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
 import {
   MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 
 @Service()
 export default class MedicalRecordController implements IMedicalRecordController {
 
   constructor(
-    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
+    @Inject("MedicalRecordService") private medicalRecordInstance: IMedicalRecordService,
   ) {}
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
@@ -53,9 +53,6 @@ export default class MedicalRecordController implements IMedicalRecordController
 
       let medicalRecordId = req.params.id;
       let conditionCode = req.params.code;
-
-      console.log(medicalRecordId, conditionCode);
-
 
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByCode(medicalRecordId, conditionCode);
 
@@ -107,9 +104,7 @@ export default class MedicalRecordController implements IMedicalRecordController
 
       let medicalRecordId = req.params.id;
       let conditionDesignation = req.params.designation;
-
-      console.log(medicalRecordId, conditionDesignation);
-
+      
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByDesignation(medicalRecordId, conditionDesignation);
 
       res.status(200).json({

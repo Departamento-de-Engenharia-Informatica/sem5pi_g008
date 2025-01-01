@@ -2,9 +2,9 @@ import {AggregateRoot} from "../../core/domain/AggregateRoot";
 import {UniqueEntityID} from "../../core/domain/UniqueEntityID";
 import {Result} from "../../core/logic/Result";
 import {MedicalConditionId} from "./MedicalConditionId";
-import {Code} from "./code";
-import {Designation} from "./designation";
-import {Description} from "./description";
+import {Code} from "../Shared/code";
+import {Designation} from "../Shared/designation";
+import {Description} from "../Shared/description";
 
 interface MedicalConditionProps {
     _id?: string;

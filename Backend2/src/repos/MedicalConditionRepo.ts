@@ -5,10 +5,10 @@ import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersi
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {MedicalConditionId} from "../domain/MedicalCondition/MedicalConditionId";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
 import * as domain from "node:domain";
 import {NotFoundException} from "../Exceptions/NotFoundException";
+import {Designation} from "../domain/Shared/designation";
+import {Code} from "../domain/Shared/code";
 
 @Service()
 export default class MedicalConditionRepo implements IMedicalConditionRepo {

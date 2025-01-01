@@ -3,16 +3,16 @@ import IMedicalConditionService from "./IServices/IMedicalConditionService";
 import config from "../../config";
 import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
 import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
-import {Description} from "../domain/MedicalCondition/description";
 import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
+import {Code} from "../domain/Shared/code";
+import {Designation} from "../domain/Shared/designation";
+import {Description} from "../domain/Shared/description";
 
 @Service()
 export default class MedicalConditionService implements IMedicalConditionService {
   constructor(
-    @Inject(config.repos.medicalCondition.name) private medicalConditionRepo: IMedicalConditionRepo
+    @Inject("MedicalConditionRepo") private medicalConditionRepo: IMedicalConditionRepo
   ) {
   }
 

@@ -1,7 +1,7 @@
 ﻿import { Repo } from "../../core/infra/Repo";
 import {MedicalCondition} from "../../domain/MedicalCondition/MedicalCondition";
-import {Code} from "../../domain/MedicalCondition/code";
-import {Designation} from "../../domain/MedicalCondition/designation";
+import {Code} from "../../domain/Shared/code";
+import {Designation} from "../../domain/Shared/designation";
 
 export default interface IMedicalConditionRepo extends Repo<MedicalCondition> {
     save(medicalCondition: MedicalCondition, id?: number): Promise<MedicalCondition>;
