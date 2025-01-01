@@ -2143,7 +2143,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Medical Record Condition - Non existent Medical Record - Failure",
+									"name": "Get Medical Record Condition - Non existent Condition - Failure",
 									"event": [
 										{
 											"listen": "test",
