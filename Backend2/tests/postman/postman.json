@@ -2461,8 +2461,24 @@
 										"disableBodyPruning": true
 									},
 									"request": {
-										"method": "GET",
-										"header": []
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
 									},
 									"response": []
 								}
@@ -2473,14 +2489,30 @@
 							"name": "Patch Allergy Description",
 							"item": [
 								{
-									"name": "Allergy Not Found By Description- Failure",
-									"id": "d4304dd7-b489-4034-a1a4-736c79414154",
+									"name": "Allergy Not Found By Description - Failure",
+									"id": "a9e9aee6-c2a7-4326-9e1d-0d3944167dd0",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
 									"request": {
-										"method": "GET",
-										"header": []
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
 									},
 									"response": []
 								}
@@ -2489,7 +2521,36 @@
 						},
 						{
 							"name": "Patch Allergy Effects",
-							"item": [],
+							"item": [
+								{
+									"name": "Allergy Not Found By Effects - Failure",
+									"id": "659edf53-39b9-49c8-8e56-5f79b4017557",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
+									},
+									"response": []
+								}
+							],
 							"id": "4c283474-9c51-43c6-ade8-33b9cd071ae9"
 						}
 					],
