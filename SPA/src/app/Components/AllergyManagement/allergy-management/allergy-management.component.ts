@@ -1,5 +1,4 @@
 import {Component, Inject} from '@angular/core';
-import {Allergy} from '../../../Domain/Allergy';
 import {AllergyService} from '../../../services/AllergyService/allergyService';
 import {DisplayAllergyDTO} from '../../../DTOs/displayDTOs/displayAllergyDTO';
 import {AllergyMapper} from '../../../DTOs/mappers/allergyMapper';

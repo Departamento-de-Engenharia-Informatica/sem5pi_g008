@@ -7,7 +7,7 @@ import json from '../../appsettings.json';
 describe('PatientProfileService', () => {
   let service: PatientProfileService;
   let httpMock: HttpTestingController;
-  const apiUrl = json.apiUrl + '/Patient';
+  const apiUrl = json.backendApi["1"].url + '/Patient';
 
   beforeEach(() => {
     TestBed.configureTestingModule({

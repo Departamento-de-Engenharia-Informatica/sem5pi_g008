@@ -7,7 +7,7 @@ describe('SurgeryRoomService', () => {
   let service: SurgeryRoomService;
   let httpMock: HttpTestingController;
 
-  const apiUrl = json.apiUrl + '/surgeryRoom';
+  const apiUrl = json.backendApi["1"].url + '/surgeryRoom';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
