@@ -2053,7 +2053,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Medical Record Condition - Non existent Medical Record - Failure Copy",
+									"name": "Get Medical Record Condition - Non existent Medical Conditions - Failure",
 									"event": [
 										{
 											"listen": "test",
@@ -2192,8 +2192,8 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 810\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"pm.test(\"Response status code is 805\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(805, \"Expected status code to be 810\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -2201,7 +2201,7 @@
 													"\r",
 													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
+													"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -2222,7 +2222,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/C-12"
 									},
 									"response": []
 								},
@@ -2272,10 +2272,10 @@
 							"id": "39ecbdd1-928e-4fda-b411-337635a79635"
 						},
 						{
-							"name": "Get Medical Record Conditions Copy",
+							"name": "Get Medical Record Conditions By Designation",
 							"item": [
 								{
-									"name": "Get Medical Record Condition - Success",
+									"name": "Get Medical Record Condition By Designation- Success",
 									"event": [
 										{
 											"listen": "test",
@@ -2286,18 +2286,11 @@
 													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has 'medicalRecordConditions' array with exactly two elements\", function () {\r",
+													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
 													"  const responseData = pm.response.json();\r",
 													"\r",
-													"  pm.expect(responseData).to.have.property('medicalRecordConditions').that.is.an('array').with.lengthOf(2, \"Array 'medicalRecordConditions' should have exactly 2 elements\");\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
 													"  \r",
-													"  // Optionally, check that each element in the array has the required fields\r",
-													"  pm.expect(responseData.medicalRecordConditions[0]).to.have.all.keys(\r",
-													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
-													"  );\r",
-													"  pm.expect(responseData.medicalRecordConditions[1]).to.have.all.keys(\r",
-													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
-													"  );\r",
 													"});\r",
 													""
 												],
@@ -2319,7 +2312,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition"
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/CANCER"
 									},
 									"response": []
 								},
