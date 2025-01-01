@@ -1963,7 +1963,7 @@
 					"name": "US-7.2.7",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "Get Medical Record Condition - Success",
 							"id": "3f69ee05-b989-4315-865b-451a0a47c2db",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
