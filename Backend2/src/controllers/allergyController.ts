@@ -97,9 +97,9 @@ export default class AllergyController implements IAllergyController {
 
         try {
             
-            await this.allergyServiceInstance.updateAllergyEffects(id, effects);
+            let allergy = await this.allergyServiceInstance.updateAllergyEffects(id, effects);
             res.status(200).json({
-                message: 'Medical Condition symptoms updated successfully'
+                allergy: allergy
             });
         } catch (error) {
             console.log("Error: " + error.message);
