@@ -2112,18 +2112,11 @@
 													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has 'medicalRecordConditions' array with exactly two elements\", function () {\r",
+													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
 													"  const responseData = pm.response.json();\r",
 													"\r",
-													"  pm.expect(responseData).to.have.property('medicalRecordConditions').that.is.an('array').with.lengthOf(2, \"Array 'medicalRecordConditions' should have exactly 2 elements\");\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
 													"  \r",
-													"  // Optionally, check that each element in the array has the required fields\r",
-													"  pm.expect(responseData.medicalRecordConditions[0]).to.have.all.keys(\r",
-													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
-													"  );\r",
-													"  pm.expect(responseData.medicalRecordConditions[1]).to.have.all.keys(\r",
-													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
-													"  );\r",
 													"});\r",
 													""
 												],
@@ -2145,7 +2138,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition"
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
 									},
 									"response": []
 								},
