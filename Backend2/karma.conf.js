@@ -45,6 +45,7 @@ module.exports = function(config) {
           stream: require.resolve('stream-browserify'),
           vm: require.resolve('vm-browserify'),
           util: require.resolve('util/'),
+          http: require.resolve('stream-http')
         },
       },
     },
@@ -61,7 +62,7 @@ module.exports = function(config) {
     autoWatch: true,
 
     // Start these browsers
-    browsers: [],
+    browsers: ['Chrome'],
 
     // Continuous Integration mode
     singleRun: false,

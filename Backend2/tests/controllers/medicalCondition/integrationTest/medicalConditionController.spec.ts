@@ -52,9 +52,7 @@ describe('MedicalConditionController Integration Test', function () {
         const controller = Container.get<MedicalConditionController>('medicalConditionController');
 
         await controller.createMedicalCondition(req as Request, res as Response);
-
-        console.log('Arguments passed to save:', saveStub.args);
-
+        
         sinon.assert.calledOnce(saveStub);
         sinon.assert.calledWith(
             saveStub,
