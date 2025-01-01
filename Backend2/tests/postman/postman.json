@@ -2563,6 +2563,56 @@
 										"url": "{{backend2_url}}/allergy/1/designation"
 									},
 									"response": []
+								},
+								{
+									"name": "Invalid Designation- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 500\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Validation failed'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.errors.message).to.eql(\"Validation failed\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7632f582-c9aa-42b4-a9f4-0e446375cd1a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
+									},
+									"response": []
 								}
 							],
 							"id": "97e8553d-c2e3-427a-b03a-fb6406c2c803"
@@ -2754,13 +2804,13 @@
 													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Allergy description should match the one sent in the request\", function () {\r",
+													"pm.test(\"Allergy effects should match the one sent in the request\", function () {\r",
 													"    var jsonResponse = pm.response.json();\r",
 													"    var requestBody = pm.request.body.raw; \r",
 													"    var requestJson = JSON.parse(requestBody); \r",
-													"    var expectedDescription = requestJson.description;  \r",
+													"    var expectedEffects = requestJson.effects;  \r",
 													"    \r",
-													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDescription);  \r",
+													"    pm.expect(jsonResponse.allergy.effects).to.eql(expectedEffects);  \r",
 													"});\r",
 													"\r",
 													""
@@ -2785,14 +2835,14 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"description\": \"TESTE2\"\r\n}",
+											"raw": "{\r\n  \"effects\": [\r\n    \"Rashes\",\r\n    \"Swelling\",\r\n    \"Difficulty Breathing\"\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{backend2_url}}/allergy/1/description"
+										"url": "{{backend2_url}}/allergy/1/effects"
 									},
 									"response": []
 								}
