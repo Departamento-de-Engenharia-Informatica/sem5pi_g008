@@ -55,8 +55,6 @@ export class MedicalRecordMedicalConditionService {
   filterMedicalRecordConditionsByCode(medicalRecordId: string, code: string) : Observable<{ filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO }> {
     const url = `${this.apiUrl}/${medicalRecordId}/condition/by-code/${code}`;
 
-    console.log(url);
-
     return this.http
       .get<{ medicalRecordCondition: BackendMedicalRecordConditionDTO }>(url, {
         withCredentials: true
@@ -87,6 +85,8 @@ export class MedicalRecordMedicalConditionService {
             errorMessage = error.error.message;
           }
 
+          console.log(error);
+
           return throwError(errorMessage);
         })
       );
@@ -96,7 +96,6 @@ export class MedicalRecordMedicalConditionService {
   filterMedicalRecordConditionsByDesignation(medicalRecordId: string, designation: string) : Observable<{ filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO }> {
     const url = `${this.apiUrl}/${medicalRecordId}/condition/by-designation/${designation}`;
 
-    console.log(url);
 
     return this.http
       .get<{ medicalRecordCondition: BackendMedicalRecordConditionDTO }>(url, {
