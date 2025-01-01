@@ -2512,15 +2512,25 @@
 											"script": {
 												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
 												"exec": [
-													"pm.test(\"Status should be 404\", function () {\r",
-													"    pm.response.to.have.status(404);\r",
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
 													"    var jsonResponse = pm.response.json();\r",
 													"\r",
-													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
 													"});\r",
+													"\r",
+													"pm.test(\"Allergy designation should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedDesignation = requestJson.designation;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDesignation);  \r",
+													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -2543,14 +2553,14 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"raw": "{\r\n    \"designation\": \"TESTE2\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{backend2_url}}/allergy/123/designation"
+										"url": "{{backend2_url}}/allergy/1/designation"
 									},
 									"response": []
 								}
@@ -2609,6 +2619,66 @@
 										"url": "{{backend2_url}}/allergy/123/description"
 									},
 									"response": []
+								},
+								{
+									"name": "Allergy Update  Description - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergy description should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedDescription = requestJson.description;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDescription);  \r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "2a0372fa-0b1f-4f01-9ec0-d3fb7f2f5b60",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"TESTE2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/1/description"
+									},
+									"response": []
 								}
 							],
 							"id": "32555542-49c0-4ce6-bc54-b6bdf7b40bb8"
@@ -2663,6 +2733,66 @@
 											}
 										},
 										"url": "{{backend2_url}}/allergy/123/effects"
+									},
+									"response": []
+								},
+								{
+									"name": "Allergy Update  Effects- Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergy description should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedDescription = requestJson.description;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDescription);  \r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8d37b57e-89e4-4937-ab31-67ecc9a8cc1b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"TESTE2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/1/description"
 									},
 									"response": []
 								}
