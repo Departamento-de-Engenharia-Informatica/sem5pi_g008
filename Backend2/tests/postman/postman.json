@@ -2456,7 +2456,79 @@
 							"item": [
 								{
 									"name": "Allergy Not Found By Designation - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "06bf823a-8d23-45f9-ac65-b1bd6e1b5737",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
+									},
+									"response": []
+								},
+								{
+									"name": "Allergy Update  Designation - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "14595f66-713e-4c49-8349-5a414b7fc88a",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -2490,6 +2562,28 @@
 							"item": [
 								{
 									"name": "Allergy Not Found By Description - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "88faa22e-735d-424a-ba30-daac54ee897e",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "a9e9aee6-c2a7-4326-9e1d-0d3944167dd0",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -2505,14 +2599,14 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"raw": "{\r\n    \"description\": \"TESTE\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{backend2_url}}/allergy/123/designation"
+										"url": "{{backend2_url}}/allergy/123/description"
 									},
 									"response": []
 								}
@@ -2524,6 +2618,28 @@
 							"item": [
 								{
 									"name": "Allergy Not Found By Effects - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c29fde80-c9a8-4f90-8040-9e1532526fe5",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "659edf53-39b9-49c8-8e56-5f79b4017557",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -2539,14 +2655,14 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"raw": "{\r\n  \"effects\": [\r\n    \"Rashes\",\r\n    \"Swelling\",\r\n    \"Difficulty Breathing\"\r\n  ]\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{backend2_url}}/allergy/123/designation"
+										"url": "{{backend2_url}}/allergy/123/effects"
 									},
 									"response": []
 								}
