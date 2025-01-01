@@ -12,7 +12,7 @@ import {Description} from "../domain/Shared/description";
 @Service()
 export default class AllergyService implements IAllergyService {
   constructor(
-      @Inject(config.repos.allergy.name) private allergyRepo: IAllergyRepo
+      @Inject("AllergyRepo") private allergyRepo: IAllergyRepo
   ) {}
 
   public async createAllergy(allergyDTO: IAllergyDTO): Promise<any> {
@@ -22,7 +22,7 @@ export default class AllergyService implements IAllergyService {
       designation: Designation.create(allergyDTO.designation).getValue(),
       description: Description.create(allergyDTO.description).getValue(),
       effects: allergyDTO.effects
-    };
+    };  
 
     const allergyDomain = Allergy.create(allergyProps);
 

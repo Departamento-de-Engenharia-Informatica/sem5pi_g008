@@ -9,7 +9,7 @@ import {AppError} from "../domain/Shared/Exceptions/AppError";
 @Service()
 export default class AllergyController implements IAllergyController {
     constructor(
-        @Inject(config.services.allergy.name) private allergyServiceInstance: IAllergyService
+        @Inject("AllergyService") private allergyServiceInstance: IAllergyService
     ) {
     }
 

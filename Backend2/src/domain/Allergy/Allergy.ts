@@ -70,6 +70,11 @@ export class Allergy extends AggregateRoot<AllergyProps> {
     }
 
     public static create(props: AllergyProps, id?: UniqueEntityID): Result<Allergy> {
+
+        if (!props.code || !props.designation || !props.description || !props.effects) {
+            return Result.fail<Allergy>('Missing required properties');
+        }
+        
         try {
             const allergy = new Allergy(props, id);
             return Result.ok<Allergy>(allergy);
