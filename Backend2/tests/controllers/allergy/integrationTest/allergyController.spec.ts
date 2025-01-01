@@ -139,9 +139,6 @@ describe('AllergyController - Integration', function () {
 
             const allergyController = Container.get('allergyController') as AllergyController;
             await allergyController.updateAllergyDescription(req, res);
-
-            console.log(res.json.firstCall.args[0]);
-            console.log(res);
             
             expect(getByDomainIdStub.calledOnce).toBe(true);
             expect(res.status.calledWith(802)).toBe(true);
