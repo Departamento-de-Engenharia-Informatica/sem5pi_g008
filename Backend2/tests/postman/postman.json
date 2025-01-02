@@ -2444,6 +2444,24 @@
 								}
 							],
 							"id": "da0b8c0c-347a-4501-bc65-3e361753fa2e"
+						},
+						{
+							"name": "Get Medical Record Allergies",
+							"item": [
+								{
+									"name": "Get Allergy - Success",
+									"id": "12098055-c0af-472b-abe7-242e22ecf752",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "35650aa5-755a-4dbc-8379-492e00092a9d"
 						}
 					],
 					"id": "7e937876-b45c-4ea8-b74a-49ff6a699a39"
@@ -3098,30 +3116,6 @@
 						}
 					],
 					"id": "943d3158-63df-4851-a077-f585b931ae39"
-				},
-				{
-					"name": "US-7.2.07",
-					"item": [
-						{
-							"name": "Get Medical Record Allergies",
-							"item": [
-								{
-									"name": "Get Allergy - Success",
-									"id": "12098055-c0af-472b-abe7-242e22ecf752",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": []
-									},
-									"response": []
-								}
-							],
-							"id": "35650aa5-755a-4dbc-8379-492e00092a9d"
-						}
-					],
-					"id": "f9723244-1529-457c-8ae5-a927eb556abf"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
