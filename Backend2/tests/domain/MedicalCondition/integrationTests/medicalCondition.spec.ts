@@ -34,4 +34,15 @@ describe("MedicalCondition with valid and invalid cases", () => {
         expect(medicalCondition.description).toEqual(validDescription);
         expect(medicalCondition.symptomsList).toEqual(validSymptomsList);
     });
+
+    it('should fail to create a MedicalCondition with missing required properties', () => {
+        const props: any = {
+            designation: validDesignation,
+            description: validDescription,
+        };
+
+        const result = MedicalCondition.create(props);
+
+        expect(result.isFailure).toBe(true);
+    });
 });
