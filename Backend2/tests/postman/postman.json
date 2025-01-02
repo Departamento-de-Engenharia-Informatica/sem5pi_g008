@@ -3010,7 +3010,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3032,7 +3032,29 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\" \",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Description - Failure",
+							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
