@@ -2492,6 +2492,29 @@
 								},
 								{
 									"name": "Get Medical Record Allergy - Non Existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "737504da-3ab4-47c9-889e-4bab781521a9",
+												"exec": [
+													"pm.test(\"Response status code is 500\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Error getting allergies', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "a319106d-ea60-4925-b357-5725daaadb1b",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -2511,17 +2534,17 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 850\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(850, \"Expected status code to be 850\");\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"pm.test(\"Response has 'body' array with exactly zero elements\", function () {\r",
 													"  const responseData = pm.response.json();\r",
 													"\r",
-													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('No conditions found for this medical record.', \"Message should match expected text\");\r",
-													"});"
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(0, \"Array 'body' should have exactly 0 elements\");\r",
+													"  \r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
