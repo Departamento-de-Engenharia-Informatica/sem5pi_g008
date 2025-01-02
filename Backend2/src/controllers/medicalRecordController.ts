@@ -193,6 +193,14 @@ export default class MedicalRecordController implements IMedicalRecordController
       });
     } catch (error) {
       console.error('Error getting allergies:', error.message);
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(500).json({
+          message: error.message
+        });
+        return;
+      }
+      
       res.status(500).json({
         message: 'Error getting allergies',
         details: error.message

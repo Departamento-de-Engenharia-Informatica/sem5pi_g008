@@ -80,7 +80,7 @@ export default class MedicalConditionController implements IMedicalConditionCont
         });
       } else {
         res.status(500).json({
-          message: 'Error updating medical condition description' + error,
+          message: error.message,
         });
       }
     }

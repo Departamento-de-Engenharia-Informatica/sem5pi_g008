@@ -42,9 +42,13 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
 
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {
+        
+        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
 
-
-      const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+        if(!medicalRecord) {
+            throw new NoMedicalRecordException();
+        }
+      
       const medicalRecordPrivateId = medicalRecord.props._id.toString();
 
       const medicalRecordAllergies = await this.medicalRecordAllergyRepo.getByMedicalId(medicalRecordPrivateId);
