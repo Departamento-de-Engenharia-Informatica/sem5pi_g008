@@ -2930,8 +2930,20 @@
 							"response": []
 						},
 						{
-							"name": "New Request",
+							"name": "Add Allergy Invalid Code - Failure",
 							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Designation - Failure",
+							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
