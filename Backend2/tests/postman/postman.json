@@ -3379,8 +3379,8 @@
 											"script": {
 												"id": "6e5ed6bd-90ac-45fc-8d56-a76d91222fbc",
 												"exec": [
-													"pm.test(\"Response status code is 201\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -3418,8 +3418,54 @@
 									"response": []
 								},
 								{
-									"name": "New Request",
+									"name": "Update Medical Condition Description - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a6e796fe-587e-4240-8873-e90082c7c875",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "7e6120e9-674c-42a2-b4a9-c45cd0ca7a4b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Description - Invalid Description - Failure",
+									"id": "e8b2ce13-66b4-433d-b636-6873f336d3a8",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
