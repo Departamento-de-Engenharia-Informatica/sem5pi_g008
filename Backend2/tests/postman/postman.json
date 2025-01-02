@@ -2912,8 +2912,24 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieRui}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
 							},
 							"response": []
 						},
@@ -2924,8 +2940,18 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
 							},
 							"response": []
 						},
@@ -2936,20 +2962,84 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
 							},
 							"response": []
 						},
 						{
-							"name": "Add Allergy Invalid Designation - Failure",
+							"name": "Add Allergy Empty Designation - Failure",
 							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Designation - Failure",
+							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Empty Description - Failure",
+							"id": "6707a0f5-5e66-4cfb-983d-bb5682a38697",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
 							},
 							"response": []
 						}
