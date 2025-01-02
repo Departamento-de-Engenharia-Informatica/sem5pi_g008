@@ -1805,6 +1805,31 @@
 						},
 						{
 							"name": "Add Allergy Duplicate - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Error creating allergy - Duplicate entry', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -1827,6 +1852,29 @@
 						},
 						{
 							"name": "Add Allergy Invalid Code - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b9d40075-694b-484b-9c93-dde9fa1ba6e4",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -1849,6 +1897,29 @@
 						},
 						{
 							"name": "Add Allergy Empty Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8124ee70-2d9e-49d6-a907-fc8d2b1bc0df",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -1871,6 +1942,29 @@
 						},
 						{
 							"name": "Add Allergy Invalid Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0dfe7f94-96fb-45dd-a80c-8236b2c308d7",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation must have a maximum of 100 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
