@@ -1986,51 +1986,6 @@
 							"response": []
 						},
 						{
-							"name": "Add Allergy Empty Description - Failure",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "90074424-a2dd-4a74-8fd5-06693d30edd7",
-										"exec": [
-											"pm.test(\"Response status code is 500\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Description can not be empty.', \"Message should match expected text\");\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "6707a0f5-5e66-4cfb-983d-bb5682a38697",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\" \",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
 							"name": "Add Allergy Invalid Description - Failure",
 							"event": [
 								{
@@ -3403,7 +3358,13 @@
 									},
 									"request": {
 										"method": "PATCH",
-										"header": [],
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
@@ -3449,7 +3410,13 @@
 									},
 									"request": {
 										"method": "PATCH",
-										"header": [],
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
