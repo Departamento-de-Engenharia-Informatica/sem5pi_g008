@@ -2901,6 +2901,24 @@
 						}
 					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
+				},
+				{
+					"name": "US-7.2.02",
+					"item": [
+						{
+							"name": "New Request",
+							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
+					"id": "943d3158-63df-4851-a077-f585b931ae39"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
