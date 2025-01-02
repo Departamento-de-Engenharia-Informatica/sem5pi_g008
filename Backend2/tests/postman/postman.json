@@ -2907,6 +2907,37 @@
 					"item": [
 						{
 							"name": "Add Allergy - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
 							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
