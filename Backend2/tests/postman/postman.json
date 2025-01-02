@@ -3367,7 +3367,31 @@
 				},
 				{
 					"name": "US-7.2.17",
-					"item": [],
+					"item": [
+						{
+							"name": "Update Medical Condition Description",
+							"item": [
+								{
+									"name": "New Request",
+									"id": "ab0050cc-cb70-4a28-94c1-a2fc46298dc3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "ca27ffe1-0d89-4fa9-9d8a-e4fa2a034ede"
+						},
+						{
+							"name": "Update Medical Condition Symptoms",
+							"item": [],
+							"id": "f9e2761a-e204-40df-878b-f088c31e5d4a"
+						}
+					],
 					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
 				}
 			],
