@@ -3490,26 +3490,105 @@
 							"item": [
 								{
 									"name": "Update Medical Condition Symptoms - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "69e07269-930c-4521-977e-e68cb8547ef8",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition symptoms updated successfully', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "5641b986-d632-45d8-9a39-3b0ddefc3b54",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
 									"request": {
 										"method": "PATCH",
-										"header": [],
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": "{{backend2_url}}/medicalConditions/1/symptoms"
 									},
 									"response": []
 								},
 								{
-									"name": "New Request",
+									"name": "Update Medical Condition Symptoms - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b0a6f3a8-9cf4-43ea-900f-ff046c6c3206",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "c5e0bf93-d0a1-4fa9-b0b8-43659b663c95",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
 									"request": {
-										"method": "GET",
-										"header": []
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/symptoms"
 									},
 									"response": []
 								}
