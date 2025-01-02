@@ -1742,6 +1742,298 @@
 			"name": "Backend2",
 			"item": [
 				{
+					"name": "US-7.2.2",
+					"item": [
+						{
+							"name": "Add Allergy - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieRui}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Duplicate - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Error creating allergy - Duplicate entry', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Code - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b9d40075-694b-484b-9c93-dde9fa1ba6e4",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Empty Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8124ee70-2d9e-49d6-a907-fc8d2b1bc0df",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0dfe7f94-96fb-45dd-a80c-8236b2c308d7",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation must have a maximum of 100 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Description - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6d69499c-9c46-4c52-be06-853aee5bb10b",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Description must have a maximum of 2048 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						}
+					],
+					"id": "943d3158-63df-4851-a077-f585b931ae39"
+				},
+				{
 					"name": "US-7.2.4",
 					"item": [
 						{
@@ -2444,6 +2736,132 @@
 								}
 							],
 							"id": "da0b8c0c-347a-4501-bc65-3e361753fa2e"
+						},
+						{
+							"name": "Get Medical Record Allergies",
+							"item": [
+								{
+									"name": "Get Allergy - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ce016cb4-a744-4fa1-bcd9-04077c843413",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'body' array with exactly two elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(2, \"Array 'body' should have exactly 2 elements\");\r",
+													"  \r",
+													"  pm.expect(responseData.body[0]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"  pm.expect(responseData.body[1]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "12098055-c0af-472b-abe7-242e22ecf752",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/allergy"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Allergy - Non Existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "737504da-3ab4-47c9-889e-4bab781521a9",
+												"exec": [
+													"pm.test(\"Response status code is 500\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a319106d-ea60-4925-b357-5725daaadb1b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{backend2_url}}/medicalRecord/123123123/allergy"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Allergy - Non Existent Allergies- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'body' array with exactly zero elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(0, \"Array 'body' should have exactly 0 elements\");\r",
+													"  \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ddfc9f3a-e83f-4352-8e77-fd9b3b6522d5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/20241200004/allergy"
+									},
+									"response": []
+								}
+							],
+							"id": "35650aa5-755a-4dbc-8379-492e00092a9d"
 						}
 					],
 					"id": "7e937876-b45c-4ea8-b74a-49ff6a699a39"
@@ -2901,6 +3319,284 @@
 						}
 					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
+				},
+				{
+					"name": "US-7.2.17",
+					"item": [
+						{
+							"name": "Update Medical Condition Description",
+							"item": [
+								{
+									"name": "Update Medical Condition Description - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6e5ed6bd-90ac-45fc-8d56-a76d91222fbc",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition description updated successfully', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ab0050cc-cb70-4a28-94c1-a2fc46298dc3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Description - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a6e796fe-587e-4240-8873-e90082c7c875",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7e6120e9-674c-42a2-b4a9-c45cd0ca7a4b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Description - Invalid Description - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dc8edd55-6489-4f41-b94f-f3f50205206b",
+												"exec": [
+													"pm.test(\"Response status code is 500\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Description must have a maximum of 2048 characters.', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e8b2ce13-66b4-433d-b636-6873f336d3a8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/description"
+									},
+									"response": []
+								}
+							],
+							"id": "ca27ffe1-0d89-4fa9-9d8a-e4fa2a034ede"
+						},
+						{
+							"name": "Update Medical Condition Symptoms",
+							"item": [
+								{
+									"name": "Update Medical Condition Symptoms - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "69e07269-930c-4521-977e-e68cb8547ef8",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition symptoms updated successfully', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5641b986-d632-45d8-9a39-3b0ddefc3b54",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/symptoms"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Symptoms - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b0a6f3a8-9cf4-43ea-900f-ff046c6c3206",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c5e0bf93-d0a1-4fa9-b0b8-43659b663c95",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/symptoms"
+									},
+									"response": []
+								}
+							],
+							"id": "f9e2761a-e204-40df-878b-f088c31e5d4a"
+						}
+					],
+					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
@@ -2910,7 +3606,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ead49b62-4c17-48e0-8471-0c739e9831b4",
+				"id": "b9115d8f-017a-4dfa-aad9-6d1312cd6492",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2920,7 +3616,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "151bd727-9311-479d-a937-5b3e9692bebf",
+				"id": "9381d8b6-5944-4fa9-a9c5-370282d0f36a",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2945,9 +3641,8 @@
 		},
 		{
 			"key": "AdminCookieRui",
-			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGQec0zyLqyF8y7KgmO54nc2qgtxSCwIvQe4lqzQ8Fe3xY_o52itAPtDOtwFHeWieGUHNy5fDdHITAIxfhZxN0u9Sk_S5P8DXLq45kWQiRgfqOP_18wR41AOvZZOYIgmDJfZbVk2OxKdjT27sFxTsriLeirit-Y905Cn-m6JkVnzArnJCxa5OW9GtTVgbZjSS2eT6AzzhXzVE7UyXYay0IZqEO8MZLudlzoVrEUAzeyxIAx4xRYH-O_6sD6VTmG-7x1exH-D_G3lkdDmUcbS-F8UnPi4FPgWcmVTZSfb4DiQeNegfI3uvH2-2lZmHM5oDaoYBPisYtN7n1j1s69kCc8fp2efk9p-ahIzvjqXUYaJHVTgmXGlWqjKOevDawXA_Rto7T5yq5lnzr4EZl7QQufA_QiXpjTxBKvMnUMztIsoOZKGV7uy10FiKvqQ7Nirmaor5lkF6hccFaTCePmdUq_6U0qXnCsYlsMiWNIAI8Nb9UodSBZX0WxCO7q39iEQX0TKfXXATla2gqUio3FBLYKF6B6_MQezgHG4o2a4dWb1Gq8QdwmuL9mbDCOxuJ187r2_2To9NG6RMVLWAhtIdpo2T85d_ZvE149qloR4fyOd4OFaI25MfroEDEDwMm8VqYND-AnSfqaHlNEoQjViWKdHCszduEWHiYkVqbiBP0ts1JlhO2xYyhMeTzc-aUQgwWSC9apa7I0LlhS8WWGRw4V9LGPSjF1m99dX3SeLLRI_YO53qp2RJQY-KvI0PDdtRStyPgzp31LYbhuQysTQtnnUqG3LO_EL_ggEh-O5qvyeEGtIXehn8Jf9D0K6PKVpWj4o0tRE4Nw6A1m99Np0X-haEFrc0KbdTzt0uPo2-TF4O8lpgHKtOysSJU3Q-UltAhpiBnkhyMcP2HC7xcSs-uln6IzcAyvCJPPempdNehxyIuxFOMJyRGXFPM9tzJLhQOuccaRHuPBeQAnxP5oox57vwIftoBSPKECAqHqRH-afsG2hKqVUzhP5TaLHmsYb_rV5Y95y55pJ6iDMoHFZyyz9AsK1Im0Y_Stqo2bo9fA63j0qwjvdLXDz7-JmtHPR3xS5yys1S9xIKqg0pWr3DxXqB-56k17rKbM6Awk07H3-nRhPCF2zgaEWtc1G4s1V3Rj9H1mx8NOwZPMbPhjpcYcMApEP_Jv3FE4W8ZHn_rSezxvKAiXPFsDnPInU23pwkxiIi2o9HLuj7VOiMdpsm38ps3R3vQl22C11zPJofT6EjOGuqogaEOGI5UAgTSKToEzBuPhTxpWzCzCgasc30SNOHDvC_AtO8UrUCKCJ6yP5xo_A8wsnoPY0bBhnpXSkI_Ys8uyYd16fVxgQ9SZINNz3FvedNGQRGG2_3tzJx8Mr7n5oSeyoE8yfnrNGvXTZtddFWA6U2JW1PTecTHob9vQu",
-			"type": "string",
-			"disabled": true
+			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGRvTIdfxWJl2y9VyfSVyP_NBbioY9f4Fz4TE1VKrnpA0woeUnpkXQPEBMywB97sGqb5uP8zmFs2w0VTaxJuNzUdiQXDp0yOp9FGpgirsc8gbalksuCOeOIc4BzxjiPWNLbcXBw8hmnhNxI848NhvNF0DUvDDnXQrVKUXygfuLz7ns6wA2oCrgux105NpL7uupIBxbV5NtTPhTR-tVB37slD_MpaJ72g7JHK4Ty3zrrBnJGTg7QmeTJwzKzH0KV_bT8pvuoWlGquXmye_1lcNYXsqSPYCT889-Yqa34hd4Vcjmu0AKLuUqrL3bcmG3O3DOCfvndO5_iXFbUcRsqtNm-QDQMn3RpnvOur3AGcRc51XYO5H3nOMCF7UPDMFQRNx42dtaQkSM-sCNiGMWKYQZwqNTbAJjMSc2hPb-aHAuwsHA252R4k24RjaFi-MDhDvgfiFZcV8lTMuYgC2s_XwoB53qz_WkeODvv-rkGfr1iC3OKUjYkdC3J5xoa2nZs6Bt9V0_kIw_ALhHq-FSg2qn0mpLSeGtz9V07s9YERqn2kdSTwl0Mgk-UEwBsRN9XJQ8L_TuUCAWnQQm8QJlbEJZ7cn3MjihT4mScGE63MpDqbfbDqGhkYLqg-S2SiRoQ3epYHNSxv5flp6hJsR1DXHYAnnpJ4NYd0qizeqYcPMDzXoY2qd9leErrb_Hn4DFZmg0yiy6-ihThGpTE3Pt82tG6VC0WzTwWPyoJiCyckz_ZcnfLtKQF1Zv7lt0eJzM80BOUNhrfpL_RvfINfXobZxjYb4GYgarTXsm51afrImbnyxlYXm1RacXRDxOOWWL4IqsGkxKJ9UeabK6RQT5L153-U9SKdJ3t_g5_rXzJDca1SJDYhGYRXOXmCQi5PwpnbLT2sLd-itGXircqTUxFR50DtgOadCBlVBlDFF8qbG5WK22XKtM2yOogXpevcjEKzqJCLh7BMjhHlUabp7yV8xIakdTQIfop9aBe2YFUCeFrzhJDp1n3CjybLT5EkDPKHks5Jz0X79Lr_U0qx5T6ZaFyBH_QLi3V0kGXY2JEcVgZrWFnoYCTfjdjNC2nvl2vQrT8WxGOlVLc6Pdb_ltdk4OFo9gHdCuuuhvsp_iDapFJLTGiNabp5NjdnFcKjI-HsfpgWdYq5yFA5rHiiQYKspojT5ppCfr_bmCMk3sjgwSBiSh6O1HKPcCJUtDjj6Ywnlmx1tVj-mtlR9qP4ukYm_rTi4cigXbfo46vldULlUwkpLHFTVAf7wijc4Gil24nxDqTnmGwOyyMi4CEA4Lh0eppNXSX5u-V-UHWBoJ0mCTzRVDL4K-qO3XfLDSzvezhNND8mjgn_NRhTLyAQrbnrQYqPVwMzivHO9sgqEsgWaTW2wArxuiI5KvYpr5LEiiEfDFl8UMN1hH-8H-EUIUTDWl7i",
+			"type": "string"
 		},
 		{
 			"key": "AdminCookieMateus",
