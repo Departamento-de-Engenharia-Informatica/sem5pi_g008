@@ -1742,6 +1742,203 @@
 			"name": "Backend2",
 			"item": [
 				{
+					"name": "US-7.2.2",
+					"item": [
+						{
+							"name": "Add Allergy - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieRui}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Duplicate - Failure",
+							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Code - Failure",
+							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Empty Designation - Failure",
+							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Designation - Failure",
+							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Empty Description - Failure",
+							"id": "6707a0f5-5e66-4cfb-983d-bb5682a38697",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\" \",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Description - Failure",
+							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						}
+					],
+					"id": "943d3158-63df-4851-a077-f585b931ae39"
+				},
+				{
 					"name": "US-7.2.4",
 					"item": [
 						{
@@ -2507,7 +2704,7 @@
 													"\r",
 													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
 													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('Error getting allergies', \"Message should match expected text\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -3027,203 +3224,6 @@
 						}
 					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
-				},
-				{
-					"name": "US-7.2.02",
-					"item": [
-						{
-							"name": "Add Allergy - Success",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
-										"exec": [
-											"pm.test(\"Response status code is 201\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"packages": {},
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Cookie",
-										"value": "{{AdminCookieRui}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Duplicate - Failure",
-							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Invalid Code - Failure",
-							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Empty Designation - Failure",
-							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Invalid Designation - Failure",
-							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Empty Description - Failure",
-							"id": "6707a0f5-5e66-4cfb-983d-bb5682a38697",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\" \",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Allergy Invalid Description - Failure",
-							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						}
-					],
-					"id": "943d3158-63df-4851-a077-f585b931ae39"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
