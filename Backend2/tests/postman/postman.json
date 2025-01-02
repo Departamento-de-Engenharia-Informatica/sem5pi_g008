@@ -3103,10 +3103,10 @@
 					"name": "US-7.2.07",
 					"item": [
 						{
-							"name": "Get Allergies",
+							"name": "Get Medical Record Allergies",
 							"item": [
 								{
-									"name": "New Request",
+									"name": "Get Allergy - Success",
 									"id": "12098055-c0af-472b-abe7-242e22ecf752",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
