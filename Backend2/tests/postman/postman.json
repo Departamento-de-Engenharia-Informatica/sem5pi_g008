@@ -1987,6 +1987,29 @@
 						},
 						{
 							"name": "Add Allergy Empty Description - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "90074424-a2dd-4a74-8fd5-06693d30edd7",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Description can not be empty.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "6707a0f5-5e66-4cfb-983d-bb5682a38697",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -2009,6 +2032,29 @@
 						},
 						{
 							"name": "Add Allergy Invalid Description - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6d69499c-9c46-4c52-be06-853aee5bb10b",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Description must have a maximum of 2048 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -3318,6 +3364,11 @@
 						}
 					],
 					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
+				},
+				{
+					"name": "US-7.2.17",
+					"item": [],
+					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
