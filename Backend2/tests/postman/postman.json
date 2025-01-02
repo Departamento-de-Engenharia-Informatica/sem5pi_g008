@@ -3372,7 +3372,7 @@
 							"name": "Update Medical Condition Description",
 							"item": [
 								{
-									"name": "New Request",
+									"name": "Update Medical Condition Description - Success",
 									"id": "ab0050cc-cb70-4a28-94c1-a2fc46298dc3",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
