@@ -2456,6 +2456,19 @@
 									},
 									"request": {
 										"method": "GET",
+										"header": [],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/allergy"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Allergy - Non Existent Medical Record - Failure",
+									"id": "a319106d-ea60-4925-b357-5725daaadb1b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
 										"header": []
 									},
 									"response": []
