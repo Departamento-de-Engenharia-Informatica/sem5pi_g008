@@ -2906,8 +2906,32 @@
 					"name": "US-7.2.02",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "Add Allergy - Success",
 							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Duplicate - Failure",
+							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
