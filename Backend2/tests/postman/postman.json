@@ -2781,7 +2781,13 @@
 									},
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
 										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/allergy"
 									},
 									"response": []
