@@ -2469,7 +2469,8 @@
 									},
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": "{{backend2_url}}/medicalRecord/123123123/allergy"
 									},
 									"response": []
 								},
@@ -2511,7 +2512,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/20241200004/condition"
+										"url": "{{backend2_url}}/medicalRecord/20241200004/allergy"
 									},
 									"response": []
 								}
