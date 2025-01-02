@@ -2450,6 +2450,35 @@
 							"item": [
 								{
 									"name": "Get Allergy - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ce016cb4-a744-4fa1-bcd9-04077c843413",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'body' array with exactly two elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(2, \"Array 'body' should have exactly 2 elements\");\r",
+													"  \r",
+													"  pm.expect(responseData.body[0]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"  pm.expect(responseData.body[1]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "12098055-c0af-472b-abe7-242e22ecf752",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
