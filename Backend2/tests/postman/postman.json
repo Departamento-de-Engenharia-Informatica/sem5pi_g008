@@ -1752,8 +1752,8 @@
 									"script": {
 										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
 										"exec": [
-											"pm.test(\"Response status code is 201\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response has the required fields and correct message\", function () {\r",
@@ -1772,8 +1772,12 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"packages": {},
-										"type": "text/javascript"
+										"id": "73800fd0-b995-493f-9916-ad32f7cc4830",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
