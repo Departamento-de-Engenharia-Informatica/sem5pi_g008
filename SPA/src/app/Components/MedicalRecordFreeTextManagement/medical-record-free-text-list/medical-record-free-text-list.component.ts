@@ -40,7 +40,6 @@ export class MedicalRecordFreeTextListComponent implements OnInit{
       (error) => {
 
         this.errorMessage = error;
-
         console.error('Failed to load comments:', error);
       }
     );
@@ -48,7 +47,7 @@ export class MedicalRecordFreeTextListComponent implements OnInit{
 
 
   public addMedicalRecordFreeText(){
-      this.router.navigate(['doctor/medicalRecord/freeText'])
+      this.router.navigate(['staff/patients/medicalRecord/addFreeText'])
 
   }
 

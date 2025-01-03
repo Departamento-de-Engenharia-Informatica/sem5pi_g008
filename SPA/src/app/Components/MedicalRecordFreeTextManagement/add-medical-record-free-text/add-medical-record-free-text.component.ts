@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class AddMedicalRecordFreeTextComponent implements OnInit {
 
   freeText: MedicalRecordFreeText = {
+    domainId:'',
     medicalRecordId: '',
     doctorId: '',
     comment: ''
@@ -29,7 +30,7 @@ export class AddMedicalRecordFreeTextComponent implements OnInit {
     this.medicalRecordFreeTextService.addMedicalRecordFreeText(this.freeText).subscribe(
       (response) => {
         alert('Comment added successfully!');
-        this.router.navigate(['/doctor/medicalRecord']);
+        this.router.navigate(['/staff/patients/medicalRecord']);
         console.log('Success:', response);
       },
       (error) => {

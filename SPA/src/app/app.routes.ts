@@ -44,6 +44,9 @@ import {
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
 
 export const routes: Routes = [
   {
@@ -92,6 +95,7 @@ export const routes: Routes = [
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
     ],
   },
 
