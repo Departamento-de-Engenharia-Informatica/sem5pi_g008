@@ -12,7 +12,6 @@ import {EnterFilterNameComponent} from '../../Shared/enter-filter-name/enter-fil
 })
 
 export class SearchAllergyManagementComponent implements OnInit {
-  private auth: AuthService;
   private allergyService: AllergyService;
   public allergies: DisplayAllergyDTO[] = [];
   public showFilterButton: boolean = true;
@@ -31,8 +30,7 @@ export class SearchAllergyManagementComponent implements OnInit {
   @ViewChild(EnterFilterNameComponent) enterFilter!: EnterFilterNameComponent;
 
 
-  constructor(@Inject(AuthService) auth: AuthService, @Inject(AllergyService) allergyService: AllergyService) {
-    this.auth = auth;
+  constructor( @Inject(AllergyService) allergyService: AllergyService) {
     this.allergyService = allergyService;
   }
 
@@ -71,6 +69,7 @@ export class SearchAllergyManagementComponent implements OnInit {
 
     this.allergyService.searchAllergies(trimmedFilter).subscribe(
       (data: { allergies: DisplayAllergyDTO }) => {
+        console.log(data);
         this.showNoAllergiesFound = false;
         this.showAllergiesList = true;
         this.allergies = [];
