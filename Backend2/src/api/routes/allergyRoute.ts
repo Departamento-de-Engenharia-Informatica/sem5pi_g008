@@ -35,7 +35,7 @@ export default (app: Router) => {
             ctrl.getAllAllergies(req, res, next);
         });
 
-    route.get('/:id',
+    route.get('/:code',
         (req, res, next) => {
             ctrl.searchAllergies(req, res, next);
         });
