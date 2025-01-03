@@ -1,18 +1,28 @@
 <!-- register-patient.component.html -->
 
 <div class="registration-container">
-    <h2>Register</h2>
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-  
-      <div>
-        <label>Número de Telefone:</label>
-        <input type="tel" formControlName="phoneNumber" required>
-        <div *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.touched || registrationForm.get('phoneNumber')?.dirty)">
-          You have to enter a valid phone number
-        </div>
+  <h2>Register</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="question-container">
+      <h1>Privacy Policy</h1>
+      <form>
+        <label>
+          <input type="checkbox" name="accept" value="I've read and agree with terms of privacy policy"> Sim
+        </label>
+      </form>
+    </div>
+
+
+    <div>
+      <label>Número de Telefone:</label>
+      <input type="tel" formControlName="phoneNumber" required>
+      <div *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.touched || registrationForm.get('phoneNumber')?.dirty)">
+        You have to enter a valid phone number
       </div>
-  
-  
-      <button type="submit" [disabled]="registrationForm.invalid">Register</button>
-    </form>
-  </div>
+    </div>
+
+
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>

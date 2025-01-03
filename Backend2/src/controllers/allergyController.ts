@@ -4,12 +4,12 @@ import config from "../../config";
 import IAllergyService from "../services/IServices/IAllergyService";
 import IAllergyDTO from "../dto/IAllergyDTO";
 import {NotFoundException} from "../Exceptions/NotFoundException";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 @Service()
 export default class AllergyController implements IAllergyController {
     constructor(
-        @Inject(config.services.allergy.name) private allergyServiceInstance: IAllergyService
+        @Inject("AllergyService") private allergyServiceInstance: IAllergyService
     ) {
     }
 
@@ -25,8 +25,25 @@ export default class AllergyController implements IAllergyController {
             });
 
         } catch (error) {
+
             console.error('Error creating allergy:', error.message);
 
+            if (error instanceof AppError) {
+
+                if (error.code >= 800 && error.code <= 804) {
+                    console.log("Error: " + error.code + " - " + error.message);
+                    res.status(500).json({
+                        message: error.message
+                    });
+                } else {
+                    res.status(500).json({
+                        message: error.message
+                    });
+                }
+
+                return;
+            }
+            
             res.status(500).json({
                 message: 'Error creating allergy - Duplicate entry',
             });
@@ -97,9 +114,9 @@ export default class AllergyController implements IAllergyController {
 
         try {
             
-            await this.allergyServiceInstance.updateAllergyEffects(id, effects);
+            let allergy = await this.allergyServiceInstance.updateAllergyEffects(id, effects);
             res.status(200).json({
-                message: 'Medical Condition symptoms updated successfully'
+                allergy: allergy
             });
         } catch (error) {
             console.log("Error: " + error.message);

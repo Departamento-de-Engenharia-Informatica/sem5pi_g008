@@ -80,6 +80,7 @@ import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextServ
 import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
+
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
 import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import { EditAllergyComponent } from './Components/AllergyManagement/edit-allergy/edit-allergy.component';

@@ -43,6 +43,7 @@ import {
   EditMedicalConditionComponent
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
+import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
 import {
   UpdateMedicalRecorConditionsComponent
@@ -123,7 +124,7 @@ export const routes: Routes = [
 
   {
     path: 'unregistered',
-    component: RegisterPatientProfileComponent,
+    component: RegisterPatientComponent,
     title: 'RegisterPatientProfile',
   }
 ];

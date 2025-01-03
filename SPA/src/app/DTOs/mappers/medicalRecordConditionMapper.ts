@@ -1,4 +1,4 @@
-﻿import {MedicalRecordCondition} from '../../Domain/MedicalRecordCondition';
+﻿import {MedicalRecordCondition} from '../../Domain/MedicalRecordCondition/MedicalRecordCondition';
 import {DisplayMedicalRecordConditionDTO} from '../displayDTOs/displayMedicalRecordConditionDTO';
 import {BackendMedicalRecordConditionDTO} from "../backendDTOs/backendMedicalRecordConditionDTO";
 

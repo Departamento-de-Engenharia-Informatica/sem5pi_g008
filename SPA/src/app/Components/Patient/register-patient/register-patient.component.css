@@ -2,56 +2,71 @@
 
 /* Container for the registration form */
 .registration-container {
-    max-width: 500px; /* Increase maximum width */
-    margin: 50px auto; /* Center the container */
-    padding: 30px; /* Add padding */
-    border-radius: 10px; /* Rounded corners */
-    background: linear-gradient(135deg, #ffffff, #eaeaea);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Form element styles */
-  .registration-container input,
-  .registration-container textarea {
-    width: 100%; /* Full width */
-    padding: 1px; /* Increased padding for comfort */
-    margin-bottom: 15px; /* Space below the input */
-    border: 1px solid #ccc; /* Border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 25px; /* Font size */
-    transition: border-color 0.3s; /* Smooth transition for border color */
-  }
-  
-  /* Focus state for inputs */
-  .registration-container input:focus,
-  .registration-container textarea:focus {
-    border-color: #007bff; /* Change border color on focus */
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 5px rgba(173, 10, 86, 0.5); /* Subtle glow effect */
-  }
-  
-  /* Button styles */
-  .registration-container button {
-    width: 100%; /* Full width */
-    padding: 12px; /* Padding inside the button */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #122717; /* Green background */
-    color: white; /* White text */
-    font-size: 18px; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
-  }
-  
-  /* Button hover effect */
-  .registration-container button:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: scale(1.02); /* Slightly scale up on hover */
-  }
-  
-  /* Button disabled styles */
-  .registration-container button:disabled {
-    background-color: #ccc; /* Grey background for disabled button */
-    cursor: not-allowed; /* Not allowed cursor */
-  }
-  
+  max-width: 500px; /* Increase maximum width */
+  margin: 50px auto; /* Center the container */
+  padding: 30px; /* Add padding */
+  border-radius: 10px; /* Rounded corners */
+  background: linear-gradient(135deg, #ffffff, #eaeaea);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form element styles */
+.registration-container input,
+.registration-container textarea {
+  width: 100%; /* Full width */
+  padding: 1px; /* Increased padding for comfort */
+  margin-bottom: 15px; /* Space below the input */
+  border: 1px solid #ccc; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 25px; /* Font size */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+/* Focus state for inputs */
+.registration-container input:focus,
+.registration-container textarea:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(173, 10, 86, 0.5); /* Subtle glow effect */
+}
+
+/* Button styles */
+.registration-container button {
+  width: 100%; /* Full width */
+  padding: 12px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #122717; /* Green background */
+  color: white; /* White text */
+  font-size: 18px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+/* Button hover effect */
+.registration-container button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.02); /* Slightly scale up on hover */
+}
+
+/* Button disabled styles */
+.registration-container button:disabled {
+  background-color: #ccc; /* Grey background for disabled button */
+  cursor: not-allowed; /* Not allowed cursor */
+}
+.question-container form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.question-container input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.question-container h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}

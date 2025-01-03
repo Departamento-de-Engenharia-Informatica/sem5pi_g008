@@ -2,13 +2,11 @@
 import json from "../../appsettings.json"
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {catchError, map, Observable, of, throwError} from 'rxjs';
-import {Allergy} from '../../Domain/Allergy';
+import {Allergy} from '../../Domain/Allergy/Allergy';
 import {AllergyMapper} from '../../DTOs/mappers/allergyMapper';
 import {DisplayAllergyDTO} from '../../DTOs/displayDTOs/displayAllergyDTO';
 import {BackendAllergyDTO} from '../../DTOs/backendDTOs/backendAllergyDTO';
 import {CreateAllergyDTO} from '../../DTOs/createDTOs/createAllergyDTO';
-
-
 
 @Injectable({
   providedIn: 'root',

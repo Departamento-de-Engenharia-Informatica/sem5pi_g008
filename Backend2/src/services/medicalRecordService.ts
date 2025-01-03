@@ -1,6 +1,7 @@
 ﻿import {Inject, Service} from "typedi";
 import IMedicalRecordService from "./IServices/IMedicalRecordService";
 import config from "../../config";
+import configAux from "../../configAux.json";
 import IMedicalRecordRepo from "./IRepos/IMedicalRecordRepo";
 import {MedicalRecord} from "../domain/MedicalRecord/MedicalRecord";
 import IMedicalRecordAllergyRepo from "./IRepos/IMedicalRecordAllergyRepo";
@@ -10,26 +11,23 @@ import IAllergyRepo from "./IRepos/IAllergyRepo";
 import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
 import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
+import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
 import IStaffDetailsDTO from "../dto/IStaffDetailsDTO";
-import http from "node:http";
+import http from 'http';
 import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
 import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
 import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
-import {
-    MedicalConditionNotFoundException
-} from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
-import {
-    MedicalRecordConditionNotFoundException
-} from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
 import IMedicalRecordFamilyHistoryRepo from "./IRepos/IMedicalRecordFamilyHistoryRepo";
 import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
+import {MedicalConditionNotFoundException} from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
+import {MedicalRecordConditionNotFoundException} from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
+import {Code} from "../domain/Shared/code";
+import {Designation} from "../domain/Shared/designation";
 
 
 @Service()
@@ -44,11 +42,10 @@ export default class MedicalRecordService implements IMedicalRecordService{
         @Inject(config.repos.medicalRecordFamilyHistory.name) private medicalRecordFamilyHistory: IMedicalRecordFamilyHistoryRepo
     ) {}
 
-
     public async createMedicalRecord(medicalRecordId:string): Promise<void> {
-        const medicalProps = {};
-        const medicalRecord = MedicalRecord.create(medicalProps);
-        await this.medicalRecordRepo.save(medicalRecord.getValue(), medicalRecordId);
+      const medicalProps = {};
+      const medicalRecord = MedicalRecord.create(medicalProps);
+      await this.medicalRecordRepo.save(medicalRecord.getValue(), medicalRecordId);
     }
     async createFamilyHistory(medicalRecordID: any, familyHistory: any) {
         const medicalRecord = this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordID);
@@ -107,63 +104,42 @@ export default class MedicalRecordService implements IMedicalRecordService{
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {
 
 
-        const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
-        const medicalRecordPrivateId = medicalRecord.props._id.toString();
+      const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+      const medicalRecordPrivateId = medicalRecord.props._id.toString();
 
-        const medicalRecordAllergies = await this.medicalRecordAllergyRepo.getByMedicalId(medicalRecordPrivateId);
+      const medicalRecordAllergies = await this.medicalRecordAllergyRepo.getByMedicalId(medicalRecordPrivateId);
 
-        console.log(medicalRecordAllergies);
+      console.log(medicalRecordAllergies);
 
-        let aux : IMedicalRecordAllergyDTO[] = [];
+      let aux : IMedicalRecordAllergyDTO[] = [];
 
-        for(let i = 0; i < medicalRecordAllergies.length; i++){
-            const dto = await MedicalRecordAllergyMapper.toDTO(medicalRecordAllergies[i]);
-            aux.push(await this.fixDto(dto));
-        }
+      for(let i = 0; i < medicalRecordAllergies.length; i++){
+        const dto = await MedicalRecordAllergyMapper.toDTO(medicalRecordAllergies[i]);
+        aux.push(await this.fixDto(dto));
+      }
 
-        return aux;
+      return aux;
     }
 
     private async fixDto(dto: IMedicalRecordAllergyDTO): Promise<IMedicalRecordAllergyDTO> {
-        const allergy = await this.allergyRepo.getById(dto.allergy);
-        dto.allergy = allergy.allergy;
-        dto.doctor = await this.getDoctorName(dto.doctor);
-        return dto;
+      const allergy = await this.allergyRepo.getById(dto.allergy);
+      dto.allergy = allergy.designation;
+      const doctor = await this.getStaffDetails(dto.doctor);
+      dto.doctor = doctor.firstName + " " + doctor.lastName;
+      return dto;
     }
 
-    private async getDoctorName(doctorId: string): Promise<string> {
-        return "Doctor";
-    }
-
-    async getAllMedicalRecordConditions(): Promise<IMedicalRecordConditionDTO[]> {
-        const medicalRecordConditionList = await this.medicalRecordConditionRepo.getAllMedicalRecordConditions();
-
-        if (medicalRecordConditionList.length === 0) {
-            throw new NoMedicalRecordConditionsException();
-        }
-        console.log('medicalRecordConditionList2');
-        const medicalRecordConditionDTOList = [];
-  
-
-        for (const medicalRecordCondition of medicalRecordConditionList) {
-            const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
-            medicalRecordConditionDTOList.push(medicalConditionDTO);
-        } 
-
-        return medicalRecordConditionDTOList;
-
-    }
- 
     public async getMedicalRecordConditions(medicalRecordId: string): Promise<IMedicalRecordConditionDTO[]> {
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
-
+        
         if(!medicalRecord) {
             throw new NoMedicalRecordException();
         }
-
+        
         const medicalRecordConditionList = await this.medicalRecordConditionRepo.getMedicalRecordConditionsWithIds(medicalRecord.props._id.toString());
-
+        
+        
         if (medicalRecordConditionList.length === 0) {
             throw new NoMedicalRecordConditionsException();
         }
@@ -177,7 +153,7 @@ export default class MedicalRecordService implements IMedicalRecordService{
             const condition = await this.medicalConditionRepo.getMedicalConditionByBusinessId(medicalRecordCondition.conditionId);
 
             const medicalConditionDTO = MedicalRecordConditionMapper.toDTO(medicalRecordCondition, condition, medicalRecord.id, staffDetailsDTO);
-
+            
             medicalRecordConditionDTOList.push(medicalConditionDTO);
         }
 
@@ -199,16 +175,18 @@ export default class MedicalRecordService implements IMedicalRecordService{
         if(!medicalCondition) {
             throw new MedicalConditionNotFoundException("No Medical Condition registered in the system with this Code.");
         }
+        
 
         const medicalRecordCondition = await this.medicalRecordConditionRepo.getMedicalRecordConditionByMedicalRecordIdAndConditionId(
             medicalRecord.props._id.toString(), medicalCondition.props._id.toString());
+        
 
         if(!medicalRecordCondition) {
             throw new MedicalRecordConditionNotFoundException("No Medical Condition found for this Code.");
         }
 
         const staffDetailsDTO = await this.getStaffDetails(medicalRecordCondition.doctorId);
-
+        
         return MedicalRecordConditionMapper.toDTO(medicalRecordCondition, medicalCondition, medicalRecord.id, staffDetailsDTO);
     }
 
@@ -241,8 +219,10 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
 
     private async getStaffDetails(staffId: string): Promise<IStaffDetailsDTO> {
-
-        const url = config.Backend1.URL + '/Staff';
+        
+        const baseUrl = configAux.Backend1.URL || 'http://localhost:4000';
+        
+        const url = baseUrl + '/Staff';
         const urlApi = `${url}/by-id/${staffId}`;
 
         return new Promise((resolve, reject) => {
@@ -277,4 +257,6 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
 
 }
+
+
 

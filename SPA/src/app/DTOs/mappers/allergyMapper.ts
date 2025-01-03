@@ -1,4 +1,4 @@
-﻿import {Allergy} from '../../Domain/Allergy';
+﻿import {Allergy} from '../../Domain/Allergy/Allergy';
 import {CreateAllergyDTO} from '../createDTOs/createAllergyDTO';
 import {DisplayAllergyDTO} from '../displayDTOs/displayAllergyDTO';
 import {BackendAllergyDTO} from '../backendDTOs/backendAllergyDTO';

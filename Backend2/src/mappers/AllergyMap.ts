@@ -1,16 +1,12 @@
 ﻿import {Mapper} from "../core/infra/Mapper";
-import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
-import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 import {Document, Model} from "mongoose";
 import {UniqueEntityID} from "../core/domain/UniqueEntityID";
-import {IMedicalConditionPersistence} from "../dataschema/IMedicalConditionPersistence";
 import {Allergy} from "../domain/Allergy/Allergy";
 import IAllergyDTO from "../dto/IAllergyDTO";
 import {IAllergyPersistence} from "../dataschema/IAllergyPersistence";
-import {ALL} from "node:dns";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
-import {Description} from "../domain/MedicalCondition/description";
+import {Code} from "../domain/Shared/code";
+import {Description} from "../domain/Shared/description";
+import {Designation} from "../domain/Shared/designation";
 
 export class AllergyMap extends Mapper<Allergy> {
 

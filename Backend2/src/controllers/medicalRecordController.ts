@@ -20,7 +20,7 @@ import {error} from "winston";
 export default class MedicalRecordController implements IMedicalRecordController {
 
   constructor(
-    @Inject(config.services.medicalRecord.name) private medicalRecordInstance: IMedicalRecordService,
+    @Inject("MedicalRecordService") private medicalRecordInstance: IMedicalRecordService,
   ) {}
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
@@ -54,9 +54,6 @@ export default class MedicalRecordController implements IMedicalRecordController
 
       let medicalRecordId = req.params.id;
       let conditionCode = req.params.code;
-
-      console.log(medicalRecordId, conditionCode);
-
 
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByCode(medicalRecordId, conditionCode);
 
@@ -108,9 +105,7 @@ export default class MedicalRecordController implements IMedicalRecordController
 
       let medicalRecordId = req.params.id;
       let conditionDesignation = req.params.designation;
-
-      console.log(medicalRecordId, conditionDesignation);
-
+      
       const medicalRecordConditionDTO = await this.medicalRecordInstance.getMedicalRecordConditionByDesignation(medicalRecordId, conditionDesignation);
 
       res.status(200).json({
@@ -199,6 +194,14 @@ export default class MedicalRecordController implements IMedicalRecordController
       });
     } catch (error) {
       console.error('Error getting allergies:', error.message);
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(500).json({
+          message: error.message
+        });
+        return;
+      }
+      
       res.status(500).json({
         message: 'Error getting allergies',
         details: error.message

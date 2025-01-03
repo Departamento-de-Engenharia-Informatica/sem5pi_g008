@@ -3,13 +3,13 @@ import IMedicalConditionController from "./IControllers/IMedicalConditionControl
 import config from "../../config";
 import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
 import IMedicalConditionService from "../services/IServices/IMedicalConditionService";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
 import {NotFoundException} from "../Exceptions/NotFoundException";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 @Service()
 export default class MedicalConditionController implements IMedicalConditionController {
   constructor(
-    @Inject(config.services.medicalCondition.name) private medicalConditionServiceInstance: IMedicalConditionService
+    @Inject("MedicalConditionService") private medicalConditionServiceInstance: IMedicalConditionService
   ) {
   }
   public async searchMedicalConditionsCode(req: any, res: any) {
@@ -81,6 +81,9 @@ export default class MedicalConditionController implements IMedicalConditionCont
 
         if (error.code >= 800 && error.code <= 804) {
           console.log("Error: " + error.code + " - " + error.message);
+            res.status(error.code).json({
+                message: error.message
+            });
         } else {
           res.status(error.code).json({
             message: error.message
@@ -126,7 +129,7 @@ export default class MedicalConditionController implements IMedicalConditionCont
         });
       } else {
         res.status(500).json({
-          message: 'Error updating medical condition description' + error,
+          message: error.message,
         });
       }
     }

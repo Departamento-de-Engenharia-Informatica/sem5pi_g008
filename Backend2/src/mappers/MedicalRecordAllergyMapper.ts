@@ -4,13 +4,8 @@ import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import {MedicalRecordAllergy} from "../domain/MedicalRecordAllergy/MedicalRecordAllergy";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
-import {AllergyMap} from "./AllergyMap";
 import {IMedicalRecordAllergyPersistence} from "../dataschema/IMedicalRecordAllergyPersistence";
-import {Inject} from "typedi";
-import config from "../../config";
-import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
-import IAllergyService from "../services/IServices/IAllergyService";
-import { Allergy } from "../domain/Allergy/Allergy";
+
 
 export class MedicalRecordAllergyMapper extends Mapper<MedicalRecordAllergy> {
 

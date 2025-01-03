@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "file-saver": "^2.0.5",
     "ngx-cookie-service": "^18.0.0",
     "rxjs": "~7.8.0",
     "sudo": "^1.0.3",
@@ -34,14 +35,15 @@
     "@angular/cli": "^18.2.11",
     "@angular/compiler-cli": "^18.2.0",
     "@cypress/schematic": "^2.5.2",
+    "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
+    "cypress": "latest",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.2",
-    "cypress": "latest"
+    "typescript": "~5.5.2"
   }
 }
