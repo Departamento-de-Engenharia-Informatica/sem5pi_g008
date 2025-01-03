@@ -1,4 +1,4 @@
-﻿.home-button-container {
+﻿home-button-container {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -24,7 +24,6 @@
 
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Ensures elements stretch across the container */
 }
 
 .container:hover {
@@ -46,44 +45,41 @@ h1 {
   letter-spacing: 1px;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Adds spacing between allergy items */
+.allergy-list {
+  margin-top: 20px;
+}
+
+.no-allergies-message {
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+  margin-top: 20px;
 }
 
 .allergy-item {
   padding: 20px;
+  margin-bottom: 15px;
   background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.allergy-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 .allergy-details p {
-  margin: 0;
-  padding: 4px 0;
-  color: #555;
+  margin: 5px 0;
   font-size: 16px;
+  color: #333;
 }
 
-.allergy-details ul {
-  list-style-type: disc;
-  margin-left: 20px;
-  padding: 4px 0;
-}
-
-.button-container {
+.allergy-actions {
   display: flex;
-  align-items: center;
   gap: 10px;
 }
+
 
 .reset-filter-button {
   padding: 8px 12px;
@@ -117,12 +113,6 @@ h1 {
   margin: 0;
 }
 
-.allergy-details ul li {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-}
-
 .app-filter-button {
   margin-bottom: 20px;
 }
@@ -130,4 +120,8 @@ h1 {
 .app-filter-button:hover {
   cursor: pointer;
   opacity: 0.9;
+}
+.allergy-actions {
+  display: flex;
+  gap: 10px;
 }
