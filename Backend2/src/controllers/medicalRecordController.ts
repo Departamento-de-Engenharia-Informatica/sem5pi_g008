@@ -225,4 +225,31 @@ export default class MedicalRecordController implements IMedicalRecordController
 
     }
   }
+
+
+  public async getFreeTexts(req: any, res: any): Promise<IMedicalRecordFreeTextDTO[]> {
+    let medicalRecordId = req.params.id;
+
+    try {
+      res.status(200).json({
+        body: await this.medicalRecordInstance.getFreeTexts(medicalRecordId)
+      });
+    } catch (error) {
+      console.error('Error getting comments:', error.message);
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(500).json({
+          message: error.message
+        });
+        return;
+      }
+
+      res.status(500).json({
+        message: 'Error getting comments',
+        details: error.message
+      });
+    }
+
+    return null;
+  }
 }
