@@ -1,49 +1,29 @@
-<div class="container">
-  <h2>Family History Form</h2>
-  <form [formGroup]="familyHistoryForm" (ngSubmit)="onSubmit()">
-    <!-- Family Member Field -->
-    <div class="form-group">
-      <label for="familyMember">Family Member</label>
-      <input
-        id="familyMember"
-        type="text"
-        class="form-control"
-        formControlName="familyMember"
-        placeholder="Enter family member name"
-      />
-      <div *ngIf="familyHistoryForm.get('familyMember')?.invalid && familyHistoryForm.get('familyMember')?.touched" class="text-danger">
-        Family member name is required.
+<div class="family-history-container">
+  <!-- Botão que aparece antes do formulário -->
+  <button *ngIf="!formVisible" (click)="toggleFormVisibility()">Add Family History</button>
+
+  <!-- Formulário que aparece após o clique no botão -->
+  <div *ngIf="formVisible" class="family-history-form">
+    <h2>Add Family History</h2>
+
+    <form [formGroup]="familyHistoryForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="familyMember">Family Member:</label>
+        <input id="familyMember" formControlName="familyMember" type="text" />
+        <div *ngIf="familyHistoryForm.get('familyMember')?.invalid && familyHistoryForm.get('familyMember')?.touched" class="error">
+          Family member is required.
+        </div>
       </div>
-    </div>
 
-    <!-- Condition Field -->
-    <div class="form-group">
-      <label for="condition">Condition</label>
-      <input
-        id="condition"
-        type="text"
-        class="form-control"
-        formControlName="condition"
-        placeholder="Enter medical condition"
-      />
-      <div *ngIf="familyHistoryForm.get('condition')?.invalid && familyHistoryForm.get('condition')?.touched" class="text-danger">
-        Medical condition is required.
+      <div>
+        <label for="condition">Condition:</label>
+        <input id="condition" formControlName="condition" type="text" />
+        <div *ngIf="familyHistoryForm.get('condition')?.invalid && familyHistoryForm.get('condition')?.touched" class="error">
+          Condition is required.
+        </div>
       </div>
-    </div>
 
-    <!-- Comment Field -->
-    <div class="form-group">
-      <label for="comment">Comment</label>
-      <textarea
-        id="comment"
-        rows="3"
-        class="form-control"
-        formControlName="comment"
-        placeholder="Add additional information (optional)">
-      </textarea>
-    </div>
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary" [disabled]="familyHistoryForm.invalid">Submit</button>
-  </form>
+      <button type="submit" [disabled]="familyHistoryForm.invalid">Submit</button>
+    </form>
+  </div>
 </div>

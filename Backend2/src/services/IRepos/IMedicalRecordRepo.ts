@@ -1,5 +1,6 @@
 ﻿import {Repo} from "../../core/infra/Repo";
 import {MedicalRecord} from "../../domain/MedicalRecord/MedicalRecord";
+import {MedicalRecordCondition} from "../../domain/MedicalRecordCondition/MedicalRecordCondition";
 
 export default interface IMedicalRecordRepo extends Repo<MedicalRecord>{
     save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord>;
@@ -7,4 +8,5 @@ export default interface IMedicalRecordRepo extends Repo<MedicalRecord>{
     getMedicalRecordByDomainId(medicalRecordId: string): Promise<any>;
     getMedicalRecordById(medicalRecordId: string): Promise<MedicalRecord>;
     saveUpdate(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord>;
+    updateMedicalRecordUsingId(medicalRecordID: any, updatedConditions: MedicalRecordCondition[]): any;
 }

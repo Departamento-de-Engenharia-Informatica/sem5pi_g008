@@ -190,4 +190,13 @@ export class MedicalRecordMedicalConditionService {
 
   }
 
+  updateComment(conditionId: string, comment: string): Observable<void> {
+    const payload = {
+      id: conditionId,
+      comment: comment
+    };
+    console.log('Payload:', payload);
+    return this.http.put<void>(`${this.apiUrl}/medicalrecordConditions`, { payload }, { withCredentials: true });
+  }
+
 }

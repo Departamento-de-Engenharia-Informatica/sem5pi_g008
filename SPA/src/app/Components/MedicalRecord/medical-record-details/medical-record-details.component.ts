@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-medical-record-details',
@@ -9,7 +10,7 @@ export class MedicalRecordDetailsComponent implements OnInit{
 
   medicalRecordId: string = "";
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,4 +23,5 @@ export class MedicalRecordDetailsComponent implements OnInit{
       console.log("No medical record data available in state");
     }
   }
+
 }

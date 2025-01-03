@@ -5,4 +5,5 @@ import {MedicalRecordFamilyHistory} from "../../domain/MedicalRecordFamilyHistor
 export default interface IMedicalRecordFamilyHistoryRepo extends Repo<MedicalRecordFamilyHistory> {
   save(medicalRecordFamilyHistory: MedicalRecordFamilyHistory): Promise<MedicalRecordFamilyHistory>;
   saveFamilyHistory(medicalRecord: Promise<any>, familylist: any[]): any;
+  getMedicalRecordFamilyHistoryWithIds(medicalRecordId: string): any;
 }
