@@ -293,23 +293,7 @@ search_pending_surgeries(Date, Room) :-
         fail
     ;
         true
-    )
-    ,
-            findall(A, listasolucoes(A), AllSolutions),   
-            find_best_solution(AllSolutions, BestSolution), 
-            % Agenda as cirurgias
-            findall(
-                X, 
-                (member((_, _, X), BestSolution), schedule_surgery(X, Date, Room, Solucoes1)),
-                _
-            )
-     ,
-        retractall(listasolucoes(_))
-       % ,
-        %retractall(aux_rooms(Room)),
-       % ( aux_rooms(Room_aux), findall(_, (member((_, _, Surgery), BestSolution),retractall(surgery_id(Surgery, _))),_),
-      %   search_pending_surgeries(Date, Room_aux) ; true)
-         .
+    ).
 
 schedule_pending_surgeries([], Date, Room,Solucoes) :-
 

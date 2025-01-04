@@ -52,14 +52,8 @@ export class AlgavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //  this.getSurgeryPlan();
-    //  this.getStaff();
-    //   this.getSurgeryRoomsInfo();
-    //   this.getRequests();
-    //    this.getOperationTypes();
-    //    this.getRequiredStaff();
-    //  this.loadData();
     // this.getData();
+    // this.loadData();
   }
 
   // Método para obter o plano de cirurgia
@@ -86,64 +80,6 @@ export class AlgavComponent implements OnInit {
     });
   }
 
-  // Método para obter a lista de salas de cirurgia
-  getOperationTypes(): void {
-    this.surgeryService.getOperationTypes().subscribe({
-      next: (data) => {
-        console.log('getOperationTypes:', data);
-      },
-      error: (err) => {
-        console.error('Error fetching surgery rooms:', err);
-      }
-    });
-  }
-
-  // Método para obter agendamentos de cirurgia
-  getRequests(): void {
-    this.surgeryService.getRequests().subscribe({
-      next: (data) => {
-        console.log('Operation Request:', data);
-      },
-      error: (err) => {
-        console.error('Error fetching surgery schedules:', err);
-      }
-    });
-  }
-
-  // Método para obter salas disponíveis
-  getSurgeryRoomsInfo(): void {
-    this.surgeryService.getSurgeryRoomsInfo().subscribe({
-      next: (data) => {
-        console.log('Available Rooms:', data);
-      },
-      error: (err) => {
-        console.error('Error fetching available rooms:', err);
-      }
-    });
-  }
-
-  // Método para obter a lista de salas de cirurgia
-  getStaff(): void {
-    this.surgeryService.getStaff().subscribe({
-      next: (data) => {
-        console.log('getStaff:', data);
-      },
-      error: (err) => {
-        console.error('Error fetching surgery rooms:', err);
-      }
-    });
-  }
-
-  getRequiredStaff(): void {
-    this.surgeryService.getRequiredStaff().subscribe({
-      next: (data) => {
-        console.log('getRequiredStaff:', data);
-      },
-      error: (err) => {
-        console.error('Error fetching surgery rooms:', err);
-      }
-    });
-  }
 
   getData(): void {
     this.surgeryService.getData().subscribe({
@@ -175,6 +111,7 @@ export class AlgavComponent implements OnInit {
 
     this.surgeryService.postSurgeryPlanRoom(this.agendaRoom).subscribe(
       {
+
         next: (data) => {
           console.log('postSurgeryPlan:', data);
         }

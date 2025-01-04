@@ -38,6 +38,14 @@ export class SurgeryRoomService {
       })
     );
   }
+  // getSurgeryPlan(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.SwiUrl}/generate_plan`).pipe(
+  //     catchError(error => {
+  //       console.error('Error getting surgery plan:', error);
+  //       return of([]);
+  //     })
+  //   );
+  // }
 
 
   loadData(): Observable<any[]> {
@@ -47,25 +55,6 @@ export class SurgeryRoomService {
         return of([]);
       })
     );
-  }
-
-
-  getOperationTypes(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/operation-type`);
-  }
-  getRequests(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/operation-request`);
-  }
-
-   getSurgeryRoomsInfo(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/surgery-room`);
-  }
-
-  getStaff(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/staff`);
-  }
-  getRequiredStaff(): Observable<any> {
-    return this.http.get(`${this.algavUrl}/RequiredStaff`);
   }
   getData(): Observable<any> {
     return this.http.get(`${this.SwiUrl}/getdata`);
