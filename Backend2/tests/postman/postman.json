@@ -3728,6 +3728,96 @@
 					"name": "Search Medical Conditions",
 					"item": [
 						{
+							"name": "designation",
+							"item": [
+								{
+									"name": "Get Medical Record Condition - Non existent Condition - Failure Copy 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 810\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "42936290-a37e-47e7-8dfc-87204f1121ea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition By Code- Success Copy 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
+													"  \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f2048934-ecb7-4968-8f7d-36f43318c216",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+									},
+									"response": []
+								}
+							],
+							"id": "d16aa6d5-2f67-430b-b60b-40727d13d9c8"
+						},
+						{
 							"name": "Get Medical Record Condition - Non existent Condition - Failure Copy",
 							"event": [
 								{
