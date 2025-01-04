@@ -1221,13 +1221,13 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{SandroCookieDoctor}}",
+										"value": "{{ruteDoctorCookie}}",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"patientName\": \"new User\",\r\n  \"type\": \"Heart Surgery\",\r\n  \"priority\": \"HIGH\"\r\n  \r\n}\r\n",
+									"raw": "{ }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
