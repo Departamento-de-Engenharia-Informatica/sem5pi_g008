@@ -3722,7 +3722,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Family History  - Failure",
+							"name": "Get Family History  - sucess",
 							"event": [
 								{
 									"listen": "test",
