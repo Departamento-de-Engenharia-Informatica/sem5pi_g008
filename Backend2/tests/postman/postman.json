@@ -4322,14 +4322,14 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\",\r\n    \"status\": \"Scheduled\"\r\n}\r\n",
+									"raw": "{\r\n    \"operationRequestId\": \"1\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\",\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{backend2_url}}/allergy"
+								"url": "{{base_url}}/appointment"
 							},
 							"response": []
 						},
@@ -4341,18 +4341,13 @@
 									"script": {
 										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
 										"exec": [
-											"pm.test(\"Response status code is 500\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Error creating allergy - Duplicate entry', \"Message should match expected text\");\r",
+											"pm.test(\"Response contains 'Missing required fields'\", function () {\r",
+											"    pm.response.to.have.body(\"Missing required fields.\");\r",
 											"});\r",
-											"\r",
 											""
 										],
 										"type": "text/javascript",
@@ -4369,14 +4364,14 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"raw": "{\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\"\r\n    // Missing surgeryRoomId\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{backend2_url}}/allergy"
+								"url": "{{base_url}}/appointment/"
 							},
 							"response": []
 						}
@@ -4454,7 +4449,7 @@
 										}
 									}
 								},
-								"url": "{{backend2_url}}/allergy/1/designation"
+								"url": "{{base_url}}/appointment/"
 							},
 							"response": []
 						},
@@ -4502,7 +4497,7 @@
 										}
 									}
 								},
-								"url": "{{backend2_url}}/allergy/123/designation"
+								"url": "{{base_url}}/appointment/"
 							},
 							"response": []
 						}
