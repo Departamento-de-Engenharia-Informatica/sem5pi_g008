@@ -8,5 +8,5 @@
 /**/.idea
 /**/obj
 /**/bin
-
+/**/Logs
 *.sln.DotSettings.user

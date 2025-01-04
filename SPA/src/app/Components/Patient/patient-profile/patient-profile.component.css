@@ -34,4 +34,48 @@ button {
 
 button:hover {
   background: #0056b3;
+
+
+  h2 {
+    color: #0056b3;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 10px 0;
+  }
+
+  ul {
+    margin: 10px 0 20px 20px;
+    padding: 0;
+    list-style-type: disc;
+  }
+
+  ul li {
+    margin-bottom: 10px;
+  }
+
+
+  @media (max-width: 768px) {
+    .container {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
 }

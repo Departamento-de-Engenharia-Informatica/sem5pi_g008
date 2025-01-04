@@ -22,5 +22,12 @@ namespace Sempi5.Infrastructure.SurgeryRoomRepository
                 .ToListAsync();
 
         }
+   public async Task<SurgeryRoom> GetSurgeryRoomById(int id)
+{
+    var surgeryRoom = await context.SurgeryRooms
+        .FirstOrDefaultAsync(r => r.Id.Equals(new RoomNumber(id)));
+        
+    return surgeryRoom;
+}
     }
 }

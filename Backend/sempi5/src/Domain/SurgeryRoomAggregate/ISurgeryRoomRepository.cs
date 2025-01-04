@@ -9,5 +9,6 @@ namespace Sempi5.Infrastructure.SurgeryRoomAggregate
     public interface ISurgeryRoomRepository: IRepository<SurgeryRoom, RoomNumber>
     {
         Task<List<SurgeryRoom>> GetAllStaff();
+        Task<SurgeryRoom> GetSurgeryRoomById(int roomId);
     }
 }

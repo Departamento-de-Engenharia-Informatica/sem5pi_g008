@@ -1,0 +1,52 @@
+.specialization-list {
+  max-height: 480px; /* Adjustable height for scrolling */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.specialization-item {
+  display: flex;
+  justify-content: space-between; /* Separates details and actions */
+  align-items: center; /* Aligns content properly */
+  margin-bottom: 15px; /* Spacing between items */
+  padding: 15px;
+  background-color: #e0f7fa; /* Light teal background for items */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.specialization-details {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.specialization-details p {
+  margin: 5px 0;
+}
+
+.specialization-actions {
+  display: flex;
+  gap: 10px; /* Spacing between buttons */
+}
+
+
+.edit-button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #388e3c;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}

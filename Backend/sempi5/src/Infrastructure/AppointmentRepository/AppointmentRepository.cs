@@ -32,4 +32,14 @@ public class AppointmentRepository : BaseRepository<Appointment, AppointmentID>,
         context.Appointments.Update(appointment);
         await context.SaveChangesAsync();
     }
+
+    public Task<Appointment?> GetAppointmentById(int appointmentId)
+    {
+        return context.Appointments.Where(a=>a.Id.Equals(new AppointmentID(appointmentId))).FirstOrDefaultAsync();
+    }
+    public async Task addAppointment(Appointment appointment)
+    {
+        await context.Appointments.AddAsync(appointment);
+        await context.SaveChangesAsync();
+    }
 }

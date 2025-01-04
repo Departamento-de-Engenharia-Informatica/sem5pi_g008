@@ -1,0 +1,32 @@
+<div class="home-button-container"> <!-- Home button container outside of the container -->
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+<app-backgroud-card>
+  <div class="header">
+    <h1>Specializations Management</h1>
+  </div>
+
+  <button class="add-button" (click)="createSpecialization()">Add Specialization</button>
+
+  <app-filter-button
+    *ngIf="specializationList.length > 0"
+    [filters]="['Specialization Name']"
+    (filterSelected)="handleFilter()"
+  ></app-filter-button>
+
+  <app-reset-filter-button (click)="resetFilter()" *ngIf="showResetButton"></app-reset-filter-button>
+
+  <app-specialization-list *ngIf="specializationList.length > 0"
+                           [specializationList]="specializationList"
+                           (deleteSpecialization)="deleteSpecialization($event)"
+  ></app-specialization-list>
+
+  <app-error-message [message]="errorMessage"></app-error-message>
+
+
+</app-backgroud-card>
+
+<app-enter-filter-name
+  (nameToFilter)="handleFilterSelection($event)"
+></app-enter-filter-name>

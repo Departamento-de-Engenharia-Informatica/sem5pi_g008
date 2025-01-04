@@ -45,10 +45,18 @@ public class OperationRequestBootstrap
             new List<string> { "01/01/2021 9am-10am", "02/02/2021 10am-11am" },
             PatientStatusEnum.ACTIVATED
         );
+        
+        var specializationName = new SpecializationName("Cleaner");
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization1 = new Specialization(specializationName, specializationCode, specializationDescription);
+        
+        var specializationName2 = new SpecializationName("Heart Surgeon");
+        var specializationCode2 = new SpecializationCode("HS1");
+        var specializationDescription2 = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization2 = new Specialization(specializationName2, specializationCode2, specializationDescription2);
 
-        var specialization1 = new Specialization(new SpecializationName("Cleaner"));
-        var specialization2 = new Specialization(new SpecializationName("Heart Surgeon"));
-
+        
         var requiredStaff1 = new RequiredStaff(new NumberOfStaff(3), specialization1);
         var requiredStaff2 = new RequiredStaff(new NumberOfStaff(1), specialization2);
         
@@ -74,11 +82,6 @@ public class OperationRequestBootstrap
         
         await _operationRequestRepository.AddAsync(request1);
         
-        
-        
-        
-        
-        
         var user2 = new SystemUser(new Email("exampleUser@gmail.com"), "Patient", true);
         var patient2 = new Patient
         (
@@ -92,9 +95,16 @@ public class OperationRequestBootstrap
             new List<string> { "15/03/2021 8am-9am", "18/04/2021 10am-11am" },
             PatientStatusEnum.ACTIVATED
         );
-
-        var specialization3 = new Specialization(new SpecializationName("Neurologist"));
-        var specialization4 = new Specialization(new SpecializationName("Anesthesiologist"));
+        
+        var specializationName3 = new SpecializationName("Neurologist");
+        var specializationCode3 = new SpecializationCode("N1");
+        var specializationDescription3 = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization3 = new Specialization(specializationName3, specializationCode3, specializationDescription3);
+        
+        var specializationName4 = new SpecializationName("Anesthesiologist");
+        var specializationCode4 = new SpecializationCode("A1");
+        var specializationDescription4 = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization4 = new Specialization(specializationName4, specializationCode4, specializationDescription4);
 
         var requiredStaff3 = new RequiredStaff(new NumberOfStaff(2), specialization3);
         var requiredStaff4 = new RequiredStaff(new NumberOfStaff(1), specialization4);

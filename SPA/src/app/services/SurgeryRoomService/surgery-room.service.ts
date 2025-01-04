@@ -8,11 +8,11 @@ import json from '../../appsettings.json';
 })
 export class SurgeryRoomService {
 
-  private apiUrl = json.apiUrl + '/surgeryRoom';
   private SwiUrl = "http://localhost:8080";
   private algavUrl = json.apiUrl + '/algav';
 
 
+  private apiUrl = json.backendApi["1"].url + '/surgeryRoom';
 
   constructor(private http: HttpClient) {
   }
@@ -92,4 +92,15 @@ export class SurgeryRoomService {
     return this.http.patch(`${this.algavUrl}/updateStaffAgenda`, payload, { withCredentials: true });
   }
 
+
+  getRoomInfo(): Observable<{ title: string, body: string | number }[][]> {
+    return this.http.get<{ title: string, body: string | number }[][]>(`${this.apiUrl}/info`, {
+      withCredentials: true
+    }).pipe(
+      catchError(error => {
+        console.error('Error getting room info:', error);
+        return of([]);
+      })
+    );
+  }
 }

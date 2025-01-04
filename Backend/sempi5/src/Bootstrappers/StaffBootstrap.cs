@@ -1,5 +1,4 @@
-﻿using Sempi5.Domain;
-using Sempi5.Domain.PersonalData;
+﻿using Sempi5.Domain.PersonalData;
 using Sempi5.Domain.Shared;
 using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Domain.StaffAggregate;
@@ -30,10 +29,10 @@ public class StaffBootstrap
         var sandroUserDoctor = new SystemUser(new Email("carmoluis28@gmail.com"), "Doctor", true);
         var ruteUserDoctor = new SystemUser(new Email("rutemaia2004@gmail.com"), "Doctor", true);
 
-
-        var specialization1 = new Specialization(new SpecializationName("Cardiology"));
-        var specialization2 = new Specialization(new SpecializationName("Surgeon"));
-        var specialization3 = new Specialization(new SpecializationName("Neurologist"));
+        
+        var specialization1 = new Specialization(new SpecializationName("Cardiology"), new SpecializationCode("CA1"), new SpecializationDescription("Cardiology specialization"));
+        var specialization2 = new Specialization(new SpecializationName("Surgeon"), new SpecializationCode("S0"), new SpecializationDescription("Surgeon specialization"));
+        var specialization3 = new Specialization(new SpecializationName("Neurologist"), new SpecializationCode("N0"), new SpecializationDescription("Neurologist specialization"));
 
         var agenda1 = new StaffAgenda
         {
@@ -139,10 +138,10 @@ public class StaffBootstrap
 
     public async Task SeedStaffProfiles()
     {
-        var orthopedicSurgeon = new Specialization(new SpecializationName("Orthopedic Surgeon"));
-        var generalSurgeon = new Specialization(new SpecializationName("General Surgeon"));
-        var doctorSpecialization = new Specialization(new SpecializationName("Doctor"));
-        var nurseSpecialization = new Specialization(new SpecializationName("Nurse"));
+        var orthopedicSurgeon = new Specialization(new SpecializationName("Orthopedic Surgeon"), new SpecializationCode("OS1"), new SpecializationDescription("Orthopedic Surgeon specialization"));
+        var generalSurgeon = new Specialization(new SpecializationName("General Surgeon"), new SpecializationCode("GS1"), new SpecializationDescription("General Surgeon specialization"));
+        var doctorSpecialization = new Specialization(new SpecializationName("Doctor"), new SpecializationCode("D1"), new SpecializationDescription("Doctor specialization"));
+        var nurseSpecialization = new Specialization(new SpecializationName("Nurse"), new SpecializationCode("N5"), new SpecializationDescription("Nurse specialization"));
         
         var agenda1 = new StaffAgenda
         {

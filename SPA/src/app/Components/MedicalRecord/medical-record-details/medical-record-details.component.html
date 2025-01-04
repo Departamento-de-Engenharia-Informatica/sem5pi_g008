@@ -1,0 +1,25 @@
+<div class="home-button-container">
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+
+<div class="container">
+  <div class="header">
+    <h1>Medical Record Details</h1>
+    <app-medical-record-allergy-list [medicalRecordId]="medicalRecordId"></app-medical-record-allergy-list>
+
+    <div class="content">
+
+
+    <app-medical-record-condition-list [medicalRecordId]="medicalRecordId"></app-medical-record-condition-list>
+
+    <app-medical-record-free-text-list [medicalRecordId]="medicalRecordId"></app-medical-record-free-text-list>
+      <app-famili-history-list [medicalRecordId]="medicalRecordId"></app-famili-history-list>
+      <app-family-history [medicalRecordId]="medicalRecordId"></app-family-history>
+
+
+    <h2 class="sub-header">Comments</h2>
+    </div>
+  </div>
+
+</div>

@@ -56,7 +56,7 @@ namespace Sempi5
                     policy =>
                     {
                         policy
-                            .WithOrigins(builder.Configuration["FrontEnd:Url"]) // Make sure to use correct protocol (https/http)
+                            .WithOrigins(builder.Configuration["FrontEnd:Url"],builder.Configuration["Backend2:Url"]) // Make sure to use correct protocol (https/http)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
@@ -268,7 +268,9 @@ namespace Sempi5
             services.AddTransient<IConfirmationLinkRepository, ConfirmationLinkRepository>();
             services.AddTransient<IStaffAgendaRepository, StaffAgendaRepository>();
             services.AddTransient<IRoomAgendaRepository, RoomAgendaRepository>();
+            
 
+            services.AddTransient<SpecializationService>();
             services.AddTransient<StaffService>();
             services.AddTransient<LoginService>();
             services.AddTransient<EmailService>();
@@ -278,6 +280,7 @@ namespace Sempi5
             services.AddTransient<OperationRequestService>();
             services.AddTransient<SystemUserService>();
             services.AddTransient<SurgeryRoomService>();
+            services.AddTransient<AppointmentService>();
             services.AddTransient<AgendaService>();
 
             services.AddSingleton(Log.Logger);

@@ -7,7 +7,7 @@ import {ValidateMap} from '../validateMap/validateMap';
 import json from '../../floorLayout/floorLayout.json';
 import {CorridorComponent} from '../corridor/corridor.component';
 import {EdgeWallComponent} from '../edge-wall/edge-wall.component';
-import appSettings from '../../appSettings.json';
+import appSettings from '../../appsettings.json';
 
 @Component({
   selector: 'app-operation-floor',
@@ -32,8 +32,9 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
   private height: number = json.size.height;
   protected showOverlay = false;
   protected roomDetails: Array<{ title: string, body: string | number }> = [];
-  private selectedRoom: { roomIndex: number, isOperationActive:boolean, i: number, j: number } | null = null;
+  private selectedRoom: { roomIndex: number, isOperationActive: boolean, i: number, j: number } | null = null;
   private receivedData: boolean[] = [];
+  private additionalData: any[] = [];
 
   constructor(private validateMapService: ValidateMap) {
     window.addEventListener('keydown', this.handleKeyPress.bind(this));
@@ -101,8 +102,21 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
   private setUpEventListeners(): void {
     window.addEventListener("message", (event) => {
       if (event.origin === appSettings.eventOrigin) {
-        this.receivedData = event.data;
+        const message = event.data;
+
+        const {arrayData, additionalData, url} = message;
+
+        if (!Array.isArray(arrayData) || !Array.isArray(additionalData) || typeof url !== 'string') {
+          console.error("Invalid message format");
+          return;
+        }
+
+        this.receivedData = arrayData;
+
         if (this.receivedData.length !== this.roomNumber) {
+          console.log(this.receivedData.length);
+          console.log(this.receivedData);
+          console.log(this.roomNumber);
           console.error("The number of rooms is not equal to the number of received data");
         }
         for (let i = 0; i < this.receivedData.length; i++) {
@@ -119,6 +133,7 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
             folder.destroy();
           }
         }
+        this.additionalData = additionalData;
       }
     }, false);
   }
@@ -134,14 +149,24 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
 
   private updateRoomDetails(): void {
     this.roomDetails = [
-      { title: 'Room Number', body: this.selectedRoom!.roomIndex},
-      { title: 'Operation Status', body: this.selectedRoom!.isOperationActive ? 'Active' : 'Inactive' },
-      { title: 'Room Coords', body: `${this.selectedRoom!.i * this.width}, ${this.height}, ${this.selectedRoom!.j * this.width}` },
+      {title: 'Room Number', body: this.selectedRoom!.roomIndex},
+      {title: 'Operation Status', body: this.selectedRoom!.isOperationActive ? 'Active' : 'Inactive'},
     ];
+
+    const roomNumber = (this.selectedRoom!.roomIndex - 1);
+
+    if (this.additionalData.length > 0 && this.additionalData[roomNumber].length > 0) {
+      for (let i = 0; i < this.additionalData[roomNumber].length; i++) {
+        this.roomDetails.push({
+          title: this.additionalData[roomNumber][i].title,
+          body: this.additionalData[roomNumber][i].body
+        });
+      }
+    }
   }
 
   private updateOverlayData(isOperationActive: boolean, roomNumber: number): void {
-    if(this.selectedRoom !== null && this.selectedRoom.roomIndex === roomNumber) {
+    if (this.selectedRoom !== null && this.selectedRoom.roomIndex === roomNumber) {
       this.selectedRoom.isOperationActive = isOperationActive;
       this.updateRoomDetails();
     }
@@ -239,7 +264,7 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
         requestAnimationFrame(animate);
       }
     };
-    this.selectedRoom = { roomIndex,isOperationActive, i:(i+1), j:(j+1) };
+    this.selectedRoom = {roomIndex, isOperationActive, i: (i + 1), j: (j + 1)};
     this.showOverlay = false;
 
     animate();
@@ -274,11 +299,15 @@ export class OperationFloorComponent implements OnInit, AfterViewInit {
       } else {
         roomComponent.stopSurgery();
       }
-      this.updateOverlayData(isOperationActive,roomNumber);
+      this.updateOverlayData(isOperationActive, roomNumber);
     });
 
     roomComponent.tableClicked.subscribe(() => {
-      this.medicalTableClicked(roomNumber,isOperationActive, i, j);
+      if(this.receivedData.length !== 0) {
+        isOperationActive = this.receivedData[roomNumber - 1];
+      }
+
+      this.medicalTableClicked(roomNumber, isOperationActive, i, j);
     });
 
     roomComponent.initializeAnimation(this.renderer, this.scene, this.camera);

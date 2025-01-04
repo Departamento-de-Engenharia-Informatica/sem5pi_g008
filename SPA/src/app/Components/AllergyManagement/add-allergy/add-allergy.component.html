@@ -1,0 +1,75 @@
+<div class="add-allergy">
+  <h2>Add Allergy</h2>
+
+  <form (ngSubmit)="addAllergy()">
+    <div class="form-group">
+      <label for="allergyCode">Allergy Code</label>
+      <input
+        id="allergyCode"
+        type="text"
+        [(ngModel)]="allergyDTO.allergyCode"
+        name="allergyCode"
+        placeholder="Enter the allergy code..."
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="allergyDesignation">Designation</label>
+      <input
+        id="allergyDesignation"
+        type="text"
+        [(ngModel)]="allergyDTO.allergyDesignation"
+        name="allergyDesignation"
+        placeholder="Enter the allergy designation... (Maximum 100 characters)"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="allergyDescription">Description</label>
+      <input
+        id="allergyDescription"
+        type="text"
+        [(ngModel)]="allergyDTO.allergyDescription"
+        name="allergyDescription"
+        placeholder="Enter the allergy description... (Maximum 2048 characters)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="allergyEffect">Allergy Effects</label>
+      <div class="effect-input">
+        <input
+          id="allergyEffect"
+          type="text"
+          [(ngModel)]="newEffect"
+          name="allergyEffect"
+          placeholder="Enter an allergy effect"
+        />
+        <button
+          type="button"
+          (click)="addEffect()"
+          [disabled]="!newEffect.trim()"
+        >
+          Add
+        </button>
+      </div>
+      <div class="effects-list">
+        <div class="effect-item" *ngFor="let effect of allergyDTO.allergyEffects; let i = index">
+          <span>{{ effect }}</span>
+          <button type="button" (click)="removeEffect(i)">x</button>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!allergyDTO.allergyCode.trim() || !allergyDTO.allergyDesignation.trim()"
+    >
+      Add Allergy
+    </button>
+  </form>
+
+  <app-home-button></app-home-button>
+</div>

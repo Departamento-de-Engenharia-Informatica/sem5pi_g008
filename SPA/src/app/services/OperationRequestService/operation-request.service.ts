@@ -13,8 +13,8 @@ import {PatientProfile} from '../../Domain/PatientProfile';
 })
 export class OperationRequestService {
 
-  private apiUrl1 = json.apiUrl + '/staff';
-  private apiUrl = json.apiUrl + '/operationRequest';
+  private apiUrl1 = json.backendApi["1"].url + '/staff';
+  private apiUrl = json.backendApi["1"].url + '/operationRequest';
 
   constructor(private http: HttpClient) {}
 

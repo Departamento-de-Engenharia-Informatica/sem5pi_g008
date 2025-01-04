@@ -2,6 +2,9 @@
   <img src="assets/icons/profile.png" alt="Profile" class="profile-icon">
   <div *ngIf="isMenuOpen" class="profile-menu">
     <a routerLink="/profile">See Profile</a>
+    <div *ngIf="isPatient">
+      <a (click)="download()">Download Medical Record</a>
+    </div>
     <a (click)="logout()">Logout</a>
   </div>
 </div>

@@ -14,7 +14,9 @@ public class RequiredStaffTest
         // Arrange
         var numStaff = new NumberOfStaff(1);
         var specializationName = new SpecializationName("Test");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
 
         // Act
         var obj = new RequiredStaff(numStaff, specialization);
@@ -28,7 +30,9 @@ public class RequiredStaffTest
     {
         // Arrange
         var specializationName = new SpecializationName("Test");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => new RequiredStaff(null, specialization));
@@ -51,8 +55,10 @@ public class RequiredStaffTest
         var numStaff1 = new NumberOfStaff(1);
         var numStaff2 = new NumberOfStaff(1);
         var specializationName = new SpecializationName("Test");
-        var specialization1 = new Specialization(specializationName);
-        var specialization2 = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization1 = new Specialization(specializationName, specializationCode, specializationDescription);
+        var specialization2 = new Specialization(specializationName, specializationCode, specializationDescription);
 
         var obj1 = new RequiredStaff(numStaff1, specialization1);
         var obj2 = new RequiredStaff(numStaff2, specialization2);
@@ -68,7 +74,9 @@ public class RequiredStaffTest
         var numStaff1 = new NumberOfStaff(1);
         var numStaff2 = new NumberOfStaff(2);
         var specializationName = new SpecializationName("Test");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
 
         var obj1 = new RequiredStaff(numStaff1, specialization);
         var obj2 = new RequiredStaff(numStaff2, specialization);
@@ -82,10 +90,12 @@ public class RequiredStaffTest
     {
         // Arrange
         var numStaff = new NumberOfStaff(1);
-        var specializationName1 = new SpecializationName("Test1");
-        var specializationName2 = new SpecializationName("Test2");
-        var specialization1 = new Specialization(specializationName1);
-        var specialization2 = new Specialization(specializationName2);
+        var specializationName1 = new SpecializationName("Test");
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization1 = new Specialization(specializationName1, specializationCode, specializationDescription);
+        var specializationName2 = new SpecializationName("Test");
+        var specialization2 = new Specialization(specializationName2, specializationCode, specializationDescription);
 
         var obj1 = new RequiredStaff(numStaff, specialization1);
         var obj2 = new RequiredStaff(numStaff, specialization2);
@@ -100,7 +110,9 @@ public class RequiredStaffTest
         // Arrange
         var numStaff = new NumberOfStaff(1);
         var specializationName = new SpecializationName("Test");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
 
         var obj1 = new RequiredStaff(numStaff, specialization);
 

@@ -1,0 +1,34 @@
+﻿<div class="add-medical-record-free-text">
+  <h2> Add Comment</h2>
+
+  <form (ngSubmit)="addMedicalRecordFreeText()">
+
+    <div class="form-group">
+      <label for="doctorId">Commented By</label>
+      <input
+        id="doctorId"
+        type="text"
+        [(ngModel)]="freeText.doctorId"
+        name="doctorId"
+        [readonly]="true"
+      />
+    </div>
+
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <input
+      id="comment"
+      type="text"
+      [(ngModel)]="freeText.comment"
+      name="comment"
+      maxlength="140"
+      placeholder="max 140 characters"
+    />
+  </div>
+
+  <button type="submit" [disabled]="!isValid()">Submit</button>
+  </form>
+
+  <app-home-button></app-home-button>
+  <app-go-back-button [goBackPath]="'/doctor/medicalRecord'"></app-go-back-button>
+</div>
