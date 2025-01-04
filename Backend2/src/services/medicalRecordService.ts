@@ -24,15 +24,15 @@ import {
 import {
     MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
-import {Code} from "../domain/MedicalCondition/code";
-import {Designation} from "../domain/MedicalCondition/designation";
+import {Designation} from "../domain/Shared/designation";
 import IMedicalRecordFamilyHistoryRepo from "./IRepos/IMedicalRecordFamilyHistoryRepo";
 import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
 import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
-import {Description} from "../domain/MedicalCondition/description";
+import {Description} from "../domain/Shared/description";
 import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
+import {Code} from "../domain/Shared/code";
 
 
 @Service()

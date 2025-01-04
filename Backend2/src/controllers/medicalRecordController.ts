@@ -6,7 +6,6 @@ import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
-import {AppError} from "../domain/MedicalCondition/Exceptions/AppError";
 import {
   MedicalConditionNotFoundException
 } from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
@@ -14,6 +13,7 @@ import {
   MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
 import {error} from "winston";
+import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 
 @Service()
