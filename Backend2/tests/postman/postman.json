@@ -3816,12 +3816,208 @@
 				},
 				{
 					"name": "As Doctor, update medical record (MEDICAL CONDITIONS)-7.2.19",
-					"item": [],
+					"item": [
+						{
+							"name": "Allergy Not Found By Designation - Failure Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status should be 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d2f80e6a-ca9f-404d-ad6f-1186bb7485cd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy/123/designation"
+							},
+							"response": []
+						},
+						{
+							"name": "Allergy Update  Designation - Success Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status should be 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Allergy designation should match the one sent in the request\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"    var requestBody = pm.request.body.raw; \r",
+											"    var requestJson = JSON.parse(requestBody); \r",
+											"    var expectedDesignation = requestJson.designation;  \r",
+											"    \r",
+											"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDesignation);  \r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "1ac1ddbb-9047-4825-8ec7-575fa4c490b2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"designation\": \"TESTE2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy/1/designation"
+							},
+							"response": []
+						}
+					],
 					"id": "eb16318b-8373-4895-a7af-243e5174dc8f"
 				},
 				{
 					"name": "As doctor, search for medical conditions-7.2.05",
-					"item": [],
+					"item": [
+						{
+							"name": "Get Medical Record Condition - Non existent Condition - Failure Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+										"exec": [
+											"pm.test(\"Response status code is 810\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e476be01-ed45-47a6-8e0d-dc0e15235d6b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Medical Record Condition By Code- Success Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
+											"  \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "564af6fa-f5f9-4f39-b47f-0a769af759d8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+							},
+							"response": []
+						}
+					],
 					"id": "568f4e62-703a-460d-9bc7-acf48bd546a9"
 				},
 				{
@@ -3942,7 +4138,118 @@
 				},
 				{
 					"name": "As doctor, update surgery appointments.-7.2.09",
-					"item": [],
+					"item": [
+						{
+							"name": "Allergy Not Found By Designation - Failure Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status should be 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f3ea9ab3-dfb9-4973-895a-bbe1ed0fa03c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy/123/designation"
+							},
+							"response": []
+						},
+						{
+							"name": "Allergy Update  Designation - Success Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status should be 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Allergy designation should match the one sent in the request\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"    var requestBody = pm.request.body.raw; \r",
+											"    var requestJson = JSON.parse(requestBody); \r",
+											"    var expectedDesignation = requestJson.designation;  \r",
+											"    \r",
+											"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDesignation);  \r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9186a9d7-896f-4ed2-942a-5d0bd1e13ff5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"designation\": \"TESTE2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy/1/designation"
+							},
+							"response": []
+						}
+					],
 					"id": "22c6ee1f-70d7-4ddb-95bd-5fbeb2c96d3a"
 				}
 			],
