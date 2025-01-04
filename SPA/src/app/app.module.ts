@@ -48,7 +48,6 @@ import { PatientHomeComponent } from './Components/Dashboards/patient-home/patie
 import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-delete/check-user-to-delete.component';
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
-import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {SpecializationListComponent} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
@@ -77,7 +76,6 @@ import { MedicalRecordConditionListComponent } from './Components/MedicalRecordC
 import {
   MedicalRecordFreeTextListComponent
 } from './Components/MedicalRecordFreeTextManagement/medical-record-free-text-list/medical-record-free-text-list.component';
-import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextService/medical-record-free-text.service';
 import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
@@ -116,7 +114,6 @@ import { AlgavComponent } from './Components/Algav/algav/algav.component';
     AddOperationTypeComponent,
     EditOperationTypeComponent,
     GoBackButtonComponent,
-    DeleteStaffProfileButtonComponent,
     DeleteButtonComponent,
     EditStaffProfileButtonComponent,
     StaffDetailsComponent,

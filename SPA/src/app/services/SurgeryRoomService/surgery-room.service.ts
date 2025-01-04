@@ -8,11 +8,9 @@ import json from '../../appsettings.json';
 })
 export class SurgeryRoomService {
 
-  private SwiUrl = "http://localhost:8080";
-  private algavUrl = json.apiUrl + '/algav';
-
-
   private apiUrl = json.backendApi["1"].url + '/surgeryRoom';
+  private SwiUrl = "http://localhost:8080";
+  private algavUrl = json.backendApi["1"].url + '/algav';
 
   constructor(private http: HttpClient) {
   }

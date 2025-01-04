@@ -22,7 +22,6 @@ import { PatientHomeComponent } from './Components/Dashboards/patient-home/patie
 import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-delete/check-user-to-delete.component';
 import { AddOperationRequestComponent } from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
-import { EditOperationRequestComponent } from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
@@ -30,12 +29,9 @@ import {AllergyManagementComponent} from './Components/AllergyManagement/allergy
 import {MedicalRecordDetailsComponent} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import {SearchAllergyManagementComponent} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 import {AddMedicalConditionComponent} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
-import {CreateAppointmentComponent} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
 import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
 import {EditSpecializationComponent} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
-import {
-  MedicalRecordConditionListComponent
-} from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
+
 import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
@@ -45,9 +41,7 @@ import {
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
-import {
-  UpdateMedicalRecorConditionsComponent
-} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
+
 import {
   UpdateMedicalRecordConditionComponent
 } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
@@ -91,6 +85,7 @@ export const routes: Routes = [
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
       { path: 'allergyManagement/edit', component: EditAllergyComponent, title: 'EditAllergy' },
+      {path: 'algav', component: AlgavComponent, title: 'Algav',}
     ],
   },
 
