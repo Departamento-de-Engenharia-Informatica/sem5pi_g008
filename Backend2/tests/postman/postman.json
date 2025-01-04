@@ -4000,7 +4000,7 @@
 					"name": "As Doctor, update medical record (MEDICAL CONDITIONS)-7.2.19",
 					"item": [
 						{
-							"name": "Medical Record Condition Update  comment-  Failure Copy",
+							"name": "Medical Record Condition Update  comment-  Failure Non existing id",
 							"event": [
 								{
 									"listen": "test",
