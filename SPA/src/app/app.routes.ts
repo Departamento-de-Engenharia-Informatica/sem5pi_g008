@@ -30,12 +30,6 @@ import {AllergyManagementComponent} from './Components/AllergyManagement/allergy
 import {MedicalRecordDetailsComponent} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import {SearchAllergyManagementComponent} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 import {AddMedicalConditionComponent} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
-import {CreateAppointmentComponent} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
-import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
-import {EditSpecializationComponent} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
-import {
-  MedicalRecordConditionListComponent
-} from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
 import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
@@ -55,8 +49,6 @@ import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
 import {UpdateAppointmentComponent} from './Components/Appointment/update-appointment/update-appointment.component';
-  UpdateMedicalRecorConditionsComponent
-} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
 import {
   UpdateMedicalRecordConditionComponent
 } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
