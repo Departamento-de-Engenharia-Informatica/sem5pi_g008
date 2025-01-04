@@ -3612,53 +3612,6 @@
 					"name": "Add Family History To Medical Record",
 					"item": [
 						{
-							"name": "Add Family History - Failure",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
-										"exec": [
-											"pm.test(\"Response status code is 500\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Error creating allergy - Duplicate entry', \"Message should match expected text\");\r",
-											"});\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "033c0f86-771b-4ec3-8ae3-a790f19f91e5",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/allergy"
-							},
-							"response": []
-						},
-						{
 							"name": "Add Family History- Success Copy",
 							"event": [
 								{
@@ -3666,16 +3619,18 @@
 									"script": {
 										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
 										"exec": [
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
+											"pm.test(\"Response contains correct family member\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"familyMember\", \"Father\");\r",
+											"});\r",
 											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
+											"pm.test(\"Response contains correct condition\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"condition\", \"Heart Disease\");\r",
 											"});\r",
 											""
 										],
@@ -3710,14 +3665,57 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"raw": "{\r\n  \"medicalRecord\": \"12345\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{backend2_url}}/allergy"
+								"url": "{{backend2_url}}/api//familyhistory"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Family History - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+										"exec": [
+											"pm.test(\"Status code is 400 or 422\", function () {\r",
+											"    pm.response.to.have.status(400); // ou 422\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains error message for missing medicalRecord\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"medicalRecord is required\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "033c0f86-771b-4ec3-8ae3-a790f19f91e5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"medicalRecord\": \"\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/api//familyhistory"
 							},
 							"response": []
 						},
@@ -3729,17 +3727,21 @@
 									"script": {
 										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 										"exec": [
-											"pm.test(\"Response status code is 810\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
+											"pm.test(\"Response contains correct medical record ID\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"medicalRecord\", \"12345\");\r",
+											"});\r",
 											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
-											"});"
+											"pm.test(\"Response contains family member and condition\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"familyMember\");\r",
+											"    pm.expect(jsonData).to.have.property(\"condition\");\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -3759,7 +3761,7 @@
 										"type": "text"
 									}
 								],
-								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+								"url": "{{backend2_url}}/api//familyhistory/20241200005"
 							},
 							"response": []
 						},
@@ -3771,17 +3773,15 @@
 									"script": {
 										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 										"exec": [
-											"pm.test(\"Response status code is 810\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
-											"});"
+											"pm.test(\"Response contains error message for not found\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"Family history not found for the given ID\");\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -3801,7 +3801,7 @@
 										"type": "text"
 									}
 								],
-								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+								"url": "{{backend2_url}}/api//familyhistory/20241200005"
 							},
 							"response": []
 						}
@@ -3822,17 +3822,15 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 810\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has the required fields and correct message\", function () {\r",
-													"  const responseData = pm.response.json();\r",
-													"\r",
-													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
-													"});"
+													"pm.test(\"Response message is 'Designation not found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Designation not found\");\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -3864,15 +3862,18 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
-													"  const responseData = pm.response.json();\r",
+													"pm.test(\"Response body contains designation\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"designation\", \"Hypertension\");\r",
+													"});\r",
 													"\r",
-													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
-													"  \r",
+													"pm.test(\"Response message is 'Designation found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Designation found\");\r",
 													"});\r",
 													""
 												],
@@ -3912,17 +3913,15 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 810\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has the required fields and correct message\", function () {\r",
-													"  const responseData = pm.response.json();\r",
-													"\r",
-													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
-													"});"
+													"pm.test(\"Response message is 'Code not found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Code not found\");\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -3942,7 +3941,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+										"url": "{{backend2_url}}/api/medicalConditions/code/CA123"
 									},
 									"response": []
 								},
@@ -3954,15 +3953,18 @@
 											"script": {
 												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
 												"exec": [
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
-													"  const responseData = pm.response.json();\r",
+													"pm.test(\"Response body contains code\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"code\", \"A123\");\r",
+													"});\r",
 													"\r",
-													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
-													"  \r",
+													"pm.test(\"Response message is 'Code found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Code found\");\r",
 													"});\r",
 													""
 												],
@@ -3984,7 +3986,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+										"url": "{{backend2_url}}/api/medicalConditions/code/CA12"
 									},
 									"response": []
 								}
