@@ -4,6 +4,8 @@ import IMedicalRecordFreeTextRepo from "../services/IRepos/IMedicalRecordFreeTex
 import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import {IMedicalRecordFreeTextPersistence} from "../dataschema/IMedicalRecordFreeTextPersistence";
+import {MedicalRecordAllergy} from "../domain/MedicalRecordAllergy/MedicalRecordAllergy";
+import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 
 @Service()
 export default class MedicalRecordFreeTextRepo implements IMedicalRecordFreeTextRepo{
@@ -39,4 +41,13 @@ export default class MedicalRecordFreeTextRepo implements IMedicalRecordFreeText
 
     return number;
   }
+
+  public async getByMedicalId(medicalRecordId: string): Promise<MedicalRecordFreeText[]> {
+    const medicalRecordFreeTexts = await this.medicalRecordFreeTextSchema
+        .find({medicalRecordId: medicalRecordId})
+        .exec();
+  
+    return medicalRecordFreeTexts.map(MedicalRecordFreeTextMap.toDomain);
+  }
+  
 }

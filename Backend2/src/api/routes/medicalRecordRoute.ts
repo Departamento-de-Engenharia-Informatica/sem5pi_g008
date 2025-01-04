@@ -44,6 +44,11 @@ export default (app: Router) => {
             ctrl.getAllergies(req, res, next);
         });
 
+    route.get('/:id/freeText',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getFreeTexts(req, res, next);
+        });
 
     route.get('/:id/allergy',
         checkRoleAndProceed(['admin', 'doctor']),

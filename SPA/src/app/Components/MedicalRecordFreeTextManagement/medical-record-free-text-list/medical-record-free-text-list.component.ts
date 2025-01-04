@@ -5,6 +5,7 @@ import {
 import {MedicalRecordFreeTextMapper} from '../../../DTOs/mappers/medicalRecordFreeTextMapper';
 import {DisplayMedicalRecordFreeTextDTO} from '../../../DTOs/displayDTOs/displayMedicalRecordFreeTextDTO';
 import {Router} from '@angular/router';
+import {MedicalRecordFreeText} from '../../../Domain/MedicalRecordFreeText';
 
 @Component({
   selector:'app-medical-record-free-text-list',
@@ -20,35 +21,39 @@ export class MedicalRecordFreeTextListComponent implements OnInit{
 
   public errorMessage: string = "";
   public medicalRecordFreeTexts: DisplayMedicalRecordFreeTextDTO[] = [];
+  public filteredMedicalRecordFreeTexts: DisplayMedicalRecordFreeTextDTO[] = [];
   @Input() public medicalRecordId: string = "";
 
 
 
   ngOnInit(): void {
-    this.fetchMedicalRecordFreeTexts();
+    this.loadMedicalRecordFreeTexts();
   }
 
-  fetchMedicalRecordFreeTexts() {
-    this.medicalRecordFreeTextService.listMedicalRecordFreeTextByMedicalRecordId(this.medicalRecordId).subscribe(
-      (medicalRecordFreeTexts) => {
-        for (let freeText of medicalRecordFreeTexts.medicalRecordFreeText) {
-
-          this.medicalRecordFreeTexts.push(MedicalRecordFreeTextMapper.domainToDisplayDto(freeText));
-
+  loadMedicalRecordFreeTexts():void{
+    this.medicalRecordFreeTextService
+      .listMedicalRecordFreeTextByMedicalRecordId(this.medicalRecordId)
+      .subscribe(
+        (response) => {
+          if (response && response.length > 0) {
+            this.medicalRecordFreeTexts = response;
+            this.filteredMedicalRecordFreeTexts = [...this.medicalRecordFreeTexts];
+            this.errorMessage = "";
+          } else {
+            this.errorMessage = "No comments found.";
+            this.filteredMedicalRecordFreeTexts = [];
+          }
+        },
+        (error) => {
+          this.errorMessage = "Failed to load comments.";
+          console.error("Failed to load comments:", error);
         }
-      },
-      (error) => {
-
-        this.errorMessage = error;
-
-        console.error('Failed to load comments:', error);
-      }
-    );
+      );
   }
 
 
   public addMedicalRecordFreeText(){
-      this.router.navigate(['doctor/medicalRecord/freeText'])
+      this.router.navigate(['staff/patients/medicalRecord/addFreeText'], { state: { medicalRecordId: this.medicalRecordId } })
 
   }
 
