@@ -53,6 +53,7 @@ export class StaffHomeComponent {
           { title: 'Allergies', icon: 'assets/icons/allergies.png', link:'/staff/searchAllergy'},
 
           { title: 'Patient Management', icon: 'assets/icons/patient.png', link: '/staff/patients' },
+          { title: 'Update Appointment', icon: '', link: '/staff/appointment/update' },
 
           ...commonMenuItems,
         ];

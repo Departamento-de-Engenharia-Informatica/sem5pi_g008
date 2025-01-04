@@ -50,4 +50,20 @@ public class AppointmentController: ControllerBase
 
         return Ok("Appointment Updated: " + appointmentDto);
     }
+    
+    [HttpGet]
+    [Authorize(Roles = "Doctor")]
+    public async Task<IActionResult> getAppointment()
+    {
+        try
+        {
+            var appointment = await _appointmentService.getAppointments();
+            Console.WriteLine(appointment);
+            return Ok(appointment);
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Error: " + e.Message);
+        }
+    }
 }

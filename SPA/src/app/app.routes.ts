@@ -45,7 +45,16 @@ import {
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
+
 import {
+  CreateAppointmentComponent
+} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import{  PatientManagementAsDoctorComponent
+} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {UpdateAppointmentComponent} from './Components/Appointment/update-appointment/update-appointment.component';
   UpdateMedicalRecorConditionsComponent
 } from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
 import {
@@ -93,6 +102,8 @@ export const routes: Routes = [
     data: { roles: appSettings.userRoles.staff},
     children: [
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
+      {path: 'appointment', component: CreateAppointmentComponent, title: 'CreateAppointment'},
+      {path: 'appointment/update', component: UpdateAppointmentComponent, title: 'UpdateAppointment'},
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
