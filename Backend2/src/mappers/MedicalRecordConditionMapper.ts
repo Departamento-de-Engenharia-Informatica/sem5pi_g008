@@ -22,7 +22,8 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
           medicalRecordId: medicalRecordBusinessId.toString(),
           doctorName: staffDetailsDTO.firstName + ' ' + staffDetailsDTO.lastName, 
           doctorLicenseNumber: staffDetailsDTO.licenseNumber,
-          comment: domain.comment
+          comment: domain.comment,
+          domainId: domain.domainId
         } as IMedicalRecordConditionDTO;
       }
       
@@ -32,7 +33,8 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
         conditionDesignation: condition.designation.value,
         medicalRecordId: medicalRecordBusinessId.toString(),
         doctorName: "Invalid",
-        comment: domain.comment
+        comment: domain.comment,
+        domainId: domain.domainId
       } as IMedicalRecordConditionDTO;
     }
 
@@ -40,7 +42,8 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
       conditionId: domain.condition,
       medicalRecordId: domain.medicalRecord,
       doctorId: domain.doctorId,
-      comment: domain.comment
+      comment: domain.comment,
+      domainId: domain.domainId
     } as IMedicalRecordConditionDTO;
   }
 

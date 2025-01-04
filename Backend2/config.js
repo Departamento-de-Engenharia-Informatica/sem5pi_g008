@@ -97,7 +97,11 @@ export default {
     medicalRecordFreeText: {
       name: "MedicalRecordFreeTextRepo",
       path: "../repos/MedicalRecordFreeTextRepo"
-    },
+    },  
+      medicalRecordFamilyHistory: {
+        name: "MedicalRecordFamilyHistoryRepo", 
+          path: "../repos/MedicalRecordFamilyHistoryRepo"
+      },
   },
 
   services: {

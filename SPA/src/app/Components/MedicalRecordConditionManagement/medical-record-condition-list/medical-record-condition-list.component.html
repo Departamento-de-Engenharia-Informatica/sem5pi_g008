@@ -35,7 +35,7 @@
       <p><strong>Comment:</strong> {{ medicalRecordCondition.comment }}</p>
     </div>
     <div class="medical-record-condition-actions">
-      <button class="edit-button">Edit</button>
+      <button class="edit-button" (click)="redirectToEdit(medicalRecordCondition.domainId)">Edit</button>
     </div>
   </div>
 </div>

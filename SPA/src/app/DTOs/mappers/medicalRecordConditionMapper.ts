@@ -12,7 +12,8 @@ export class MedicalRecordConditionMapper {
                 conditionCode: medicalRecordCondition.conditionCode,
                 conditionDesignation: medicalRecordCondition.conditionDesignation,
                 doctorName: medicalRecordCondition.doctorName,
-                comment: medicalRecordCondition.comment
+                comment: medicalRecordCondition.comment,
+              domainId: medicalRecordCondition.domainId
             } as DisplayMedicalRecordConditionDTO;
         }
 
@@ -21,7 +22,9 @@ export class MedicalRecordConditionMapper {
             conditionDesignation: medicalRecordCondition.conditionDesignation,
             doctorName: medicalRecordCondition.doctorName,
             doctorLicenseNumber: medicalRecordCondition.doctorLicenseNumber,
-            comment: medicalRecordCondition.comment
+            comment: medicalRecordCondition.comment,
+          domainId: medicalRecordCondition.domainId
+
         } as DisplayMedicalRecordConditionDTO;
     }
 
@@ -33,7 +36,8 @@ export class MedicalRecordConditionMapper {
                 conditionCode: backendDisplayMedicalRecordConditionDTO.conditionCode,
                 conditionDesignation: backendDisplayMedicalRecordConditionDTO.conditionDesignation,
                 doctorName: backendDisplayMedicalRecordConditionDTO.doctorName,
-                comment: backendDisplayMedicalRecordConditionDTO.comment
+                comment: backendDisplayMedicalRecordConditionDTO.comment,
+                domainId: backendDisplayMedicalRecordConditionDTO.domainId
             } as MedicalRecordCondition;
         }
 
@@ -43,7 +47,8 @@ export class MedicalRecordConditionMapper {
             conditionDesignation: backendDisplayMedicalRecordConditionDTO.conditionDesignation,
             doctorName: backendDisplayMedicalRecordConditionDTO.doctorName,
             doctorLicenseNumber: backendDisplayMedicalRecordConditionDTO.doctorLicenseNumber,
-            comment: backendDisplayMedicalRecordConditionDTO.comment
+            comment: backendDisplayMedicalRecordConditionDTO.comment,
+            domainId: backendDisplayMedicalRecordConditionDTO.domainId
         } as MedicalRecordCondition;
     }
 }

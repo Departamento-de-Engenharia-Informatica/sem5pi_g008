@@ -53,8 +53,6 @@ export class StaffHomeComponent {
           { title: 'Allergies', icon: 'assets/icons/allergies.png', link:'/staff/searchAllergy'},
 
           { title: 'Patient Management', icon: 'assets/icons/patient.png', link: '/staff/patients' },
-          { title: 'Update Medical Record Condition', icon: 'assets/icons/medicalRecord.png', link: '/staff/UpdateMedicalRecordConditionComponent' },
-          { title: 'Add Family History', icon: 'assets/icons/medicalRecord.png', link: '/staff/familyHistory' },
 
           ...commonMenuItems,
         ];
