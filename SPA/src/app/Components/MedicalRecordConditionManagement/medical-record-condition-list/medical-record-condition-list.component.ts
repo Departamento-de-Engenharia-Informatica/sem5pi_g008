@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MedicalRecordMedicalConditionService } from '../../../services/MedicalRecordMedicalConditionService/medical-record-medical-condition.service';
 import { DisplayMedicalRecordConditionDTO } from '../../../DTOs/displayDTOs/displayMedicalRecordConditionDTO';
 import { EnterFilterNameComponent } from '../../Shared/enter-filter-name/enter-filter-name.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-medical-record-condition-list',
@@ -9,7 +10,7 @@ import { EnterFilterNameComponent } from '../../Shared/enter-filter-name/enter-f
   styleUrls: ['./medical-record-condition-list.component.css']
 })
 export class MedicalRecordConditionListComponent implements OnInit {
-  constructor(@Inject(MedicalRecordMedicalConditionService) private medicalRecordConditionService: MedicalRecordMedicalConditionService) {}
+  constructor(@Inject(MedicalRecordMedicalConditionService) private medicalRecordConditionService: MedicalRecordMedicalConditionService,private router: Router) {}
 
   public filteredMedicalRecordConditions: DisplayMedicalRecordConditionDTO | null = null;
   public currentFilter: string = '';
@@ -30,12 +31,21 @@ export class MedicalRecordConditionListComponent implements OnInit {
         (response: any) => {
           this.medicalRecordConditions = response.medicalRecordConditions || [];
           this.medicalRecordConditionsAux = [...this.medicalRecordConditions];
+          console.log('Medical record conditions:', this.medicalRecordConditions);
+
         },
         (error) => {
           this.errorMessage = 'Failed to load medical record conditions.';
           console.error('Failed to load medical record conditions:', error);
         }
       );
+  }
+
+  redirectToEdit(doaminId: string | undefined) {
+    console.log("domainid in list",doaminId);
+    this.router.navigate(['staff/UpdateMedicalRecordConditionComponent'], {
+      queryParams: { id: doaminId }
+    });
   }
 
   handleSelectedFilter(filter: string): void {

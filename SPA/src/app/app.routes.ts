@@ -99,8 +99,7 @@ export const routes: Routes = [
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
       {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
-      {path: 'UpdateMedicalRecordCondition', component: UpdateMedicalRecorConditionsComponent, title: 'UpdateMedicalRecordCondition'},
-      {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'MedicalRecordConditionListComponent'},
+      {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
     ],
   },
 

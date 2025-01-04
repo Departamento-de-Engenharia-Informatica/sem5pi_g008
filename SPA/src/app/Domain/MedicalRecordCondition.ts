@@ -1,4 +1,5 @@
 ﻿export interface MedicalRecordCondition {
+  domainId?: string;
   conditionId: string;
   conditionCode: string;
   conditionDesignation: string;
