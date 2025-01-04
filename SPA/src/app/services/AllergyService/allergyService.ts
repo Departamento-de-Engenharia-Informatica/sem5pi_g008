@@ -84,15 +84,13 @@ export class AllergyService {
 
 
   searchAllergies(allergy: string): Observable<{ allergies: DisplayAllergyDTO }> {
-    const params = new HttpParams().set('allergy', allergy);
-
     return this.http
-      .get<{ allergies: BackendAllergyDTO }>(this.apiUrl, {
-        params: params,
+      .get<{ allergies: BackendAllergyDTO }>(this.apiUrl+ '/'+allergy, {
         withCredentials: true,
       })
       .pipe(
         map((response) => {
+          console.log(response);
           const allergyDomain = AllergyMapper.backendDtoToDomain(response.allergies);
           const displayAllergyDto = AllergyMapper.domainToDisplayDto(allergyDomain);
 
@@ -114,7 +112,6 @@ export class AllergyService {
               error.error.message ||
               'A network error occurred. Please check your connection and try again.';
           }
-
           return throwError(() => new Error(errorMessage));
         })
       );
