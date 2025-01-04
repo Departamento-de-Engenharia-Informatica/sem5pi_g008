@@ -3607,6 +3607,36 @@
 						}
 					],
 					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
+				},
+				{
+					"name": "Add Family History To Medical Record",
+					"item": [],
+					"id": "a30f0af9-d868-4037-944f-1089a4b1bd26"
+				},
+				{
+					"name": "Search Medical Conditions",
+					"item": [],
+					"id": "9242a987-940f-4ae5-b58d-f64799afe253"
+				},
+				{
+					"name": "As Doctor, update medical record (MEDICAL CONDITIONS)-7.2.19",
+					"item": [],
+					"id": "eb16318b-8373-4895-a7af-243e5174dc8f"
+				},
+				{
+					"name": "As doctor, search for medical conditions-7.2.05",
+					"item": [],
+					"id": "568f4e62-703a-460d-9bc7-acf48bd546a9"
+				},
+				{
+					"name": "As doctor, create surgery appointments-7.2.08",
+					"item": [],
+					"id": "48286c90-5c3d-425e-8f83-7c5c0992347e"
+				},
+				{
+					"name": "As doctor, update surgery appointments.",
+					"item": [],
+					"id": "22c6ee1f-70d7-4ddb-95bd-5fbeb2c96d3a"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
