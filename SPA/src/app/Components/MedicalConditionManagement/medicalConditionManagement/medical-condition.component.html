@@ -1,0 +1,52 @@
+<div class="home-button-container">
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+<div class="profile-container">
+  <app-profile-menu class="profile-menu"></app-profile-menu>
+</div>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Medical Conditions Management</h1>
+  </div>
+
+  <div class="content">
+    <button class="add-button" (click)="addMedicalCondition()">Add Medical Condition</button>
+    <div class="filter-container">
+      <select [(ngModel)]="filterCriteria" class="filter-select">
+        <option value="code">Filter by Code</option>
+        <option value="designation">Filter by Designation</option>
+      </select>
+      <input
+        [(ngModel)]="filterValue"
+        (input)="applyFilter()"
+        placeholder="Enter value to filter"
+        class="filter-input"
+      />
+    </div>
+    <div class="medical-conditions-list">
+      <div *ngIf="medicalConditions.length === 0" class="no-conditions-message">
+        No medical conditions found
+      </div>
+
+      <div *ngFor="let condition of filteredMedicalConditions" class="medical-condition-item">
+        <div class="medical-condition-details">
+          <p><strong>Code:</strong> {{ condition.code }}</p>
+          <p><strong>Designation:</strong> {{ condition.designation }}</p>
+          <p><strong>Description:</strong> {{ condition.description }}</p>
+          <div *ngIf="condition.symptomsList?.length">
+            <p><strong>Symptoms:</strong></p>
+            <ul>
+              <li *ngFor="let symptom of condition.symptomsList">{{ symptom }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="medical-condition-actions">
+          <button class="edit-button" (click)="editMedicalCondition(condition)">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

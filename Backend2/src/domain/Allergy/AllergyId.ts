@@ -20,4 +20,8 @@ export class AllergyId extends Entity<any> {
 
     super(null, id)
   }
+
+  get value(): number {
+    return <number>this.id.toValue();
+  }
 }

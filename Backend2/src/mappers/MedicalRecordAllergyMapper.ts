@@ -4,17 +4,19 @@ import {UniqueEntityID} from "../core/domain/UniqueEntityID";
 import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 import {MedicalRecordAllergy} from "../domain/MedicalRecordAllergy/MedicalRecordAllergy";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
-import {AllergyMap} from "./AllergyMap";
 import {IMedicalRecordAllergyPersistence} from "../dataschema/IMedicalRecordAllergyPersistence";
+
 
 export class MedicalRecordAllergyMapper extends Mapper<MedicalRecordAllergy> {
 
-  public static toDTO(domain: MedicalRecordAllergy): IMedicalRecordAllergyDTO {
+
+  public static async toDTO(domain: MedicalRecordAllergy): Promise<IMedicalRecordAllergyDTO> {
+
     return {
-      allergyId: domain.allergy,
-      medicalRecordId: domain.medicalRecord,
-      doctorId: domain.doctorId,
-      comment: domain.comment
+      allergy: domain.allergy,
+      medicalRecordId: domain.domainId.toString(),
+      doctor: domain.props.doctorId,
+      comment: domain.props.comment,
     } as IMedicalRecordAllergyDTO;
   }
 
@@ -30,7 +32,7 @@ export class MedicalRecordAllergyMapper extends Mapper<MedicalRecordAllergy> {
     return medicalRecordAllergyResult.isSuccess ? medicalRecordAllergyResult.getValue() : null;
   }
 
-  public static toPersistence(medicalRecordAllergy: MedicalRecordAllergy, id?: number): any {
+  public static toPersistence(medicalRecordAllergy: MedicalRecordAllergy, id?: number): IMedicalRecordAllergyPersistence {
 
     return {
       domainId: id !== undefined ? id : medicalRecordAllergy.domainId,

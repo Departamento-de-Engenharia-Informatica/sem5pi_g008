@@ -4,67 +4,127 @@ import {Document, Model} from "mongoose";
 import {IAllergyPersistence} from "../dataschema/IAllergyPersistence";
 import {Allergy} from "../domain/Allergy/Allergy";
 import {AllergyMap} from "../mappers/AllergyMap";
-import {AllergyId} from "../domain/Allergy/AllergyId";
-import {UniqueEntityID} from "../core/domain/UniqueEntityID";
+import {MedicalCondition} from "../domain/MedicalCondition/MedicalCondition";
+import {NotFoundException} from "../Exceptions/NotFoundException";
+import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
+
 
 @Service()
 export default class AllergyRepo implements IAllergyRepo {
 
-  constructor(@Inject('allergySchema') private allergySchema: Model<IAllergyPersistence & Document>,) {
-  }
-
-
-  public async save(allergy: Allergy, number?: number): Promise<Allergy> {
-
-    if(number === undefined) {
-      number = await this.getFirstAvailableId();
+    constructor(@Inject('allergySchema') private allergySchema: Model<IAllergyPersistence & Document>,) {
     }
 
-    const rawAllergy: any = AllergyMap.toPersistence(allergy, number);
-    const allergyCreated = await this.allergySchema.create(rawAllergy);
-    return AllergyMap.toDomain(allergyCreated);
-  }
 
-  public async exists(allergy: Allergy): Promise<boolean> {
-    try {
-      const existingAllergy = await this.allergySchema.findOne({ allergy: allergy.allergy });
+    public async save(allergy: Allergy, number?: number): Promise<Allergy> {
 
-      existingAllergy || await this.allergySchema.findOne({ domainId: allergy.domainId.id.toValue() });
+        if (number === undefined) {
+            number = await this.getFirstAvailableId();
+            console.log('Number:', number);
+        }
 
-      if (existingAllergy) {
-        return true;
-      }
-
-      return false;
-
-    } catch (error) {
-      console.error('Error checking if allergy exists:', error);
-      throw error;
-    }
-  }
-
-  private async getFirstAvailableId(): Promise<number> {
-    let number = 1;
-
-    const allergies = await this.allergySchema.find();
-
-    if (allergies.length > 0) {
-      number = allergies[allergies.length - 1].domainId + 1;
+        const rawAllergy: any = AllergyMap.toPersistence(allergy, number);
+        const allergyCreated = await this.allergySchema.create(rawAllergy);
+        return AllergyMap.toDomain(allergyCreated);
     }
 
-    return number;
-  }
+    public async exists(allergy: Allergy): Promise<boolean> {
+        try {
+            const existingAllergy = await this.allergySchema.findOne({allergy: allergy.designation});
 
-  public async getAll(): Promise<Allergy[]> {
-    const allergies = await this.allergySchema.find();
+            existingAllergy || await this.allergySchema.findOne({domainId: allergy.domainId.id.toValue()});
 
-    let aux: Allergy[] = new Array(allergies.length);
+            if (existingAllergy) {
+                return true;
+            }
 
-    for(let i = 0; i < allergies.length; i++) {
-      aux[i] = AllergyMap.toDomain(allergies[i]);
+            return false;
+
+        } catch (error) {
+            console.error('Error checking if allergy exists:', error);
+            throw error;
+        }
     }
 
-    return aux;
+    private async getFirstAvailableId(): Promise<number> {
+        let number = 1;
+
+        const allergies = await this.allergySchema.find();
+
+        if (allergies.length > 0) {
+            number = allergies[allergies.length - 1].domainId + 1;
+        }
+
+        return number;
+    }
+
+
+    public async getAll(): Promise<Allergy[]> {
+        const allergies = await this.allergySchema.find();
+
+        let aux: Allergy[] = new Array(allergies.length);
+
+        for (let i = 0; i < allergies.length; i++) {
+            aux[i] = AllergyMap.toDomain(allergies[i]);
+        }
+
+        return aux;
+    }
+
+
+  public async getById(id: string): Promise<Allergy> {
+    return this.allergySchema.findOne({_id: id});
   }
 
+    public async search(allergy: string): Promise<Allergy> {
+
+        const allergies = await this.allergySchema.findOne({allergy: allergy});
+        return AllergyMap.toDomain(allergies);
+    }
+
+    public async getByDomainId(id: number): Promise<Allergy> {
+        const allergy = await this.allergySchema.findOne({domainId: id});
+
+        if (!allergy) {
+            throw new NotFoundException("Allergy not found");
+        }
+
+        return AllergyMap.toDomain(allergy);
+    }
+
+    public async updateUsingDomainId(allergy: Allergy, ...fieldsToUpdate: string[]): Promise<Allergy> {
+        const domainId = allergy.domainId.value;
+        const rawAllergy = AllergyMap.toPersistence(allergy, domainId);
+
+        delete rawAllergy.code;
+        delete rawAllergy.domainId;
+        delete rawAllergy.isDeleted;
+
+        const remainingFields = ['description', 'designation', 'effects'];
+
+        for (const field of fieldsToUpdate) {
+            if (!remainingFields.includes(field)) {
+                throw new Error("Invalid field to update");
+            }
+        }
+
+        Object.keys(rawAllergy).forEach((key) => {
+            if (!fieldsToUpdate.includes(key)) {
+                delete rawAllergy[key];
+            }
+        });
+
+        const updatedAllergy = await this.allergySchema.findOneAndUpdate(
+            {domainId: domainId},
+            rawAllergy,
+            {new: true}
+        );
+
+        if (!updatedAllergy) {
+            throw new NotFoundException("Allergy not found");
+        }
+
+        return AllergyMap.toDomain(updatedAllergy);
+    }
+    
 }

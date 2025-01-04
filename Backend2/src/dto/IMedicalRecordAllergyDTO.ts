@@ -1,9 +1,8 @@
-﻿import IAllergyDTO from "./IAllergyDTO";
-
+﻿
 export default interface IMedicalRecordAllergyDTO {
   domainId?: string;
-  allergyId: string;
+  allergy: string;
   medicalRecordId: string;
-  doctorId: string;
+  doctor: string;
   comment: string;
 }

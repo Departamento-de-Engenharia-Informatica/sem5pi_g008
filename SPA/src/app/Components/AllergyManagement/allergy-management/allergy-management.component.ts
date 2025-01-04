@@ -1,5 +1,4 @@
 import {Component, Inject} from '@angular/core';
-import {Allergy} from '../../../Domain/Allergy';
 import {AllergyService} from '../../../services/AllergyService/allergyService';
 import {DisplayAllergyDTO} from '../../../DTOs/displayDTOs/displayAllergyDTO';
 import {AllergyMapper} from '../../../DTOs/mappers/allergyMapper';
@@ -39,5 +38,9 @@ export class AllergyManagementComponent {
 
   public addAllergy() {
     this.router.navigate(['admin/allergyManagement/add']);
+  }
+
+  public editAllergy(allergy: DisplayAllergyDTO) {
+    this.router.navigate(['admin/allergyManagement/edit'], { state : {allergy : allergy }});
   }
 }

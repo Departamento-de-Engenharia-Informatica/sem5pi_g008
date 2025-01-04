@@ -4,170 +4,146 @@ import mongooseLoader from './mongoose';
 import Logger from './logger';
 import config from '../../config';
 
-export default async ({ expressApp }) => {
-  const mongoConnection = await mongooseLoader();
-  Logger.info('✌️ DB loaded and connected!');
+export default async ({expressApp}) => {
+    const mongoConnection = await mongooseLoader();
+    Logger.info('✌️ DB loaded and connected!');
 
-  const userSchema = {
-    // compare with the approach followed in repos and services
-    name: 'userSchema',
-    schema: '../persistence/schemas/userSchema',
-  };
+    const medicalConditionSchema = {
+        // compare with the approach followed in repos and services
+        name: 'medicalConditionSchema',
+        schema: '../persistence/schemas/medicalConditionSchema',
+    };
 
-  const roleSchema = {
-    // compare with the approach followed in repos and services
-    name: 'roleSchema',
-    schema: '../persistence/schemas/roleSchema',
-  };
+    const allergySchema = {
+        name: 'allergySchema',
+        schema: '../persistence/schemas/allergySchema',
+    };
 
-  const medicalConditionSchema = {
-    // compare with the approach followed in repos and services
-    name: 'medicalConditionSchema',
-    schema: '../persistence/schemas/medicalConditionSchema',
-  };
+    const medicalRecordAllergySchema = {
+        name: 'medicalRecordAllergySchema',
+        schema: '../persistence/schemas/medicalRecordAllergySchema',
+    };
 
-  const allergySchema = {
-    name: 'allergySchema',
-    schema: '../persistence/schemas/allergySchema',
-  };
+    const medicalRecordConditionSchema = {
+        name: 'medicalRecordConditionSchema',
+        schema: '../persistence/schemas/medicalRecordConditionSchema',
+    };
 
-  const medicalRecordAllergySchema = {
-    name: 'medicalRecordAllergySchema',
-    schema: '../persistence/schemas/medicalRecordAllergySchema',
-  };
+    const medicalRecordSchema = {
+        name: 'medicalRecordSchema',
+        schema: '../persistence/schemas/medicalRecordSchema',
+    };
 
-  const medicalRecordConditionSchema = {
-    name: 'medicalRecordConditionSchema',
-    schema: '../persistence/schemas/medicalRecordConditionSchema',
-  };
+    const medicalRecordFreeTextSchema = {
+        name: 'medicalRecordFreeTextSchema',
+        schema: '../persistence/schemas/medicalRecordFreeTextSchema',
+    };
+    const medicalRecordFamilyHistorySchema = {
+        name: 'medicalRecordFamilyHistorySchema',
+        schema: '../persistence/schemas/medicalRecordFamilyHistorySchema',
+    };
 
-  const medicalRecordSchema = {
-    name: 'medicalRecordSchema',
-    schema: '../persistence/schemas/medicalRecordSchema',
-  };
 
-  const medicalRecordFreeTextSchema = {
-    name: 'medicalRecordFreeTextSchema',
-    schema: '../persistence/schemas/medicalRecordFreeTextSchema',
-  };
 
-  const roleController = {
-    name: config.controllers.role.name,
-    path: config.controllers.role.path
-  }
+    const allergyController = {
+        name: config.controllers.allergy.name,
+        path: config.controllers.allergy.path
+    }
 
-  const allergyController = {
-    name: config.controllers.allergy.name,
-    path: config.controllers.allergy.path
-  }
+    const medicalRecordController = {
+        name: config.controllers.medicalRecord.name,
+        path: config.controllers.medicalRecord.path
+    }
 
-  const medicalRecordController = {
-    name: config.controllers.medicalRecord.name,
-    path: config.controllers.medicalRecord.path
-  }
-
-  const medicalConditionController = {
+    const medicalConditionController = {
         name: config.controllers.medicalCondition.name,
         path: config.controllers.medicalCondition.path
     }
-  
-  const roleRepo = {
-    name: config.repos.role.name,
-    path: config.repos.role.path
-  }
+    
 
-  const userRepo = {
-    name: config.repos.user.name,
-    path: config.repos.user.path
-  }
-
-   const medicalConditionRepo = {
+    const medicalConditionRepo = {
         name: config.repos.medicalCondition.name,
         path: config.repos.medicalCondition.path
     }
 
-  const allergyRepo = {
-    name: config.repos.allergy.name,
-    path: config.repos.allergy.path
-  }
+    const allergyRepo = {
+        name: config.repos.allergy.name,
+        path: config.repos.allergy.path
+    }
 
-  const medicalRecordRepo = {
-    name: config.repos.medicalRecord.name,
-    path: config.repos.medicalRecord.path
-  }
+    const medicalRecordRepo = {
+        name: config.repos.medicalRecord.name,
+        path: config.repos.medicalRecord.path
+    }
 
-  const medicalRecordAllergyRepo = {
-    name: config.repos.medicalRecordAllergy.name,
-    path: config.repos.medicalRecordAllergy.path
-  }
+    const medicalRecordAllergyRepo = {
+        name: config.repos.medicalRecordAllergy.name,
+        path: config.repos.medicalRecordAllergy.path
+    }
 
-  const medicalRecordConditionRepo = {
-    name: config.repos.medicalRecordCondition.name,
-    path: config.repos.medicalRecordCondition.path
-  }
+    const medicalRecordConditionRepo = {
+        name: config.repos.medicalRecordCondition.name,
+        path: config.repos.medicalRecordCondition.path
+    }
 
-  const medicalRecordFreeTextRepo = {
-    name: config.repos.medicalRecordFreeText.name,
-    path: config.repos.medicalRecordFreeText.path
-  }
+    const medicalRecordFreeTextRepo = {
+        name: config.repos.medicalRecordFreeText.name,
+        path: config.repos.medicalRecordFreeText.path
+    }
+    const medicalRecordFamilyHistoryRepo = {
+        name: config.repos.medicalRecordFamilyHistory.name,
+        path: config.repos.medicalRecordFamilyHistory.path
+    }
+    
 
-  const roleService = {
-    name: config.services.role.name,
-    path: config.services.role.path
-  }
+    const allergyService = {
+        name: config.services.allergy.name,
+        path: config.services.allergy.path
+    }
 
-  const allergyService = {
-    name: config.services.allergy.name,
-    path: config.services.allergy.path
-  }
-  
-  const medicalConditionService = {
+    const medicalConditionService = {
         name: config.services.medicalCondition.name,
         path: config.services.medicalCondition.path
     }
 
-  const medicalRecordService = {
-    name: config.services.medicalRecord.name,
-    path: config.services.medicalRecord.path
-  }
+    const medicalRecordService = {
+        name: config.services.medicalRecord.name,
+        path: config.services.medicalRecord.path
+    }
 
-  await dependencyInjectorLoader({
-    mongoConnection,
-    schemas: [
-      userSchema,
-      roleSchema,
-      medicalRecordSchema,
-      medicalConditionSchema,
-      allergySchema,
-      medicalRecordAllergySchema,
-      medicalRecordConditionSchema,
-      medicalRecordFreeTextSchema
-    ],
-    controllers: [
-      roleController,
-      allergyController,
-      medicalRecordController,
-      medicalConditionController
-    ],
-    repos: [
-      roleRepo,
-      userRepo,
-      medicalConditionRepo,
-      allergyRepo,
-      medicalRecordRepo,
-      medicalRecordAllergyRepo,
-      medicalRecordConditionRepo,
-      medicalRecordFreeTextRepo
-    ],
-    services: [
-      roleService,
-      allergyService,
-      medicalRecordService,
-      medicalConditionService
-    ]
-  });
-  Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');
+    await dependencyInjectorLoader({
+        mongoConnection,
+        schemas: [
+            medicalRecordSchema,
+            medicalConditionSchema,
+            allergySchema,
+            medicalRecordAllergySchema,
+            medicalRecordConditionSchema,
+            medicalRecordFreeTextSchema,
+            medicalRecordFamilyHistorySchema
+        ],
+        controllers: [
+            allergyController,
+            medicalRecordController,
+            medicalConditionController
+        ], 
+        repos: [
+            medicalConditionRepo,
+            allergyRepo,
+            medicalRecordRepo,
+            medicalRecordAllergyRepo,
+            medicalRecordConditionRepo,
+            medicalRecordFreeTextRepo,
+            medicalRecordFamilyHistoryRepo
+        ],
+        services: [
+            allergyService,
+            medicalRecordService,
+            medicalConditionService
+        ]
+    });
+    Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');
 
-  await expressLoader({ app: expressApp });
-  Logger.info('✌️ Express loaded');
+    await expressLoader({app: expressApp});
+    Logger.info('✌️ Express loaded');
 };

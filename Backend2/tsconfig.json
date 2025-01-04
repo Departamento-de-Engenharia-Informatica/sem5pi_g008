@@ -9,12 +9,17 @@
       "./node_modules/@types",
       "./src/types"
     ],
+    "types": [
+      "node",
+      "jest"
+    ],
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "CommonJS",
     "pretty": true,
     "sourceMap": true,
     "outDir": "./build",
@@ -24,11 +29,9 @@
   },
   "include": [
     "./src/**/*",
-    "index.js",
-    "../../../AppData/Local/JetBrains/Rider2024.3/javascript/typings/node/22.9.1/node_modules/@types/node/globals.d.ts"
+    "./tests/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "tests"
+    "node_modules"
   ]
 }

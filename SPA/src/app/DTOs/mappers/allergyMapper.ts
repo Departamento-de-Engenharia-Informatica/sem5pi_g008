@@ -1,4 +1,4 @@
-﻿import {Allergy} from '../../Domain/Allergy';
+﻿import {Allergy} from '../../Domain/Allergy/Allergy';
 import {CreateAllergyDTO} from '../createDTOs/createAllergyDTO';
 import {DisplayAllergyDTO} from '../displayDTOs/displayAllergyDTO';
 import {BackendAllergyDTO} from '../backendDTOs/backendAllergyDTO';
@@ -9,22 +9,32 @@ export class AllergyMapper {
 
     return {
       domainId: -1,
-      allergy: allergy.allergy,
-      effect: allergy.effect
+      code: allergy.allergyCode,
+      designation: allergy.allergyDesignation,
+      description: allergy.allergyDescription,
+      effects: allergy.allergyEffects
+    };
+  }
+
+  public static backendDtoToDomain(allergy: BackendAllergyDTO): Allergy {
+
+    return {
+      domainId: allergy.domainId || -1,
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 
   public static domainToDisplayDto(allergy: Allergy): DisplayAllergyDTO {
 
-    let effect = allergy.effect;
-
-    if (effect === undefined) {
-      effect = "No effect specified";
-    }
-
     return {
-      allergy: allergy.allergy,
-      effect: effect
+      domainId: allergy.domainId.toString(),
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 
@@ -40,8 +50,10 @@ export class AllergyMapper {
 
     return {
       domainId: domainId,
-      allergy: allergy.allergy,
-      effect: allergy.effect
+      code: allergy.code,
+      designation: allergy.designation,
+      description: allergy.description,
+      effects: allergy.effects
     };
   }
 }

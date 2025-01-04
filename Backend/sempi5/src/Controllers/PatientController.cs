@@ -33,7 +33,7 @@ public class PatientController : ControllerBase
         try
         {
             await patientService.checkUserToDelete();
-            return Ok(new {message="Pendent Users were deleted"});
+            return Ok(new { message = "Pendent Users were deleted" });
         }
         catch (Exception ex)
         {
@@ -302,17 +302,17 @@ public class PatientController : ControllerBase
         {
             return BadRequest(e.Message);
         }
-        
+
         try
         {
             var authenticationCookie = ".AspNetCore.Cookies=" + HttpContext.Request.Cookies[".AspNetCore.Cookies"];
-             await patientService.CreatePatientMedicalRecord(authenticationCookie, patient.phoneNumber);
+            await patientService.CreatePatientMedicalRecord(authenticationCookie, patient.phoneNumber);
         }
         catch (Exception e)
         {
             return Conflict(e.Message);
         }
-        
+
         return Ok("Patient profile created successfully");
     }
 
@@ -336,8 +336,8 @@ public class PatientController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
-    
+
+
     [HttpGet("listAllActivePatientProfilesNames")]
     [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> ListAllActivePatientProfilesNames()
@@ -357,37 +357,61 @@ public class PatientController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpGet("profile")]
     [Authorize(Roles = "Patient")]
-
     public async Task<IActionResult> SearchRequests()
+    {
+        try
         {
-            try
-            {
-                 var patient = await patientService.GetPatientProfile(getEmail());
-                
+            var patient = await patientService.GetPatientProfile(getEmail());
 
-                    var tableData = new List<object>(); 
-                    tableData.Add(new
-                        { 
-                            Email=patient.Person?.ContactInfo.email().ToString(),
-                            PhoneNumber=patient.Person?.ContactInfo._phoneNumber.phoneNumber().ToString(),
-                            Name=patient.Person?.FullName._name,
-                            BirthDate=patient.BirthDate,
-                            Gender=patient.Gender,
-                            EmergencyContact=patient.EmergencyContact,
-                            Allergies=patient.AllergiesAndMedicalConditions,
-                            AppointmentHistory=patient.AppointmentHistory
-                        }
-                    );
-                    
-                    return Ok( tableData );
-                    
-            }
-            catch (Exception e)
+
+            var tableData = new List<object>();
+            tableData.Add(new
+                {
+                    Email = patient.Person?.ContactInfo.email().ToString(),
+                    PhoneNumber = patient.Person?.ContactInfo._phoneNumber.phoneNumber().ToString(),
+                    Name = patient.Person?.FullName._name,
+                    BirthDate = patient.BirthDate,
+                    Gender = patient.Gender,
+                    EmergencyContact = patient.EmergencyContact,
+                    Allergies = patient.AllergiesAndMedicalConditions,
+                    AppointmentHistory = patient.AppointmentHistory
+                }
+            );
+
+            return Ok(tableData);
+        }
+        catch (Exception e)
+        {
+            return BadRequest($"Error: {e.Message}");
+        }
+    }
+
+    [HttpGet("dataToDownload")]
+    [Authorize(Roles = "Patient")]
+    public async Task<IActionResult> DataToDownload()
+    {
+        try
+        {
+            var patientProfile = await patientService.GetPatientProfile(getEmail());
+            
+            var result = new
             {
-                return BadRequest($"Error: {e.Message}");
-            }
-        } 
+                Name = patientProfile.Person.FullName._name ,
+                BirthDate = patientProfile.BirthDate.Date,
+                Gender = patientProfile.Gender,
+                MedicalRecordId = patientProfile.Id.Value,
+            };
+            
+            return Ok(result); 
+        } catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+        
+        
+    }
+
 }

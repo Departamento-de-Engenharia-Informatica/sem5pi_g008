@@ -59,6 +59,10 @@ export default {
       name:"MedicalRecordController",
       path:"../controllers/MedicalRecordController"
     },
+      medicalRecordCondition: {
+          name: "MedicalRecordConditionController",
+          path: "../controllers/MedicalRecordConditionController"
+      }
   },
 
   repos: {
@@ -93,7 +97,11 @@ export default {
     medicalRecordFreeText: {
       name: "MedicalRecordFreeTextRepo",
       path: "../repos/MedicalRecordFreeTextRepo"
-    },
+    },  
+      medicalRecordFamilyHistory: {
+        name: "MedicalRecordFamilyHistoryRepo", 
+          path: "../repos/MedicalRecordFamilyHistoryRepo"
+      },
   },
 
   services: {
@@ -113,8 +121,12 @@ export default {
       name: "MedicalRecordService",
       path:"../services/MedicalRecordService"
     },
+    medicalRecordCondition: {
+        name: "MedicalRecordConditionService",
+        path: "../services/MedicalRecordConditionService"
+    }
   },
-  
+
   Google: {
     ClientId: "367986401250-0qiqdf0cot2g1bpu9l0qppcf33633amd.apps.googleusercontent.com",
     Client_Secret: "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"

@@ -21,12 +21,16 @@
 
       <div *ngFor="let allergy of allergies" class="allergy-item">
         <div class="allergy-details">
-          <p><strong>Allergy:</strong> {{ allergy.allergy }}</p>
-          <p><strong>Effect:</strong> {{ allergy.effect }}</p>
+          <p><strong>Code:</strong> {{ allergy.code }}</p>
+          <p><strong>Designation:</strong> {{ allergy.designation }}</p>
+          <p><strong>Description:</strong> {{ allergy.description }}</p>
+          <p><strong>Effects:</strong></p>
+          <ul>
+            <li *ngFor="let effect of allergy.effects">{{ effect }}</li>
+          </ul>
         </div>
         <div class="allergy-actions">
-          <button class="edit-button">Edit</button>
-          <button class="view-button">View</button>
+          <button class="edit-button" (click)="editAllergy(allergy)">Edit</button>
         </div>
       </div>
     </div>

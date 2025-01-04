@@ -1,0 +1,3738 @@
+{
+	"info": {
+		"_postman_id": "75cdb1f9-1b69-4674-9adc-31420f0dbaa0",
+		"name": "REST API basics: CRUD, test & variable",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Backend1",
+			"item": [
+				{
+					"name": "5.1.3",
+					"item": [
+						{
+							"name": "ListAppointment_verified",
+							"id": "29a0a0fe-f792-45a4-9504-f3d7c626c492",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookiePatient}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/patient/account/appointment"
+							},
+							"response": []
+						},
+						{
+							"name": "register user",
+							"id": "f55ee4cb-4ede-4790-b8a2-ed043e8118cf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookieUnresgister}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/patient/register?number=938536401",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"patient",
+										"register"
+									],
+									"query": [
+										{
+											"key": "number",
+											"value": "938536401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verifyUser",
+							"id": "e091ed78-e134-448c-a8b0-38432ce2f031",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookieUnresgister}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/confirmToken/patient/{{tokenConfirmEmail}}"
+							},
+							"response": []
+						}
+					],
+					"id": "4465e96c-5501-4a40-92e7-087be101d0d9"
+				},
+				{
+					"name": "5.1.4",
+					"item": [
+						{
+							"name": "updateEmail",
+							"item": [
+								{
+									"name": "send email to update phoneNumber",
+									"id": "7fc3df04-735f-497f-92e2-f4b3410565d6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{SandroCookiePatient}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phonenumber\":\"938536401\",\r\n    \"firstName\": \"updateSandro\",\r\n  \"lastName\": \"updateLuis\",\r\n  \"birthDate\": \"1985-10-12T00:00:00\",\r\n  \"gender\": \"Male\",\r\n  \"allergiesAndMedicalConditions\": [\"Penicillin\", \"Asthma\"],\r\n  \"emergencyContact\": \"Jane Doe - 987654321\",\r\n  \"appointmentHistory\": [\"2023-05-15\", \"2024-03-12\"]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/patient/account/update"
+									},
+									"response": []
+								},
+								{
+									"name": "confirm update",
+									"id": "0da19740-9bfb-44bb-a9f0-03bcd34aa0c5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{SandroCookiePatient}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/patient/account/update/%7B%22email%22:null,%22phoneNumber%22:%22938536401%22,%22firstName%22:%22updateSandro%22,%22lastName%22:%22updateLuis%22,%22birthDate%22:%221985-10-12T00:00:00%22,%22gender%22:%22Male%22,%22allergiesAndMedicalConditions%22:%5B%22Penicillin%22,%22Asthma%22%5D,%22emergencyContact%22:%22Jane%20Doe%20-%20987654321%22,%22appointmentHistory%22:%5B%222023-05-15%22,%222024-03-12%22%5D%7D"
+									},
+									"response": []
+								}
+							],
+							"id": "5dfab443-656b-4602-b10b-5398878dcee8"
+						},
+						{
+							"name": "updateProfile sem confirmação de email",
+							"item": [
+								{
+									"name": "sem confirmação",
+									"id": "081b07e7-daf0-431b-9f71-7525bcdefaa1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{SandroCookiePatient}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"firstName\": \"updateSandro\",\r\n  \"lastName\": \"updateLuis\",\r\n  \"birthDate\": \"1985-10-12T00:00:00\",\r\n  \"gender\": \"Female\",\r\n  \"allergiesAndMedicalConditions\": [\"Penicillin\", \"Asthma\"],\r\n  \"emergencyContact\": \"Jane Doe - 999111999\",\r\n  \"appointmentHistory\": [\"2023-05-15\", \"2024-03-12\"]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/patient/account/update"
+									},
+									"response": []
+								}
+							],
+							"id": "701f1df5-b759-4c64-8f3d-9998eb79e365"
+						}
+					],
+					"id": "a7529494-2ddc-41e8-9e74-4cc751df956b"
+				},
+				{
+					"name": "5.1.5",
+					"item": [
+						{
+							"name": "checks if exist user to delete",
+							"id": "df074625-57e4-4cdb-b632-eb9085727f15",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"url": "{{base_url}}/patient/checkUserToDelete"
+							},
+							"response": []
+						},
+						{
+							"name": "send email to confirm de delete of account",
+							"id": "4ad10ded-983d-4067-a78d-012328166854",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookiePatient}}",
+										"type": "text"
+									}
+								],
+								"url": "{{base_url}}/patient/account/exclude"
+							},
+							"response": []
+						},
+						{
+							"name": "register de delete request",
+							"id": "c1f2ca1a-3d83-4f29-aa31-072e8dc20e62",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookiePatient}}",
+										"type": "text"
+									}
+								],
+								"url": "{{base_url}}/patient/account/exclude/confirm/{{tokenDeleteAccount}}"
+							},
+							"response": []
+						}
+					],
+					"id": "cdca12ec-65a4-49a3-a21c-1ece16c0f0c9"
+				},
+				{
+					"name": "5.1.8",
+					"item": [
+						{
+							"name": "registerPatientProfile",
+							"id": "eef737fd-b1ab-41c5-aa3a-1213a868a9e0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"Bárbara\",\r\n  \"lastName\": \"Bandeira\",\r\n  \"email\": \"barbarabandeira@gmail.com\",\r\n  \"birthDate\": \"2004-11-04\",\r\n  \"phoneNumber\": 914129219,\r\n  \"gender\": \"Female\",\r\n  \"emergencyContact\": \"Carlos Bandeira\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/Patient/registerPatientProfile"
+							},
+							"response": []
+						}
+					],
+					"id": "f310de49-84cf-4a7c-aaf8-046932d928d2"
+				},
+				{
+					"name": "5.1.9",
+					"item": [
+						{
+							"name": "editPatientProfile",
+							"id": "6e0b9bb5-4d94-4ebc-ae32-eeda27e87a25",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Madalena\",\r\n    \"lastName\":\"Sousa\",\r\n    \"birthDate\":\"2009-12-12\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/Patient/editPatientProfile/newUser@gmail.com"
+							},
+							"response": []
+						}
+					],
+					"id": "501eb3f0-e17e-488e-a600-243d688859e9"
+				},
+				{
+					"name": "5.1.10",
+					"item": [
+						{
+							"name": "deletePatient",
+							"id": "5adcdc99-9c90-4dc0-bb24-9bf4c1e3a9eb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5001/Patient/deletePatientProfile/anotherEmail@gmail.com"
+							},
+							"response": []
+						}
+					],
+					"id": "25946838-30b8-4d39-912b-8d0f059ca7bb"
+				},
+				{
+					"name": "5.1.11",
+					"item": [
+						{
+							"name": "listPatientByName",
+							"item": [
+								{
+									"name": "listPatientProfilesByNameInvalidCase",
+									"id": "ba47b4e9-0fd2-443c-8ccc-7657f8b8a2d6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Bob Smith\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByName"
+									},
+									"response": []
+								},
+								{
+									"name": "listPatientProfilesByNameValidCase",
+									"id": "b358958b-b458-4374-ac48-a0bf5f250ae2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"Alice Doe\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByName"
+									},
+									"response": []
+								}
+							],
+							"id": "5aa86f4e-a036-4678-aa59-8453ac948a74"
+						},
+						{
+							"name": "listPatientByEmail",
+							"item": [
+								{
+									"name": "listPatientByEmailInvalidCase",
+									"id": "6dae999b-41ed-40d4-88af-6aeb4750c5a3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"mateuscabral123321@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByEmail"
+									},
+									"response": []
+								},
+								{
+									"name": "listPatientByEmailValidCase",
+									"id": "cb3c42b3-f41b-476e-9f58-9aad4c230349",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"mateuscabral20042@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByEmail"
+									},
+									"response": []
+								}
+							],
+							"id": "8bf31d7e-1b61-46fd-84d1-6b3146744934"
+						},
+						{
+							"name": "listPatientByBirthDate",
+							"item": [
+								{
+									"name": "listPatientByBirthDateValidCase",
+									"id": "cea7b4d0-a27c-44f7-b92b-3758689aa83f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"year\":1990,\r\n    \"month\":1,\r\n    \"day\":10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByDateOfBirth"
+									},
+									"response": []
+								},
+								{
+									"name": "listPatientByBirthDateInvalidCase",
+									"id": "3dda8c3d-ac4e-4f3f-a8bb-3edaaf2f4cc2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"year\":1990,\r\n    \"month\":2,\r\n    \"day\":10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByDateOfBirth"
+									},
+									"response": []
+								}
+							],
+							"id": "c086e797-78aa-46f6-863f-66112be2ce9a"
+						},
+						{
+							"name": "listPatientByMedicalRecordNumber",
+							"item": [
+								{
+									"name": "listPatientByMedicalRecordNumberValidCase",
+									"id": "3f209c4b-41c1-4bc8-a26b-d72cb8c82608",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Id\":\"20241100003\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByMedicalRecordNumber"
+									},
+									"response": []
+								},
+								{
+									"name": "listPatientByMedicalRecordNumberInvalidCase",
+									"id": "b74122f5-b538-4420-9dc7-f3013faa17cc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Id\":\"20241100001\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Patient/listPatientProfilesByMedicalRecordNumber"
+									},
+									"response": []
+								}
+							],
+							"id": "92bf83f1-2041-42d4-8cc8-ddef2f2f1c6c"
+						}
+					],
+					"id": "eba2f931-4ef7-4951-a812-931565bd42ba"
+				},
+				{
+					"name": "5.1.12",
+					"item": [
+						{
+							"name": "deactivateInactiveStaffProfile",
+							"id": "64612c46-2ab9-4bb9-97a1-ba9040fa246f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\":\"N202400002\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/deactivateStaffProfile"
+							},
+							"response": []
+						},
+						{
+							"name": "deactivateActiveStaffProfile",
+							"id": "7b6834a6-e899-40e1-b249-6baab6ba8c86",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\":\"D202400001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/deactivateStaffProfile"
+							},
+							"response": []
+						}
+					],
+					"id": "ba34e0ec-c92a-4b91-95a8-9395d37ae897"
+				},
+				{
+					"name": "5.1.13",
+					"item": [
+						{
+							"name": "createStaffProfileValidCase",
+							"id": "75bd69a4-e2c9-48c4-9b32-428d5b6fde4f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"FirstName\":\"João\",\r\n    \"LastName\":\"Tavares\",\r\n    \"LicenseNumber\":999,\r\n    \"Specialization\":\"Doctor\",\r\n    \"Email\":\"joaotavares@gmail.com\",\r\n    \"PhoneNumber\":964777123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/createStaffProfile"
+							},
+							"response": []
+						},
+						{
+							"name": "createStaffProfileDuplicateLicenseNumber",
+							"id": "cb4e3051-30cc-4b54-99dd-9f9e50dab4d8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"FirstName\":\"João\",\r\n    \"LastName\":\"Tavares\",\r\n    \"LicenseNumber\":999,\r\n    \"Specialization\":\"Doctor\",\r\n    \"Email\":\"joaotavares@gmail.com\",\r\n    \"PhoneNumber\":964777123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/createStaffProfile"
+							},
+							"response": []
+						},
+						{
+							"name": "createStaffProfileDuplicatePhoneNumber",
+							"id": "c905ea30-b0ed-4297-9240-7100cbdcdb53",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"FirstName\":\"João\",\r\n    \"LastName\":\"Tavares\",\r\n    \"LicenseNumber\":981,\r\n    \"Specialization\":\"Doctor\",\r\n    \"Email\":\"joaotavares@gmail.com\",\r\n    \"PhoneNumber\":964777123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/createStaffProfile"
+							},
+							"response": []
+						},
+						{
+							"name": "createStaffProfileDuplicateEmail",
+							"id": "35c2822f-a789-4789-95a5-3b07b0d1c4ed",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"FirstName\":\"João\",\r\n    \"LastName\":\"Tavares\",\r\n    \"LicenseNumber\":981,\r\n    \"Specialization\":\"Doctor\",\r\n    \"Email\":\"joaotavares@gmail.com\",\r\n    \"PhoneNumber\":964777122\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/createStaffProfile"
+							},
+							"response": []
+						}
+					],
+					"id": "ee2581c9-42cc-47a1-8e94-b916e976c893"
+				},
+				{
+					"name": "5.1.14",
+					"item": [
+						{
+							"name": "editStaffProfileDuplicatePhoneNumber",
+							"id": "dac4c875-7a3c-4f7f-933b-7ea6a62e210e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\":\"D202400003\",\r\n    \"phoneNumber\": 977654321,\r\n    \"email\": \"novoEmail@gmail.com\",\r\n    \"specialization\": \"Dermatology \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/Staff/editStaffProfile",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"Staff",
+										"editStaffProfile"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editStaffProfileDuplicateEmail",
+							"id": "7380fe5c-1b9f-427e-889b-49d5ca813eb5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\":\"D202400003\",\r\n    \"email\": \"swag4yt@gmail.com\",\r\n    \"phoneNumber\": 964666298,\r\n    \"specialization\": \"Dermatology \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/editStaffProfile"
+							},
+							"response": []
+						},
+						{
+							"name": "editStaffProfileValidCase",
+							"id": "ee366486-f14c-4fdd-9d2b-902d44d0d789",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": \"D202400003\",\r\n    \"email\": \"novoEmail@gmail.com\",\r\n    \"phoneNumber\":964777298,\r\n    \"specialization\": \"Dermatology\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/Staff/editStaffProfile"
+							},
+							"response": []
+						}
+					],
+					"id": "e12c6ebd-e6ad-4d5d-943e-e109ff95b8ba"
+				},
+				{
+					"name": "5.1.15",
+					"item": [
+						{
+							"name": "searchStaffByEmail",
+							"item": [
+								{
+									"name": "searchByEmailInvalidCase",
+									"id": "3c0fb15c-ceb9-4dfa-9502-70a0f9ff072d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"nurse@example.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfileByEmail"
+									},
+									"response": []
+								},
+								{
+									"name": "searchByEmailValidCase",
+									"id": "b06a8bc0-3926-49ba-b437-c114b34a9359",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"rui.soares13749@aesps.pt\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfileByEmail"
+									},
+									"response": []
+								}
+							],
+							"id": "6ebe3b45-76ea-4b65-8a9e-135849868181"
+						},
+						{
+							"name": "searchStaffByName",
+							"item": [
+								{
+									"name": "searchStaffByNameInvalidCase",
+									"id": "dba11e9e-4576-4c2f-8636-76b4fa80f657",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"Jane Smith\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfilesByName"
+									},
+									"response": []
+								},
+								{
+									"name": "searchByNameValidCase",
+									"id": "070e328d-7c00-458b-abda-3ed7aa5f08f0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"Rui Soares\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfilesByName"
+									},
+									"response": []
+								}
+							],
+							"id": "5cd48993-9036-4326-b125-8ac564c5f305"
+						},
+						{
+							"name": "searchStaffBySpecialization",
+							"item": [
+								{
+									"name": "searchStaffBySpecializationValidCase",
+									"id": "94fdad2d-e63f-4cbc-b815-0e2d34a04263",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"specializationName\":\"Cardiology\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfilesBySpecialization"
+									},
+									"response": []
+								},
+								{
+									"name": "searchBySpecializationInvalidCase",
+									"id": "0097c57d-65e2-4687-9f83-4113b7319edd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"specializationName\":\"Non-exitent specialization\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/Staff/listStaffProfilesBySpecialization"
+									},
+									"response": []
+								}
+							],
+							"id": "0fa11ad1-5e13-4e55-a6b0-74c4547fc5dc"
+						}
+					],
+					"id": "37e0cba5-aec8-4b30-8f8e-0edd57f22a02"
+				},
+				{
+					"name": "5.1.16",
+					"item": [
+						{
+							"name": "requestOperation",
+							"id": "1a5f00da-aba9-4577-a6ea-297e4138909a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"patientID\": \"20241100001\" ,\r\n    \"doctorID\":\"D202400004\" ,\r\n    \"operationName\":\"Heart transplant\",\r\n    \"operationType\":\"Heart Surgery\",\r\n    \"deadline\": \"2024-10-10\",\r\n    \"priority\": \"HIGH\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/OperationRequest/requestOperation"
+							},
+							"response": []
+						}
+					],
+					"id": "928b06b7-38bc-4aa8-9c9b-6f4b7c376f49"
+				},
+				{
+					"name": "5.1.17",
+					"item": [
+						{
+							"name": "updateOperationRequestPriority",
+							"id": "cfa9b6ec-06fd-445e-8b2b-1cceb51aa5c9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/OperationRequest/updateOperationRequestPriority/3/LOW"
+							},
+							"response": []
+						},
+						{
+							"name": "updateOperationRequestDeadline",
+							"id": "75cc8540-b1b8-4e98-8c18-bdc4678a4d9a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5001/OperationRequest/updateOperationRequestDeadline/3/2024-12-12"
+							},
+							"response": []
+						}
+					],
+					"id": "a5906108-2a3a-47c1-a401-33a71b6bc8b8"
+				},
+				{
+					"name": "5.1.18",
+					"item": [
+						{
+							"name": "delete operation request",
+							"id": "e318683c-6ff6-4008-bb01-42a73e0ca183",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{SandroCookieDoctor}}",
+										"type": "text"
+									}
+								],
+								"url": "{{base_url}}/staff/request/deleteRequest"
+							},
+							"response": []
+						}
+					],
+					"id": "d45a389d-0490-4f00-9b19-2a7a8097c50d"
+				},
+				{
+					"name": "5.1.19",
+					"item": [
+						{
+							"name": "list operation request",
+							"id": "e6111c16-ed97-4427-87af-f172848985d0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/staff/search/requests"
+							},
+							"response": []
+						}
+					],
+					"id": "b9a8454a-7951-4418-909b-b559f50857a9"
+				},
+				{
+					"name": "US 5.1.20",
+					"item": [
+						{
+							"name": "addNewOperationType",
+							"id": "42252f53-add2-45b4-a937-7d216053db93",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"OperationName\": \"Example Operation\",\r\n  \"RequiredStaff\": [\r\n    {\r\n      \"NumberOfStaff\": 2,\r\n      \"Specialization\": \"Anesthesiologist\"\r\n    },\r\n    {\r\n      \"NumberOfStaff\": 3,\r\n      \"Specialization\": \"Nurse\"\r\n    }\r\n  ],\r\n  \"SetupDuration\": \"00:15:00\",\r\n  \"SurgeryDuration\": \"01:00:00\",\r\n  \"CleaningDuration\": \"00:30:00\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/operationType/addNewOperationType"
+							},
+							"response": []
+						},
+						{
+							"name": "addNewOperationType-SameTestWithDifferentNameº",
+							"id": "44000630-7cc2-4cbe-869e-0f82a5103048",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"OperationName\": \"Example Operation 2\",\r\n  \"RequiredStaff\": [\r\n    {\r\n      \"NumberOfStaff\": 2,\r\n      \"Specialization\": \"Anesthesiologist\"\r\n    },\r\n    {\r\n      \"NumberOfStaff\": 3,\r\n      \"Specialization\": \"Nurse\"\r\n    }\r\n  ],\r\n  \"SetupDuration\": \"00:15:00\",\r\n  \"SurgeryDuration\": \"01:00:00\",\r\n  \"CleaningDuration\": \"00:30:00\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/operationType/addNewOperationType"
+							},
+							"response": []
+						}
+					],
+					"id": "b9c42abb-e54c-4fec-9838-d04c21f3c513"
+				},
+				{
+					"name": "US5.1.21",
+					"item": [
+						{
+							"name": "editOperationName",
+							"id": "a5ae2bb7-6f58-4a0e-bb7b-4fe924088a26",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"new Knee Surgery\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/name/Knee%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editOperationAddRequiredStaff",
+							"id": "e92617a5-e275-4077-8b0c-fc9cdd0d0e4b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n      \"NumberOfStaff\": 2,\r\n      \"Specialization\": \"Nurse\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/requiredStaff/add/Heart%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editOperationRemoveRequiredStaff",
+							"id": "90bfb044-07c5-4de4-9c93-e5a4dd884468",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"Cleaner\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/requiredStaff/remove/Heart%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editSetupDuration",
+							"id": "ab398041-8a89-4aef-921e-a6abee19e0df",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"00:01:30\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/duration/setup/Heart%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editCleaningDuration",
+							"id": "d26b5091-209c-4fe6-b726-7f49dc98010e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"00:01:00\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/duration/cleaning/Heart%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editSurgeryDuration",
+							"id": "eac56103-c900-4527-b297-af649c34fc10",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"00:03:30\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/duration/surgery/Heart%20Surgery"
+							},
+							"response": []
+						},
+						{
+							"name": "editInvalidDuration",
+							"id": "ca555f33-05df-4da4-8c14-f36be8b49bfe",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"00:06:30\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/editOperationType/duration/other/Heart%20Surgery"
+							},
+							"response": []
+						}
+					],
+					"id": "c0082dbc-50ea-40c0-8806-2cbb01c5dbf3"
+				},
+				{
+					"name": "US5.1.22",
+					"item": [
+						{
+							"name": "DeleteOperationType",
+							"id": "d9344961-077d-4dd2-836b-5d42b5c7bf94",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/OperationType/deleteOperationType/Heart%20Surgery%20Simple"
+							},
+							"response": []
+						}
+					],
+					"id": "b83ac0c8-af47-48fa-8fba-5cc9829503f9"
+				},
+				{
+					"name": "5.1.23",
+					"item": [
+						{
+							"name": "listOperationTypeBySpecialization",
+							"id": "72126b6a-3186-41dc-b797-bb4540f27ca3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"specializationName\":\"Cleaner\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/OperationType/listOperationTypeBySpecialization/Cleaner"
+							},
+							"response": []
+						},
+						{
+							"name": "listOperationTypeByStatus",
+							"id": "42b99ffd-99f8-4021-b8e1-4c207e311604",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5001/OperationType/listOperationTypeByStatus/true"
+							},
+							"response": []
+						},
+						{
+							"name": "listOperationTypeByName",
+							"id": "f782a2e7-21a0-44a0-ba56-40cd85b95357",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"name\":\"new Knee Surgery\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5001/OperationType/listOperationTypeByName"
+							},
+							"response": []
+						}
+					],
+					"id": "166f6465-59a3-4c7f-8828-2fd683a8cf04"
+				},
+				{
+					"name": "US5.1.1",
+					"item": [
+						{
+							"name": "RegisterStaffUser",
+							"item": [
+								{
+									"name": "RegisterStaffUserValid",
+									"id": "092cbee2-aca7-4154-8051-a28c72971979",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"email\": \"mateuscabral2004@gmail.com\",\r\n   \"role\": \"Doctor\", \r\n   \"staffOrStaffId\" : \"A202400007\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/systemUser/registerStaff"
+									},
+									"response": []
+								},
+								{
+									"name": "RegisterStaffWithStaffBeingUsed",
+									"id": "51381ed5-db6d-4411-a305-bcdbcc1b98c3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"email\": \"mateuscabral2007@gmail.com\",\r\n   \"role\": \"Doctor\", \r\n   \"staffOrStaffId\" : \"D202400007\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/systemUser/registerStaff"
+									},
+									"response": []
+								},
+								{
+									"name": "RegisterStaffWithStaffNotExistent",
+									"id": "40186446-4d12-414d-b3f3-2d4d082e97ad",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookie}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"email\": \"mateuscabral2007@gmail.com\",\r\n   \"role\": \"Doctor\", \r\n   \"staffOrStaffId\" : \"D202400007345\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/systemUser/registerStaff"
+									},
+									"response": []
+								}
+							],
+							"id": "5903608d-c097-4cba-bb4a-2f05e1420282"
+						},
+						{
+							"name": "ActivateStaffAccount",
+							"item": [
+								{
+									"name": "ConfirmToken",
+									"id": "55b99a4f-1ebf-4bca-9729-910a87aa84ef",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{base_url}}/confirmToken/staff/{{tokenConfirmStaff}}"
+									},
+									"response": []
+								}
+							],
+							"id": "abc2b245-9bcb-43a7-8cf6-0a279cec6681"
+						}
+					],
+					"id": "a9c48bfa-281a-4128-9e2b-09b8a8219b1b"
+				}
+			],
+			"id": "1e2e82b9-3b21-404f-9aa5-54ef12db44b4"
+		},
+		{
+			"name": "Backend2",
+			"item": [
+				{
+					"name": "US-7.2.2",
+					"item": [
+						{
+							"name": "Add Allergy - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Allergy created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "73800fd0-b995-493f-9916-ad32f7cc4830",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "828105f2-9b89-45ca-b6a4-8e4d95176115",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieRui}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Duplicate - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Error creating allergy - Duplicate entry', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b1eab8f4-0d21-460d-9a0a-6f415e9b347e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Code - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b9d40075-694b-484b-9c93-dde9fa1ba6e4",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e2b2f8f9-9b7b-4fe0-960a-0ba8930f403a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Empty Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8124ee70-2d9e-49d6-a907-fc8d2b1bc0df",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "94a71fe1-a7b6-4184-aabe-506988ddd572",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Designation - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0dfe7f94-96fb-45dd-a80c-8236b2c308d7",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation must have a maximum of 100 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "74ca09f1-32d9-4c93-8c30-c8f6343ba1ae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Allergy Invalid Description - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6d69499c-9c46-4c52-be06-853aee5bb10b",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Description must have a maximum of 2048 characters.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f3c8e2d4-12a7-4d90-aa6c-1f5b2b52b96e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy"
+							},
+							"response": []
+						}
+					],
+					"id": "943d3158-63df-4851-a077-f585b931ae39"
+				},
+				{
+					"name": "US-7.2.4",
+					"item": [
+						{
+							"name": "Add Medical Condition - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Medical Condition created successfully', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b35718e3-0034-4fbf-be6f-d383a3648de7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Medical Condition Duplicate - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 500\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Code/Designation already exists', \"Message should match expected text\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "77a02ef9-1429-42a7-8b82-d8e5c5f7afa7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C127\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Medical Condition Invalid Code - Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 805\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(805, \"Expected status code to be 805\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "65e62718-802e-45ca-a1af-27feb1cbed59",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C-122\",\r\n  \"designation\": \"High Sugar\",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Medical Condition Invalid Designation- Failure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f6bb2cf-946c-4eb9-b120-6b7bd3a220a1",
+										"exec": [
+											"pm.test(\"Response status code is 806\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(806, \"Expected status code to be 806\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "760f94fd-355d-4267-82b2-55b36fedd439",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"C122\",\r\n  \"designation\": \" \",\r\n  \"description\": \"High blood pressure\",\r\n  \"symptomsList\": [\"Headache\", \"Blurred vision\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/medicalConditions"
+							},
+							"response": []
+						}
+					],
+					"id": "720df71f-ca54-4806-82d8-8d6c34dfaf73"
+				},
+				{
+					"name": "US-7.2.7",
+					"item": [
+						{
+							"name": "Get Medical Record Conditions",
+							"item": [
+								{
+									"name": "Get Medical Record Condition - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'medicalRecordConditions' array with exactly two elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordConditions').that.is.an('array').with.lengthOf(2, \"Array 'medicalRecordConditions' should have exactly 2 elements\");\r",
+													"  \r",
+													"  // Optionally, check that each element in the array has the required fields\r",
+													"  pm.expect(responseData.medicalRecordConditions[0]).to.have.all.keys(\r",
+													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
+													"  );\r",
+													"  pm.expect(responseData.medicalRecordConditions[1]).to.have.all.keys(\r",
+													"    'conditionId', 'conditionCode', 'conditionDesignation', 'medicalRecordId', 'doctorName', 'doctorLicenseNumber', 'comment'\r",
+													"  );\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3f69ee05-b989-4315-865b-451a0a47c2db",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 900\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(900, \"Expected status code to be 900\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "50081506-e75d-4e3d-8e1d-04f61fe6421e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/123123123/condition"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Medical Conditions - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 850\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(850, \"Expected status code to be 850\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No conditions found for this medical record.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c174cb7a-f752-43cc-b45d-e3d299942f8f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/20241200004/condition"
+									},
+									"response": []
+								}
+							],
+							"id": "15a6b7f2-3d7b-4f82-91ff-c0b4cc346a60"
+						},
+						{
+							"name": "Get Medical Record Conditions By Code",
+							"item": [
+								{
+									"name": "Get Medical Record Condition By Code- Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
+													"  \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "22812a3a-ec80-433b-8630-495c0c673314",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Condition - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 810\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b735810f-0855-45d6-aad8-7f00d90ebbbe",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Invalid Code - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 805\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(805, \"Expected status code to be 810\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Invalid ICD-11 code.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "28981e9b-3c42-4563-98b4-af03305dfae3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/C-12"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Medical Record Without Conditions- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bd8d6977-3aa2-4337-acc7-7f89c8bc171c",
+												"exec": [
+													"pm.test(\"Response status code is 851\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(851, \"Expected status code to be 851\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No Medical Condition found for this Code.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3975db06-89ed-4b7a-9628-325663d38702",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/20241200004/condition/by-code/CA12"
+									},
+									"response": []
+								}
+							],
+							"id": "39ecbdd1-928e-4fda-b411-337635a79635"
+						},
+						{
+							"name": "Get Medical Record Conditions By Designation",
+							"item": [
+								{
+									"name": "Get Medical Record Condition By Designation- Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
+													"  \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a7d61fb7-8e20-43b1-b843-9a5ba3232bbd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/CANCER"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 900\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(900, \"Expected status code to be 900\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b17bc660-00af-4da9-a803-2354e4b7ee8e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/123123123/condition/by-designation/CANCER"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Non existent Condition - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 810\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Designation.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5b9f630e-04ed-44d5-a9fb-46ce0cbe155b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/CANCER2"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Condition - Invalid Designation- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 806\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(806, \"Expected status code to be 806\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Designation can not be empty.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ca278075-7d15-4d4e-9b75-358bc51d8cc1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-designation/  "
+									},
+									"response": []
+								}
+							],
+							"id": "da0b8c0c-347a-4501-bc65-3e361753fa2e"
+						},
+						{
+							"name": "Get Medical Record Allergies",
+							"item": [
+								{
+									"name": "Get Allergy - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ce016cb4-a744-4fa1-bcd9-04077c843413",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'body' array with exactly two elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(2, \"Array 'body' should have exactly 2 elements\");\r",
+													"  \r",
+													"  pm.expect(responseData.body[0]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"  pm.expect(responseData.body[1]).to.have.all.keys(\r",
+													"    'allergy', 'medicalRecordId', 'doctor', 'comment'\r",
+													"  );\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "12098055-c0af-472b-abe7-242e22ecf752",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/allergy"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Allergy - Non Existent Medical Record - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "737504da-3ab4-47c9-889e-4bab781521a9",
+												"exec": [
+													"pm.test(\"Response status code is 500\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('No medical record found.', \"Message should match expected text\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a319106d-ea60-4925-b357-5725daaadb1b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{backend2_url}}/medicalRecord/123123123/allergy"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Record Allergy - Non Existent Allergies- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has 'body' array with exactly zero elements\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.have.property('body').that.is.an('array').with.lengthOf(0, \"Array 'body' should have exactly 0 elements\");\r",
+													"  \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ddfc9f3a-e83f-4352-8e77-fd9b3b6522d5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/20241200004/allergy"
+									},
+									"response": []
+								}
+							],
+							"id": "35650aa5-755a-4dbc-8379-492e00092a9d"
+						}
+					],
+					"id": "7e937876-b45c-4ea8-b74a-49ff6a699a39"
+				},
+				{
+					"name": "US-7.2.16",
+					"item": [
+						{
+							"name": "Patch Allergy Designation",
+							"item": [
+								{
+									"name": "Allergy Not Found By Designation - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "06bf823a-8d23-45f9-ac65-b1bd6e1b5737",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
+									},
+									"response": []
+								},
+								{
+									"name": "Allergy Update  Designation - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergy designation should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedDesignation = requestJson.designation;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.designation).to.eql(expectedDesignation);  \r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "14595f66-713e-4c49-8349-5a414b7fc88a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"TESTE2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/1/designation"
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid Designation- Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 500\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Validation failed'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.errors.message).to.eql(\"Validation failed\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7632f582-c9aa-42b4-a9f4-0e446375cd1a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"designation\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/designation"
+									},
+									"response": []
+								}
+							],
+							"id": "97e8553d-c2e3-427a-b03a-fb6406c2c803"
+						},
+						{
+							"name": "Patch Allergy Description",
+							"item": [
+								{
+									"name": "Allergy Not Found By Description - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "88faa22e-735d-424a-ba30-daac54ee897e",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a9e9aee6-c2a7-4326-9e1d-0d3944167dd0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"TESTE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Allergy Update  Description - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergy description should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedDescription = requestJson.description;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.description).to.eql(expectedDescription);  \r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "2a0372fa-0b1f-4f01-9ec0-d3fb7f2f5b60",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"TESTE3\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/1/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid Description - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "88faa22e-735d-424a-ba30-daac54ee897e",
+												"exec": [
+													"pm.test(\"Status should be 500\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Validation failed'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.errors.message).to.eql(\"Validation failed\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "aa1128c7-de09-4b60-8b16-fd484d29b552",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/description"
+									},
+									"response": []
+								}
+							],
+							"id": "32555542-49c0-4ce6-bc54-b6bdf7b40bb8"
+						},
+						{
+							"name": "Patch Allergy Effects",
+							"item": [
+								{
+									"name": "Allergy Not Found By Effects - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c29fde80-c9a8-4f90-8040-9e1532526fe5",
+												"exec": [
+													"pm.test(\"Status should be 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "659edf53-39b9-49c8-8e56-5f79b4017557",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"effects\": [\r\n    \"Rashes\",\r\n    \"Swelling\",\r\n    \"Difficulty Breathing\"\r\n  ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/123/effects"
+									},
+									"response": []
+								},
+								{
+									"name": "Allergy Update  Effects- Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+												"exec": [
+													"pm.test(\"Status should be 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response should contain an 'allergy' object\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"\r",
+													"    pm.expect(jsonResponse).to.have.property('allergy');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergy effects should match the one sent in the request\", function () {\r",
+													"    var jsonResponse = pm.response.json();\r",
+													"    var requestBody = pm.request.body.raw; \r",
+													"    var requestJson = JSON.parse(requestBody); \r",
+													"    var expectedEffects = requestJson.effects;  \r",
+													"    \r",
+													"    pm.expect(jsonResponse.allergy.effects).to.eql(expectedEffects);  \r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8d37b57e-89e4-4937-ab31-67ecc9a8cc1b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"effects\": [\r\n    \"Rashes\",\r\n    \"Swelling\",\r\n    \"Difficulty Breathing\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/allergy/1/effects"
+									},
+									"response": []
+								}
+							],
+							"id": "4c283474-9c51-43c6-ade8-33b9cd071ae9"
+						}
+					],
+					"id": "d869a006-3da8-49a5-8a20-6c1ac4d9a019"
+				},
+				{
+					"name": "US-7.2.17",
+					"item": [
+						{
+							"name": "Update Medical Condition Description",
+							"item": [
+								{
+									"name": "Update Medical Condition Description - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6e5ed6bd-90ac-45fc-8d56-a76d91222fbc",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition description updated successfully', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ab0050cc-cb70-4a28-94c1-a2fc46298dc3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Description - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a6e796fe-587e-4240-8873-e90082c7c875",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7e6120e9-674c-42a2-b4a9-c45cd0ca7a4b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Description To Test\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/description"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Description - Invalid Description - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dc8edd55-6489-4f41-b94f-f3f50205206b",
+												"exec": [
+													"pm.test(\"Response status code is 500\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(500, \"Expected status code to be 500\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Description must have a maximum of 2048 characters.', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e8b2ce13-66b4-433d-b636-6873f336d3a8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/description"
+									},
+									"response": []
+								}
+							],
+							"id": "ca27ffe1-0d89-4fa9-9d8a-e4fa2a034ede"
+						},
+						{
+							"name": "Update Medical Condition Symptoms",
+							"item": [
+								{
+									"name": "Update Medical Condition Symptoms - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "69e07269-930c-4521-977e-e68cb8547ef8",
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition symptoms updated successfully', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5641b986-d632-45d8-9a39-3b0ddefc3b54",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/1/symptoms"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Medical Condition Symptoms - Medical Condition Not Found - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b0a6f3a8-9cf4-43ea-900f-ff046c6c3206",
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404, \"Expected status code to be 404\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response has the required fields and correct message\", function () {\r",
+													"  const responseData = pm.response.json();\r",
+													"\r",
+													"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+													"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+													"  pm.expect(responseData.message).to.equal('Medical Condition not found', \"Message should match expected text\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c5e0bf93-d0a1-4fa9-b0b8-43659b663c95",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"symptomsList\":[\"Symptom Test 1\", \"Symptom Test2\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/medicalConditions/100/symptoms"
+									},
+									"response": []
+								}
+							],
+							"id": "f9e2761a-e204-40df-878b-f088c31e5d4a"
+						}
+					],
+					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
+				},
+				{
+					"name": "Add Family History To Medical Record",
+					"item": [],
+					"id": "a30f0af9-d868-4037-944f-1089a4b1bd26"
+				},
+				{
+					"name": "Search Medical Conditions",
+					"item": [],
+					"id": "9242a987-940f-4ae5-b58d-f64799afe253"
+				},
+				{
+					"name": "As Doctor, update medical record (MEDICAL CONDITIONS)-7.2.19",
+					"item": [],
+					"id": "eb16318b-8373-4895-a7af-243e5174dc8f"
+				},
+				{
+					"name": "As doctor, search for medical conditions-7.2.05",
+					"item": [],
+					"id": "568f4e62-703a-460d-9bc7-acf48bd546a9"
+				},
+				{
+					"name": "As doctor, create surgery appointments-7.2.08",
+					"item": [],
+					"id": "48286c90-5c3d-425e-8f83-7c5c0992347e"
+				},
+				{
+					"name": "As doctor, update surgery appointments.",
+					"item": [],
+					"id": "22c6ee1f-70d7-4ddb-95bd-5fbeb2c96d3a"
+				}
+			],
+			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b9115d8f-017a-4dfa-aad9-6d1312cd6492",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9381d8b6-5944-4fa9-a9c5-370282d0f36a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5001",
+			"type": "default"
+		},
+		{
+			"key": "backend2_url",
+			"value": "http://localhost:4000",
+			"type": "string"
+		},
+		{
+			"key": "AdminCookie",
+			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGTF1o0ER5iPDWwD7budzvqjssK2AaUus3746cwU3vsF0e1u2Peq2WVzOzOWwsgaLlaZDbCNR8LU2tXZeCoavhyKSkwvtRHQxPAXxD0ar1x8jTxBhgb3dzPbX_3iZfhrfdxH_ikuYUVoU8GksccvEIWKWAl1rgMoBWSSXcMb3gHAVu7EI6V3kWg4bLhrFlmTezVhuUVunkJg0UxYje8-DeEOZyYPtpo-A02OPDvzY6rZkVzP0_AbhWR-IBixDQ0NVX8ipNiP9hl-sVquORzWalAcr9dQI909tM6kTkLpND3S1KtvucgiCcuYJdQzUdaav6otaVrLuDLncCh4Db102oqzjvCHfoXPgvA9ESoJmM3QLJm5fLcsmha65jybkifUkvXYOIO6uzPXPL04ICPOOTf-AheO3ExBNUkfa3EuFxCIEDzcqbQLTNRCCmuqBKtAmP1Yjade3N3CcnPMC7LH_spamSu_re07sDFJCZ6gQ_ltHjgw2he4ulGpAQhBoZH0IuqPrEXW8H7lZaP6d1W-hSoMyvTan9cUirRiRLYy7OeLcrzCidbVN7q9Erp0w05q0l5XFUl0CM5jqgGAGyPvADe7ceJe5w5XdLPGgC9eS7oplq2dAYC5Ob8Quu8ej4FBeLYgVdqeANIuT0DQtDgzxa7XOfIVi7VFaHrcEe4EL948BHtvnYXaQ9ynCK9dPOuQFtOBXPs8m8qKWHI6J_8XFWZ4u-GNm9hzlNkicpGntcoKmAsJyZBEMK8MZfy0BsmwzM3C0yGD-iz8LeWR0HvsDYlauaeNvb6YSVmNN1qyW1MN2La9PPolXvXSn7gqSeFYNkLwNpc2h81TJPQpv8DWY05Comq7GT3Tvvt-XaSwxnQPGjIF1S5ldNBbziN2vgsYLVWuFarUfUmrHwsQM7Zy1Uct6iOiojKlz8Rqg-M4E3vpAeVBBbPUPuG5fBODtzKEhmB5KXeNwBzsqMGxFLegon27tuicLqqlejUITf24u3pNJf05n830_JzOesRXS7T65QtqMwRYZWsRKpM56g1Pw5JlTs47-G5p_8dEG5xLLkVV6fX0PHyySkN4clJc_FBkSEj8gWRpxqeGraQUIgOFVAWQzFUP8tJCOcDQ-P4OMLw8rcM-3H8xJqxh-Lv6VsjNRyK_FejTJmAE-0ZOVPH40hVSwde0BnQxyB7WWpAPhOXHVRi1EQdQc_Erz2_OGv7nxqceiHPf290i-oxppUTGzaHI_64S_dWbqE5P_aoC2nRZcCi5LLZ4eI3W1yGnDsRxXq3FLTmJaKbHA0n0L0qTkbmtDCKwXOitIny_jec8tNSDlWy56FIjhM8E-ArHuRoGeXY8niiRro0CsVzkyoTdiT1nuN_op4A5w2y52_yrnNOjvrd6R2rruxRUrxaBGGqfAsZV02-p_u1ryGOHsall70pU"
+		},
+		{
+			"key": "AdminCookieRui",
+			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGRvTIdfxWJl2y9VyfSVyP_NBbioY9f4Fz4TE1VKrnpA0woeUnpkXQPEBMywB97sGqb5uP8zmFs2w0VTaxJuNzUdiQXDp0yOp9FGpgirsc8gbalksuCOeOIc4BzxjiPWNLbcXBw8hmnhNxI848NhvNF0DUvDDnXQrVKUXygfuLz7ns6wA2oCrgux105NpL7uupIBxbV5NtTPhTR-tVB37slD_MpaJ72g7JHK4Ty3zrrBnJGTg7QmeTJwzKzH0KV_bT8pvuoWlGquXmye_1lcNYXsqSPYCT889-Yqa34hd4Vcjmu0AKLuUqrL3bcmG3O3DOCfvndO5_iXFbUcRsqtNm-QDQMn3RpnvOur3AGcRc51XYO5H3nOMCF7UPDMFQRNx42dtaQkSM-sCNiGMWKYQZwqNTbAJjMSc2hPb-aHAuwsHA252R4k24RjaFi-MDhDvgfiFZcV8lTMuYgC2s_XwoB53qz_WkeODvv-rkGfr1iC3OKUjYkdC3J5xoa2nZs6Bt9V0_kIw_ALhHq-FSg2qn0mpLSeGtz9V07s9YERqn2kdSTwl0Mgk-UEwBsRN9XJQ8L_TuUCAWnQQm8QJlbEJZ7cn3MjihT4mScGE63MpDqbfbDqGhkYLqg-S2SiRoQ3epYHNSxv5flp6hJsR1DXHYAnnpJ4NYd0qizeqYcPMDzXoY2qd9leErrb_Hn4DFZmg0yiy6-ihThGpTE3Pt82tG6VC0WzTwWPyoJiCyckz_ZcnfLtKQF1Zv7lt0eJzM80BOUNhrfpL_RvfINfXobZxjYb4GYgarTXsm51afrImbnyxlYXm1RacXRDxOOWWL4IqsGkxKJ9UeabK6RQT5L153-U9SKdJ3t_g5_rXzJDca1SJDYhGYRXOXmCQi5PwpnbLT2sLd-itGXircqTUxFR50DtgOadCBlVBlDFF8qbG5WK22XKtM2yOogXpevcjEKzqJCLh7BMjhHlUabp7yV8xIakdTQIfop9aBe2YFUCeFrzhJDp1n3CjybLT5EkDPKHks5Jz0X79Lr_U0qx5T6ZaFyBH_QLi3V0kGXY2JEcVgZrWFnoYCTfjdjNC2nvl2vQrT8WxGOlVLc6Pdb_ltdk4OFo9gHdCuuuhvsp_iDapFJLTGiNabp5NjdnFcKjI-HsfpgWdYq5yFA5rHiiQYKspojT5ppCfr_bmCMk3sjgwSBiSh6O1HKPcCJUtDjj6Ywnlmx1tVj-mtlR9qP4ukYm_rTi4cigXbfo46vldULlUwkpLHFTVAf7wijc4Gil24nxDqTnmGwOyyMi4CEA4Lh0eppNXSX5u-V-UHWBoJ0mCTzRVDL4K-qO3XfLDSzvezhNND8mjgn_NRhTLyAQrbnrQYqPVwMzivHO9sgqEsgWaTW2wArxuiI5KvYpr5LEiiEfDFl8UMN1hH-8H-EUIUTDWl7i",
+			"type": "string"
+		},
+		{
+			"key": "AdminCookieMateus",
+			"value": ".AspNetCore.Cookies=CfDJ8C1qEftZwfhChaaurTMpFZ93tMRFdIUzKh2J_jodYkgGJHVs22peehvOHPdPT7k8wCmZN648vCb9rzGWszbjvc8jqMVnDR82KfYjoPiGfB4ZkyP6i1STWe3EKyNb4UqFrC6tAdCCj4DKUejkYd9fkEcstnH7tK1xDkQz8pEkORmu3hYIP9qZLD3JOqFSodnFb6sqeyN4cXhrhIbhDCFCN018Y_jPxXm9l3XCl2Y3VP4uCjvbr1EFVztI8OCwbLL-FlQtWP40_9frnDumXn5hbTuMaH_koAfMPnO2uGqJgJ6P03Pz1NypWDV4mf7StY4bG1GEi4Cweqk0E8-0F4z0hbjqvXYTwgGe3Fdr7dIu1EJjM5oJHOJ6ipc5VhFhS11-wMxSKHhsfwm0vCN2GVKfRjuazuxHB4xN_m4RCfcuUphGuxo3eWNV6h6Js4LOK9-jnQ52w9sbfkMzDTcx-Cg8POxkCXeXz2HbA5DMaq4eYaL_Wh7rELPppvu9hs_veabqcEc6GaM2NZU0uT5eqnM6X3bdRFtR-ZtGalNJ_JOajBga4M0ZjC0X0Shp80KwC5bEnMIRQ-P_HNkV-9QdEHP00XJ_0rLqGUwnZz7_NA4dlQsMNZnEYzfk7nQWcNWASUD74ihKhOrqlK93XqAAs_Oh2IJqXXeLwavCilYeBXaCXX9UeJQ0FwhCC8YY17sSNBR-t49NJWpVqlty628GgNOXPDfWrqijSeACjVAnyzQ9lq5XPHdv5Ei4r-QOJWrtB9dtxc8Ibu80q5XUHOEZTvOOnB4y4sxjQ_xiHN6SWsGtbVwEWjqpgJ6-a2EXkkqlTDBYHsKCHRChAnKld2q6ZjabeXokSGZ_NK-A7_NKXh1qR6H5mYn1hgWPAQQHlcfuhmEqyTE_8t999vOYOhFk7CoduksRaigblxAH81WnkaPP9yrUkjkIjxGvWEIb4vfFTmoibnvfP5HW_QHbUwpiLD8fE344sZ8iErq-0zWKROJ77VS7CgE3Icl6lVagnZgEqqcjSYIyqMZsb7V7FtED9HgofGQGzWbY6g_bbXToXGb2kZsiXw1rQv7r7tO5Z8wEdIrONGBLQgAA9ieHNxcyFF1cYVVMJguAFR1OwX7NVBCn03vUi5xtxvItA635VW0qhfw8a3hC094n8qbUFatRhEP_TqCiNoWhSg2ZwdKB7fH4V78hGirgx3bpyfnCFfbT-v7SUsezNQVjmJ1MHl4rnah4_JsRZnnagM-4Hi5P4h_kA7A9fYc3rqMXxiKzGKtDaCNMqyPPw18gA430GdfzWvIS2w0EfHo3_Zu3qP6Wmfazdry7GUZw3rQ5Lg3Awy25IRhynO91eTfavG02eIPEqlwDl2tT0_vVVUbcTRmDY434j-C27gOFQxowYLw14TtO8U82V_M-ulUqZ6zTM87s5cD1imIZLoFvQW6pnUeujec0xIYC",
+			"type": "string"
+		},
+		{
+			"key": "tokenConfirmStaff",
+			"value": "08dcf6aa-0915-448d-8c8b-8993eb632fc7",
+			"type": "default"
+		},
+		{
+			"key": "SandroCookiePatient",
+			"value": ".AspNetCore.Cookies=CfDJ8C1qEftZwfhChaaurTMpFZ93tMRFdIUzKh2J_jodYkgGJHVs22peehvOHPdPT7k8wCmZN648vCb9rzGWszbjvc8jqMVnDR82KfYjoPiGfB4ZkyP6i1STWe3EKyNb4UqFrC6tAdCCj4DKUejkYd9fkEcstnH7tK1xDkQz8pEkORmu3hYIP9qZLD3JOqFSodnFb6sqeyN4cXhrhIbhDCFCN018Y_jPxXm9l3XCl2Y3VP4uCjvbr1EFVztI8OCwbLL-FlQtWP40_9frnDumXn5hbTuMaH_koAfMPnO2uGqJgJ6P03Pz1NypWDV4mf7StY4bG1GEi4Cweqk0E8-0F4z0hbjqvXYTwgGe3Fdr7dIu1EJjM5oJHOJ6ipc5VhFhS11-wMxSKHhsfwm0vCN2GVKfRjuazuxHB4xN_m4RCfcuUphGuxo3eWNV6h6Js4LOK9-jnQ52w9sbfkMzDTcx-Cg8POxkCXeXz2HbA5DMaq4eYaL_Wh7rELPppvu9hs_veabqcEc6GaM2NZU0uT5eqnM6X3bdRFtR-ZtGalNJ_JOajBga4M0ZjC0X0Shp80KwC5bEnMIRQ-P_HNkV-9QdEHP00XJ_0rLqGUwnZz7_NA4dlQsMNZnEYzfk7nQWcNWASUD74ihKhOrqlK93XqAAs_Oh2IJqXXeLwavCilYeBXaCXX9UeJQ0FwhCC8YY17sSNBR-t49NJWpVqlty628GgNOXPDfWrqijSeACjVAnyzQ9lq5XPHdv5Ei4r-QOJWrtB9dtxc8Ibu80q5XUHOEZTvOOnB4y4sxjQ_xiHN6SWsGtbVwEWjqpgJ6-a2EXkkqlTDBYHsKCHRChAnKld2q6ZjabeXokSGZ_NK-A7_NKXh1qR6H5mYn1hgWPAQQHlcfuhmEqyTE_8t999vOYOhFk7CoduksRaigblxAH81WnkaPP9yrUkjkIjxGvWEIb4vfFTmoibnvfP5HW_QHbUwpiLD8fE344sZ8iErq-0zWKROJ77VS7CgE3Icl6lVagnZgEqqcjSYIyqMZsb7V7FtED9HgofGQGzWbY6g_bbXToXGb2kZsiXw1rQv7r7tO5Z8wEdIrONGBLQgAA9ieHNxcyFF1cYVVMJguAFR1OwX7NVBCn03vUi5xtxvItA635VW0qhfw8a3hC094n8qbUFatRhEP_TqCiNoWhSg2ZwdKB7fH4V78hGirgx3bpyfnCFfbT-v7SUsezNQVjmJ1MHl4rnah4_JsRZnnagM-4Hi5P4h_kA7A9fYc3rqMXxiKzGKtDaCNMqyPPw18gA430GdfzWvIS2w0EfHo3_Zu3qP6Wmfazdry7GUZw3rQ5Lg3Awy25IRhynO91eTfavG02eIPEqlwDl2tT0_vVVUbcTRmDY434j-C27gOFQxowYLw14TtO8U82V_M-ulUqZ6zTM87s5cD1imIZLoFvQW6pnUeujec0xIYC",
+			"type": "string"
+		},
+		{
+			"key": "SandroCookieUnresgister",
+			"value": ".AspNetCore.Cookies=CfDJ8OkXFUFfzmxLsmbPaGjkY4_JqQet6BIPUHByifiyV9NZOxQIWuQTK6k0b2rkKtFmmz6msdMxVR1u4m1O633ZCBGPpcZitzHXsBwwWOd6eNGtRixVYlXqs9h79EMz1ojagur1dTMDFuwFfAj_fEShoakduDAS2zNY-LKW-kRjA3P2frSaqUHls-FEwmQ0zf_XJf89gUKpWuQLLyJ_w1iCv09pGP2mfVbkgIEmJLyVLFU69jTAHdbFr7JidenRb1fjmsN_-gITc0dk_4jnNVGmuB97Q1D_TLkY-4Svt6kO1oEyMP5kJSNiV4ZQ_WM9E77a0wlenKttt3dY6uBzUct-MUYwwg5LEbFY3Pa7O9r16DP_Q3TxLKgFy-fXO1y2YcfAaMsV5Z1_47_3UEfEWrvP6Nd5C0-uB5hE0QZSs1hEWVNHyzvAqLSbKmckgAHbnODTQdRmyg8US5WDmzwUe8C6lePPsPL8vAAMtDcy3Fw3JfrH33GXf7Hd62JOYiO0g9WdZ5RLkoi6GBUXfywcbPcQnemWT3-m4e9sOyEU5_evvPdrPxd0aKxz1Te4h6KOCh7smHqcy1EqIsICyCgDfZRF8a-eM6luH7QEk2H-dq9zpQEbnRuY7vsKX7QnHzEfhUcwUgU1Vgmll28Y9P4R-Djy45X4Henj0RdRIu5fpEe98wdE1uISdX8Ig8lYQJOFqxRoLB40z0qGGpSK2LIxw7iuGW_6y6eU2yVHEdXuYNEflcPoKtetEUhv7dZHtgpeyvwMdjygyPzZXBbA6wDQN8FXxjFSg6obzwTU0zN62OvzyYOT3OhbdxTwPr44HTkv9ybFUVNqwb2SZPrSRgM2fylE5U4FRKmQakIhX1jjGtzrkCVCJaamHxhCEBLkQcOQtEqOzHjK1Dw7Zj0d2DvPcQ0mycws_WSHMBiUboL46ie4zORaasrEtvpkmnTKYKtE7u4EIT3TUi686_qH-uF7EJqFB3ZfS8MhQNlVja78Yf_UYL3JQzbELM9LhmeJLu3ta0ejh2cPNkSQoAUYwY-jSrXVqrHAohp0_NWbgvPOfmg9nGH1kptkPF-_027FNBaqMu0Va92eIPvEZ6Zue1Y40tfrNVVNLE9SwHPj2C4Iackuv9tBdWn3wH4nAjFTB-cXuftlweqI1-xd24ByFmlYT7Hw0-0d-VtYLILEu2HTzqO9bKPanZh1GU-IhhHf6uc4CZfYdZidv2FR6ExDvQmf12IeqDiR30R3tamXY7YCFAgNazKbTaspqGxIyH2UUanEy7auSelpd9jui3q4IhVHkurejki8H67Ui762vHfcu2LmJC0v",
+			"type": "string"
+		},
+		{
+			"key": "SandroCookieDoctor",
+			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGTioxoWDKg9qo2vo42decRkOCZYP7GYcsaWnrHIt2bxcFIuYfEjoaPJTklcxdotTefAKtOaiOz9ZO4Nmnrhlp6FCNSo4U4hhkamrdz9p1DJOKLR5InBPwd207dPScnn_Pv8MAtFj4JjNh8KWluR9Br_BjHXIdZIQAP1ar5QSmnHciOKlKiOtqNYf4vggzijsfAAGD3wK1Dq_FaKF45gW5koUevzdf1Z6lZZG15g3908Al5D0PWUVfL1_-SThZj4Z_ZKbj_kGAtrrYc_4PaaJRyH5JsA6wgHHjKGywcHPZsLaqr9RGEb7Bc5yt1FpFvCubuZnrdi-MqHCWUXb83leSQpASQjO6qpoEl4Wr3Qracp5wKWCtui4fIVgDL5mZ8wVt02cypnpZBzTE_X7mk-p8TgKPcf90rfncHlrIuTNJpaMamAMu_iFlv-cc_JG3Q9PaFRuFdHELAGHsLtVGg9mE-HL54FS2zDD3LyeS4AEyiVkf3BGGQAas6d1y9XTog8741LX5Wp-SGkHDLY9YNsyIuZDX7a7B5IWUN2pWdsSNHuM8uKhy46vUJvaMToyE-IYNy_r9D8Ktfrp6SKP7sFcTdWT2uxNz3cEPVqVyxf-RQSiIpRm5026aVpykWLALuKAQYbZk_ytvVVj4g7-2qYtk8BSKHZp_aQl2lX580jcYalbe1PbyvfMPiJ8kvLNSyQ0CgVlSgK7DA-vOiU58qIAw9uHmW4ckzM4cjlLYO-qerFMI_xkQDdlh_mnbD6l3KVQAKwP7SbG2UyqvHsG02BkMv9DsPVHWmYaDna9-ttU2Q3nBUnWQPXtuzZTeCUaWAObwpZ0MuvC018uaHz1CXbMxEtGYdwnAYQEl_urNkzmwx1X-s8R2-IRpNOw4OjHnBq6HDXFffblblO8rOc3whaIAxfV_oE09Z5dLmWOpKFFhvPPkZvd0nQhmdMxmJeaTw10gxPgENBU98rE4obG271GzoIo1GiZvU0qxYLBByoQzMSrooSGxPYGrR0cf-mbs_tL8zWac9BiO29UelH6Dpxd1KugcCW3pow5EUk62v3qygy4U6OqzAuQkzTl9zQCia2Ll6jN8okBf9O06N3322lhbNwq5j2cKH-b2MdCEQdKWqLUlpDXAs8cBWCNHzVcCxexXXzpvvZ0A-6ykbSuYSqXRiFaqmdmIGchiTWaBXFmqXCwOr85uPbeMSoBy69xbrpJ9bgai1GrU-2O52VC4zarl_oPjLZVU6hqRbThuZKzvwYBs_qRBRkhECZy7IMVgeR7IYTTBU1b71e4rjSLlseEZcfOHYFIDXHVC1uSgaLwTzOsGyCtztXKeK86qK3mSEG9x0Ni03kqO9AlKmtthmMuf_yG_9lUtkdaJIVjv4p0fun8nDXT2_FSieE2xn8p5dEfRY",
+			"type": "string"
+		},
+		{
+			"key": "AdminCookieRute",
+			"value": ".AspNetCore.Cookies=CfDJ8KVrZduF2lRPo7ioB0pDQ4_yH0W824o-a1_l2Pde6sZiE7_LenD4TQrMX9tMAqsp_X25tCxZWv90ddQDcrIgKlDjPN66nNYp9MFgOvHeIuyVWpO4TV3q7RtH7oSzN9WkPCWkyifVxR0MLFce1iSCx9CVbSglkmhPlNATvC3Fe8ctNXvZzqehkP_5S8LOyJciW8Cg2Ex0WxLTyaMBKv2j1HJtOk5CChy_64NHM2wop2d0fQkrdS99nJP_YCE3I0icDtqfLR_Z8V_GnkiTcw_wBtdXsWqq5OuPycXafUF8O-soewoDUnyxG9At8rfouZZBJSVFlxWZdzCRZd9Qab4KXd-p1Y6HDyzCFKlfsCpoqzuBWfO82k8i5YSco3XIZpRaNXV2oM_cOYvhevCdnOf9Z4De1_Qy_Uv_5AgRncP1pjMYvyhSZNJrAcQgUC8uDmZAFC4t75-k8ORxDzS6UfslkLUVo92_lNF7hYDbl6c0yhrKpeMC2iPq13eFl3p05PpWZ3M7bdNuzJrCEAgbUes-zlHzENn58AVRcGd_qEITWQlaFfLa9UcP0trqtUJkt5hRM9lAO4brGDo_awkMPPF5HUYNkARJpnqcwlckPb4s-FWUzDcMrm8Zh4KLhqzvxEE1du8fOadRseg8kDcWXFX7nxB4lHAGR11STXYIs0XN6uulijdYuv6ePlL_Q4pASBcYzpWFA8NNXIEkth0S2px1K2ZlrQNgX74bekf-cSh7tQnj8rrTe1-FwZN1vQOgCTPC6Uy1jMD-KZY9KujEahjr3BcMA1NvuThMriOp0c77nAQn_5lI8mUAJX_3eL48-NToIe-XajrxvSiv77-tgRz0t4dS3ZyRyQ77GnzOy9oussub7S0d0PYo0U4N7kGVUV3QV9gMsvtBKoiYbqGTsbvsZOTuaLtGBhZRUxQHFYrOBKoi5cRzcV18qEhbJOYpxmeDj4b8_IIsrRbOtQ9f-aYL27dPoTah2h4IfdABz1_sLhGxXuS2anVJCl6EkN12p0Whs79EiLPtslTcvPHxf82LuxyhnFZ8tKbi2Gdw1YC41ZAMNoIgh3uAUXjKc0XvFMjMcjaLetDYQ4z0uJKniW7po1uHvsK0G9MyZZrni9kiEgcqvlaYV2kG6cGRFukCpwk9VgDVw49wWtDjkINAbWv1DOd0nHdKSkuC-dxZTC0L0mNv4-EDEuKCnTavYpaqbPCxSG5o2A4jCV0P-eDk6HZEnZ7M4laoTpiNQQ-Vs-ywtV5jF4kt30_rm60XKuvPh7ngWXUx3gr_aNLhLtu4o9cBjg1rzW_tYQ06NTXVgIymlZ_rQ2VZRjkg0UqJR9XLtqLp6APUJra7E49AfzqyjUXZhFHFZa9xLo7F-OIVjKwvc561ZYKAvFNJ425on-N19tJoOjeOyOMj7QThfFhLtTMJGKzIkFaZLsE-_X-_pQJ8rS1h",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "tokenDeleteAccount",
+			"value": "08dcf6d6-a74a-4340-8106-e7c585df7cfb",
+			"type": "string"
+		},
+		{
+			"key": "tokenConfirmEmail",
+			"value": "08dcf6d6-a74a-4340-8106-e7c585df7cfb",
+			"type": "string"
+		},
+		{
+			"key": "ruteDoctorCookie",
+			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGTtkhVfuzuzM1ecMGtf97iYMK3ATjeJYaBZ0weLGUJlXR2aJheVnjlB8r07ZbD5n-advayALlubk9JNPKSv4SEudn6RuUvOVSKEMDs89lySsODcuiPpkgerHRaU1uLBtAtH1lIgTViyU8trGILWeqnuxibkb-6ZgLHZqPaXsf1WZNqQ40f9xJWp7AY-wOWPKgM6KJHYJmUAoJVrKC8per8VRfWg29bFS9V5PylrwvG4VkuUG9TDN6flBFqZ33umOBoLKlrR6p7Vx_FQ2EmfYbBRqtigZSFrmaz5dqdt2kB3jl9935VDcnXaCQDEL2Ij9JijfFdA1Lr8OjAbSwQsgUEJbRnYmLYXHl8ZjSaUKObQzk1y05pN5qf26u7CYxSxA_bjTMaY_ZfQ4U2eFKa-PRbsBs6YatyTsKqcJtoK0gI6Lgl7uXUyT1p91TQ_csE3UTgW4NMVNWYVdUtxcusfQbFP6EozoeqNg34cjsbCam8FEs3QCAuUaWyzTOxerjmcUliilBDNxFPmRB9Ww99yzS1F4dLJprTx0xPVlEeejd1w7GjiOWjygJLfe5NA9F_wij8zemADrn6zcRelWXWO5yBA66VgHf5qbe4_aXqmGQz_ho4hO3r7AoZBLK8XXYmRNWysYrjtmP50ep7ufApC1fv9MQwHvEI5GWOG_twl4_4W3hQeUXilWBsBy1LrCE4rCe3gUZhBKg3XW0kDstce-DmZ7OfaJY4OQ7RGq8Twna0SfwebMwZbUjAtiq1S31bVghpZfgSPie3oZVcLd4OqY22gao7FvSR3ktV67lANfYAS5PZIAYOso0EnGyPwANdpvny5O-BEev861C_62Veal1TNdC2AU8NUjHu2-kgvxPf4t80ivMJc8zrECl_Kpu764vJhDtyCPV-K01LWlD8syeiGYCE_iM2r6k2BVcFzhGuMRbpcNP6PV2ezIW8YSCWkauCEcTemkWsDieUuoO_g4ERZHbQRKrUMlYK44UA8KhZ11HLbCwpz80hsoHfwWnVjTQ9KbvDx_1U8CppdvcIJL5mSg4rCavJCsx2ReSe4LcnWfUu7ZISVx6d47R4JZyLWjDKqpoc2i7afxBVYRb_7JMQDvraXqvEUNz8iuXsPH96YafPKLcVWfN1qLPem2CXAoKfuO_Op59PP8AaG7463T1KGWeAZ4t-HySg5fi5XVHSanlaLUiWRsIw8ydzBnCKGGoleCFnQQyCIDl1WlmYFP6jakz-56ycJL_V0fz-daiylm7o_-qY0V3S0Z9KHZZ2y48F6XBJR3S6IKlBH8yPhZhfn4AaYx8x0oSluJ92LKL3tLtaiciErq2TmqiTV1FIl6hMZvDQ-71QrggI9Xj7gjQF7dWywH2n1vx968LDhJB0zMJtjHH86M0WvLEP9ANTTWo1aA8n8DpP3rH8tPK_BJALS"
+		},
+		{
+			"key": "medicalRecordID",
+			"value": "20241200005",
+			"type": "string"
+		}
+	]
+}
