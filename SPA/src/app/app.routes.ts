@@ -48,6 +48,15 @@ import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
 
+import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
+import {
+  UpdateMedicalRecorConditionsComponent
+} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
+import {
+  UpdateMedicalRecordConditionComponent
+} from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -96,6 +105,8 @@ export const routes: Routes = [
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
       {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
+      {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
+      {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
     ],
   },
 

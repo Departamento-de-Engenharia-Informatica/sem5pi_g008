@@ -11,10 +11,24 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
   constructor(@Inject('medicalRecordSchema') private medicalRecordSchema: Model<IMedicalRecordPersistence & Document>,) {
   }
 
+  
+  
   exists(t: MedicalRecord): Promise<boolean> {
     return Promise.resolve(false);
   }
 
+  public async getMedicalRecordById(medicalRecordId: string): Promise<MedicalRecord> {
+    const medicalRecord = await this.medicalRecordSchema
+        .findOne({domainId: medicalRecordId})
+        .exec();
+
+    if (!medicalRecord) {
+      throw new Error(`Medical record with ID ${medicalRecordId} not found`);
+    }
+
+    return MedicalRecordMapper.toDomain(medicalRecord);
+  }
+  
   public async save(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
 
     const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
@@ -22,6 +36,30 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
     const medicalRecordCreated = await this.medicalRecordSchema.create(rawMedicalRecord);
 
     return MedicalRecordMapper.toDomain(medicalRecordCreated);
+  }
+
+  public async saveUpdate(medicalRecord: MedicalRecord, medicalRecordId?: string): Promise<MedicalRecord> {
+    const rawMedicalRecord: any = MedicalRecordMapper.toPersistence(medicalRecord, medicalRecordId);
+    console.log('rawMedicalRecord', rawMedicalRecord);
+
+    if (medicalRecordId) {
+      // Update existing record
+      const updatedRecord = await this.medicalRecordSchema.findOneAndUpdate(
+          {domainId: medicalRecordId},
+          rawMedicalRecord,
+          {new: true} // Return the updated document
+      ).exec();
+
+      if (!updatedRecord) { 
+        throw new Error(`Medical record with ID ${medicalRecordId} not found for update.`);
+      }
+
+      return MedicalRecordMapper.toDomain(updatedRecord);  
+    } else {
+      // Create a new record
+      const createdRecord = await this.medicalRecordSchema.create(rawMedicalRecord);
+      return MedicalRecordMapper.toDomain(createdRecord);
+    }
   }
 
 
@@ -60,5 +98,6 @@ export default class MedicalRecordRepo implements IMedicalRecordRepo {
 
     return MedicalRecordMapper.toDomain(medicalRecord);
   }
+  
   
 }

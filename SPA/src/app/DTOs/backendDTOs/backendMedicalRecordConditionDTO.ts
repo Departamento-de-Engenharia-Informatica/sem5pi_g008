@@ -1,4 +1,5 @@
 ﻿export interface BackendMedicalRecordConditionDTO{
+  domainId?: string;
   conditionId?: string;
   conditionCode: string;
   conditionDesignation: string;

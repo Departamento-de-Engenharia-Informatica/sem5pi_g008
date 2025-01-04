@@ -34,6 +34,9 @@ export class MedicalRecordCondition extends AggregateRoot<MedicalRecordCondition
   get comment(): string {
     return this.props.comment;
   }
+  set comment(newComment: string) {
+    this.props.comment = newComment
+    }
 
   private constructor(props: MedicalRecordConditionProps, id?: UniqueEntityID) {
     super(props, id);

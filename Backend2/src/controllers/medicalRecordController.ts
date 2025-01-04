@@ -12,6 +12,7 @@ import {
 import {
   MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
+import {error} from "winston";
 import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 
@@ -21,6 +22,22 @@ export default class MedicalRecordController implements IMedicalRecordController
   constructor(
     @Inject("MedicalRecordService") private medicalRecordInstance: IMedicalRecordService,
   ) {}
+  
+  public async getMedicalRecordFamilyHistoryWithIds(req: any, res: any): Promise<void> {
+    try {
+      const medicalRecordId = req.params.id;
+      const medicalRecordFamilyHistory = await this.medicalRecordInstance.getMedicalRecordFamilyHistoryWithIds(medicalRecordId);
+      res.status(200).json({
+        medicalRecordFamilyHistory: medicalRecordFamilyHistory
+      });
+    } catch (error) {
+      console.error('Error getting medical record family history:', error.message);
+      res.status(500).json({
+        message: 'Error getting medical record family history',
+        details: error.message
+      });
+    }
+  }
 
   public async createMedicalRecord(req: any, res: any): Promise<void> {
 
@@ -227,6 +244,7 @@ export default class MedicalRecordController implements IMedicalRecordController
   }
 
 
+
   public async getFreeTexts(req: any, res: any): Promise<IMedicalRecordFreeTextDTO[]> {
     let medicalRecordId = req.params.id;
 
@@ -252,4 +270,70 @@ export default class MedicalRecordController implements IMedicalRecordController
 
     return null;
   }
+
+ 
+  createFamilyHistory(req: any, res: any, next: any): void {
+    try {
+      console.log("Creating family history for medical record with ID:", req.body.medicalRecordID);
+      console.log("Family history:", req.body.familyHistory);
+      console.log("Family history:", req.body.familyMember);
+      console.log("Family history:", req.body.condition);
+      console.log("Family history:", req.body.payload);
+      this.medicalRecordInstance.createFamilyHistory(req.body.medicalRecordID, req.body);
+      res.status(201).json({
+        message: 'Family history created successfully',
+      });
+    }catch (error) {
+      console.error('Error creating family history:', error.message);
+      res.status(500).json({
+        message: 'Error creating family history',
+        details: error.message
+      }); 
+    }
+  }
+
+  public async getAllMedicalRecordConditions(req: any, res: any): Promise<void> {
+    try {
+      const medicalConditionDTOList = await this.medicalRecordInstance.getAllMedicalRecordConditions();
+      console.log('DTO CONTROLLER',medicalConditionDTOList);
+
+      res.status(200).json({
+        medicalRecordConditions: medicalConditionDTOList
+      });
+    } catch (error) {
+      console.error('Error getting medical record conditions:', error.message);
+      res.status(500).json({
+        message: 'Error getting medical record conditions',
+        details: error.message
+      });
+    }
+  }
+
+  public async updateMedicalRecordConditionComment(req: any, res: any): Promise<void> {
+    console.log(req.body);
+    const medicalRecordId = req.body.payload.id;
+    const updatedComment = req.body.payload.comment;
+   // console.log("Updating medical condition description for medical record with ID CONTROLLER:", medicalRecordId);
+    console.log("Condition code:", medicalRecordId);
+    console.log("Updated description:", updatedComment);
+
+    try {
+      await this.medicalRecordInstance.updateMedicalRecordConditionComment(medicalRecordId, updatedComment);
+      res.status(200).json({
+        message: 'Medical condition description updated successfully',
+      });
+    } catch (error: any) {
+      console.error('Error updating medical condition description:', {
+        message: error.message,
+        stack: error.stack,
+      });
+
+      res.status(500).json({
+        message: 'Error updating medical condition description',
+        details: error.message,
+      });
+    }
+  }
+
+
 }
