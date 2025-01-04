@@ -231,8 +231,8 @@ export default class MedicalRecordController implements IMedicalRecordController
     let freeText: IMedicalRecordFreeTextDTO = req.body;
 
     try {
+      console.log(freeText);
       await this.medicalRecordInstance.addFreeText(freeText);
-
       res.status(200).json({
         message: 'Comment Added Successfully'
       });
@@ -242,6 +242,35 @@ export default class MedicalRecordController implements IMedicalRecordController
 
     }
   }
+
+
+
+  public async getFreeTexts(req: any, res: any): Promise<IMedicalRecordFreeTextDTO[]> {
+    let medicalRecordId = req.params.id;
+
+    try {
+      res.status(200).json({
+        body: await this.medicalRecordInstance.getFreeTexts(medicalRecordId)
+      });
+    } catch (error) {
+      console.error('Error getting comments:', error.message);
+
+      if (error instanceof NoMedicalRecordException) {
+        res.status(500).json({
+          message: error.message
+        });
+        return;
+      }
+
+      res.status(500).json({
+        message: 'Error getting comments',
+        details: error.message
+      });
+    }
+
+    return null;
+  }
+
  
   createFamilyHistory(req: any, res: any, next: any): void {
     try {
@@ -305,5 +334,6 @@ export default class MedicalRecordController implements IMedicalRecordController
       });
     }
   }
+
 
 }

@@ -38,6 +38,10 @@ import {
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
+
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
 
 import {
@@ -52,6 +56,7 @@ import {UpdateAppointmentComponent} from './Components/Appointment/update-appoin
 import {
   UpdateMedicalRecordConditionComponent
 } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
+
 
 export const routes: Routes = [
   {
@@ -102,6 +107,7 @@ export const routes: Routes = [
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
       {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
       {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
     ],
