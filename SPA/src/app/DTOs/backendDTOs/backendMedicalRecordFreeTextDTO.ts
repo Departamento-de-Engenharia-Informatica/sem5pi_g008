@@ -1,5 +1,5 @@
 ﻿export interface BackendMedicalRecordFreeTextDTO{
-  domainId?:string;
+  domainId?:number;
   medicalRecordId: string;
   doctorId:string;
   comment: string;

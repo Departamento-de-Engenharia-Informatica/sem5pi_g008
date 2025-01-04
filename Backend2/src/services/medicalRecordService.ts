@@ -23,6 +23,7 @@ import {MedicalRecordConditionNotFoundException} from "../domain/MedicalRecordCo
 import {Code} from "../domain/Shared/code";
 import {Designation} from "../domain/Shared/designation";
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
+import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
 
 
 @Service()
@@ -191,8 +192,11 @@ export default class MedicalRecordService implements IMedicalRecordService{
         });
     }
 
-    public async addFreeText(medicalRecord: any): Promise<any> {
+    public async addFreeText(medicalRecord: IMedicalRecordFreeTextDTO): Promise<any> {
 
+        const privateId = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecord.medicalRecordId);
+        medicalRecord.medicalRecordId=privateId.props._id;
+        
         const medicalRecordDomain=MedicalRecordFreeTextMap.toDomain(medicalRecord);
         await this.medicalRecordFreeTextRepo.save(medicalRecordDomain);
 
@@ -207,11 +211,11 @@ export default class MedicalRecordService implements IMedicalRecordService{
         }
 
         const medicalRecordPrivateId = medicalRecord.props._id.toString();
+        console.log(medicalRecordPrivateId);
 
         const medicalRecordFreeTexts = await this.medicalRecordFreeTextRepo.getByMedicalId(medicalRecordPrivateId);
-
         let aux : IMedicalRecordFreeTextDTO[] = [];
-
+        
         for(let i = 0; i < medicalRecordFreeTexts.length; i++){
             const dto = await MedicalRecordFreeTextMap.toDTO(medicalRecordFreeTexts[i]);
             aux.push(await this.fixDtoFreeText(dto));
@@ -221,6 +225,10 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
     private async fixDtoFreeText(dto: IMedicalRecordFreeTextDTO): Promise<IMedicalRecordFreeTextDTO> {
         const doctor = await this.getStaffDetails(dto.doctorId);
+        if(!doctor){
+            dto.doctorId="unknown";
+            return dto;
+        }
         dto.doctorId = doctor.firstName + " " + doctor.lastName;
         return dto;
     }

@@ -5,6 +5,7 @@ import {
 import {MedicalRecordFreeTextMapper} from '../../../DTOs/mappers/medicalRecordFreeTextMapper';
 import {DisplayMedicalRecordFreeTextDTO} from '../../../DTOs/displayDTOs/displayMedicalRecordFreeTextDTO';
 import {Router} from '@angular/router';
+import {MedicalRecordFreeText} from '../../../Domain/MedicalRecordFreeText';
 
 @Component({
   selector:'app-medical-record-free-text-list',
@@ -52,7 +53,7 @@ export class MedicalRecordFreeTextListComponent implements OnInit{
 
 
   public addMedicalRecordFreeText(){
-      this.router.navigate(['staff/patients/medicalRecord/addFreeText'])
+      this.router.navigate(['staff/patients/medicalRecord/addFreeText'], { state: { medicalRecordId: this.medicalRecordId } })
 
   }
 

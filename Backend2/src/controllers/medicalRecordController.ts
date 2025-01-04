@@ -214,8 +214,8 @@ export default class MedicalRecordController implements IMedicalRecordController
     let freeText: IMedicalRecordFreeTextDTO = req.body;
 
     try {
+      console.log(freeText);
       await this.medicalRecordInstance.addFreeText(freeText);
-
       res.status(200).json({
         message: 'Comment Added Successfully'
       });

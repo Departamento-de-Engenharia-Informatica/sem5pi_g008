@@ -46,7 +46,8 @@ export default class MedicalRecordFreeTextRepo implements IMedicalRecordFreeText
     const medicalRecordFreeTexts = await this.medicalRecordFreeTextSchema
         .find({medicalRecordId: medicalRecordId})
         .exec();
-
+  
     return medicalRecordFreeTexts.map(MedicalRecordFreeTextMap.toDomain);
   }
+  
 }

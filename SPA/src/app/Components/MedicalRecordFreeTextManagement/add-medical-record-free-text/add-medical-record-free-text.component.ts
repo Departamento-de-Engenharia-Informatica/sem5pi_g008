@@ -2,6 +2,9 @@
 import {MedicalRecordFreeText} from '../../../Domain/MedicalRecordFreeText';
 import {MedicalRecordFreeTextService} from '../../../services/MedicalRecordFreeTextService/medical-record-free-text.service';
 import {Router} from '@angular/router';
+import {CreateAllergyDTO} from '../../../DTOs/createDTOs/createAllergyDTO';
+import {CreateFreeTextDTO} from '../../../DTOs/createDTOs/createFreeTextDTO';
+import {OperationType} from '../../../Domain/OperationType';
 
 
 @Component({
@@ -12,8 +15,7 @@ import {Router} from '@angular/router';
 
 export class AddMedicalRecordFreeTextComponent implements OnInit {
 
-  freeText: MedicalRecordFreeText = {
-    domainId:'',
+  freeText: CreateFreeTextDTO = {
     medicalRecordId: '',
     doctorId: '',
     comment: ''
@@ -30,7 +32,7 @@ export class AddMedicalRecordFreeTextComponent implements OnInit {
     this.medicalRecordFreeTextService.addMedicalRecordFreeText(this.freeText).subscribe(
       (response) => {
         alert('Comment added successfully!');
-        this.router.navigate(['/staff/patients/medicalRecord']);
+        this.router.navigate(['/staff/patients']);
         console.log('Success:', response);
       },
       (error) => {
@@ -40,7 +42,16 @@ export class AddMedicalRecordFreeTextComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+    const medicalRecordId = history.state.medicalRecordId;
+    if (medicalRecordId) {
+      console.log(medicalRecordId);
+      this.freeText.medicalRecordId = medicalRecordId;
+    } else {
+      console.error('Medical record data not found in router state.');
+      alert('Error loading comments details.');
+    }
   }
 
 

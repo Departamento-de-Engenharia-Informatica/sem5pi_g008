@@ -6,6 +6,7 @@ import {MedicalRecordFreeText} from '../../Domain/MedicalRecordFreeText';
 import {DisplayMedicalRecordFreeTextDTO} from '../../DTOs/displayDTOs/displayMedicalRecordFreeTextDTO';
 import {MedicalRecordAllergyMapper} from '../../DTOs/mappers/medicalRecordAllergyMapper';
 import {MedicalRecordFreeTextMapper} from '../../DTOs/mappers/medicalRecordFreeTextMapper';
+import {CreateFreeTextDTO} from '../../DTOs/createDTOs/createFreeTextDTO';
 
 
 @Injectable({
@@ -49,10 +50,16 @@ export class MedicalRecordFreeTextService{
     );
   }
 
-  addMedicalRecordFreeText(medicalRecordFreeText: MedicalRecordFreeText ): Observable<{medicalRecordFreeText: MedicalRecordFreeText}>{
-    const url = `${this.apiUrl}?recordNumberId=${medicalRecordFreeText.medicalRecordId}`;
+  addMedicalRecordFreeText(medicalRecordFreeTextDTO: CreateFreeTextDTO ): Observable<string>{
+    const url = `${this.apiUrl}/medicalRecord/freeText`;
+    console.log(medicalRecordFreeTextDTO);
 
-    return this.http.post<{medicalRecordFreeText:MedicalRecordFreeText }>(url, {
+    const freeText=MedicalRecordFreeTextMapper.createDtoToDomain(medicalRecordFreeTextDTO);
+    console.log(freeText);
+    const backendFreeTextDTO=MedicalRecordFreeTextMapper.domainToBackendDto(freeText);
+    console.log(backendFreeTextDTO);
+
+    return this.http.post<string>(url,backendFreeTextDTO, {
       withCredentials:true
     }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -61,12 +68,8 @@ export class MedicalRecordFreeTextService{
         if(error.status === 850) {
           errorMessage = error.error.message;
         }
-
         return throwError(errorMessage);
       })
     );
-
-
-
   }
 }
