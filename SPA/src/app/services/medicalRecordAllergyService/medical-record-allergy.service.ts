@@ -1,10 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import json from '../../appsettings.json';
-import {MedicalRecordAllergy} from '../../Domain/MedicalRecordAllergy';
 import {catchError, map, Observable, throwError} from 'rxjs';
-import {BackendMedicalConditionDTO} from "../../DTOs/backendDTOs/backendMedicalConditionDTO";
-import {MedicalConditionMapper} from "../../DTOs/mappers/medicalConditionMapper";
 import {MedicalRecordAllergyMapper} from "../../DTOs/mappers/medicalRecordAllergyMapper";
 import {DisplayMedicalRecordAllergyDTO} from "../../DTOs/displayDTOs/displayMedicalRecordAllergyDTO";
 

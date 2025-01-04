@@ -1,6 +1,6 @@
-﻿import {MedicalRecordAllergy} from '../../Domain/MedicalRecordAllergy';
-import {BackendMedicalRecordAllergyDTO} from '../backendDTOs/backendMedicalRecordAllergyDTO';
+﻿import {BackendMedicalRecordAllergyDTO} from '../backendDTOs/backendMedicalRecordAllergyDTO';
 import {DisplayMedicalRecordAllergyDTO} from '../displayDTOs/displayMedicalRecordAllergyDTO';
+import {MedicalRecordAllergy} from '../../Domain/MedicalRecordAllergy/MedicalRecordAllergy';
 
 export class MedicalRecordAllergyMapper{
 
