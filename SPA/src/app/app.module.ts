@@ -69,6 +69,7 @@ import {
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import { UpdateAppointmentComponent } from './Components/Appointment/update-appointment/update-appointment.component';
 import {
   MedicalRecordDetailsComponent
 } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
@@ -151,6 +152,7 @@ import { AlgavComponent } from './Components/Algav/algav/algav.component';
     SpecializationListComponent,
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
+    AddMedicalConditionComponent,
     AllergyManagementComponent,
     SearchAllergyManagementComponent,
     AddMedicalConditionComponent,
@@ -158,6 +160,7 @@ import { AlgavComponent } from './Components/Algav/algav/algav.component';
     PatientManagementAsDoctorComponent,
     CreateAppointmentComponent,
     EditSpecializationComponent,
+    UpdateAppointmentComponent,
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
     MedicalRecordFreeTextListComponent,

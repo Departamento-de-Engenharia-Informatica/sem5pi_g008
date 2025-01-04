@@ -11,7 +11,7 @@ export class MedicalRecordFreeTextMap extends Mapper<MedicalRecordFreeText> {
   public static toDTO(domain: MedicalRecordFreeText): IMedicalRecordFreeTextDTO {
     return {
       doctorId: domain.doctorId,
-      medicalRecordId: domain.medicalRecord,
+      domainId: domain.domainId,
       comment: domain.comment
     } as IMedicalRecordFreeTextDTO;
   }
@@ -24,7 +24,7 @@ export class MedicalRecordFreeTextMap extends Mapper<MedicalRecordFreeText> {
     );
 
     medicalRecordFreeTextResult.isFailure ? console.log(medicalRecordFreeTextResult.error) : '';
-
+  
     return medicalRecordFreeTextResult.isSuccess ? medicalRecordFreeTextResult.getValue() : null;
   }
 

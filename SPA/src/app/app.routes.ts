@@ -22,6 +22,7 @@ import { PatientHomeComponent } from './Components/Dashboards/patient-home/patie
 import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-delete/check-user-to-delete.component';
 import { AddOperationRequestComponent } from './Components/OperationRequest/add-operation-request/add-operation-request.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
+import { EditOperationRequestComponent } from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {CreateSpecializationComponent} from './Components/SpecializationManagement/create-specialization/create-specialization.component';
@@ -29,9 +30,6 @@ import {AllergyManagementComponent} from './Components/AllergyManagement/allergy
 import {MedicalRecordDetailsComponent} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import {SearchAllergyManagementComponent} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 import {AddMedicalConditionComponent} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
-import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
-import {EditSpecializationComponent} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
-
 import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
@@ -40,15 +38,26 @@ import {
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
 import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
+
 import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
 
 import {
+  CreateAppointmentComponent
+} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import{  PatientManagementAsDoctorComponent
+} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {UpdateAppointmentComponent} from './Components/Appointment/update-appointment/update-appointment.component';
+import {
   UpdateMedicalRecordConditionComponent
 } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
-import {
-  EditOperationRequestComponent
-} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AlgavComponent} from './Components/Algav/algav/algav.component';
+
 
 
 
@@ -95,12 +104,15 @@ export const routes: Routes = [
     data: { roles: appSettings.userRoles.staff},
     children: [
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
+      {path: 'appointment', component: CreateAppointmentComponent, title: 'CreateAppointment'},
+      {path: 'appointment/update', component: UpdateAppointmentComponent, title: 'UpdateAppointment'},
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
       {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
       {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
     ],

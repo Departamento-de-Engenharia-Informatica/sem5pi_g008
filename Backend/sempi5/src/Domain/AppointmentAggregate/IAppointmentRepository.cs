@@ -10,4 +10,5 @@ public interface IAppointmentRepository : IRepository<Appointment, AppointmentID
     Task updataAppointment(Appointment appointment);
     Task<Appointment?> GetAppointmentById(int appointmentId);
     Task addAppointment(Appointment appointment);
+    Task<List<Appointment>> GetAllAppointmentsAsync();
 }

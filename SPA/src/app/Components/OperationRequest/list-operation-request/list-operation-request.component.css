@@ -229,3 +229,22 @@ tbody tr:hover {
 tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
+
+/* Style for the button */
+.add-button {
+  padding: 10px 20px;       /* Add padding for the button */
+  font-size: 16px;          /* Set a reasonable font size */
+  background-color: #007bff; /* Button color */
+  margin: 0 100px;
+  color: white;             /* Text color */
+  border: none;             /* Remove the default border */
+  border-radius: 5px;       /* Round corners */
+  cursor: pointer;          /* Show a pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+}
+
+/* Add hover effect for the button */
+.add-button:hover {
+  background-color: #0056b3; /* Darken the button color on hover */
+}

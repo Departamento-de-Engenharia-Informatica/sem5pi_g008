@@ -28,19 +28,19 @@ async function seedData() {
   const medicalRecordProps = {}
   const medicalRecordDomain = MedicalRecord.create(medicalRecordProps).getValue();
   const medicalRecordRepo = Container.get(MedicalRecordRepo);
-  await medicalRecordRepo.save(medicalRecordDomain, "20241200007");
+  await medicalRecordRepo.save(medicalRecordDomain, "20250100007");
 
   const medicalRecordDomain2 = MedicalRecord.create(medicalRecordProps).getValue();
-  await medicalRecordRepo.save(medicalRecordDomain2, "20241200003");
+  await medicalRecordRepo.save(medicalRecordDomain2, "20250100003");
 
   const medicalRecordDomain3 = MedicalRecord.create(medicalRecordProps).getValue();
-  await medicalRecordRepo.save(medicalRecordDomain3, "20241200004");
+  await medicalRecordRepo.save(medicalRecordDomain3, "20250100004");
 
   const medicalRecordDomain4 = MedicalRecord.create(medicalRecordProps).getValue();
-  await medicalRecordRepo.save(medicalRecordDomain4, "20241200005");
+  await medicalRecordRepo.save(medicalRecordDomain4, "20250100005");
 
 
-  const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20241200005");
+  const medicalRecord = await medicalRecordRepo.getMedicalRecordByDomainId("20250100005");
 
   const medicalRecordId = medicalRecord.props._id;
 
