@@ -1,0 +1,24 @@
+﻿@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Post Method - Level 1
+
+autonumber
+
+actor "User" as User
+participant "System"
+
+activate User
+
+    User -> System : Submit New Data (POST)
+    activate System
+
+    System --> User : Returns Confirmation or Error
+    deactivate System
+
+deactivate User
+
+@enduml

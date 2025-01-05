@@ -1,0 +1,36 @@
+﻿@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Get Method - Level 3
+
+autonumber
+
+participant "Frontend" as FE
+participant "BackEnd" as BE
+database "MySQL Database" as DB
+
+
+
+    activate FE
+
+        FE -> BE : Requests get operation
+        activate BE
+
+        BE -> DB : Find something
+        activate DB
+
+        DB --> BE : Return something (or failure)
+        deactivate DB
+
+
+            BE --> FE : Return OK or Error
+            deactivate BE
+
+
+        deactivate FE
+
+
+@enduml

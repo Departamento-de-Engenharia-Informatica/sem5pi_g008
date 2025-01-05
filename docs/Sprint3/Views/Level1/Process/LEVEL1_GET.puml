@@ -1,0 +1,24 @@
+﻿@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Get Method - Level 1
+
+autonumber
+
+actor "User" as User
+participant "System"
+
+activate User
+
+    User -> System : Request Data (GET)
+    activate System
+
+    System --> User : Returns Data
+    deactivate System
+
+deactivate User
+
+@enduml

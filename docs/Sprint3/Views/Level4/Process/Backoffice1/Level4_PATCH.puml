@@ -1,0 +1,42 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title PATCH Method - Backend Only
+
+autonumber
+
+actor "Frontend" as Frontend
+participant "<<component>> Controller " as Controller
+participant "<<component>> Service" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate Frontend
+
+    Frontend -> Controller : Sends HTTP PATCH request
+    activate Controller
+
+        Controller -> BackendService** : instantiates service
+
+        Controller -> BackendService : Requests to update partial data
+        activate BackendService
+
+            BackendService -> Repository** : instantiates repository
+
+            BackendService -> Repository : Updates partial data
+            activate Repository
+
+                Repository --> BackendService : Success or Failure
+            deactivate Repository
+
+        BackendService --> Controller : Return Success or Failure
+        deactivate BackendService
+
+    Controller --> Frontend : Return Success or Failure
+    deactivate Controller
+
+deactivate Frontend
+
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title GET Method - Backend Only
+
+autonumber
+
+actor "Frontend" as Frontend
+participant "<<component>> Controller " as Controller
+participant "<<component>> Service" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate Frontend
+
+    Frontend -> Controller : Sends HTTP GET request
+    activate Controller
+
+        Controller -> BackendService** : instantiates service
+
+        Controller -> BackendService : Requests data
+        activate BackendService
+
+            BackendService -> Repository** : instantiates repository
+
+            BackendService -> Repository : Retrieves data
+            activate Repository
+
+                Repository --> BackendService : Data or Failure
+            deactivate Repository
+
+        BackendService --> Controller : Return Data or Failure
+        deactivate BackendService
+
+    Controller --> Frontend : Return Data or Failure
+    deactivate Controller
+
+deactivate Frontend
+
+@enduml

@@ -13,19 +13,19 @@ participant "Backoffice/Backoffice2" as BE
 
 activate User
 
-    User -> FE : Asks to update something
+    User -> FE : Asks to update something partially
     activate FE
 
-      FE --> User : Asks for information
+     FE --> User : Asks for information
     deactivate FE
 
-    User -> FE : Provides information
+    User -> FE : Provides information for partial update
     activate FE
 
-      FE -> BE : Request to update
+      FE -> BE : Request to update something partially
       activate BE
 
-        BE -> BE : Update something
+        BE -> BE : Update something partially
 
         BE --> FE : Return success (or failure)
       deactivate BE
