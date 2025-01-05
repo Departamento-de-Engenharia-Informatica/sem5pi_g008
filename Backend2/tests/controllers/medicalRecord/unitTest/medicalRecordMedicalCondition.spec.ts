@@ -1,4 +1,4 @@
-﻿import MedicalRecordController from "../../../../src/controllers/medicalRecordController";
+﻿import MedicalRecordController from "../../../../src/controllers/MedicalRecordController";
 import * as sinon from 'sinon';
 import {NoMedicalRecordException} from "../../../../src/domain/MedicalRecord/NoMedicalRecordException";
 import {

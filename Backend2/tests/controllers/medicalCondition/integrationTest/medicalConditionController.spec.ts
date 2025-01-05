@@ -2,9 +2,7 @@
 import * as sinon from 'sinon';
 import {Response, Request} from 'express';
 import {Container} from 'typedi';
-import MedicalConditionController from "../../../../src/controllers/medicalConditionController";
-import IMedicalConditionService from "../../../../src/services/IServices/IMedicalConditionService";
-import MedicalConditionService from "../../../../src/services/medicalConditionService";
+import MedicalConditionController from "../../../../src/controllers/MedicalConditionController";
 import IMedicalConditionDTO from "../../../../src/dto/IMedicalConditionDTO";
 import IMedicalConditionRepo from "../../../../src/services/IRepos/IMedicalConditionRepo";
 import {Code} from "../../../../src/domain/Shared/code";
@@ -12,8 +10,7 @@ import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
 import {MedicalCondition} from "../../../../src/domain/MedicalCondition/MedicalCondition";
-import {NotFoundException} from "../../../../src/Exceptions/NotFoundException";
-import {AppError} from "../../../../src/domain/Shared/Exceptions/AppError";
+
 
 describe('MedicalConditionController Integration Test', function () {
     const sandbox = sinon.createSandbox();

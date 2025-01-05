@@ -134,8 +134,7 @@ console.log("REPO6")
 
   public async getAllMedicalRecordConditions(): Promise<MedicalRecordCondition[]> {
     const medicalRecordConditions = await this.medicalRecordConditionSchema.find();
-    medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
-    return medicalRecordConditions;
+    return medicalRecordConditions.map(MedicalRecordConditionMapper.toDomain);
   }
 
 }

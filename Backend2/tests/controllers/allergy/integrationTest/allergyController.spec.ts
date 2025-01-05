@@ -6,7 +6,7 @@ import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {Code} from "../../../../src/domain/Shared/code";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
-import AllergyController from "../../../../src/controllers/allergyController";
+import AllergyController from "../../../../src/controllers/AllergyController";
 import IAllergyRepo from "../../../../src/services/IRepos/IAllergyRepo";
 import exp from "node:constants";
 

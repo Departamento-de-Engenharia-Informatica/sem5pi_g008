@@ -1,7 +1,7 @@
 ﻿import 'reflect-metadata';
 import * as sinon from 'sinon';
 import {Container} from 'typedi';
-import MedicalConditionService from '../../../../src/services/medicalConditionService';
+import MedicalConditionService from '../../../../src/services/MedicalConditionService';
 import IMedicalConditionRepo from '../../../../src/services/IRepos/IMedicalConditionRepo';
 import {MedicalCondition} from '../../../../src/domain/MedicalCondition/MedicalCondition';
 import IMedicalConditionDTO from '../../../../src/dto/IMedicalConditionDTO';
@@ -9,7 +9,6 @@ import {Code} from "../../../../src/domain/Shared/code";
 import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
-import exp from "node:constants";
 
 describe('MedicalConditionService', function () {
     const sandbox = sinon.createSandbox();

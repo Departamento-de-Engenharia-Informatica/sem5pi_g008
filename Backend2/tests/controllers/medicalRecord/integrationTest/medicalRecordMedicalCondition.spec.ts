@@ -9,10 +9,7 @@ import {Code} from "../../../../src/domain/Shared/code";
 import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
-import MedicalRecordController from "../../../../src/controllers/medicalRecordController";
-import IMedicalRecordAllergyRepo from "../../../../src/services/IRepos/IMedicalRecordAllergyRepo";
-import exp from "node:constants";
-import {functionsIn} from "lodash";
+import MedicalRecordController from "../../../../src/controllers/MedicalRecordController";
 import {MedicalRecordAllergy} from "../../../../src/domain/MedicalRecordAllergy/MedicalRecordAllergy";
 import {Allergy} from "../../../../src/domain/Allergy/Allergy";
 
