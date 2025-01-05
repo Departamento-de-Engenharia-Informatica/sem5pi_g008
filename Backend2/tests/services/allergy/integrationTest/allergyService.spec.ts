@@ -68,7 +68,30 @@ describe('AllergyService', function () {
             saveStub.restore();
         });
 
-        it('should create an allergy successfully', async function () {
+        it('should not create an allergy successfully - Empty Code', async function () {
+            const allergyDTO = {
+                code: '',
+                designation: 'Peanut Allergy',
+                description: 'Allergic to peanuts causing severe reactions',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Code can not be empty.');
+            }
+
+            saveStub.restore();
+        });
+        
+        it('should not create an allergy successfully - Invalid Code', async function () {
             const allergyDTO = {
                 code: 'A-123',
                 designation: 'Peanut Allergy',
@@ -91,6 +114,144 @@ describe('AllergyService', function () {
             saveStub.restore();
         });
 
+        it('should not create an allergy successfully - Null Code', async function () {
+            const allergyDTO = {
+                code: null,
+                designation: 'Peanut Allergy',
+                description: 'Allergic to peanuts causing severe reactions',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Code can not be null or undefined.');
+            }
+
+            saveStub.restore();
+        });
+
+        it('should not create an allergy successfully - Empty Designation', async function () {
+            const allergyDTO = {
+                code: 'A123',
+                designation: '',
+                description: 'Allergic to peanuts causing severe reactions',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Designation can not be empty.');
+            }
+
+            saveStub.restore();
+        });
+
+        it('should not create an allergy successfully - Null Designation', async function () {
+            const allergyDTO = {
+                code: 'A123',
+                designation: null,
+                description: 'Allergic to peanuts causing severe reactions',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Designation can not be null or undefined.');
+            }
+
+            saveStub.restore();
+        });
+        
+        it('should not create an allergy successfully - Invalid Designation', async function () {
+            const allergyDTO = {
+                code: 'A123',
+                designation: 'Allergy to natural rubber latex with cross-reactions to tropical fruits, such as banana, avocado, and kiwi.',
+                description: 'Allergic to peanuts causing severe reactions',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Designation must have a maximum of 100 characters.');
+            }
+
+            saveStub.restore();
+        });
+        
+        it('should not create an allergy successfully - Invalid Description', async function () {
+            const allergyDTO = {
+                code: 'A23',
+                designation: 'Peanut Allergy',
+                description: 'Allergy to natural rubber latex with associated hypersensitivity reactions and cross-reactivity to certain tropical fruits, including but not limited to banana, avocado, kiwi, chestnut, and passion fruit, which can manifest in diverse symptoms ranging from mild cutaneous reactions, such as localized itching, redness, and swelling, to more severe systemic responses, including respiratory distress, gastrointestinal discomfort, and anaphylaxis. This condition is often associated with a type I hypersensitivity reaction mediated by immunoglobulin E (IgE) antibodies that recognize specific proteins present in latex derived from the sap of the Hevea brasiliensis tree. The prevalence of latex-fruit syndrome, a subset of this allergy, is attributed to the structural similarity between latex proteins and proteins found in certain fruits, leading to an immune response when these allergens are encountered. Common triggers include exposure to latex products such as gloves, balloons, and medical equipment, which can cause direct contact reactions or airborne sensitization. Diagnosis typically involves a combination of clinical history, skin prick testing, and serological tests for specific IgE antibodies, while management focuses on strict avoidance of known allergens, the use of barrier protection methods, and the readiness to administer emergency treatments like epinephrine in cases of anaphylaxis. Education on the hidden sources of latex and cross-reactive fruits, alongside clear communication with healthcare providers and caretakers, is crucial for individuals living with this condition to mitigate risks and maintain quality of life. Research into alternative hypoallergenic materials and immunotherapy options continues to provide hope for improved management and potential desensitization protocols in the future.',
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Description must have a maximum of 2048 characters.');
+            }
+
+            saveStub.restore();
+        });
+
+        it('should not create an allergy successfully - Null Description', async function () {
+            const allergyDTO = {
+                code: 'A23',
+                designation: 'Peanut Allergy',
+                description: null,
+                effects: ['Anaphylaxis', 'Swelling', 'Hives'],
+            };
+
+            // Arrange
+            const repoInstance = Container.get('AllergyRepo');
+            const saveStub = sandbox.stub(repoInstance, 'save').resolves();
+            const allergyService = Container.get('allergyService') as IAllergyService;
+
+            // Act
+            try {
+                await allergyService.createAllergy(allergyDTO);
+            } catch (e) {
+                expect(e.message).toBe('Description can not be null or undefined.');
+            }
+
+            saveStub.restore();
+        });
+        
         const nullFieldTestCases = [
             {field: 'code', value: null},
             {field: 'designation', value: null},

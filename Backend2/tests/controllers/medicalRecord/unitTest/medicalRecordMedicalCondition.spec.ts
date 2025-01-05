@@ -16,6 +16,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             getMedicalRecordConditionByCode: sandbox.stub(),
             getMedicalRecordConditionByDesignation: sandbox.stub(),
             getMedicalRecordConditions: sandbox.stub(),
+            getAllergies: sandbox.stub()
         };
 
         medicalRecordController = new MedicalRecordController(medicalRecordServiceMock);
@@ -55,7 +56,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id", code: "C10" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditionByCode.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditionByCode.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditionByCode(req, res);
 
@@ -94,7 +95,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id", designation: "Test Designation" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditionByDesignation.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditionByDesignation.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditionByDesignation(req, res);
 
@@ -133,7 +134,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditions.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditions.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditions(req, res);
 
@@ -141,4 +142,44 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             expect(res.json.calledWith({ message: "Error getting medical record conditions." })).toBe(true);
         });
     });
+
+    describe("getAllergies",  () => {
+        it("should return medical record allergies when service succeeds", async () => {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+            const mockAllergies = [{ allergy: "Allergy-Test", medicalRecordId: "Test-Id" ,doctor: "John Doe", comment: "Comment-Test" }];
+
+            medicalRecordServiceMock.getAllergies.resolves(mockAllergies);
+
+            await medicalRecordController.getAllergies(req, res);
+
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledWith({ body: mockAllergies })).toBe(true);
+        });
+
+        it("should return NoMedicalRecordException", async () => {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+
+            medicalRecordServiceMock.getAllergies.rejects(new NoMedicalRecordException());
+
+            await medicalRecordController.getAllergies(req, res);
+
+            expect(res.status.calledWith(500)).toBe(true);
+            expect(res.json.calledWith({ message: "No medical record found." })).toBe(true);
+        });
+        
+        it("should return empty MedicalRecordAllergy list", async () => {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+
+            medicalRecordServiceMock.getAllergies.resolves([]);
+
+            await medicalRecordController.getAllergies(req, res);
+
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledWith({body: []})).toBe(true);
+        });
+    });
 });
+

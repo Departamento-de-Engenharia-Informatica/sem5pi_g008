@@ -1,12 +1,13 @@
 ﻿import {Request, Response, NextFunction} from "express";
 import axios from "axios";
 import config from "../../../config";
+import configAux from "../../../configAux.json";
 
 export const checkRoleAndProceed = (allowedRoles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-      const response = await axios.get(config.Backend1.URL + '/Login/role', {
+      const response = await axios.get(configAux.Backend1.URL + '/Login/role', {
         headers: {
           'Cookie': req.headers.cookie
         }

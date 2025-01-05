@@ -34,4 +34,49 @@ describe("MedicalCondition with valid and invalid cases", () => {
         expect(medicalCondition.description).toEqual(validDescription);
         expect(medicalCondition.symptomsList).toEqual(validSymptomsList);
     });
+
+    it('should fail to create a MedicalCondition with missing required properties', () => {
+        const props: any = {
+            designation: validDesignation,
+            description: validDescription,
+        };
+
+        const result = MedicalCondition.create(props);
+
+        expect(result.isFailure).toBe(true);
+    });
+    
+    it('should update the description of a MedicalCondition', () => {
+        const props = {
+            code: validCode,
+            designation: validDesignation,
+            description: validDescription,
+            symptomsList: validSymptomsList,
+        };
+
+        const result = MedicalCondition.create(props);
+        const medicalCondition = result.getValue();
+
+        const newDescription = Description.create("A chronic condition affecting blood sugar and insulin production.").getValue();
+        medicalCondition.description = newDescription;
+
+        expect(medicalCondition.description).toEqual(newDescription);
+    });
+    
+    it('should update the symptoms list of a MedicalCondition', () => {
+        const props = {
+            code: validCode,
+            designation: validDesignation,
+            description: validDescription,
+            symptomsList: validSymptomsList,
+        };
+
+        const result = MedicalCondition.create(props);
+        const medicalCondition = result.getValue();
+
+        const newSymptomsList = ["Increased thirst", "Frequent urination", "Extreme hunger", "Fatigue"];
+        medicalCondition.updateSymptomsList(newSymptomsList);
+
+        expect(medicalCondition.symptomsList).toEqual(newSymptomsList);
+    });
 });
