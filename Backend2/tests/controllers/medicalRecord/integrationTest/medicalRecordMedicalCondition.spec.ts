@@ -10,8 +10,13 @@ import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
 import MedicalRecordController from "../../../../src/controllers/medicalRecordController";
+import IMedicalRecordAllergyRepo from "../../../../src/services/IRepos/IMedicalRecordAllergyRepo";
+import exp from "node:constants";
+import {functionsIn} from "lodash";
+import {MedicalRecordAllergy} from "../../../../src/domain/MedicalRecordAllergy/MedicalRecordAllergy";
+import {Allergy} from "../../../../src/domain/Allergy/Allergy";
 
-describe('MedicalRecordController - MedicalRecordCondition - Integration', function () {
+describe('MedicalRecordController - Integration', function () {
     const sandbox = sinon.createSandbox();
 
     beforeEach(function () {
@@ -79,6 +84,16 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
     afterEach(function () {
         sandbox.restore();
     });
+    
+    function createMedicalRecordAllergy() {
+        const medicalRecordAllergyProps = {
+            allergyId: 'test-allergy',
+            medicalRecordId: 'test-id',
+            doctorId: 'test-doctor',
+            comment: 'test-comment'
+        };
+        return MedicalRecordAllergy.create(medicalRecordAllergyProps).getValue();
+    }
 
     function createMedicalRecordCondition() {
         const medicalRecordConditionProps = {
@@ -96,6 +111,17 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
         };
         return MedicalRecord.create(medicalRecordProps).getValue();
     }
+    
+    function createAllergy() {
+        const allergyProps = {
+            _id: new UniqueEntityID().toString(),
+            code: Code.create('A10').getValue(),
+            designation: Designation.create('test-designation').getValue(),
+            description: Description.create('test-description').getValue(),
+            effects: ['test-symptom']
+        };
+        return Allergy.create(allergyProps).getValue();
+    }
 
     function createMedicalCondition() {
         const medicalConditionProps = {
@@ -107,6 +133,78 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
         };
         return MedicalCondition.create(medicalConditionProps).getValue();
     }
+
+    describe('getAllergies', function () {
+
+        it('should return NoMedicalRecordException', async function () {
+
+            const req = {params: {id: "test-id"}};
+            const res = {status: sandbox.stub().returnsThis(), json: sandbox.stub()};
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(null);
+
+            const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
+
+            await medicalRecordController.getAllergies(req, res);
+
+            expect(res.status.calledWith(500)).toBe(true);
+            expect(res.json.calledWith({message: "No medical record found."})).toBe(true);
+        });
+
+        it('should return empty MedicalRecordAllergy list', async function () {
+
+            const req = {params: {id: "test-id"}};
+            const res = {status: sandbox.stub().returnsThis(), json: sandbox.stub()};
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(createMedicalRecord());
+
+            const medicalRecordAllergyRepoMock = sandbox.stub(Container.get('MedicalRecordAllergyRepo'));
+            medicalRecordAllergyRepoMock.getByMedicalId.resolves([]);
+
+            const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
+
+            await medicalRecordController.getAllergies(req, res);
+
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledWith({body: []})).toBe(true);
+        });
+
+        it('should return medical record allergies', async function () {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(createMedicalRecord());
+
+            const medicalRecordAllergyRepoMock = sandbox.stub(Container.get('MedicalRecordAllergyRepo'));
+            medicalRecordAllergyRepoMock.getByMedicalId.resolves([createMedicalRecordAllergy()]);
+            
+            const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
+
+            const allergyRepoMock = sandbox.stub(Container.get('AllergyRepo'));
+            allergyRepoMock.getById.resolves(createAllergy());
+            
+            sandbox.stub(medicalRecordService, 'getStaffDetails').resolves({
+                firstName: 'John',
+                lastName: 'Doe',
+                licenseNumber: 'D101'
+            });
+            
+            const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
+
+            await medicalRecordController.getAllergies(req, res);
+
+            const result = res.json.getCall(0).args[0];
+
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(result.body.length).toBe(1);
+            expect(result.body[0].doctor).toBe('John Doe');
+            expect(result.body[0].allergy).toBe('test-designation');
+            expect(result.body[0].comment).toBe('test-comment');
+        });
+    });
 
     describe('getMedicalRecordConditions', function () {
 
@@ -264,7 +362,7 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
     describe('getMedicalRecordConditionByCode', function () {
 
         it('should return medical record conditions by designation', async function () {
-            
+
             const req = {params: {id: "test-id", designation: "test-designation"}};
             const res = {status: sandbox.stub().returnsThis(), json: sandbox.stub()};
 
@@ -284,10 +382,10 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
                 lastName: 'Doe',
                 licenseNumber: 'D101'
             });
-            
+
             const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
             await medicalRecordController.getMedicalRecordConditionByDesignation(req, res);
-            
+
             const result = res.json.args[0][0].medicalRecordCondition;
 
             expect(result.doctorName).toBe('John Doe');
@@ -300,7 +398,7 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
 
             const req = {params: {id: "test-id", designation: "test-designation"}};
             const res = {status: sandbox.stub().returnsThis(), json: sandbox.stub()};
-            
+
             const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
             medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(createMedicalRecord());
 
@@ -312,16 +410,16 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
 
             const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
             await medicalRecordController.getMedicalRecordConditionByDesignation(req, res);
-            
+
             expect(res.status.calledWith(851)).toBe(true);
             expect(res.json.calledWith({message: "No Medical Condition found for this Designation."})).toBe(true);
         });
 
         it('should return MedicalConditionNotFoundException searching by designation', async function () {
-            
+
             const req = {params: {id: "test-id", designation: "test-designation"}};
             const res = {status: sandbox.stub().returnsThis(), json: sandbox.stub()};
-            
+
             const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
 
             const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
@@ -332,11 +430,11 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
 
             const medicalRecordController = Container.get("MedicalRecordController") as MedicalRecordController;
             await medicalRecordController.getMedicalRecordConditionByDesignation(req, res);
-            
+
             expect(res.status.calledWith(810)).toBe(true);
             expect(res.json.calledWith({message: "No Medical Condition registered in the system with this Designation."})).toBe(true);
         });
-        
+
     });
 
 });

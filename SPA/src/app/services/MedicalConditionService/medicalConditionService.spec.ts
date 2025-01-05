@@ -68,4 +68,30 @@ describe('MedicalConditionService', () => {
     expect(req.request.withCredentials).toBeTrue();
     req.flush(mockResponse);
   });
+
+  it('should update medical condition description', () => {
+    const medicalConditionId = '123';
+    const newDescription = 'New Description';
+
+    service.updateMedicalConditionDescription(medicalConditionId, newDescription).subscribe((response: any) => {
+      expect(response).toBeUndefined();
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/${medicalConditionId}/description`);
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ description: newDescription });
+  });
+
+  it('should update medical condition symptoms', () => {
+    const medicalConditionId = '123';
+    const newSymptoms = ['Symptom1', 'Symptom2'];
+
+    service.updateMedicalConditionSymptoms(medicalConditionId, newSymptoms).subscribe((response: any) => {
+      expect(response).toBeUndefined();
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/${medicalConditionId}/symptoms`);
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ symptomsList: newSymptoms });
+  });
 });

@@ -92,11 +92,17 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
 
     private async fixDto(dto: IMedicalRecordAllergyDTO): Promise<IMedicalRecordAllergyDTO> {
-        const allergy = await this.allergyRepo.getById(dto.allergy);
-        dto.allergy = allergy.designation;
-        const doctor = await this.getStaffDetails(dto.doctor);
-        dto.doctor = doctor.firstName + " " + doctor.lastName;
+      const allergy = await this.allergyRepo.getById(dto.allergy);
+      dto.allergy = allergy.designation;
+      const doctor = await this.getStaffDetails(dto.doctor);
+      
+      if(!doctor){
+        dto.doctor = "Unknown";
         return dto;
+      }
+      
+      dto.doctor = doctor.firstName + " " + doctor.lastName;
+      return dto;
     }
 
     async getAllMedicalRecordConditions(): Promise<IMedicalRecordConditionDTO[]> {
@@ -235,7 +241,6 @@ export default class MedicalRecordService implements IMedicalRecordService{
             });
         });
     }
-
 
     public async addFreeText(medicalRecord: IMedicalRecordFreeTextDTO): Promise<any> {
 
