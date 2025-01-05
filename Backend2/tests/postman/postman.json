@@ -4169,7 +4169,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"operationRequestId\": \"1\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\"\r\n}\r\n",
+									"raw": "{\r\n    \"operationRequestId\": \"2\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2026-02-15\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4177,48 +4177,6 @@
 									}
 								},
 								"url": "{{base_url}}/appointment"
-							},
-							"response": []
-						},
-						{
-							"name": "Create Appointement - Failure Copy",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains 'Missing required fields'\", function () {\r",
-											"    pm.response.to.have.body(\"Missing required fields.\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "980e1131-2347-4964-9392-c07fe7ba3f5e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\"\r\n    // Missing surgeryRoomId\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/appointment/"
 							},
 							"response": []
 						}
