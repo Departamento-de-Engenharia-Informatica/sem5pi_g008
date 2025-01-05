@@ -14,12 +14,14 @@ export class Connect3dComponent implements OnInit, AfterViewInit {
   arrayData: any[] = [];
   iframeElement!: HTMLIFrameElement;
   additionalData: { title: string, body: string | number }[][] = [];
+
   constructor(private surgeryRoomService: SurgeryRoomService) {}
 
   ngOnInit() {
     this.surgeryRoomService.getSurgeryRooms().subscribe({
       next: (data) => {
         this.arrayData = data;
+        this.sendDataToIframe(); // Send data to iframe when arrayData is available
       },
       error: (err) => {
         console.error('Error fetching surgery rooms:', err);
@@ -29,6 +31,7 @@ export class Connect3dComponent implements OnInit, AfterViewInit {
     this.surgeryRoomService.getRoomInfo().subscribe({
       next: (data) => {
         this.additionalData = data;
+        this.sendDataToIframe(); // Send data to iframe when additionalData is available
       },
       error: (err) => {
         console.error('Error fetching room info:', err);
@@ -38,19 +41,25 @@ export class Connect3dComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.iframeElement = document.getElementById('iframe') as HTMLIFrameElement;
-    this.sendDataToIframe();
+    if (this.iframeElement) {
+      this.iframeElement.onload = () => {
+        this.sendDataToIframe(); // Ensure data is sent when iframe is loaded
+      };
+    }
   }
 
   sendDataToIframe() {
-    if (this.iframeElement) {
-      this.iframeElement.onload = () => {
-        const message = {
-          arrayData: this.arrayData,
-          additionalData: this.additionalData,
-          url: this.iframeUrl + "/hospitalFloor"
-        };
-        this.iframeElement.contentWindow?.postMessage(message, this.iframeUrl);
+    // Ensure data is available before sending
+    if (this.arrayData.length > 0 && this.additionalData.length > 0 && this.iframeElement) {
+      const message = {
+        arrayData: this.arrayData,
+        additionalData: this.additionalData,
+        url: this.iframeUrl + "/hospitalFloor"
       };
+
+      this.iframeElement.contentWindow?.postMessage(message, this.iframeUrl);
+    } else {
+      console.log('Waiting for data or iframe to load...');
     }
   }
 }
