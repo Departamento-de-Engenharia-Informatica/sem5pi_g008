@@ -4508,7 +4508,7 @@
 					"name": "US-7.2.3",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "SearchAllergy",
 							"id": "a9062efa-20bb-4a29-919b-f1696511434d",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
