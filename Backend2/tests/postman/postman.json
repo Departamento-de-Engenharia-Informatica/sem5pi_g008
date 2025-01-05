@@ -2261,7 +2261,7 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
+										"value": "{{AdminCookie}}",
 										"type": "text"
 									}
 								],
@@ -3849,7 +3849,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/api/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+										"url": "{{backend2_url}}/api/medicalConditions/designation/CANCERs"
 									},
 									"response": []
 								},
@@ -3894,7 +3894,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/api//medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+										"url": "{{backend2_url}}/api/medicalConditions/designation/CANCER"
 									},
 									"response": []
 								}
@@ -4631,13 +4631,70 @@
 					"item": [
 						{
 							"name": "UpdateMedicalRecordAllergy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d291ac01-8a26-4a79-9e2b-2f92058c20df",
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Comment updated successfully', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "11d5afa1-c054-48ae-9f48-1c113a406c63",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"payload\":{\r\n        \"id\":\"1\",\r\n        \"comment\":\"It can be fatal\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{backend2_url}}/api/medicalRecord/medicalRecordAllergies",
+									"host": [
+										"{{backend2_url}}"
+									],
+									"path": [
+										"api",
+										"medicalRecord",
+										"medicalRecordAllergies"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
 							},
 							"response": []
 						}
@@ -4652,7 +4709,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "e30bb4d9-72db-4879-bda9-18b1ef467e17",
+				"id": "d3e95624-a8d2-46be-a228-13aa792ae3cf",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4662,7 +4719,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "2548a943-4f22-41a6-afb0-0d9d5fb124c6",
+				"id": "cd43491f-f678-4b5b-8703-ad6f7133c72d",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4683,16 +4740,16 @@
 		},
 		{
 			"key": "AdminCookie",
-			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGTF1o0ER5iPDWwD7budzvqjssK2AaUus3746cwU3vsF0e1u2Peq2WVzOzOWwsgaLlaZDbCNR8LU2tXZeCoavhyKSkwvtRHQxPAXxD0ar1x8jTxBhgb3dzPbX_3iZfhrfdxH_ikuYUVoU8GksccvEIWKWAl1rgMoBWSSXcMb3gHAVu7EI6V3kWg4bLhrFlmTezVhuUVunkJg0UxYje8-DeEOZyYPtpo-A02OPDvzY6rZkVzP0_AbhWR-IBixDQ0NVX8ipNiP9hl-sVquORzWalAcr9dQI909tM6kTkLpND3S1KtvucgiCcuYJdQzUdaav6otaVrLuDLncCh4Db102oqzjvCHfoXPgvA9ESoJmM3QLJm5fLcsmha65jybkifUkvXYOIO6uzPXPL04ICPOOTf-AheO3ExBNUkfa3EuFxCIEDzcqbQLTNRCCmuqBKtAmP1Yjade3N3CcnPMC7LH_spamSu_re07sDFJCZ6gQ_ltHjgw2he4ulGpAQhBoZH0IuqPrEXW8H7lZaP6d1W-hSoMyvTan9cUirRiRLYy7OeLcrzCidbVN7q9Erp0w05q0l5XFUl0CM5jqgGAGyPvADe7ceJe5w5XdLPGgC9eS7oplq2dAYC5Ob8Quu8ej4FBeLYgVdqeANIuT0DQtDgzxa7XOfIVi7VFaHrcEe4EL948BHtvnYXaQ9ynCK9dPOuQFtOBXPs8m8qKWHI6J_8XFWZ4u-GNm9hzlNkicpGntcoKmAsJyZBEMK8MZfy0BsmwzM3C0yGD-iz8LeWR0HvsDYlauaeNvb6YSVmNN1qyW1MN2La9PPolXvXSn7gqSeFYNkLwNpc2h81TJPQpv8DWY05Comq7GT3Tvvt-XaSwxnQPGjIF1S5ldNBbziN2vgsYLVWuFarUfUmrHwsQM7Zy1Uct6iOiojKlz8Rqg-M4E3vpAeVBBbPUPuG5fBODtzKEhmB5KXeNwBzsqMGxFLegon27tuicLqqlejUITf24u3pNJf05n830_JzOesRXS7T65QtqMwRYZWsRKpM56g1Pw5JlTs47-G5p_8dEG5xLLkVV6fX0PHyySkN4clJc_FBkSEj8gWRpxqeGraQUIgOFVAWQzFUP8tJCOcDQ-P4OMLw8rcM-3H8xJqxh-Lv6VsjNRyK_FejTJmAE-0ZOVPH40hVSwde0BnQxyB7WWpAPhOXHVRi1EQdQc_Erz2_OGv7nxqceiHPf290i-oxppUTGzaHI_64S_dWbqE5P_aoC2nRZcCi5LLZ4eI3W1yGnDsRxXq3FLTmJaKbHA0n0L0qTkbmtDCKwXOitIny_jec8tNSDlWy56FIjhM8E-ArHuRoGeXY8niiRro0CsVzkyoTdiT1nuN_op4A5w2y52_yrnNOjvrd6R2rruxRUrxaBGGqfAsZV02-p_u1ryGOHsall70pU"
+			"value": ".AspNetCore.Cookies=CfDJ8JtzUy2W4ihDpsGu7piyP5u7wn_HM4uSuUEaChF7LJCBfX6kearjwbx0kA5wZztNqBFcgyywqul1fp-GOWsI4VsBaXX8NYnvMm40NRgbgxBtuuj3N9sF7E650QrmKIF3lR8NuHdbIcrr5tpUu92Dvj3i-n0AhQaMz1ydPAgLiY2dzhcDMBolImH54PHcnB9x0XQ9xSrprmKNNQ4F5eD06kprbuQUPyNQ59ObtmHk0XWrZZ3r_0O1LuiHbY2s40RZaOu13se943vq1zKuFieA2B9DJHpPy_7vHFQ19o8GjeUdEh8GEvKDRmVr29eI8QLmuKYs1G6nx2wp0enIidfcOmBdcUOdf0CT1HuBgow59zYXyVbODgjwmQV2eBhyw4Vp_TnmIN_QTYuQylOGRKLYLERHmRD2aUgGyhz9DLFNcgVEXfK6a4Jt3hltO5BQI2oUSTjJf1OLJJzR5RVSe_t3p5UuCJiA1dWrZnKQ6TOSzt9It0kQflZsy9sfPofdQjY62FeQm28kfs7wOTl1Mnw61gUF2zJLoXmG0mPFFcc8MecCp9bdVPV4mkgUsR8dENVs_EvFIEA4M85rS_Zf5Y5Wjd96V79e0Klqc__KlLIDgwQty0zsBTYVt2glXRcbi9top4jgqaqTtxzh25c3ke27Rba6iqG2KTGixcYULaUBPALt6YSFrRlcWzzXyP1fYm9lud5HYoALhNlOiOJjXOi2r0Tk7tcDe_loHBZNY5Gxh3Ji1s5i0bqJ_c6ZkP_ojzWRZ8QcG94_vTXzucCfmK4NjgcbDKT5V4H0IJWDdrea_L_EgBuNonLTsXN2_KDRi86FjBsx_3N6zxpHX0ShJdcXKcjdS151Xa002tN_hnMQLSFcgPVc9GdJPkIe2XOH1yI_hlnL2A6YKU1xPUuBMG-PM4oVlO7tIH0bnteB91EN9Tf95doJM7-0CqJG6Aw1vwmE8IZZRWp6B86UMipPUlwKcRDKnT3hPoW55kmzsH23C1gJlpTQJUnU-OjumkGUSeBLXwG7lVBESTfYVrL2yQJFOT9e1hsPuz4nzIwbHyol8a01euU4NFxZWn_1kZPqPrZMfXtTy0o_ACs0sXFPApA3oz85K0itN3omkwUX_2n7J9bNJQpAbaBXWNCI3y5ioxiiHc68wmC8rym6suztPBHg1AjLAP4XiK4Ywslpz3RyVtTDDpqM-L20WD1TEtzuJXcoSvX3Ks1VTNx4DufBdZ6lZQ8dZLXbYbFPdEWJU7S51UzczTN3pefrBSU7sOp-jRINVWeaaIS5426L8tOiU0mO2Jo7CegAspKSYvvxFUuiKNYb9OPuQL8sh-rExT_druJ63SHGlkI9lAUbGY7yr6nhLTYmpqA0NK2m6vJlP2WdX9v6a-7SHH3pB0aIbQ-DSOjYK4sixrpltdLbM7yAL5O0gIVvnnBHYXFhBbGdsaDLxEoy"
 		},
 		{
 			"key": "AdminCookieRui",
-			"value": ".AspNetCore.Cookies=CfDJ8PAr93lbJ8BCkTvnmDiOxGRvTIdfxWJl2y9VyfSVyP_NBbioY9f4Fz4TE1VKrnpA0woeUnpkXQPEBMywB97sGqb5uP8zmFs2w0VTaxJuNzUdiQXDp0yOp9FGpgirsc8gbalksuCOeOIc4BzxjiPWNLbcXBw8hmnhNxI848NhvNF0DUvDDnXQrVKUXygfuLz7ns6wA2oCrgux105NpL7uupIBxbV5NtTPhTR-tVB37slD_MpaJ72g7JHK4Ty3zrrBnJGTg7QmeTJwzKzH0KV_bT8pvuoWlGquXmye_1lcNYXsqSPYCT889-Yqa34hd4Vcjmu0AKLuUqrL3bcmG3O3DOCfvndO5_iXFbUcRsqtNm-QDQMn3RpnvOur3AGcRc51XYO5H3nOMCF7UPDMFQRNx42dtaQkSM-sCNiGMWKYQZwqNTbAJjMSc2hPb-aHAuwsHA252R4k24RjaFi-MDhDvgfiFZcV8lTMuYgC2s_XwoB53qz_WkeODvv-rkGfr1iC3OKUjYkdC3J5xoa2nZs6Bt9V0_kIw_ALhHq-FSg2qn0mpLSeGtz9V07s9YERqn2kdSTwl0Mgk-UEwBsRN9XJQ8L_TuUCAWnQQm8QJlbEJZ7cn3MjihT4mScGE63MpDqbfbDqGhkYLqg-S2SiRoQ3epYHNSxv5flp6hJsR1DXHYAnnpJ4NYd0qizeqYcPMDzXoY2qd9leErrb_Hn4DFZmg0yiy6-ihThGpTE3Pt82tG6VC0WzTwWPyoJiCyckz_ZcnfLtKQF1Zv7lt0eJzM80BOUNhrfpL_RvfINfXobZxjYb4GYgarTXsm51afrImbnyxlYXm1RacXRDxOOWWL4IqsGkxKJ9UeabK6RQT5L153-U9SKdJ3t_g5_rXzJDca1SJDYhGYRXOXmCQi5PwpnbLT2sLd-itGXircqTUxFR50DtgOadCBlVBlDFF8qbG5WK22XKtM2yOogXpevcjEKzqJCLh7BMjhHlUabp7yV8xIakdTQIfop9aBe2YFUCeFrzhJDp1n3CjybLT5EkDPKHks5Jz0X79Lr_U0qx5T6ZaFyBH_QLi3V0kGXY2JEcVgZrWFnoYCTfjdjNC2nvl2vQrT8WxGOlVLc6Pdb_ltdk4OFo9gHdCuuuhvsp_iDapFJLTGiNabp5NjdnFcKjI-HsfpgWdYq5yFA5rHiiQYKspojT5ppCfr_bmCMk3sjgwSBiSh6O1HKPcCJUtDjj6Ywnlmx1tVj-mtlR9qP4ukYm_rTi4cigXbfo46vldULlUwkpLHFTVAf7wijc4Gil24nxDqTnmGwOyyMi4CEA4Lh0eppNXSX5u-V-UHWBoJ0mCTzRVDL4K-qO3XfLDSzvezhNND8mjgn_NRhTLyAQrbnrQYqPVwMzivHO9sgqEsgWaTW2wArxuiI5KvYpr5LEiiEfDFl8UMN1hH-8H-EUIUTDWl7i",
+			"value": ".AspNetCore.Cookies=CfDJ8JtzUy2W4ihDpsGu7piyP5u7wn_HM4uSuUEaChF7LJCBfX6kearjwbx0kA5wZztNqBFcgyywqul1fp-GOWsI4VsBaXX8NYnvMm40NRgbgxBtuuj3N9sF7E650QrmKIF3lR8NuHdbIcrr5tpUu92Dvj3i-n0AhQaMz1ydPAgLiY2dzhcDMBolImH54PHcnB9x0XQ9xSrprmKNNQ4F5eD06kprbuQUPyNQ59ObtmHk0XWrZZ3r_0O1LuiHbY2s40RZaOu13se943vq1zKuFieA2B9DJHpPy_7vHFQ19o8GjeUdEh8GEvKDRmVr29eI8QLmuKYs1G6nx2wp0enIidfcOmBdcUOdf0CT1HuBgow59zYXyVbODgjwmQV2eBhyw4Vp_TnmIN_QTYuQylOGRKLYLERHmRD2aUgGyhz9DLFNcgVEXfK6a4Jt3hltO5BQI2oUSTjJf1OLJJzR5RVSe_t3p5UuCJiA1dWrZnKQ6TOSzt9It0kQflZsy9sfPofdQjY62FeQm28kfs7wOTl1Mnw61gUF2zJLoXmG0mPFFcc8MecCp9bdVPV4mkgUsR8dENVs_EvFIEA4M85rS_Zf5Y5Wjd96V79e0Klqc__KlLIDgwQty0zsBTYVt2glXRcbi9top4jgqaqTtxzh25c3ke27Rba6iqG2KTGixcYULaUBPALt6YSFrRlcWzzXyP1fYm9lud5HYoALhNlOiOJjXOi2r0Tk7tcDe_loHBZNY5Gxh3Ji1s5i0bqJ_c6ZkP_ojzWRZ8QcG94_vTXzucCfmK4NjgcbDKT5V4H0IJWDdrea_L_EgBuNonLTsXN2_KDRi86FjBsx_3N6zxpHX0ShJdcXKcjdS151Xa002tN_hnMQLSFcgPVc9GdJPkIe2XOH1yI_hlnL2A6YKU1xPUuBMG-PM4oVlO7tIH0bnteB91EN9Tf95doJM7-0CqJG6Aw1vwmE8IZZRWp6B86UMipPUlwKcRDKnT3hPoW55kmzsH23C1gJlpTQJUnU-OjumkGUSeBLXwG7lVBESTfYVrL2yQJFOT9e1hsPuz4nzIwbHyol8a01euU4NFxZWn_1kZPqPrZMfXtTy0o_ACs0sXFPApA3oz85K0itN3omkwUX_2n7J9bNJQpAbaBXWNCI3y5ioxiiHc68wmC8rym6suztPBHg1AjLAP4XiK4Ywslpz3RyVtTDDpqM-L20WD1TEtzuJXcoSvX3Ks1VTNx4DufBdZ6lZQ8dZLXbYbFPdEWJU7S51UzczTN3pefrBSU7sOp-jRINVWeaaIS5426L8tOiU0mO2Jo7CegAspKSYvvxFUuiKNYb9OPuQL8sh-rExT_druJ63SHGlkI9lAUbGY7yr6nhLTYmpqA0NK2m6vJlP2WdX9v6a-7SHH3pB0aIbQ-DSOjYK4sixrpltdLbM7yAL5O0gIVvnnBHYXFhBbGdsaDLxEoy",
 			"type": "string"
 		},
 		{
 			"key": "AdminCookieMateus",
-			"value": ".AspNetCore.Cookies=CfDJ8C1qEftZwfhChaaurTMpFZ93tMRFdIUzKh2J_jodYkgGJHVs22peehvOHPdPT7k8wCmZN648vCb9rzGWszbjvc8jqMVnDR82KfYjoPiGfB4ZkyP6i1STWe3EKyNb4UqFrC6tAdCCj4DKUejkYd9fkEcstnH7tK1xDkQz8pEkORmu3hYIP9qZLD3JOqFSodnFb6sqeyN4cXhrhIbhDCFCN018Y_jPxXm9l3XCl2Y3VP4uCjvbr1EFVztI8OCwbLL-FlQtWP40_9frnDumXn5hbTuMaH_koAfMPnO2uGqJgJ6P03Pz1NypWDV4mf7StY4bG1GEi4Cweqk0E8-0F4z0hbjqvXYTwgGe3Fdr7dIu1EJjM5oJHOJ6ipc5VhFhS11-wMxSKHhsfwm0vCN2GVKfRjuazuxHB4xN_m4RCfcuUphGuxo3eWNV6h6Js4LOK9-jnQ52w9sbfkMzDTcx-Cg8POxkCXeXz2HbA5DMaq4eYaL_Wh7rELPppvu9hs_veabqcEc6GaM2NZU0uT5eqnM6X3bdRFtR-ZtGalNJ_JOajBga4M0ZjC0X0Shp80KwC5bEnMIRQ-P_HNkV-9QdEHP00XJ_0rLqGUwnZz7_NA4dlQsMNZnEYzfk7nQWcNWASUD74ihKhOrqlK93XqAAs_Oh2IJqXXeLwavCilYeBXaCXX9UeJQ0FwhCC8YY17sSNBR-t49NJWpVqlty628GgNOXPDfWrqijSeACjVAnyzQ9lq5XPHdv5Ei4r-QOJWrtB9dtxc8Ibu80q5XUHOEZTvOOnB4y4sxjQ_xiHN6SWsGtbVwEWjqpgJ6-a2EXkkqlTDBYHsKCHRChAnKld2q6ZjabeXokSGZ_NK-A7_NKXh1qR6H5mYn1hgWPAQQHlcfuhmEqyTE_8t999vOYOhFk7CoduksRaigblxAH81WnkaPP9yrUkjkIjxGvWEIb4vfFTmoibnvfP5HW_QHbUwpiLD8fE344sZ8iErq-0zWKROJ77VS7CgE3Icl6lVagnZgEqqcjSYIyqMZsb7V7FtED9HgofGQGzWbY6g_bbXToXGb2kZsiXw1rQv7r7tO5Z8wEdIrONGBLQgAA9ieHNxcyFF1cYVVMJguAFR1OwX7NVBCn03vUi5xtxvItA635VW0qhfw8a3hC094n8qbUFatRhEP_TqCiNoWhSg2ZwdKB7fH4V78hGirgx3bpyfnCFfbT-v7SUsezNQVjmJ1MHl4rnah4_JsRZnnagM-4Hi5P4h_kA7A9fYc3rqMXxiKzGKtDaCNMqyPPw18gA430GdfzWvIS2w0EfHo3_Zu3qP6Wmfazdry7GUZw3rQ5Lg3Awy25IRhynO91eTfavG02eIPEqlwDl2tT0_vVVUbcTRmDY434j-C27gOFQxowYLw14TtO8U82V_M-ulUqZ6zTM87s5cD1imIZLoFvQW6pnUeujec0xIYC",
+			"value": ".AspNetCore.Cookies=CfDJ8JtzUy2W4ihDpsGu7piyP5u7wn_HM4uSuUEaChF7LJCBfX6kearjwbx0kA5wZztNqBFcgyywqul1fp-GOWsI4VsBaXX8NYnvMm40NRgbgxBtuuj3N9sF7E650QrmKIF3lR8NuHdbIcrr5tpUu92Dvj3i-n0AhQaMz1ydPAgLiY2dzhcDMBolImH54PHcnB9x0XQ9xSrprmKNNQ4F5eD06kprbuQUPyNQ59ObtmHk0XWrZZ3r_0O1LuiHbY2s40RZaOu13se943vq1zKuFieA2B9DJHpPy_7vHFQ19o8GjeUdEh8GEvKDRmVr29eI8QLmuKYs1G6nx2wp0enIidfcOmBdcUOdf0CT1HuBgow59zYXyVbODgjwmQV2eBhyw4Vp_TnmIN_QTYuQylOGRKLYLERHmRD2aUgGyhz9DLFNcgVEXfK6a4Jt3hltO5BQI2oUSTjJf1OLJJzR5RVSe_t3p5UuCJiA1dWrZnKQ6TOSzt9It0kQflZsy9sfPofdQjY62FeQm28kfs7wOTl1Mnw61gUF2zJLoXmG0mPFFcc8MecCp9bdVPV4mkgUsR8dENVs_EvFIEA4M85rS_Zf5Y5Wjd96V79e0Klqc__KlLIDgwQty0zsBTYVt2glXRcbi9top4jgqaqTtxzh25c3ke27Rba6iqG2KTGixcYULaUBPALt6YSFrRlcWzzXyP1fYm9lud5HYoALhNlOiOJjXOi2r0Tk7tcDe_loHBZNY5Gxh3Ji1s5i0bqJ_c6ZkP_ojzWRZ8QcG94_vTXzucCfmK4NjgcbDKT5V4H0IJWDdrea_L_EgBuNonLTsXN2_KDRi86FjBsx_3N6zxpHX0ShJdcXKcjdS151Xa002tN_hnMQLSFcgPVc9GdJPkIe2XOH1yI_hlnL2A6YKU1xPUuBMG-PM4oVlO7tIH0bnteB91EN9Tf95doJM7-0CqJG6Aw1vwmE8IZZRWp6B86UMipPUlwKcRDKnT3hPoW55kmzsH23C1gJlpTQJUnU-OjumkGUSeBLXwG7lVBESTfYVrL2yQJFOT9e1hsPuz4nzIwbHyol8a01euU4NFxZWn_1kZPqPrZMfXtTy0o_ACs0sXFPApA3oz85K0itN3omkwUX_2n7J9bNJQpAbaBXWNCI3y5ioxiiHc68wmC8rym6suztPBHg1AjLAP4XiK4Ywslpz3RyVtTDDpqM-L20WD1TEtzuJXcoSvX3Ks1VTNx4DufBdZ6lZQ8dZLXbYbFPdEWJU7S51UzczTN3pefrBSU7sOp-jRINVWeaaIS5426L8tOiU0mO2Jo7CegAspKSYvvxFUuiKNYb9OPuQL8sh-rExT_druJ63SHGlkI9lAUbGY7yr6nhLTYmpqA0NK2m6vJlP2WdX9v6a-7SHH3pB0aIbQ-DSOjYK4sixrpltdLbM7yAL5O0gIVvnnBHYXFhBbGdsaDLxEoy",
 			"type": "string"
 		},
 		{
