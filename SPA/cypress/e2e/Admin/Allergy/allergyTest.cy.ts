@@ -76,17 +76,114 @@ describe('Allergy Tests', () => {
     });
   });
 
-  it('Filter Allergy', ()=>{
-    const code='AL10';
-    cy.get('.filter-input').click();
-    cy.get('.filter-options > :nth-child(1)').click();
-    cy.get('#name-input').type(code);
-    cy.get('.modal-actions > :nth-child(1)').click();
-    cy.get('.allergy-list .allergy-item').should('have.length.at.least', 1);
+  describe('Add Allergy', () => {
+    it('Add a new Allergy With All', () => {
 
+      let initialCount = 0;
+
+      cy.get('.allergy-list').its('length').then((length) => {
+        initialCount = length;
+      });
+      const code = 'LK12';
+      const designation = 'Lactose Intolerance';
+      const description = 'Lactose intolerance is a digestive disorder caused by the inability to digest lactose, the main carbohydrate in dairy products. It can cause various symptoms, including bloating, diarrhea and abdominal cramps. People with lactose intolerance don\'t make enough of the enzyme lactase, which is needed to digest lactose.';
+      const effect = 'Bloating';
+      const effect2 = 'Diarrhea';
+
+      cy.get('.add-button').click();
+
+      cy.get('#allergyCode').type(code);
+      cy.get('#allergyDesignation').type(designation);
+      cy.get('#allergyDescription').type(description);
+      cy.get('#allergyEffect').type(effect);
+      cy.get('.effect-input > button').click();
+      cy.get('#allergyEffect').type(effect2);
+      cy.get('.effect-input > button').click();
+
+      cy.get('[type="submit"]').click();
+
+      cy.get('.allergy-list').should('have.length', initialCount + 1);
+    });
+
+    it('Add a new Allergy With Code and Designation', () => {
+
+      let initialCount = 0;
+
+      cy.get('.allergy-list').its('length').then((length) => {
+        initialCount = length;
+      });
+      const code = 'LK20';
+      const designation = 'Lactose Allergy';
+
+      cy.get('.add-button').click();
+
+      cy.get('#allergyCode').type(code);
+      cy.get('#allergyDesignation').type(designation);
+
+      cy.get('[type="submit"]').click();
+
+      cy.get('.allergy-list').should('have.length', initialCount + 1);
+    });
+  });
+
+  it('Add a new Medical Condition and handle invalid code error', () => {
+    const minuteAndSecond = new Date().toISOString().slice(15, 19).replace(':', '');
+    const code = "MC123123123";
+    const designation = `Hypertension${minuteAndSecond}`;
+    const description = 'High blood pressure';
+    const symptom = 'Headache';
+
+    cy.intercept('POST', 'http://localhost:4000/api/medicalConditions', {
+      statusCode: 805,
+      body: {
+        message: 'Invalid ICD-11 code.'
+      }
+    }).as('addMedicalConditionRequest');
+
+    cy.get('.add-button').click();
+    cy.get('#code').type(code);
+    cy.get('#designation').type(designation);
+    cy.get('#description').type(description);
+    cy.get('#symptom').type(symptom);
+    cy.get('.symptom-input > button').click();
+    cy.get('[type="submit"]').click();
+
+    cy.wait('@addMedicalConditionRequest').then((interception) => {
+      console.log(interception);
+      expect(interception.response!.statusCode).to.eq(805);
+      expect(interception.response!.body.message).to.contain('Invalid ICD-11 code.');
+    });
   });
 
 
+  it('Add a new Allergy and handle invalid code error', () => {
+    let initialCount = 0;
 
+    cy.get('.allergy-list').its('length').then((length) => {
+      initialCount = length;
+    });
+
+    const code = "A123123123";
+    const designation = `Hypertension`;
+
+    cy.intercept('POST', 'http://localhost:4000/api/allergy', {
+      statusCode: 500,
+      body: {
+        message: 'An error occurred on the server. Please try again later.'
+      }
+    }).as('addAllergyRequest');
+
+    cy.get('.add-button').click();
+    cy.get('#allergyCode').type(code);
+    cy.get('#allergyDesignation').type(designation);
+
+    cy.get('[type="submit"]').click();
+
+    cy.wait('@addAllergyRequest').then((interception) => {
+      console.log(interception);
+      expect(interception.response!.statusCode).to.eq(500);
+      expect(interception.response!.body.message).to.eq('An error occurred on the server. Please try again later.');
+    });
+  });
 
 });

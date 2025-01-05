@@ -22,6 +22,7 @@ export class AdminMenuComponent {
     {title: 'Medical Condition Management', icon: 'assets/icons/dashboard.png', link: '/admin/medicalConditionManagement'},
     {title: 'algav', icon: 'assets/icons/patient.png', link: 'algav'},
     {title: 'Add Room Types', icon: 'assets/icons/roomTypess.png', link: ''},
+    {title: 'algav Todas Salas', icon: 'assets/icons/patient.png', link: 'algavTodasSalas'},
   ];
 
   constructor(@Inject(AuthService) auth: AuthService) {

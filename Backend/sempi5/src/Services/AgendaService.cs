@@ -63,7 +63,7 @@ public class AgendaService
             var endTime = TimeSpan.FromMinutes(appointment.task[i].end).ToString(@"hh\:mm");
 
             // Montando o intervalo de tempo
-            var timeInterval = $"{startTime} - {endTime}";
+            var timeInterval = $"{startTime}-{endTime}";
             Console.WriteLine(timeInterval);
 
             // Adicionando o intervalo à lista de intervalos de tempo
@@ -78,11 +78,6 @@ public class AgendaService
         var surgeryRoomUpdate = await _surgeryRoomRepository.GetSurgeryRoomById(int.Parse(appointment.room_id));
         surgeryRoomUpdate.RoomAgendas.Add(roomAgenda);
         await _surgeryRoomRepository.updateRoomAgenda(surgeryRoomUpdate);
-        Console.WriteLine("AQUI ESTA O ROOM");
-        Console.WriteLine(surgeryRoomUpdate.ToString());
-        await _roomAgendaRepository.AddAsync(roomAgenda);
-
-    
     }
     public async Task updateAgendaStaff(AgendaDto appointment)
     {
@@ -99,7 +94,7 @@ public class AgendaService
             var endTime = TimeSpan.FromMinutes(appointment.task[i].end).ToString(@"hh\:mm");
 
             // Montando o intervalo de tempo
-            var timeInterval = $"{startTime} - {endTime}";
+            var timeInterval = $"{startTime}-{endTime}";
             Console.WriteLine(timeInterval);
 
             // Adicionando o intervalo à lista de intervalos de tempo
@@ -114,10 +109,5 @@ public class AgendaService
         
         staffUpdate.StaffAgendas.Add(staffAgenda);
         await _staffRepository.update(staffUpdate);
-        Console.WriteLine("AQUI ESTA O STAFF");
-        Console.WriteLine(staffUpdate.ToString());
-        await _staffAgendaRepository.AddAsync(staffAgenda);
-
-    
     }
 }

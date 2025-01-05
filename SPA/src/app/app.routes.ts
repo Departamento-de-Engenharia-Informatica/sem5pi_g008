@@ -60,6 +60,9 @@ import {AlgavComponent} from './Components/Algav/algav/algav.component';
 import {
   UpdateMedicalRecordAllergyComponent
 } from './Components/MedicalRecordAllergyManagement/update-medical-record-allergy/update-medical-record-allergy.component';
+import {
+  AlgavTodasSalasComponent
+} from './Components/Algav/algavTodasSalas/algav-todas-salas/algav-todas-salas.component';
 
 
 
@@ -97,7 +100,9 @@ export const routes: Routes = [
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
       { path: 'allergyManagement/edit', component: EditAllergyComponent, title: 'EditAllergy' },
-      {path: 'algav', component: AlgavComponent, title: 'Algav',}
+      {path: 'algav', component: AlgavComponent, title: 'Algav',},
+      {path: 'algavTodasSalas', component: AlgavTodasSalasComponent, title: 'Algav',}
+
     ],
   },
 

@@ -91,5 +91,37 @@ describe('MedicalCondition Tests', () => {
       expect(interception.response!.body.message).to.contain('Code/Designation already exists');
     });
   });
-});
 
+  it('Update Medical Condition Description', () => {
+
+    cy.get('.medical-conditions-list .medical-condition-item').first().then((medicalCondition) => {
+
+      cy.wrap(medicalCondition).find('.edit-button').click();
+
+      cy.get('#description').clear().type('Descrição Atualizada V28');
+
+      cy.get('[type="submit"]').click();
+
+      cy.get('.medical-conditions-list .medical-condition-item').first().find('.medical-condition-details p')
+        .filter((index, p) => p.innerText.includes('Description:'))
+        .should('have.text', `Description: Descrição Atualizada V28`);
+    });
+  });
+
+  it('Update Medical Condition Symptoms', () => {
+
+    const symtpom = 'Symptom Test';
+
+    cy.get(':nth-child(1) > .medical-condition-actions > .edit-button').click();
+
+    cy.get('#symptom').clear().type(symtpom);
+    cy.get('.symptom-input > button').click();
+
+    cy.get('[type="submit"]').click();
+
+    cy.get(':nth-child(1) > .medical-condition-details > div > ul')
+      .contains(symtpom)
+      .should('exist');
+  });
+
+});

@@ -97,6 +97,7 @@ import { AlgavComponent } from './Components/Algav/algav/algav.component';
 import {
   UpdateMedicalRecordAllergyComponent
 } from './Components/MedicalRecordAllergyManagement/update-medical-record-allergy/update-medical-record-allergy.component';
+import { AlgavTodasSalasComponent } from './Components/Algav/algavTodasSalas/algav-todas-salas/algav-todas-salas.component';
 
 
 
@@ -178,7 +179,8 @@ import {
     UpdateMedicalRecordConditionComponent,
     PatientProfileComponent,
     AlgavComponent,
-    UpdateMedicalRecordAllergyComponent
+    UpdateMedicalRecordAllergyComponent,
+    AlgavTodasSalasComponent
 
   ],
   imports: [
