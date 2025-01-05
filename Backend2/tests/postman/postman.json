@@ -2945,7 +2945,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3401,7 +3401,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieRui}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3453,7 +3453,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieRui}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3505,7 +3505,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieRui}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3563,7 +3563,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieRui}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3615,7 +3615,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieRui}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -4100,96 +4100,6 @@
 					"id": "eb16318b-8373-4895-a7af-243e5174dc8f"
 				},
 				{
-					"name": "As doctor, search for medical conditions-7.2.05",
-					"item": [
-						{
-							"name": "Get Medical Record Condition - Non existent Condition - Failure Copy 2",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
-										"exec": [
-											"pm.test(\"Response status code is 810\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response has the required fields and correct message\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
-											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
-											"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "e476be01-ed45-47a6-8e0d-dc0e15235d6b",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
-										"type": "text"
-									}
-								],
-								"url": "{{backend2_url}}/api/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
-							},
-							"response": []
-						},
-						{
-							"name": "Get Medical Record Condition By Code- Success Copy 2",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
-										"exec": [
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
-											"  const responseData = pm.response.json();\r",
-											"\r",
-											"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
-											"  \r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "564af6fa-f5f9-4f39-b47f-0a769af759d8",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
-										"type": "text"
-									}
-								],
-								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
-							},
-							"response": []
-						}
-					],
-					"id": "568f4e62-703a-460d-9bc7-acf48bd546a9"
-				},
-				{
 					"name": "As doctor, create surgery appointments-7.2.08",
 					"item": [
 						{
@@ -4259,7 +4169,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"operationRequestId\": \"1\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\",\r\n}\r\n",
+									"raw": "{\r\n    \"operationRequestId\": \"1\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
