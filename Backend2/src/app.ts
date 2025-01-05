@@ -159,7 +159,10 @@ async function startServer() {
     console.log("Error seeding data: ", error);
   }
 
-  app.listen(config.port, () => {
+  const host = config.host;
+  const port = config.port;
+  
+  app.listen(port,host, () => {
     console.log("Server listening on port: " + config.port);
     Logger.info(`
       ################################################
