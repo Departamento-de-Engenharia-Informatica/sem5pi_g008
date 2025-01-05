@@ -20,8 +20,8 @@ export class AdminMenuComponent {
     {title: 'Specialization Management', icon: 'assets/icons/dashboard.png', link: '/admin/specialization'},
     {title: 'Allergy Management', icon: 'assets/icons/dashboard.png', link: '/admin/allergyManagement'},
     {title: 'Medical Condition Management', icon: 'assets/icons/dashboard.png', link: '/admin/medicalConditionManagement'},
-    {title: 'algdav', icon: 'assets/icons/patient.png', link: 'algav'},
-
+    {title: 'algav', icon: 'assets/icons/patient.png', link: 'algav'},
+    {title: 'Add Room Types', icon: 'assets/icons/roomTypess.png', link: ''},
   ];
 
   constructor(@Inject(AuthService) auth: AuthService) {

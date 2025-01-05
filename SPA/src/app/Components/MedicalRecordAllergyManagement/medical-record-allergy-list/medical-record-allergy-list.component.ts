@@ -41,7 +41,7 @@ export class MedicalRecordAllergyListComponent implements OnInit {
           }
         },
         (error) => {
-          this.errorMessage = "Failed to load allergies.";
+          this.errorMessage = error;
           console.error("Failed to load allergies:", error);
         }
       );

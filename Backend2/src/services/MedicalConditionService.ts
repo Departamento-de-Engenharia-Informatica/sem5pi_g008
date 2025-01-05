@@ -17,14 +17,13 @@ export default class MedicalConditionService implements IMedicalConditionService
   }
 
   public async createMedicalCondition(medicalConditionDTO: IMedicalConditionDTO): Promise<any> {
-
+    
     const medicalConditionProps = {
       code: Code.create(medicalConditionDTO.code).getValue(),
       designation: Designation.create(medicalConditionDTO.designation).getValue(),
       description: Description.create(medicalConditionDTO.description).getValue(),
-      symptomsList: medicalConditionDTO.symptomsList
+      symptomsList: medicalConditionDTO.symptomsList || []
     };
-
     const medicalCondition = MedicalCondition.create(medicalConditionProps).getValue();
 
     await this.medicalConditionRepo.save(medicalCondition, medicalConditionDTO.domainId);
