@@ -52,6 +52,6 @@ export class MedicalRecordAllergyService {
       comment: comment
     };
     console.log('Payload:', payload);
-    return this.http.put<void>(`${this.apiUrl}/medicalRecordAllergies`, { payload }, { withCredentials: true });
+    return this.http.patch<void>(`${this.apiUrl}/medicalRecordAllergies`, { payload }, { withCredentials: true });
   }
 }
