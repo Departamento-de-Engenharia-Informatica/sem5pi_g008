@@ -52,7 +52,7 @@ describe('MedicalRecordAllergyComponent', () => {
   });
 
   it('should handle error while fetching allergies', () => {
-    mockMedicalRecordAllergyService.listAllergiesInMedicalRecord.and.returnValue(throwError(() => new Error('Error fetching')));
+    mockMedicalRecordAllergyService.listAllergiesInMedicalRecord.and.returnValue(throwError('Failed to fetch'));
 
     component.medicalRecordId = '123';
 
@@ -61,7 +61,7 @@ describe('MedicalRecordAllergyComponent', () => {
     expect(mockMedicalRecordAllergyService.listAllergiesInMedicalRecord).toHaveBeenCalledWith('123');
     expect(component.medicalRecordAllergies).toEqual([]);
     expect(component.filteredAllergies).toEqual([]);
-    expect(component.errorMessage).toBe('Failed to load allergies.');
+    expect(component.errorMessage).toBe('Failed to fetch');
   });
 
   it('should filter allergies based on search query', () => {
