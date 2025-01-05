@@ -9,6 +9,8 @@ import {Code} from "../../../../src/domain/Shared/code";
 import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
+import {Allergy} from "../../../../src/domain/Allergy/Allergy";
+import {MedicalRecordAllergy} from "../../../../src/domain/MedicalRecordAllergy/MedicalRecordAllergy";
 
 describe('MedicalRecordService - MedicalRecordCondition', function () {
     const sandbox = sinon.createSandbox();
@@ -67,6 +69,16 @@ describe('MedicalRecordService - MedicalRecordCondition', function () {
     afterEach(function () {
         sandbox.restore();
     });
+
+    function createMedicalRecordAllergy() {
+        const medicalRecordAllergyProps = {
+            allergyId: 'test-allergy',
+            medicalRecordId: 'test-id',
+            doctorId: 'test-doctor',
+            comment: 'test-comment'
+        };
+        return MedicalRecordAllergy.create(medicalRecordAllergyProps).getValue();
+    }
     
     function createMedicalRecordCondition() {
         const medicalRecordConditionProps = {
@@ -95,7 +107,19 @@ describe('MedicalRecordService - MedicalRecordCondition', function () {
         };
         return  MedicalCondition.create(medicalConditionProps).getValue();
     }
-    
+
+    function createAllergy() {
+        const allergyProps = {
+            _id: new UniqueEntityID().toString(),
+            code: Code.create('A10').getValue(),
+            designation: Designation.create('test-designation').getValue(),
+            description: Description.create('test-description').getValue(),
+            effects: ['test-symptom']
+        };
+        return Allergy.create(allergyProps).getValue();
+    }
+
+
     it('should return NoMedicalRecordException', async function () {
         const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
 
@@ -275,4 +299,61 @@ describe('MedicalRecordService - MedicalRecordCondition', function () {
         }
     });
     
+    
+    describe('MedicalRecordService - Allergies - getAllergies', function () {
+        it('should return medical record allergies', async function () {
+            
+            const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(createMedicalRecord());
+
+            const medicalRecordAllergyRepoMock = sandbox.stub(Container.get('MedicalRecordAllergyRepo'));
+            medicalRecordAllergyRepoMock.getByMedicalId.resolves([createMedicalRecordAllergy()]);
+
+            const allergyRepoMock = sandbox.stub(Container.get('AllergyRepo'));
+            allergyRepoMock.getById.resolves(createAllergy());
+            
+            const getStaffDetailsStub = sandbox.stub(medicalRecordService, 'getStaffDetails');
+            getStaffDetailsStub.resolves({
+                firstName: 'John',
+                lastName: 'Doe',
+                licenseNumber: 'D101'
+            });
+
+            const result = await medicalRecordService.getAllergies('test-id');
+
+            expect(result.length).toBe(1);
+            expect(result[0].doctor).toBe('John Doe');
+            expect(result[0].allergy).toBe('test-designation');
+            expect(result[0].comment).toBe('test-comment');
+        });
+        
+        it('should return NoMedicalRecordException', async function () {
+            const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(null);
+
+            try {
+                await medicalRecordService.getAllergies('test-id');
+            } catch (e) {
+                expect(e.message).toBe('No medical record found.');
+            }
+        });
+        
+        it('should return MedicalRecordAllergies empty list', async function () {
+            const medicalRecordService = Container.get("MedicalRecordService") as IMedicalRecordService;
+
+            const medicalRecordRepoMock = sandbox.stub(Container.get('MedicalRecordRepo'));
+            medicalRecordRepoMock.getMedicalRecordByDomainId.resolves(createMedicalRecord());
+
+            const medicalRecordAllergyRepoMock = sandbox.stub(Container.get('MedicalRecordAllergyRepo'));
+            medicalRecordAllergyRepoMock.getByMedicalId.resolves([]);
+
+            const result = await medicalRecordService.getAllergies('test-id');
+
+            expect(result.length).toBe(0);
+        });
+    });
 });

@@ -1,5 +1,4 @@
-﻿
-export default interface IMedicalRecordAllergyDTO {
+﻿export default interface IMedicalRecordAllergyDTO {
   domainId?: string;
   allergy: string;
   medicalRecordId: string;

@@ -76,6 +76,9 @@ export class MedicalCondition extends AggregateRoot<MedicalConditionProps> {
 
     public static create(props: MedicalConditionProps, id?: UniqueEntityID): Result<MedicalCondition> {
 
+        if (!props.code || !props.designation || !props.description || !props.symptomsList) {
+            return Result.fail<MedicalCondition>('Missing required properties');
+        }        
         try {
             const medCond = new MedicalCondition(props, id);
             return Result.ok<MedicalCondition>(medCond);

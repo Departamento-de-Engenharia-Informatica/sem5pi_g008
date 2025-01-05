@@ -107,14 +107,17 @@ export default class MedicalRecordService implements IMedicalRecordService{
     }
 
     private async fixDto(dto: IMedicalRecordAllergyDTO): Promise<IMedicalRecordAllergyDTO> {
-        const allergy = await this.allergyRepo.getById(dto.allergy);
-        dto.allergy = allergy.allergy;
-        dto.doctor = await this.getDoctorName(dto.doctor);
+      const allergy = await this.allergyRepo.getById(dto.allergy);
+      dto.allergy = allergy.designation;
+      const doctor = await this.getStaffDetails(dto.doctor);
+      
+      if(!doctor){
+        dto.doctor = "Unknown";
         return dto;
-    }
-
-    private async getDoctorName(doctorId: string): Promise<string> {
-        return "Doctor";
+      }
+      
+      dto.doctor = doctor.firstName + " " + doctor.lastName;
+      return dto;
     }
 
     async getAllMedicalRecordConditions(): Promise<IMedicalRecordConditionDTO[]> {
