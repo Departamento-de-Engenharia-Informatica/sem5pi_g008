@@ -30,7 +30,7 @@
       <p><strong>Comment:</strong> {{ medicalRecordAllergy.comment }}</p>
     </div>
     <div class="medical-record-allergy-actions">
-      <button class="edit-button">Edit</button>
+      <button class="edit-button" (click)="redirectToEdit(medicalRecordAllergy.domainId)">Edit</button>
     </div>
   </div>
 </div>

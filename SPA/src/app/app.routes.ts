@@ -57,6 +57,9 @@ import {
   UpdateMedicalRecordConditionComponent
 } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
 import {AlgavComponent} from './Components/Algav/algav/algav.component';
+import {
+  UpdateMedicalRecordAllergyComponent
+} from './Components/MedicalRecordAllergyManagement/update-medical-record-allergy/update-medical-record-allergy.component';
 
 
 
@@ -115,6 +118,7 @@ export const routes: Routes = [
       {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
       {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
       {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
+      {path: 'patients/medicalRecord/editAllergy', component: UpdateMedicalRecordAllergyComponent, title:'UpdateMedicalRecordAllergy'}
     ],
   },
 

@@ -1,0 +1,17 @@
+﻿<div class="update-medical-record-allergy-container">
+  <h2>Update Medical Record Allergy Comment</h2>
+
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea
+        id="comment"
+        formControlName="comment"
+        placeholder="Enter the new comment"
+      ></textarea>
+    </div>
+
+    <button type="submit" [disabled]="updateForm.invalid">Update Comment</button>
+  </form>
+</div>

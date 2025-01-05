@@ -36,6 +36,9 @@ export class MedicalRecordAllergy extends AggregateRoot<MedicalRecordAllergyProp
     return this.props.comment;
   }
 
+  set comment(newComment: string) {
+    this.props.comment = newComment
+  }
   private constructor(props: MedicalRecordAllergyProps, id?: UniqueEntityID) {
     super(props, id);
   }
