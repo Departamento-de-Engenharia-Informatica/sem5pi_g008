@@ -35,14 +35,13 @@ export class MedicalRecordConditionListComponent implements OnInit {
 
         },
         (error) => {
-          this.errorMessage = 'Failed to load medical record conditions.';
+          this.errorMessage = error;
           console.error('Failed to load medical record conditions:', error);
         }
       );
   }
 
   redirectToEdit(doaminId: string | undefined) {
-    console.log("domainid in list",doaminId);
     this.router.navigate(['staff/UpdateMedicalRecordConditionComponent'], {
       queryParams: { id: doaminId }
     });
@@ -79,7 +78,7 @@ export class MedicalRecordConditionListComponent implements OnInit {
           this.medicalRecordConditions = this.filteredMedicalRecordConditions ? [this.filteredMedicalRecordConditions] : [];
         },
         (error) => {
-          this.errorMessage = 'Failed to filter medical record conditions by code.';
+          this.errorMessage = error;
           console.error('Failed to filter medical record conditions:', error);
         }
       );
@@ -93,7 +92,7 @@ export class MedicalRecordConditionListComponent implements OnInit {
           this.medicalRecordConditions = this.filteredMedicalRecordConditions ? [this.filteredMedicalRecordConditions] : [];
         },
         (error) => {
-          this.errorMessage = 'Failed to filter medical record conditions by designation.';
+          this.errorMessage = error;
           console.error('Failed to filter medical record conditions:', error);
         }
       );

@@ -1,7 +1,6 @@
 ﻿import {MedicalRecordFreeText} from '../../Domain/MedicalRecordFreeText';
 import {DisplayMedicalRecordFreeTextDTO} from '../displayDTOs/displayMedicalRecordFreeTextDTO';
 import {BackendMedicalRecordAllergyDTO} from '../backendDTOs/backendMedicalRecordAllergyDTO';
-import {MedicalRecordAllergy} from '../../Domain/MedicalRecordAllergy';
 import {BackendMedicalRecordFreeTextDTO} from '../backendDTOs/backendMedicalRecordFreeTextDTO';
 import {CreateAllergyDTO} from '../createDTOs/createAllergyDTO';
 import {Allergy} from '../../Domain/Allergy/Allergy';
