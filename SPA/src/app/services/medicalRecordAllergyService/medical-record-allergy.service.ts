@@ -41,7 +41,7 @@ export class MedicalRecordAllergyService {
 
           console.error('Error loading allergies:', error);
 
-          return throwError(() => new Error(errorMessage));
+          return throwError(errorMessage);
         })
     );
   }

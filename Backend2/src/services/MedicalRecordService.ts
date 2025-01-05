@@ -82,6 +82,11 @@ export default class MedicalRecordService implements IMedicalRecordService{
 
 
         const medicalRecord = await this.medicalRecordRepo.getMedicalRecordByDomainId(medicalRecordId);
+        
+        if(!medicalRecord) {
+            throw new NoMedicalRecordException();
+        }
+        
         const medicalRecordPrivateId = medicalRecord.props._id.toString();
 
         const medicalRecordAllergies = await this.medicalRecordAllergyRepo.getByMedicalId(medicalRecordPrivateId);
