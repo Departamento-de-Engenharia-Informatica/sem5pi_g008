@@ -4,7 +4,7 @@ import { Response, Request, NextFunction } from 'express';
 import { Container } from 'typedi';
 import IMedicalConditionService from '../../../../src/services/IServices/IMedicalConditionService';
 import IMedicalConditionDTO from '../../../../src/dto/IMedicalConditionDTO';
-import MedicalConditionController from "../../../../src/controllers/medicalConditionController";
+import MedicalConditionController from "../../../../src/controllers/MedicalConditionController";
 import {AppError} from "../../../../src/domain/Shared/Exceptions/AppError";
 import {NotFoundException} from "../../../../src/Exceptions/NotFoundException";
 

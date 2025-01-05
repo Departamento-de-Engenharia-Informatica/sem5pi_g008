@@ -17,12 +17,7 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
         @Inject('medicalConditionSchema') private medicalConditionSchema: Model<IMedicalConditionPersistence & Document>,
     ) {
     }
-    public async getMedicalConditionByCode(code: Code): Promise<MedicalCondition> {
-        const query = {code: code.value};
-        const medicalCondition = await this.medicalConditionSchema.findOne(query);
 
-        return MedicalConditionMap.toDomain(medicalCondition);
-    }
     public async searchDesignation(query: string): Promise<MedicalCondition[]> {
         try {
             const conditions = await this.medicalConditionSchema.find(
@@ -111,14 +106,13 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
     return MedicalConditionMap.toDomain(medicalCondition);
   }
-
+  
     public async getMedicalConditionByCode(code: Code): Promise<any> {
 
         const medicalConditionCode = code.value;
 
         const medicalCondition = await this.medicalConditionSchema.findOne( { code: medicalConditionCode }).exec();
 
-        console.log(medicalCondition);
 
         if (!medicalCondition) {
             return undefined;
@@ -132,10 +126,9 @@ export default class MedicalConditionRepo implements IMedicalConditionRepo {
 
         console.log("|" + medicalConditionDesignation + "|");
 
-        // Usando collation para ignorar a diferença de maiúsculas e minúsculas
         const medicalCondition = await this.medicalConditionSchema.findOne({
             designation: medicalConditionDesignation
-        }).collation({ locale: 'en', strength: 2 }).exec();  // strength: 2 ignora diferença entre maiúsculas/minúsculas
+        }).collation({ locale: 'en', strength: 2 }).exec(); 
 
         if (!medicalCondition) {
             return undefined;

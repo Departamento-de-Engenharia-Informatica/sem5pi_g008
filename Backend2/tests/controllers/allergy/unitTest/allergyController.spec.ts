@@ -5,7 +5,7 @@ import { Container } from 'typedi';
 import IAllergyService from '../../../../src/services/IServices/IAllergyService';
 import { NotFoundException } from '../../../../src/Exceptions/NotFoundException';
 import { AppError } from '../../../../src/domain/Shared/Exceptions/AppError';
-import AllergyController from "../../../../src/controllers/allergyController";
+import AllergyController from "../../../../src/controllers/AllergyController";
 import IAllergyDTO from "../../../../src/dto/IAllergyDTO";
 
 describe('AllergyController - Unit Test', function () {
