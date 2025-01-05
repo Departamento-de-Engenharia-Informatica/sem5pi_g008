@@ -4641,7 +4641,20 @@
 				},
 				{
 					"name": "US-7.2.6",
-					"item": [],
+					"item": [
+						{
+							"name": "UpdateMedicalRecordAllergy",
+							"id": "11d5afa1-c054-48ae-9f48-1c113a406c63",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "ad0a9e04-ec74-4061-9724-17bfda394f44"
 				}
 			],
