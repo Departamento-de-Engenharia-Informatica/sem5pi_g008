@@ -4524,7 +4524,20 @@
 				},
 				{
 					"name": "US-7.2.22",
-					"item": [],
+					"item": [
+						{
+							"name": "AddFreeText",
+							"id": "e598c78b-cc39-414e-955c-86f15bea793c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "a0a5e115-0e35-4f52-916d-92851e65a068"
 				}
 			],
