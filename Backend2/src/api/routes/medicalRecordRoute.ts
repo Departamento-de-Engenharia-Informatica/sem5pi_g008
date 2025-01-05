@@ -96,10 +96,9 @@ export default (app: Router) => {
             ctrl.updateMedicalRecordConditionComment(req, res, next),
     );
 
-    route.put(
-        '/medicalRecordAllergies',
-        (req, res, next) =>
-            ctrl.updateMedicalRecordAllergiesComment(req, res, next),
+    route.patch(
+        '/medicalRecordAllergies'
+        ,(req, res, next) => ctrl.updateMedicalRecordAllergiesComment(req, res, next),
     );
 };
 

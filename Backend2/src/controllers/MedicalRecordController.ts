@@ -1,6 +1,5 @@
 import {Inject, Service} from "typedi";
 import IMedicalRecordController from "./IControllers/IMedicalRecordController";
-import config from "../../config";
 import IMedicalRecordService from "../services/IServices/IMedicalRecordService";
 import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
@@ -12,7 +11,6 @@ import {
 import {
   MedicalRecordConditionNotFoundException
 } from "../domain/MedicalRecordCondition/MedicalRecordConditionNotFoundException";
-import {error} from "winston";
 import {AppError} from "../domain/Shared/Exceptions/AppError";
 
 

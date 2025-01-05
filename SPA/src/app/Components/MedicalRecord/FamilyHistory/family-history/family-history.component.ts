@@ -19,13 +19,23 @@ export class FamilyHistoryComponent {
     private familyHistoryService: FamilyHistoryService
   ) {
     this.familyHistoryForm = this.fb.group({
-      familyMember: ['', Validators.required],
-      condition: ['', Validators.required],
+      familyMember: ['', Validators.required],  // Apenas requerido
+      condition: ['', Validators.required],     // Apenas requerido
     });
   }
 
   onSubmit(): void {
+    // Verifica se os campos não estão vazios ou com apenas espaços
     if (this.familyHistoryForm.valid) {
+      const familyMemberValue = this.familyHistoryForm.get('familyMember')?.value.trim();
+      const conditionValue = this.familyHistoryForm.get('condition')?.value.trim();
+
+      if (!familyMemberValue || !conditionValue) {
+        alert('Family member and condition cannot be empty or just spaces.');
+        return;  // Não envia o formulário se algum campo for vazio ou contiver apenas espaços
+      }
+
+      // Preenche o valor corretamente
       console.log('Form submitted:', this.familyHistoryForm.value);
 
       this.familyHistoryService.saveFamilyHistory(this.familyHistoryForm.value, this.medicalRecordId).subscribe(
@@ -38,7 +48,7 @@ export class FamilyHistoryComponent {
         }
       );
     } else {
-      alert('Please fill out all required fields.');
+      alert('Please fill out all required fields correctly.');
     }
   }
 

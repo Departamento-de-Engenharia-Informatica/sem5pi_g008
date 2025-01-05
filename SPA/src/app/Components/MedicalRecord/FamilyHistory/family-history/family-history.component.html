@@ -11,7 +11,9 @@
         <label for="familyMember">Family Member:</label>
         <input id="familyMember" formControlName="familyMember" type="text" />
         <div *ngIf="familyHistoryForm.get('familyMember')?.invalid && familyHistoryForm.get('familyMember')?.touched" class="error">
-          Family member is required.
+          <div *ngIf="familyHistoryForm.get('familyMember')?.hasError('required')">
+            Family member is required.
+          </div>
         </div>
       </div>
 
@@ -19,7 +21,9 @@
         <label for="condition">Condition:</label>
         <input id="condition" formControlName="condition" type="text" />
         <div *ngIf="familyHistoryForm.get('condition')?.invalid && familyHistoryForm.get('condition')?.touched" class="error">
-          Condition is required.
+          <div *ngIf="familyHistoryForm.get('condition')?.hasError('required')">
+            Condition is required.
+          </div>
         </div>
       </div>
 
