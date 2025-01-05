@@ -18,6 +18,12 @@ export default {
     
   host : process.env.HOST || "localhost",  
     
+  https: "false",
+    
+  sslKeyPath: "/",  
+    
+  sslCertPath: "/",  
+    
   /**
    * That long string from mlab
    */
