@@ -13,16 +13,23 @@ export default class MedicalConditionController implements IMedicalConditionCont
   ) {
   }
   public async searchMedicalConditionsCode(req: any, res: any) {
-    const  query  = req.params.code; // Expecting a query string in the body
+    const query = req.params.code; // Expecting a query string in the URL
     console.log("Query: ", query);
 
     try {
       const medicalConditions = await this.medicalConditionServiceInstance.searchMedicalConditionsCode(query);
-      console.log("Medical Conditions CONTROLLER: "+medicalConditions);
 
-      res.status(200).json({ 
-        data: medicalConditions,
-      });
+      if (!medicalConditions || medicalConditions.length === 0) {
+        // Handle the case when no medical condition is found
+        res.status(404).json({
+          message: 'Code not found',
+        });
+      } else {
+        console.log("Medical Conditions CONTROLLER: ", medicalConditions);
+        res.status(200).json({
+          data: medicalConditions,
+        });
+      }
     } catch (error) {
       if (error instanceof AppError) {
         console.error(`AppError: ${error.code} - ${error.message}`);
@@ -38,16 +45,24 @@ export default class MedicalConditionController implements IMedicalConditionCont
     }
   }
   public async searchMedicalConditionsDesignation(req: any, res: any) {
-    const  query  = req.params.designation; // Expecting a query string in the body
+    const query = req.params.designation; // Expecting a query string in the body
     console.log("Query: ", query);
 
     try {
       const medicalConditions = await this.medicalConditionServiceInstance.searchMedicalConditionsDesignation(query);
-      console.log("Medical Conditions CONTROLLER: "+medicalConditions);
+      console.log("Medical Conditions CONTROLLER: ", medicalConditions);
 
-      res.status(200).json({
-        data: medicalConditions,
-      });
+      if (medicalConditions && medicalConditions.length > 0) {
+        res.status(200).json({
+          message: "Designation found",
+          designation: query,
+          data: medicalConditions,
+        });
+      } else {
+        res.status(404).json({
+          message: "No medical conditions found for the given designation",
+        });
+      }
     } catch (error) {
       if (error instanceof AppError) {
         console.error(`AppError: ${error.code} - ${error.message}`);

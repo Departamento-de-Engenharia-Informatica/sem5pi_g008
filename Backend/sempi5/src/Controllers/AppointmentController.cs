@@ -19,6 +19,8 @@ public class AppointmentController: ControllerBase
     }   
     
     [HttpPost]
+    [Authorize(Roles = "Doctor")]
+
     public async Task<IActionResult> createAppointment(AppointmentDto appointmentDto)
     {
       //TODO: Implementar validação de dados
