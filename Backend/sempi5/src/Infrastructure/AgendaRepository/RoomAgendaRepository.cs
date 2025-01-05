@@ -24,4 +24,11 @@ public class RoomAgendaRepository:BaseRepository<RoomAgenda, AgendaId>, IRoomAge
     {
         throw new NotImplementedException();
     }
+    
+    public async Task<List<RoomAgenda>> GetRoomAgendasByRoomIdAndDay(AgendaId roomId, DateTime day)
+    {
+        return await context.RoomAgendas
+            .Where(ra => ra.Id.Equals(roomId) && ra.Date.Date.Equals(day.Date))
+            .ToListAsync();
+    }
 }

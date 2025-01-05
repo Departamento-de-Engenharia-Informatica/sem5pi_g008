@@ -6,5 +6,5 @@ namespace Sempi5.Domain.AgendaAggregate;
 public interface IRoomAgendaRepository: IRepository<RoomAgenda, AgendaId>
 {
     public Task<List<RoomAgenda>> GetAllRoomAgenda();
-    Task updateAgenda();
+    public Task<List<RoomAgenda>> GetRoomAgendasByRoomIdAndDay(AgendaId roomId, DateTime day);
 }

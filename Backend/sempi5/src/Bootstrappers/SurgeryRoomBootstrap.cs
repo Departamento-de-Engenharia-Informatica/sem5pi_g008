@@ -86,21 +86,11 @@ public class SurgeryRoomBootstrap
 
         );
         
-        var surgeryRoom6 = new SurgeryRoom
-        (
-            RoomTypeEnum.OPERATING_ROOM,
-            new RoomCapacity(2),
-            ["Surgical Table", "Surgical Light"],
-            RoomStatusEnum.AVAILABLE,
-            []            ,            new List<RoomAgenda> {  agenda2 }
-
-        );
 
         await _surgeryRoomRepository.AddAsync(surgeryRoom1);
         await _surgeryRoomRepository.AddAsync(surgeryRoom2);
         await _surgeryRoomRepository.AddAsync(surgeryRoom3);
         await _surgeryRoomRepository.AddAsync(surgeryRoom4);
         await _surgeryRoomRepository.AddAsync(surgeryRoom5);
-        await _surgeryRoomRepository.AddAsync(surgeryRoom6);
     }
 }
