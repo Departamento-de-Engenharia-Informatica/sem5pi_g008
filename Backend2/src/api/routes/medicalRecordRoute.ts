@@ -33,19 +33,19 @@ export default (app: Router) => {
                 comment: Joi.string().required()
             }),
         }),
-       // checkRoleAndProceed(['doctor']),
+        checkRoleAndProceed(['doctor']),
         (req, res, next) => {
             ctrl.addFreeText(req, res, next);
         });
 
     route.get('/:id/allergy',
-        //checkRoleAndProceed(['admin','doctor']),
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getAllergies(req, res, next);
         });
 
     route.get('/:id/freeText',
-        //checkRoleAndProceed(['admin','doctor']),
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getFreeTexts(req, res, next);
         });
@@ -57,47 +57,49 @@ export default (app: Router) => {
         });
 
     route.get('/:id/condition',
-        //checkRoleAndProceed(['admin','doctor']),
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getMedicalRecordConditions(req, res, next);
         }
     );
 
     route.get('/:id/condition/by-code/:code',
-        //checkRoleAndProceed(['admin','doctor']),  
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getMedicalRecordConditionByCode(req, res, next);
         }
     );
 
     route.get('/:id/condition/by-designation/:designation',
-        //checkRoleAndProceed(['admin','doctor']),  
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getMedicalRecordConditionByDesignation(req, res, next);
         }
     );
-    
-  route.get('/:id/allergy',
-    //checkRoleAndProceed(['admin','doctor']),
-    (req, res, next) => {
-      ctrl.getAllergies(req, res, next);
-    });
-  
+
+    route.get('/:id/allergy',
+        checkRoleAndProceed(['admin', 'doctor']),
+        (req, res, next) => {
+            ctrl.getAllergies(req, res, next);
+        });
+
     route.get('/Allcondition',
-        //checkRoleAndProceed(['admin','doctor']),
+        checkRoleAndProceed(['admin', 'doctor']),
         (req, res, next) => {
             ctrl.getAllMedicalRecordConditions(req, res, next);
         }
     );
-    
+
     route.put(
         '/medicalrecordConditions'
-        ,(req, res, next) => ctrl.updateMedicalRecordConditionComment(req, res, next),
+        , (req, res, next) =>
+            ctrl.updateMedicalRecordConditionComment(req, res, next),
     );
 
     route.put(
-        '/medicalRecordAllergies'
-        ,(req, res, next) => ctrl.updateMedicalRecordAllergiesComment(req, res, next),
+        '/medicalRecordAllergies',
+        (req, res, next) =>
+            ctrl.updateMedicalRecordAllergiesComment(req, res, next),
     );
 };
 

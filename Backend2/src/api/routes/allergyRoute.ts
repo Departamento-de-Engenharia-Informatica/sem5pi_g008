@@ -25,7 +25,7 @@ export default (app: Router) => {
                 isDeleted: Joi.boolean().optional(),
             }),
         }),
-        //checkRoleAndProceed(['admin']),
+        checkRoleAndProceed(['admin']),
            (req, res, next) => {
             ctrl.createAllergy(req, res, next);
         });
@@ -49,7 +49,7 @@ export default (app: Router) => {
                 designation: Joi.string().required(),
             }),
         }),
-        //checkRoleAndProceed(['admin']),
+        checkRoleAndProceed(['admin']),
         (req, res, next) => {
             ctrl.updateAllergyDesignation(req, res, next);
         });
@@ -63,7 +63,7 @@ export default (app: Router) => {
                 description: Joi.string().required(),
             }),
         }),
-        //checkRoleAndProceed(['admin']),
+        checkRoleAndProceed(['admin']),
         (req, res, next) => {
             ctrl.updateAllergyDescription(req, res, next);
         });
@@ -77,11 +77,8 @@ export default (app: Router) => {
                 effects: Joi.array().items(Joi.string()).required(),
             }),
         }),
-        //checkRoleAndProceed(['admin']),
+        checkRoleAndProceed(['admin']),
         (req, res, next) => {
             ctrl.updateAllergyEffects(req, res, next);
         });
-    
-    //TODO POR CHECK ROLE AND PROCEED
-
 };

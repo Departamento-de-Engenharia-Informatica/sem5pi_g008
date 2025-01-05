@@ -42,7 +42,7 @@ export default (app: Router) => {
         description: Joi.string().required(),
       }),
     }),
-    //checkRoleAndProceed(['admin']),
+    checkRoleAndProceed(['admin']),
     (req, res, next) => {
       ctrl.updateMedicalConditionDescription(req, res, next);
     });
@@ -56,7 +56,7 @@ export default (app: Router) => {
         symptomsList: Joi.array().items(Joi.string()).required(),
       }),
     }),
-    //checkRoleAndProceed(['admin']),
+    checkRoleAndProceed(['admin']),
     (req, res, next) => {
       ctrl.updateMedicalConditionSymptoms(req, res, next);
     });
