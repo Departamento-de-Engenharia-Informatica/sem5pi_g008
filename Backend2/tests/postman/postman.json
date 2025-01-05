@@ -2328,7 +2328,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2370,7 +2370,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2412,7 +2412,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2460,7 +2460,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2502,7 +2502,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2544,7 +2544,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2586,7 +2586,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
