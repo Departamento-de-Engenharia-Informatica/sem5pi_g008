@@ -4503,6 +4503,24 @@
 						}
 					],
 					"id": "22c6ee1f-70d7-4ddb-95bd-5fbeb2c96d3a"
+				},
+				{
+					"name": "US-7.2.3",
+					"item": [
+						{
+							"name": "New Request",
+							"id": "a9062efa-20bb-4a29-919b-f1696511434d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
+					"id": "bc77ebd6-d895-4504-b510-d742acfab0db"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
