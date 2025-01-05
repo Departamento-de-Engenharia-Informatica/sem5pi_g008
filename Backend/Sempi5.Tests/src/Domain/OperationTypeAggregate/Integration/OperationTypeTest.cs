@@ -27,7 +27,9 @@ public class OperationTypeTest
         var opName = new OperationName("Teste");
         var numStaff = new NumberOfStaff(2);
         var specializationName = new SpecializationName("surgery");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
         var reqStaff = new RequiredStaff(numStaff, specialization);
         var reqStaffList = new List<RequiredStaff> { reqStaff };
         var setupDuration = TimeSpan.Parse("00:30:00");
@@ -64,7 +66,9 @@ public class OperationTypeTest
         var opType = CreateOperationType();
         var numStaff = new NumberOfStaff(2);
         var specializationName = new SpecializationName("surgery");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
         var reqStaff = new RequiredStaff(numStaff, specialization);
 
         // Act
@@ -81,7 +85,9 @@ public class OperationTypeTest
         var opType = CreateOperationType();
         var numStaff = new NumberOfStaff(2);
         var specializationName = new SpecializationName("surgery");
-        var specialization = new Specialization(specializationName);
+        var specializationCode = new SpecializationCode("C1");
+        var specializationDescription = new SpecializationDescription("Especialização em Cardiologia");
+        var specialization = new Specialization(specializationName, specializationCode, specializationDescription);
         var reqStaff = new RequiredStaff(numStaff, specialization);
 
         opType.AddRequiredStaff(reqStaff);

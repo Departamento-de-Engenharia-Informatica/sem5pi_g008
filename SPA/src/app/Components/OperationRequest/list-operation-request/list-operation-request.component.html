@@ -1,30 +1,37 @@
-<!-- requisition-search.component.html -->
 <div class="search-form">
   <app-home-button></app-home-button>
 
   <div class="content">
     <button class="add-button" (click)="addOperationRequest()">Add Operation Request</button>
+    <h2>Search Operation Requisitions</h2>
+    <form (ngSubmit)="onSearch()">
+      <div>
+        <label for="patientName">Patient Name</label>
+        <input type="text" id="patientName" [(ngModel)]="searchFilters.patientName" name="patientName">
+      </div>
+      <div>
+        <label for="operationType">Operation Type</label>
+        <input type="text" id="operationType" [(ngModel)]="searchFilters.operationType" name="operationType">
+      </div>
+      <div>
+        <label for="priority">Priority</label>
+        <input type="text" id="priority" [(ngModel)]="searchFilters.priority" name="priority">
+      </div>
+      <div>
+        <label for="status">Status</label>
+        <input type="text" id="status" [(ngModel)]="searchFilters.status" name="status">
+      </div>
+      <button type="submit">Search</button>
+    </form>
+  </div>
 
-  <h2>Search Operation Requisitions</h2>
-  <form (ngSubmit)="onSearch()">
-    <div>
-      <label for="patientName">Patient Name</label>
-      <input type="text" id="patientName" [(ngModel)]="searchFilters.patientName" name="patientName">
-    </div>
-    <div>
-      <label for="operationType">Operation Type</label>
-      <input type="text" id="operationType" [(ngModel)]="searchFilters.operationType" name="operationType">
-    </div>
-    <div>
-      <label for="priority">Priority</label>
-      <input type="text" id="priority" [(ngModel)]="searchFilters.priority" name="priority">
-    </div>
-    <div>
-      <label for="status">Status</label>
-      <input type="text" id="status" [(ngModel)]="searchFilters.status" name="status">
-    </div>
-    <button type="submit">Search</button>
-  </form>
+  <!-- Botão Criar Agendamento, fora da div de resultados -->
+  <div class="center-button">
+    <button class="create-appointment-btn" [disabled]="!selectedRequest" (click)="createAppointment(selectedRequest)">
+      Create Appointment
+    </button>
+  </div>
+
 </div>
 
 <div class="results">
@@ -50,6 +57,9 @@
       </td>
       <td>
         <button (click)="editRequest($event)"> Edit</button>
+      </td>
+      <td>
+        <button (click)="selectRequest(result)">Select for Appointment</button>
       </td>
     </tr>
     </tbody>

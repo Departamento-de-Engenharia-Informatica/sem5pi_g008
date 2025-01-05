@@ -1,0 +1,51 @@
+<div class="update-appointment-container">
+  <app-home-button></app-home-button>
+
+  <h2>Update Appointment</h2>
+
+  <!-- Display Appointment List -->
+  <div *ngIf="appointments && appointments.length > 0">
+    <h3>Select an Appointment to Update</h3>
+    <div *ngFor="let appointment of appointments; let i = index" class="appointment-item">
+      <button (click)="onAppointmentSelect(appointment)" class="btn btn-secondary">
+        Appointment {{i + 1}}: {{ appointment.surgeryDate }} - {{ appointment.status }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Display Appointment Details Form -->
+  <div *ngIf="appointmentDTO" class="form-container">
+    <form [formGroup]="registrationForm" (ngSubmit)="updateAppointment()">
+      <div class="form-group">
+        <label for="surgeryDate">Surgery Date:</label>
+        <input
+          type="date"
+          id="surgeryDate"
+          formControlName="surgeryDate"
+          class="form-control"
+          [value]="appointmentDTO.surgeryDate"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="surgeryRoom">Surgery Room:</label>
+        <input
+          type="text"
+          id="surgeryRoom"
+          formControlName="surgeryRoom"
+          class="form-control"
+          [value]="appointmentDTO.surgeryRoomId"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Appointment</button>
+    </form>
+  </div>
+
+  <!-- Display errors if any -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>

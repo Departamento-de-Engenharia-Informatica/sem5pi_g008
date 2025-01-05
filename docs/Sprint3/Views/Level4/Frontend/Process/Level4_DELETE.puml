@@ -1,0 +1,40 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Delete Method - Level 4
+note right of FrontendService
+  The request is the sent to one
+   of the Backoffices
+end note
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+TS" as Frontend
+participant "<<component>> Service" as FrontendService
+
+activate User
+
+    User -> Frontend : Request to delete something
+    activate Frontend
+
+  Frontend --> User : asks for confirmation
+
+    User -> Frontend : Confirms deletion
+    
+    Frontend --> FrontendService: create
+    activate FrontendService
+    
+    FrontendService --> Frontend : Return Success or Failure
+    deactivate FrontendService
+
+
+    Frontend --> User : Display confirmation prompt
+   deactivate Frontend
+   
+deactivate User
+
+@enduml

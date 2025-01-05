@@ -39,7 +39,6 @@ namespace Sempi5.Controllers
                 {
                     "admin" => Redirect(frontEndUrl + "/admin"),
                     "patient" => Redirect(frontEndUrl + "/patient"),
-                    "doctor" => Redirect(frontEndUrl + "/doctor"),
                     "unregistered" => Redirect(frontEndUrl + "/unregistered"),
                     _ => Redirect(frontEndUrl + "/staff")
                 };
@@ -64,7 +63,7 @@ namespace Sempi5.Controllers
 
             if (string.IsNullOrEmpty(role))
             {
-                return NotFound("Role not found.");
+                return Unauthorized("Role not found.");
             }
 
             return Ok(role);

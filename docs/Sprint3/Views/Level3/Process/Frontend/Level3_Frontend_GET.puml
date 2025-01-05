@@ -1,0 +1,30 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Get Method - Level 2
+
+autonumber
+
+actor "User" as User
+participant "Frontend" as FE
+participant "Backoffice/Backoffice2" as BE
+
+activate User
+
+    User -> FE : Asks to get something
+    activate FE
+
+        FE -> BE : Request to get something
+        activate BE
+
+            BE -> BE : Find something
+
+            BE --> FE : Return something
+            deactivate BE
+
+    FE --> User : Display something
+    deactivate FE
+@enduml

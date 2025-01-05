@@ -1,0 +1,53 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Get Method - Level 3
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+JS" as Frontend
+participant "<<component>> Service" as FrontendService
+participant "<<component>> Controller (Backend)" as Controller
+participant "<<component>> Service (Backend)" as BackendService
+participant "<<component>> Repository" as Repository
+
+activate User
+
+    User -> Frontend : Request to get something
+    activate Frontend
+
+
+    Frontend -> FrontendService : Requests to get something
+    activate FrontendService
+
+    FrontendService -> Controller : Forward HTTP GET request
+
+    activate Controller
+        Controller -> BackendService : Requests data from repository
+        activate BackendService
+
+            BackendService -> Repository : Fetch data
+            activate Repository
+
+                Repository --> BackendService : Return data
+            deactivate Repository
+
+            BackendService --> Controller : Return data
+        deactivate BackendService
+
+        Controller --> FrontendService : Return data or error
+    deactivate Controller
+
+    FrontendService --> Frontend : Return data or error
+    deactivate FrontendService
+
+    Frontend --> User : Display data to user
+   deactivate Frontend
+
+deactivate User
+
+@enduml

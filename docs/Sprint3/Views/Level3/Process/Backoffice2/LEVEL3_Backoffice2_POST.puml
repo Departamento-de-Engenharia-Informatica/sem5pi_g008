@@ -1,0 +1,36 @@
+﻿@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Post Method - Level 3
+
+autonumber
+
+participant "Frontend" as FE
+participant "BackEnd" as BE
+database "Mongo Database" as DB
+
+
+
+    activate FE
+
+        FE -> BE : Requests post operation
+        activate BE
+
+        BE -> DB : Create something
+        activate DB
+
+        DB --> BE : Return created \ninformation
+        deactivate DB
+
+
+            BE --> FE : Return Created or Error
+            deactivate BE
+
+
+        deactivate FE
+
+
+@enduml

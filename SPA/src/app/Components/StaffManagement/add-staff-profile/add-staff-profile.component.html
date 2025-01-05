@@ -33,12 +33,16 @@
 
   <div class="form-group">
     <label for="specialization">Specialization</label>
-    <input
+    <select
       id="specialization"
-      type="text"
       [(ngModel)]="newStaffProfile.Specialization"
-      name="email"
-    />
+      name="specialization"
+      required
+    >
+      <option *ngFor="let specialization of specializations" [value]="specialization">
+        {{ specialization }}
+      </option>
+    </select>
   </div>
 
   <div class="form-group">

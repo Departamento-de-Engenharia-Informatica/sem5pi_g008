@@ -1,0 +1,124 @@
+import {Component, OnInit} from '@angular/core';
+import {SurgeryRoomService} from '../../../../services/SurgeryRoomService/surgery-room.service';
+
+@Component({
+  selector: 'app-algav-todas-salas',
+  templateUrl: './algav-todas-salas.component.html',
+  styleUrl: './algav-todas-salas.component.css'
+})
+export class AlgavTodasSalasComponent implements OnInit {
+  surgeryPlan: any = {};
+  agenda: any = {};
+
+  formData = {
+    date: '',
+    room: ''
+  };
+
+  agendaRoom = {
+    agendaroomlist: [
+      {
+        date: 0,
+        room_id: '',
+        tasks: [
+          {
+            code: '',
+            start: 0,
+            end: 0
+          }
+        ]
+      }
+    ]
+  };
+
+  agendaStaff = {
+    agendastafflist: [
+      {
+        date: 0,
+        staff_id: '',
+        tasks: [
+          {
+            code: '',
+            start: 0,
+            end: 0
+          }
+        ]
+      }
+    ]
+  };
+
+  constructor(private surgeryService: SurgeryRoomService) {
+  }
+
+  ngOnInit(): void {
+    // this.getData();
+    // this.loadData();
+  }
+
+  // Método para obter o plano de cirurgia
+
+  searchSurgeryPlan() {
+
+    const {date} = this.formData;
+    console.log('Date:', date);
+    this.surgeryService.getSurgeryPlanTodasSalas(date).subscribe(data => {
+      this.surgeryPlan = data;
+      this.getData();
+      console.log('Surgery Plan:', this.surgeryPlan);
+    });
+  }
+
+  loadData(): void {
+    this.surgeryService.loadDataTodasSalas().subscribe({
+      next: (data) => {
+        console.log('loadData:', data);
+      },
+      error: (err) => {
+        console.error('Error fetching surgery rooms:', err);
+      }
+    });
+  }
+
+
+  getData(): void {
+    this.surgeryService.getDataTodasSalas().subscribe({
+      next: (data) => {
+        console.log('getData:', data);
+        this.agenda = data;
+
+      },
+      error: (err) => {
+        console.error('Error fetching surgery rooms:', err);
+      }
+    });
+  }
+
+  savedata(): void {
+    console.log('Agenda:',this.agenda);
+
+    this.agendaRoom = this.agenda.agendaroomlist;
+    this.agendaStaff = this.agenda.agendastafflist;
+
+    console.log('AgendaRoom:',this.agenda.agendaroomlist);
+    console.log('AgendaStaff:',this.agenda.agendastafflist);
+
+    console.log("Expected AgendaRoom:",this.agendaRoom);
+    console.log("Expected AgendaStaff:",this.agendaStaff);
+
+    this.surgeryService.postSurgeryPlanRoom(this.agendaRoom).subscribe(
+      {
+        next: (data) => {
+          console.log('postSurgeryPlanRoom:', data);
+        }
+      });
+
+    this.surgeryService.postSurgeryPlanStaff(this.agendaStaff).subscribe(
+      {
+        next: (data) => {
+          console.log('postSurgeryPlanStaff:', data);
+        }
+      });
+  }
+
+
+}

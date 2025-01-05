@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of, tap} from 'rxjs';
+import {map, Observable, of, tap} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {OperationType} from '../../Domain/OperationType';
 import {RequiredStaff} from "../../Domain/RequiredStaff";
 import json from "../../appsettings.json"
+import {SpecializationDTO} from '../../DTO/SpecializationDTO';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OperationTypeService {
-  private apiUrl = json.apiUrl + '/operationType';
+  private apiUrl = json.backendApi["1"].url + '/operationType';
+  private specializationsUrl = json.backendApi["1"].url + '/specialization';
 
   constructor(private http: HttpClient) {
   }
@@ -111,4 +113,17 @@ export class OperationTypeService {
       })
     );
   }
+
+  getSpecializations(): Observable<string[]> {
+    return this.http.get<SpecializationDTO[]>(`${this.specializationsUrl}`, { withCredentials: true }).pipe(
+      map((specializations: SpecializationDTO[]) =>
+        specializations.map(specialization => specialization.specializationName)
+      ),
+      catchError(error => {
+        console.error('Failed to load specializations:', error);
+        return of([]);
+      })
+    );
+  }
+
 }

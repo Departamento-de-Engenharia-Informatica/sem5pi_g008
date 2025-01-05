@@ -33,6 +33,18 @@ public class OperationRequestRepository : BaseRepository<OperationRequest, Opera
 
         return operationRequest;
     }
+    public async Task<List<OperationRequest>> GetallOperationRequest()
+    {
+        return await context.OperationRequests
+            .Include(o=>o.Doctor)
+            .Include(o=>o.Doctor).ThenInclude(o=>o.Person)
+            .Include(o=>o.Doctor).ThenInclude(o=>o.User)
+            .Include(r => r.Patient)
+            .Include(o=>o.Patient).ThenInclude(o=>o.Person)
+            .Include(r => r.Patient).ThenInclude(o=>o.User)
+            .Include(r => r.OperationType)
+            .ToListAsync();
+    }
 
     public async Task<OperationRequest> GetByIdAsync(OperationRequestID id)
     {

@@ -1,0 +1,100 @@
+.sub-header {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #555;
+  text-align: center;
+}
+
+.no-medical-record-conditions {
+  text-align: center; /* Alinha ao centro */
+  color: #555;
+  font-size: 18px;
+  margin-top: 20px;
+  font-style: italic; /* Estilo itálico para diferenciar */
+}
+
+
+.medical-record-condition-item {
+  padding: 10px; /* Reduzir o preenchimento interno */
+  margin-bottom: 5px; /* Diminuir o espaço entre os itens */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between; /* Melhor alinhamento dos itens */
+  align-items: flex-start;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+  transition: transform 0.2s ease-in-out; /* Transição suave no hover */
+}
+
+.medical-record-condition-item:hover {
+}
+
+.medical-record-condition-details {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.medical-record-condition-details p {
+  margin: 5px 0;
+  color: black;
+  text-align: left; /* Alinha o texto à esquerda */
+  font-size: 14px; /* Diminui o tamanho da fonte */
+}
+
+.edit-button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 14px;
+  width: 65px;
+}
+
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px); /* Efeito de hover mais dinâmico */
+}
+
+.medical-record-condition-actions {
+  display: flex;
+  gap: 10px; /* Reduzir o espaço entre os botões */
+  justify-content: flex-start; /* Alinhar os botões à esquerda */
+  margin-top: 5px; /* Reduzir a margem superior */
+}
+
+.medical-record-condition-list-container {
+  max-height: calc(2 * 125px); /* Altura para dois itens, ajustável */
+  overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+  padding-right: 10px; /* Espaço para a barra de rolagem */
+}
+
+.medical-record-condition-item {
+  margin-bottom: 10px; /* Espaçamento entre itens */
+}
+
+/* Contêiner para alinhar os botões */
+.filter-buttons-container {
+  display: flex; /* Ativa o layout flexbox */
+  justify-content: space-between; /* Alinha os itens aos extremos do contêiner */
+  align-items: center; /* Alinha verticalmente no centro */
+  margin-bottom: 10px; /* Espaçamento abaixo dos botões */
+}
+
+/* Botão Reset Filter */
+app-reset-filter-button {
+  margin-right: auto; /* Move o botão para a extrema esquerda */
+}
+
+/* Botão Filter */
+app-filter-button {
+  margin-left: auto; /* Move o botão para a extrema direita */
+}

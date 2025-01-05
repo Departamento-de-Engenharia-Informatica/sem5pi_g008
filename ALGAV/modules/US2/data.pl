@@ -1,5 +1,71 @@
 ﻿% For the Complexity Study
 
+:- use_module(library(http/thread_httpd)).
+    :- use_module(library(http/http_dispatch)).
+    :- use_module(library(http/http_json)).
+    :- use_module(library(http/http_parameters)).
+    :- use_module(library(lists)).
+    :- use_module(library(http/http_cors)).
+
+    :- set_prolog_flag(encoding, utf8).
+
+    % Cors: Permitir requisições de qualquer origem
+    :- set_setting(http:cors, [*]).
+
+    % Rota para /obtain_better_solution
+    :- http_handler(root(obtain_better_solution), handle_obtain_better_sol, []).
+
+    % Rota para outras requisições, se necessário
+    :- http_handler(root(sort_surgeries), handle_sort_surgeries, [method(get)]).
+
+    % Servidor HTTP na porta 8080
+    server(Port) :-
+        http_server(http_dispatch, [port(Port)]).
+
+    % Inicia o servidor automaticamente
+    :- initialization(start_server).
+
+    start_server :-
+        server(8080),
+        writeln('Servidor HTTP rodando na porta 8080').
+
+    %--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    % Predicado para processar a requisição de /obtain_better_solution
+    handle_obtain_better_sol(Request) :-
+        % Ativa CORS para a requisição
+        cors_enable,
+
+        % Processa os parâmetros da requisição HTTP
+        http_parameters(Request, [
+            room(Room, [atom]),
+            day(Day, [integer])
+        ]),
+
+        % Registra o tempo de início
+        get_time(Ti),
+
+        % Passa os parâmetros para a solução
+        obtain_better_sol(Room, Day, AgOpRoomBetter, LAgDoctorsBetter, TFinOp),
+
+        % Registra o tempo de término
+        get_time(Tf),
+
+        % Calcula o tempo de execução
+        T is Tf - Ti,
+
+        % Formata os resultados
+        maplist(format_ag_op_room_better, AgOpRoomBetter, AgOpRoomBetterFormatted),
+        maplist(format_doctors_agenda, LAgDoctorsBetter, LAgDoctorsBetterFormatted),
+
+        % Responde com JSON
+        reply_json_dict(_{
+            status: "success",
+            ag_op_room_better: AgOpRoomBetterFormatted,
+            doctors_agenda_better: LAgDoctorsBetterFormatted,
+            final_time: TFinOp,
+            generation_time: T  % Tempo de geração da solução
+        }, [encoding(utf8)]).
+
 agenda_staff(d001,20241028,[(720,790,m01),(1080,1140,c01)]).
 agenda_staff(d002,20241028,[(850,900,m02),(901,960,m02),(1380,1440,c02)]).
 agenda_staff(d003,20241028,[(720,790,m01),(910,980,m02)]).

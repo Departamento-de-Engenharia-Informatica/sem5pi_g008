@@ -1,0 +1,40 @@
+<div class="home-button-container">
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+<div class="profile-container">
+  <app-profile-menu class="profile-menu"></app-profile-menu>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h1>Allergy Management</h1>
+  </div>
+
+  <div class="content">
+    <button class="add-button" (click)="addAllergy()">Add Allergy</button>
+
+    <div class="allergy-list">
+      <div *ngIf="allergies.length === 0" class="no-allergies-message">
+        No allergies found
+      </div>
+
+      <div *ngFor="let allergy of allergies" class="allergy-item">
+        <div class="allergy-details">
+          <p><strong>Code:</strong> {{ allergy.code }}</p>
+          <p><strong>Designation:</strong> {{ allergy.designation }}</p>
+          <p><strong>Description:</strong> {{ allergy.description }}</p>
+          <p><strong>Effects:</strong></p>
+          <ul>
+            <li *ngFor="let effect of allergy.effects">{{ effect }}</li>
+          </ul>
+        </div>
+        <div class="allergy-actions">
+          <button class="edit-button" (click)="editAllergy(allergy)">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-confirm-modal></app-confirm-modal>

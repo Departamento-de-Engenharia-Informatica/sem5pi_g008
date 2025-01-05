@@ -1,0 +1,36 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title GET Method - Level 4
+
+note right of FrontendService
+  The request is sent to one
+  of the Backoffices
+end note
+
+autonumber
+
+actor "User" as User
+participant "<<component>> HTML+CSS+TS" as Frontend
+participant "<<component>> Service" as FrontendService
+
+activate User
+
+    User -> Frontend : Request to retrieve data
+    activate Frontend
+
+  Frontend --> FrontendService : Sends GET request
+    activate FrontendService
+
+    FrontendService --> Frontend : Returns requested data
+    deactivate FrontendService
+
+    Frontend --> User : Display retrieved data
+    deactivate Frontend
+
+deactivate User
+
+@enduml

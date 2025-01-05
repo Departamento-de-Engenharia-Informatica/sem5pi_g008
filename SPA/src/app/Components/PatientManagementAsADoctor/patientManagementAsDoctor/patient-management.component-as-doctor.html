@@ -1,0 +1,29 @@
+﻿<div class="home-button-container">
+  <app-home-button class="home-button"></app-home-button>
+</div>
+
+<div class="profile-container">
+  <app-profile-menu class="profile-menu"></app-profile-menu>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h1>Patient Profiles Management</h1>
+  </div>
+
+  <div class="content">
+    <!-- List of Patient Profiles -->
+    <div class="patient-profile-card" *ngFor="let patient of patientProfileList">
+      <div class="patient-details">
+        <p><strong>Full Name:</strong> {{ patient.fullName }}</p>
+        <p><strong>Email:</strong> {{ patient.email }}</p>
+        <p><strong>Birth Date:</strong> {{ patient.birthDate }}</p>
+        <p><strong>Phone Number:</strong> {{ patient.phoneNumber }}</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="view-button" (click)="viewPatientMedicalRecord(patient.id)">View Medical Record</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Sempi5.Domain.AppointmentAggregate;
 using Sempi5.Domain.Encrypt;
 using Sempi5.Domain.OperationRequestAggregate;
+using Sempi5.Domain.OperationRequestAggregate.DTOs;
 using Sempi5.Domain.PatientAggregate;
 using Sempi5.Domain.PersonalData;
 using Sempi5.Domain.PersonalData.Exceptions;
@@ -26,6 +27,7 @@ using Sempi5.Infrastructure.SpecializationRepository;
 using Sempi5.Infrastructure.StaffAggregate;
 using Sempi5.Infrastructure.StaffRepository;
 using Sempi5.Infrastructure.UserRepository;
+using Sempi5.Mappers;
 
 namespace Sempi5.Services
 {
@@ -71,7 +73,8 @@ namespace Sempi5.Services
             var person = await CreatePerson(staffDTO.FirstName, staffDTO.LastName, staffDTO.Email,
                 staffDTO.PhoneNumber);
 
-            var specialization = await CreateSpecialization(staffDTO.Specialization);
+            var specializationName = new SpecializationName(staffDTO.Specialization);
+            var specialization = this._specializationRepository.GetBySpecializationName(specializationName).Result;
 
             return new Staff(licenseNumber, person, specialization);
         }
@@ -84,22 +87,6 @@ namespace Sempi5.Services
             {
                 throw new LicenseNumberAlreadyInUseException("License Number already in use.");
             }
-        }
-
-        private async Task<Specialization> CreateSpecialization(string specializationName)
-        {
-            var specialiName = new SpecializationName(specializationName);
-
-            var specialization = new Specialization(specialiName);
-
-            var searchedSpecialization = await _specializationRepository.GetBySpecializationName(specialization);
-
-            if (searchedSpecialization != null)
-            {
-                return searchedSpecialization;
-            }
-
-            return specialization;
         }
 
         private async Task<Person> CreatePerson(string firstName, string lastName, string emailString,
@@ -154,6 +141,20 @@ namespace Sempi5.Services
 
             return staff;
         }
+        
+        public async Task<StaffDetailsDTO> GetStaffDetailsById(string id)
+        {
+            var staff = await _staffRepository.GetActiveStaffById(new StaffId(id));
+            
+            if (staff == null)
+            {
+                throw new ArgumentException("Staff not found.");
+            }
+
+            var staffDTO = StaffMapper.toDTO(staff);
+            
+            return staffDTO;
+        }
 
 
         public async Task<StaffDTO> EditStaffProfile(EditStaffDTO editStaffDto)
@@ -186,7 +187,14 @@ namespace Sempi5.Services
 
             if (editStaffDto.specialization != null)
             {
-                staff.Specialization = await CreateSpecialization(editStaffDto.specialization);
+                var specialization = new SpecializationName(editStaffDto.specialization);
+                var aux = _specializationRepository.GetBySpecializationName(specialization).Result;
+                if (aux == null)
+                {
+                    throw new SpecializationNotFoundException("Specialization not found.");
+                }
+
+                staff.Specialization = aux;
             }
 
             await _unitOfWork.CommitAsync();
@@ -252,10 +260,9 @@ namespace Sempi5.Services
         public async Task<List<SearchedStaffDTO>> ListStaffBySpecialization(SpecializationNameDTO specializationDto)
         {
             var specializationName = new SpecializationName(specializationDto.specializationName);
-            var specializationToSearch = new Specialization(specializationName);
 
             var specialization = await
-                _specializationRepository.GetBySpecializationName(specializationToSearch);
+                _specializationRepository.GetBySpecializationName(specializationName);
 
             if (specialization == null)
             {
@@ -307,7 +314,7 @@ namespace Sempi5.Services
             var staff = await _staffRepository.GetByEmail(doctorEmail);
             var doctorId = staff.Id.AsString();
             var operationRequest = await _operationRequestRepository.GetOperationRequestById(id);
-           // var operationRequest = await _operationRequestRepository.GetByDoctorId(doctorId);
+            // var operationRequest = await _operationRequestRepository.GetByDoctorId(doctorId);
 
 
             if (operationRequest == null)
@@ -357,36 +364,51 @@ namespace Sempi5.Services
         }
 
 
-        public async Task<List<OperationRequest>> SearchRequestsAsync(string patientName, string type, string priority,
-            string status,string doctorEmail)
+        public async Task<List<OperationRequestDataDto>> SearchRequestsAsync(string patientName, string type,
+            string priority,
+            string status, string doctorEmail)
         {
             try
             {
                 string doctorId = (await _staffRepository.GetByEmail(doctorEmail)).Id.AsString();
                 List<OperationRequest> operationRequests = new List<OperationRequest>();
-                List<OperationRequest> operationRequests_status = new List<OperationRequest>();
-                operationRequests = await _operationRequestRepository.SearchAsyncWithDoctocId(patientName, type, priority,doctorId);
-                
-                if (status != null)
+                List<OperationRequestDataDto> operationRequests_status = new List<OperationRequestDataDto>();
+                operationRequests =
+                    await _operationRequestRepository.SearchAsyncWithDoctocId(patientName, type, priority, doctorId);
+                for (int i = 0; i < operationRequests.Count; i++)
                 {
-                    for (int i = 0; i < operationRequests.Count; i++)
+                    var operationRequestDataDto = new OperationRequestDataDto();
+                    var operationRequest = operationRequests[i];
+                    var appointment =
+                        await _appointmentRepository.getAppointmentByOperationRequestID(
+                            operationRequest.Id.AsLong());
+
+                    operationRequestDataDto.operationRequestId = operationRequest.Id.AsString();
+                    operationRequestDataDto.patientName = operationRequest.Patient.Person.FullName.ToString();
+                    operationRequestDataDto.operationName = operationRequest.OperationType.Name.ToString();
+                    operationRequestDataDto.operationType = operationRequest.OperationType.Name.ToString();
+                    operationRequestDataDto.deadline = operationRequest.DeadLineDate.ToString();
+                    operationRequestDataDto.priority = operationRequest.PriorityEnum.ToString();
+
+                    if (appointment != null)
                     {
-                        var operationRequest = operationRequests[i];
-                        var appointment =
-                            await _appointmentRepository.getAppointmentByOperationRequestID(
-                                operationRequest.Id.AsLong());
-                        if (appointment != null)
+                        if (status != null)
                         {
                             if (appointment.Status.ToString().ToLower().Equals(status.ToLower()))
                             {
-                                operationRequests_status.Add(appointment.OperationRequest);
+                                operationRequestDataDto.status = appointment.Status.ToString();
+                                operationRequests_status.Add(operationRequestDataDto);
                             }
                         }
+                        else
+                        {
+                            operationRequestDataDto.status = appointment.Status.ToString();
+                            operationRequests_status.Add(operationRequestDataDto);
+                        }
+                    }else
+                    {
+                        operationRequests_status.Add(operationRequestDataDto);
                     }
-                }
-                else
-                {
-                    operationRequests_status = operationRequests;
                 }
 
                 return operationRequests_status;
@@ -397,6 +419,11 @@ namespace Sempi5.Services
                 throw new ApplicationException($"An error occurred while searching for operation requests: {e.Message}",
                     e);
             }
+        }
+
+        public async Task<List<Staff>>getStaff()
+        {
+            return await _staffRepository.GetAllActiveStaff();
         }
     }
 }

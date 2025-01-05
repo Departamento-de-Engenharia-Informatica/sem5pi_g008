@@ -1,0 +1,47 @@
+<h2 class="sub-header">Medical Conditions</h2>
+
+
+<div class="filter-buttons-container">
+  <app-reset-filter-button *ngIf="currentFilter"
+                           (click)="handleResetFilter()">
+  </app-reset-filter-button>
+
+  <app-filter-button *ngIf="medicalRecordConditions.length > 0"
+                     [filters]="['Code','Designation']"
+                     (filterSelected)="handleSelectedFilter($event)">
+  </app-filter-button>
+</div>
+
+
+
+<div *ngIf="errorMessage" class="no-medical-record-conditions">
+  <p>{{ errorMessage }}</p>
+</div>
+<div class="medical-record-condition-list-container">
+  <div *ngFor="let medicalRecordCondition of medicalRecordConditions" class="medical-record-condition-item">
+    <div class="medical-record-condition-details">
+
+      <p><strong>Condition Code:</strong> {{ medicalRecordCondition.conditionCode }}</p>
+      <p><strong>Condition Designation:</strong> {{ medicalRecordCondition.conditionDesignation }}</p>
+      <p *ngIf="!medicalRecordCondition.doctorLicenseNumber">
+        <strong>Doctor:</strong> {{ medicalRecordCondition.doctorName }}
+      </p>
+      <p *ngIf="medicalRecordCondition.doctorLicenseNumber">
+        <strong>Doctor Name:</strong> {{ medicalRecordCondition.doctorName }}
+      </p>
+      <p *ngIf="medicalRecordCondition.doctorLicenseNumber">
+        <strong>Doctor License Number:</strong> {{ medicalRecordCondition.doctorLicenseNumber }}
+      </p>
+      <p><strong>Comment:</strong> {{ medicalRecordCondition.comment }}</p>
+    </div>
+    <div class="medical-record-condition-actions">
+      <button class="edit-button" (click)="redirectToEdit(medicalRecordCondition.domainId)">Edit</button>
+    </div>
+  </div>
+</div>
+
+
+<app-enter-filter-name
+  (filterTypeToEmit)="currentFilter = $event"
+  (nameToFilter)="handleEnterFilterValue($event)"
+>></app-enter-filter-name>

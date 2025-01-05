@@ -1,0 +1,139 @@
+.algav-container {
+  max-width: 600px; /* Updated to match the new max-width */
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Similar to the new background color */
+}
+
+h1 {
+  text-align: center;
+  color: #333; /* Updated color to match the new style */
+  margin-bottom: 30px;
+}
+
+.search-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Increased margin-bottom to match the new style */
+}
+
+label {
+  display: block; /* Set label display block to align with the new style */
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555; /* Adjusted color to match the new style */
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #e0e0e0; /* Adjusted border color to match new styles */
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Slightly changed background for input fields */
+}
+
+button {
+  margin-top: 10px; /* Adjusted margin for a better layout */
+  padding: 10px 20px;
+  background-color: #007BFF; /* Updated to match button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.btn-primary {
+  background-color: #007BFF; /* Updated to match the new primary button color */
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.table-container {
+  margin-top: 30px;
+}
+
+.surgery-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.surgery-table th, .surgery-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #e0e0e0; /* Adjusted border color to match new style */
+}
+
+.surgery-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.surgery-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.surgery-table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+strong {
+  font-weight: bold;
+  color: #e53935;
+}
+
+.ng-template p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.no-data-message {
+  font-size: 1.1rem;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.staff-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}

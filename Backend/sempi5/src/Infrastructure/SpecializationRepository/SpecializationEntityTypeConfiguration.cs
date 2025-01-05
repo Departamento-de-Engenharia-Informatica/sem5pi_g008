@@ -28,9 +28,35 @@ public class SpecializationEntityTypeConfiguration : IEntityTypeConfiguration<Sp
                 s => new SpecializationName(s)
             )
             .HasMaxLength(100);
+        
+        builder.Property(s => s.specializationCode)
+            .IsRequired()
+            .HasConversion(
+                s => s.ToString(),
+                s => new SpecializationCode(s)
+            )
+            .HasMaxLength(10);
+        
+        builder.HasIndex(s => s.specializationCode)
+            .IsUnique();
+        
+        builder.Property(s => s.specializationDescription)
+            .IsRequired()
+            .HasConversion(
+                s => s.ToString(),
+                s => new SpecializationDescription(s)
+            )
+            .HasMaxLength(500);
 
         builder.HasIndex(s => s.specializationName)
             .IsUnique();
+        
+        builder.Property(p => p.specializationStatus)
+            .IsRequired()
+            .HasConversion(
+                p => p.ToString(),
+                p => (SpecializationStatusEnum)Enum.Parse(typeof(SpecializationStatusEnum), p)
+            );
 
     }
 }

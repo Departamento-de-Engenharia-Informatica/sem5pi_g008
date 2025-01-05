@@ -12,14 +12,17 @@ export class AdminMenuComponent {
   private auth: AuthService;
 
   menuItems = [
-    /* The menus are temporary and will need to be replaced with the actual menu items
-       but because they are not yet implemented I created some placeholders */
-    { title: 'Operation Type Management', icon: 'assets/icons/dashboard.png', link: '/admin/operationTypeManagement' },
-    { title: 'Staff Management', icon: 'assets/icons/users.png', link: '/admin/staff' },
-    {title : 'Patient Management', icon: 'assets/icons/patient.png', link: '/admin/patient'},
-    {title : 'Delete Pendent Users', icon: 'assets/icons/patient.png', link: '/patient/checkUserToDelete'},
-    { title: '3D',icon: 'assets/icons/3d.png', link: '/3d' }
-
+    {title: 'Operation Type Management', icon: 'assets/icons/dashboard.png', link: '/admin/operationTypeManagement'},
+    {title: 'Staff Management', icon: 'assets/icons/users.png', link: '/admin/staff'},
+    {title: 'Patient Management', icon: 'assets/icons/patient.png', link: '/admin/patient'},
+    {title: 'Delete Pendent Users', icon: 'assets/icons/patient.png', link: '/patient/checkUserToDelete'},
+    {title: '3D', icon: 'assets/icons/3d.png', link: '/3d'},
+    {title: 'Specialization Management', icon: 'assets/icons/dashboard.png', link: '/admin/specialization'},
+    {title: 'Allergy Management', icon: 'assets/icons/dashboard.png', link: '/admin/allergyManagement'},
+    {title: 'Medical Condition Management', icon: 'assets/icons/dashboard.png', link: '/admin/medicalConditionManagement'},
+    {title: 'algav', icon: 'assets/icons/patient.png', link: 'algav'},
+    {title: 'Add Room Types', icon: 'assets/icons/roomTypess.png', link: ''},
+    {title: 'algav Todas Salas', icon: 'assets/icons/patient.png', link: 'algavTodasSalas'},
   ];
 
   constructor(@Inject(AuthService) auth: AuthService) {

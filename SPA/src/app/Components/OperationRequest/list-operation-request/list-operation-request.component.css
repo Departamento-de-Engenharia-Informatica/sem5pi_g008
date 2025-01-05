@@ -1,104 +1,250 @@
-/* Basic styling for the form container */
-.search-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Estilo Global */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-.search-form h2 {
-  text-align: center;
+/* Container Principal */
+.search-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Título */
+h2 {
+  font-size: 24px;
   color: #333;
   margin-bottom: 20px;
 }
 
-.search-form div {
-  margin-bottom: 15px;
+/* Formulário de Pesquisa */
+.content form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.search-form label {
-  display: block;
+.content label {
   font-size: 14px;
   color: #555;
   margin-bottom: 5px;
+  display: block;
 }
 
-.search-form input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
+.content input {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   color: #333;
+  transition: all 0.3s ease;
 }
 
-.search-form input:focus {
-  border-color: #0056b3;
+.content input:focus {
+  border-color: #007bff;
   outline: none;
 }
 
-.search-form button {
-  width: 100%;
-  padding: 12px;
+/* Botão de Pesquisa */
+button[type="submit"] {
+  padding: 10px 20px;
   background-color: #007bff;
-  color: white;
   border: none;
-  border-radius: 4px;
+  color: white;
   font-size: 16px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.search-form button:hover {
+button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Results table styling */
-.results {
-  margin-top: 30px;
-  max-width: 800px;
-  margin: 0 auto;
+/* Botão Criar Agendamento - Centralizado */
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.results h3 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+.create-appointment-btn {
+  padding: 12px 25px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-appointment-btn:disabled {
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+.create-appointment-btn:hover {
+  background-color: #218838;
+}
+
+/* Resultados da Pesquisa */
+.results {
+  margin-top: 30px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  background-color: #fff;
+  margin-top: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
+thead {
   background-color: #007bff;
   color: white;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
 }
 
-tr:hover {
+tbody tr {
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Message when no results found */
-.results p {
-  text-align: center;
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+button {
+  padding: 6px 12px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 8px;
+}
+
+button:hover {
+  background-color: #c82333;
+}
+
+button:last-child {
+  background-color: #ffc107;
+}
+
+button:last-child:hover {
+  background-color: #e0a800;
+}
+
+/* Mensagem quando não há resultados */
+p {
   font-size: 16px;
-  color: #888;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .content form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .content input {
+    width: 100%;
+  }
+
+  .create-appointment-btn {
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}
+/* Barra azul para resultados */
+.results {
+  background-color: #007bff; /* Cor azul */
+  padding: 20px 0; /* Espaço vertical */
+  width: 100%; /* Certificar-se de que a largura é 100% */
+}
+
+/* Tabela de Resultados */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+}
+
+thead {
+  background-color: #007bff; /* Azul no cabeçalho da tabela */
+  color: white;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+}
+
+tbody tr {
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+/* Style for the button */
+.add-button {
+  padding: 10px 20px;       /* Add padding for the button */
+  font-size: 16px;          /* Set a reasonable font size */
+  background-color: #007bff; /* Button color */
+  margin: 0 100px;
+  color: white;             /* Text color */
+  border: none;             /* Remove the default border */
+  border-radius: 5px;       /* Round corners */
+  cursor: pointer;          /* Show a pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+}
+
+/* Add hover effect for the button */
+.add-button:hover {
+  background-color: #0056b3; /* Darken the button color on hover */
 }

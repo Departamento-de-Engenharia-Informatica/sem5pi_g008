@@ -49,4 +49,9 @@ public class RequiredStaffRepository : BaseRepository<RequiredStaff, RequiredSta
 
         return requiredStaffObj;
     }
+
+    public async Task<List<RequiredStaff>> GetAllRequiredAsync()
+    {
+        return await context.RequiredStaffs.Include(o=>o.Specialization).ToListAsync();
+    }
 }

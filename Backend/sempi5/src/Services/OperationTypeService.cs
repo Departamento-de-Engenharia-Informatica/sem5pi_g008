@@ -51,10 +51,13 @@ public class OperationTypeService
         foreach (var requiredStaffDto in dto.RequiredStaff)
         {
             var requiredStaff = RequiredStaffDtoToObject(requiredStaffDto);
-            var specialization = await _specializationRepository.GetBySpecializationName(requiredStaff.Specialization);
+            var specialization = await _specializationRepository.GetBySpecializationName(requiredStaff.Specialization.specializationName);
             if (specialization != null)
             {
                 requiredStaff.Specialization = specialization;
+            } else
+            {
+                throw new ArgumentException("Specialization not found.");
             }
 
             operationType.AddRequiredStaff(requiredStaff);
@@ -65,9 +68,16 @@ public class OperationTypeService
 
     public RequiredStaff RequiredStaffDtoToObject(RequiredStaffDTO dto)
     {
-        var specialization = new Specialization(new SpecializationName(dto.Specialization));
+        
+        var specializationName = new SpecializationName(dto.Specialization);
+        var specialization = _specializationRepository.GetBySpecializationName(specializationName);
+        if(specialization.Result == null)
+        {
+            throw new ArgumentException("Specialization not found.");
+        }
+        
         var numberOfStaff = new NumberOfStaff(dto.NumberOfStaff);
-        var requiredStaff = new RequiredStaff(numberOfStaff, specialization);
+        var requiredStaff = new RequiredStaff(numberOfStaff, specialization.Result);
         return requiredStaff;
     }
 
@@ -108,12 +118,12 @@ public class OperationTypeService
         }
 
         var requiredStaff = RequiredStaffDtoToObject(requiredStaffDto);
-        var specialization = await _specializationRepository.GetBySpecializationName(requiredStaff.Specialization);
-        if (specialization != null)
-        {
-            requiredStaff.Specialization = specialization;
-        }
 
+        if(requiredStaff.Specialization == null)
+        {
+            throw new ArgumentException("Specialization not found.");
+        }
+        
         operationType.AddRequiredStaff(requiredStaff);
         await _unitOfWork.CommitAsync();
     }
@@ -300,5 +310,15 @@ public class OperationTypeService
             CleaningDuration = operationType.CleaningDuration.ToString(),
             RequiredStaff = requiredStaffDTOs
         };
+    }
+
+    public  async Task<List<OperationType>> getOperationType()
+    {
+        return await _operationTypeRepository.GetAllOperationTypeAsync();
+        
+    }
+    public async Task<List<RequiredStaff>> getRequiredStaff()
+    {
+        return await _requiredStaffRepository.GetAllRequiredAsync();
     }
 }

@@ -172,6 +172,10 @@ search_pending_surgeries(Date, Room) :-
 
     findall(Surgery, surgery_id(Surgery, _), SurgeryList),
     schedule_pending_surgeries(SurgeryList,Date,Room),
+      % ,
+            %retractall(aux_rooms(Room)),
+           % ( aux_rooms(Room_aux), findall(_, (member((_, _, Surgery), BestSolution),retractall(surgery_id(Surgery, _))),_),
+          %   search_pending_surgeries(Date, Room_aux) ; true),
         statistics(runtime, [End|_]),
 
                 format('Tempo de execução end: ~w ms\n', [End]),

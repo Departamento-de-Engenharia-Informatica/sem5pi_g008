@@ -44,6 +44,8 @@ namespace Sempi5.Infrastructure.StaffRepository
             return context.StaffMembers.Include(p => p.Person)
                 .Include(p => p.Specialization)
                 .Include(p=>p.User)
+                .Include(p => p.Person)
+                .Include(p=>p.StaffAgendas)
                 .FirstOrDefaultAsync(p => p.Id.Equals(id) && p.Status.Equals(StaffStatusEnum.ACTIVE)); //&& p.Status.Equals(StaffStatusEnum.ACTIVE));
         }
         
@@ -92,9 +94,22 @@ namespace Sempi5.Infrastructure.StaffRepository
             return await context.StaffMembers
                 .Include(p => p.Person)
                 .Include(p => p.Specialization)
+                .Include(p=>p.StaffAgendas)
                 .Where(p => p.Status.Equals(StaffStatusEnum.ACTIVE))
                 .ToListAsync();
         }
+
+        public async Task update(Staff staffUpdate)
+        {
+            if (staffUpdate == null)
+            {
+                throw new ArgumentNullException(nameof(staffUpdate));
+            }
+             context.StaffMembers.Update(staffUpdate);
+             context.SaveChanges();
+        }
+
+
 
         public Task<Staff?> GetActiveStaffByEmail(Email email)
         {

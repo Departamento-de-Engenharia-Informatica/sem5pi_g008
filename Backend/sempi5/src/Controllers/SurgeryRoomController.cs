@@ -29,4 +29,19 @@ public class SurgeryRoomController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    
+    [Authorize(Policy = "Staff")]
+    [HttpGet("info")]
+    public async Task<IActionResult> GetRoomsInfo()
+    {
+        try
+        {
+            var roomsInfo = await _surgeryRoomService.getRoomsInfo();
+            return Ok(roomsInfo);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

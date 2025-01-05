@@ -247,7 +247,28 @@ namespace Sempi5.Controllers.StaffControllers
                 return BadRequest(e.Message);
             }
         }
-
+        
+        [HttpGet("by-id/{staffId}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetStaffById(string staffId)
+        {
+            try
+            {
+                var staffDetailsDTO = await _staffService.GetStaffDetailsById(staffId);
+                
+                return Ok(staffDetailsDTO);
+            }
+            catch (StaffProfilesNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        
         [HttpDelete("request/deleteRequest/{requestId}")]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> DeleteRequest(string requestId)
@@ -255,7 +276,7 @@ namespace Sempi5.Controllers.StaffControllers
             try
             {
                 await _staffService.DeleteRequestAsync(getEmail(), requestId);
-                return Ok(new {message="Operation request deleted successfully"});
+                return Ok(new { message = "Operation request deleted successfully" });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -289,8 +310,11 @@ namespace Sempi5.Controllers.StaffControllers
 
         [HttpGet("search/requests/{patientName?}/{operationType?}/{priority?}/{status?}")]
         [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> SearchRequests(string patientName,string operationType,string priority,string status)
+        public async Task<IActionResult> SearchRequests(string patientName, string operationType, string priority,
+            string status)
         {
+            
+            //TODO: cache quando dou rollback guarda a minha ultima pesquisa
             SeachFilterDto seachFilterDto = new SeachFilterDto
             {
                 patientName = patientName.ToLower() == "null" ? null : patientName,
@@ -301,45 +325,24 @@ namespace Sempi5.Controllers.StaffControllers
             try
             {
                 var requests = await _staffService.SearchRequestsAsync(seachFilterDto.patientName, seachFilterDto.type,
-                    seachFilterDto.priority, seachFilterDto.status,getEmail());
+                    seachFilterDto.priority, seachFilterDto.status, getEmail());
 
-                if (seachFilterDto.status != null)
+                var tableData = new List<object>();
+
+                for (int i = 0; i < requests.Count; i++)
                 {
-                    var tableData = new List<object>();
-
-                    for (int i = 0; i < requests.Count; i++)
+                    var operationRequest = requests[i];
+                    tableData.Add(new
                     {
-                        var operationRequest = requests[i];
-                        tableData.Add(new
-                        {
-                            ID= operationRequest.Id,
-                            PatientName = operationRequest.Patient.Person?.FullName.ToString(),
-                            OperationType = operationRequest.OperationType.Name.ToString(),
-                            Priority = operationRequest.PriorityEnum.ToString(),
-                            Status = seachFilterDto.status
-                        });
-                    }
-
-                    return Ok( tableData );
+                        ID = operationRequest.operationRequestId,
+                        PatientName = operationRequest.patientName,
+                        OperationType = operationRequest.operationType,
+                        Priority = operationRequest.priority,
+                        Status = operationRequest.status
+                    });
                 }
-                else
-                {
-                    var tableData = new List<object>();
 
-                    for (int i = 0; i < requests.Count; i++)
-                    {
-                        var operationRequest = requests[i];
-                        tableData.Add(new
-                        {
-                            ID= operationRequest.Id,
-                            PatientName = operationRequest.Patient.Person?.FullName.ToString(),
-                            OperationType = operationRequest.OperationType.Name.ToString(),
-                            Priority = operationRequest.PriorityEnum.ToString(),
-                        });
-                    }                    
-                    return Ok( tableData );
-
-                }
+                return Ok(tableData);
             }
             catch (Exception e)
             {

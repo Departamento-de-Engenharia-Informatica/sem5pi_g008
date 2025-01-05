@@ -42,6 +42,9 @@ namespace Sempi5.Infrastructure.SurgeryRoomRepository
                     v => v.AsInt(),
                     v => new RoomCapacity(v)
                 );
+            builder.HasMany(t=>t.RoomAgendas)
+                .WithOne()
+                .HasForeignKey("SurgeryRoomID");
         }
     }
 }
