@@ -23,10 +23,10 @@ export class MedicalRecordAllergyListComponent implements OnInit {
   public searchQuery: string = "";
 
   ngOnInit(): void {
-    this.fetchMedicalRecordConditions();
+    this.fetchMedicalRecordAllergies();
   }
 
-  fetchMedicalRecordConditions(): void {
+  fetchMedicalRecordAllergies(): void {
     this.medicalRecordAllergyService
       .listAllergiesInMedicalRecord(this.medicalRecordId)
       .subscribe(
