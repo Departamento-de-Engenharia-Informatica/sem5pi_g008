@@ -67,6 +67,12 @@ export default class MedicalRecordService implements IMedicalRecordService{
       const allergy = await this.allergyRepo.getById(dto.allergy);
       dto.allergy = allergy.designation;
       const doctor = await this.getStaffDetails(dto.doctor);
+      
+      if(!doctor){
+        dto.doctor = "Unknown";
+        return dto;
+      }
+      
       dto.doctor = doctor.firstName + " " + doctor.lastName;
       return dto;
     }

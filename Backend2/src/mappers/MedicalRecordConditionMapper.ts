@@ -31,7 +31,7 @@ export class MedicalRecordConditionMapper extends Mapper<MedicalRecordCondition>
         conditionCode: condition.code.value,
         conditionDesignation: condition.designation.value,
         medicalRecordId: medicalRecordBusinessId.toString(),
-        doctorName: "Invalid",
+        doctorName: "Unknown",
         comment: domain.comment
       } as IMedicalRecordConditionDTO;
     }
