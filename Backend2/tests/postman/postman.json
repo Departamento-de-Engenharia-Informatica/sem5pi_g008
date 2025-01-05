@@ -4007,12 +4007,12 @@
 										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {\r",
-											"    pm.response.to.have.status(404);\r",
+											"    pm.response.to.have.status(404); \r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response contains error message for not found\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"Medical record not found\");\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"Medical record not found\"); // Verifica se a mensagem contém \"Medical record not found\"\r",
 											"});\r",
 											""
 										],
@@ -4026,7 +4026,7 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Cookie",
@@ -4036,14 +4036,14 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"payload\": {\r\n    \"id\": \"nonexistent_id\", \r\n    \"comment\": \"This is a comment for a non-existent record.\"\r\n  }\r\n}\r\n",
+									"raw": "{\r\n    \"payload\": {\r\n        \"id\": \"nonexistent_id\",\r\n        \"comment\": \"This is a comment for a non-existent record.\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{backend2_url}}/api/medicalrecordConditions"
+								"url": "{{backend2_url}}/api/medicalRecord/medicalrecordConditions"
 							},
 							"response": []
 						},
@@ -4075,7 +4075,7 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Cookie",
@@ -4092,57 +4092,7 @@
 										}
 									}
 								},
-								"url": "{{backend2_url}}/api/medicalrecordConditions"
-							},
-							"response": []
-						},
-						{
-							"name": "Medical Record Condition Update  comment-  Failure Copy 2",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
-										"exec": [
-											"pm.test(\"Status should be 404\", function () {\r",
-											"    pm.response.to.have.status(404);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
-											"    var jsonResponse = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "5ee0e6d8-c5a2-42bd-b815-e9d8d11bbcee",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{backend2_url}}/api/medicalrecordConditions"
+								"url": "{{backend2_url}}/api/medicalRecord/medicalrecordConditions"
 							},
 							"response": []
 						}
