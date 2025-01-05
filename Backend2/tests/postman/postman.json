@@ -4509,13 +4509,55 @@
 					"item": [
 						{
 							"name": "SearchAllergy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "49f71c0f-abee-4d6a-b84b-2a9d8a01e103",
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has 'allergies' array with exactly 1 element\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.have.property('allergies').that.is.an('array').with.lengthOf(1, \"Array 'medicalRecordConditions' should have exactly 1 element\");\r",
+											"  \r",
+											"  // Optionally, check that each element in the array has the required fields\r",
+											"  pm.expect(responseData.allergies[0]).to.have.all.keys(\r",
+											"    'code', 'designation', 'description', 'effects'\r",
+											"  );\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "a9062efa-20bb-4a29-919b-f1696511434d",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/allergy/AL10"
 							},
 							"response": []
 						}
@@ -4527,18 +4569,80 @@
 					"item": [
 						{
 							"name": "AddFreeText",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dc0db028-b779-47bf-8e10-6935fdcb8d82",
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 201\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('Comment added successfully', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "e598c78b-cc39-414e-955c-86f15bea793c",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{ruteDoctorCookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"medicalRecordId\":\"20250100005\",\r\n    \"doctorId\":\"N202400005\",\r\n    \"comment\":\"Needs a lung transplant\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{backend2_url}}/api/medicalRecord/freeText",
+									"host": [
+										"{{backend2_url}}"
+									],
+									"path": [
+										"api",
+										"medicalRecord",
+										"freeText"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
 							},
 							"response": []
 						}
 					],
 					"id": "a0a5e115-0e35-4f52-916d-92851e65a068"
+				},
+				{
+					"name": "US-7.2.6",
+					"item": [],
+					"id": "ad0a9e04-ec74-4061-9724-17bfda394f44"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
