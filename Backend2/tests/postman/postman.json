@@ -3668,50 +3668,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"medicalRecord\": \"12345\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{backend2_url}}/api/familyhistory"
-									},
-									"response": []
-								},
-								{
-									"name": "Add Family History - Failure",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
-												"exec": [
-													"pm.test(\"Status code is 400 or 422\", function () {\r",
-													"    pm.response.to.have.status(400); // ou 422\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response contains error message for missing medicalRecord\", function () {\r",
-													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"medicalRecord is required\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "033c0f86-771b-4ec3-8ae3-a790f19f91e5",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"medicalRecord\": \"\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
+											"raw": "{\r\n  \"medicalRecord\": \"20250100005\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Test Disease\"\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
