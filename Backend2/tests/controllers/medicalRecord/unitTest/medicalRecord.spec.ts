@@ -16,7 +16,9 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             getMedicalRecordConditionByCode: sandbox.stub(),
             getMedicalRecordConditionByDesignation: sandbox.stub(),
             getMedicalRecordConditions: sandbox.stub(),
-            getAllergies: sandbox.stub()
+            getAllergies: sandbox.stub(),
+            getFreeTexts: sandbox.stub(),
+            addFreeText: sandbox.stub()
         };
 
         medicalRecordController = new MedicalRecordController(medicalRecordServiceMock);
@@ -181,5 +183,94 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             expect(res.json.calledWith({body: []})).toBe(true);
         });
     });
+    describe('addFreeText', function () {
+        it('should create a free text comment successfully using service stub', async function () {
+
+            const body = {
+                medicalRecordId: '20250100005',
+                doctorId: 'N202400005',
+                comment: 'only has one teeth'
+            };
+
+            const req = { body };
+
+            const res = {
+                status: sinon.stub().returnsThis(),
+                json: sinon.stub()
+            };
+
+            const next = sinon.spy();
+
+            const medicalRecordServiceMock = {
+                addFreeText: sinon.stub().resolves({ message: 'Comment created successfully' })
+            };
+
+            const controller = async (req, res, next) => {
+                try {
+                    const result = await medicalRecordServiceMock.addFreeText(req.body);
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            };
+
+
+            await controller(req, res, next);
+
+            expect(medicalRecordServiceMock.addFreeText.calledOnce).toBe(true);
+            expect(medicalRecordServiceMock.addFreeText.calledWith(req.body)).toBe(true);
+            expect(res.status.calledOnce).toBe(true);
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledOnce).toBe(true);
+            expect(res.json.calledWith({ message: 'Comment created successfully' })).toBe(true);
+            expect(next.called).toBe(false);
+        });
+    });
+
+
+
+
+
+    describe('getFreeTexts', ()=>{
+        it("should return medical record free texts when service succeeds", async()=>{
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+            const mockFreeTexts = [{ medicalRecord: "20250100005", doctorId: "N202400005" ,comment: "He needs a lung transplant" }];
+
+            medicalRecordServiceMock.getFreeTexts.resolves(mockFreeTexts);
+
+            await medicalRecordController.getFreeTexts(req, res);
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledWith({ body: mockFreeTexts })).toBe(true);
+        })
+
+        it("should return NoMedicalRecordException", async () => {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+
+            medicalRecordServiceMock.getFreeTexts.rejects(new NoMedicalRecordException());
+
+            await medicalRecordController.getFreeTexts(req, res);
+
+            expect(res.status.calledWith(500)).toBe(true);
+            expect(res.json.calledWith({ message: "No medical record found." })).toBe(true);
+        });
+
+        it("should return empty MedicalRecordFreeText list", async () => {
+            const req = { params: { id: "test-id" } };
+            const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
+
+            medicalRecordServiceMock.getFreeTexts.resolves([]);
+
+            await medicalRecordController.getFreeTexts(req, res);
+
+            expect(res.status.calledWith(200)).toBe(true);
+            expect(res.json.calledWith({body: []})).toBe(true);
+        });
+
+    });
+
+
+
 });
 

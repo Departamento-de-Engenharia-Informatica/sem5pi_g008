@@ -10,11 +10,9 @@ import {Designation} from "../../../../src/domain/Shared/designation";
 import {Description} from "../../../../src/domain/Shared/description";
 import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
 import MedicalRecordController from "../../../../src/controllers/medicalRecordController";
-import IMedicalRecordAllergyRepo from "../../../../src/services/IRepos/IMedicalRecordAllergyRepo";
-import exp from "node:constants";
-import {functionsIn} from "lodash";
 import {MedicalRecordAllergy} from "../../../../src/domain/MedicalRecordAllergy/MedicalRecordAllergy";
 import {Allergy} from "../../../../src/domain/Allergy/Allergy";
+import {MedicalRecordFreeText} from "../../../../src/domain/MedicalRecordFreeText/MedicalRecordFreeText";
 
 describe('MedicalRecordController - Integration', function () {
     const sandbox = sinon.createSandbox();
@@ -51,6 +49,8 @@ describe('MedicalRecordController - Integration', function () {
         const medicalRecordAllergyRepoInstance = Container.get(medicalRecordAllergyRepoClass);
         Container.set('MedicalRecordAllergyRepo', medicalRecordAllergyRepoInstance);
 
+
+        
         const allergyRepoClass = require('../../../../src/repos/AllergyRepo').default;
         const allergyRepoInstance = Container.get(allergyRepoClass);
         Container.set('AllergyRepo', allergyRepoInstance);
@@ -103,6 +103,15 @@ describe('MedicalRecordController - Integration', function () {
             comment: 'test-comment'
         };
         return MedicalRecordCondition.create(medicalRecordConditionProps).getValue();
+    }
+    
+    function createMedicalRecordFreeText(){
+        const medicalRecordFreeTextProps={
+            medicalRecord: 'test-id',
+            doctorId:'test-doctor',
+            comment: 'test-comment'
+        };
+        return MedicalRecordFreeText.create(medicalRecordFreeTextProps).getValue();
     }
 
     function createMedicalRecord() {
@@ -205,6 +214,7 @@ describe('MedicalRecordController - Integration', function () {
             expect(result.body[0].comment).toBe('test-comment');
         });
     });
+    
 
     describe('getMedicalRecordConditions', function () {
 
@@ -436,5 +446,7 @@ describe('MedicalRecordController - Integration', function () {
         });
 
     });
+    
+
 
 });
