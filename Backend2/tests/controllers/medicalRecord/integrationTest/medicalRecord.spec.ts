@@ -12,6 +12,7 @@ import {UniqueEntityID} from "../../../../src/core/domain/UniqueEntityID";
 import MedicalRecordController from "../../../../src/controllers/MedicalRecordController";
 import {MedicalRecordAllergy} from "../../../../src/domain/MedicalRecordAllergy/MedicalRecordAllergy";
 import {Allergy} from "../../../../src/domain/Allergy/Allergy";
+import {MedicalRecordFreeText} from "../../../../src/domain/MedicalRecordFreeText/MedicalRecordFreeText";
 
 describe('MedicalRecordController - Integration', function () {
     const sandbox = sinon.createSandbox();
@@ -100,6 +101,15 @@ describe('MedicalRecordController - Integration', function () {
             comment: 'test-comment'
         };
         return MedicalRecordCondition.create(medicalRecordConditionProps).getValue();
+    }
+    
+    function createMedicalRecordFreeText(){
+        const medicalRecordFreeTextProps={
+            medicalRecord: 'test-id',
+            doctorId:'test-doctor',
+            comment: 'test-comment'
+        };
+        return MedicalRecordFreeText.create(medicalRecordFreeTextProps).getValue();
     }
 
     function createMedicalRecord() {
