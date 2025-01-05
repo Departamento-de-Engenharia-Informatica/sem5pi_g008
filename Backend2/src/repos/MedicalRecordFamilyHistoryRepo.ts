@@ -14,14 +14,8 @@ export default class MedicalRecordFamilyHistoryRepo implements IMedicalRecordFam
     //TODO:Implement exists method
     return Promise.resolve(false);
   }
-  public async saveFamilyHistory(id: string, familylist: any): any {
-    console.log('FAMILY LIST', familylist);
-    const rawFamilyHistory: any = MedicalRecordFamilyHistoryMap.toPersistence(id, familylist);
-    console.log('RAW FAMILY HISTORY', rawFamilyHistory);
-    const familyHistoryCreated = this.medicalRecordFamilyHistorySchema.create(rawFamilyHistory);
-    console.log('FAMILY HISTORY CREATED', familyHistoryCreated);
-    return MedicalRecordFamilyHistoryMap.toDomain(familyHistoryCreated);
-  }
+
+  
   public async save(medicalRecordFamilyHistory: MedicalRecordFamilyHistory): Promise<MedicalRecordFamilyHistory> {
     const id = await this.getLastId();
 

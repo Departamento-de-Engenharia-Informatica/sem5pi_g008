@@ -35,6 +35,9 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
         const medicalConditionSchemaInstance = require('../../../../src/persistence/schemas/medicalConditionSchema').default;
         Container.set('medicalConditionSchema', medicalConditionSchemaInstance);
 
+        const medicalRecordFamilyHistorySchemaInstance = require('../../../../src/persistence/schemas/medicalRecordFamilyHistorySchema').default;
+        Container.set('medicalRecordFamilyHistorySchema', medicalRecordFamilyHistorySchemaInstance);
+        
         const medicalRecordRepoClass = require('../../../../src/repos/MedicalRecordRepo').default;
         const medicalRecordRepoInstance = Container.get(medicalRecordRepoClass);
         Container.set('MedicalRecordRepo', medicalRecordRepoInstance);
@@ -59,6 +62,10 @@ describe('MedicalRecordController - MedicalRecordCondition - Integration', funct
         const medicalConditionRepoInstance = Container.get(medicalConditionRepoClass);
         Container.set('MedicalConditionRepo', medicalConditionRepoInstance);
 
+        const medicalRecordFamilyHistoryRepoClass = require('../../../../src/repos/MedicalRecordFamilyHistoryRepo').default;
+        const medicalRecordFamilyHistoryRepoInstance = Container.get(medicalRecordFamilyHistoryRepoClass);
+        Container.set('MedicalRecordFamilyHistoryRepo', medicalRecordFamilyHistoryRepoInstance);
+        
         const medicalRecordServiceClass = require('../../../../src/services/medicalRecordService').default;
         const medicalRecordServiceInstance = Container.get(medicalRecordServiceClass);
         Container.set('MedicalRecordService', medicalRecordServiceInstance);

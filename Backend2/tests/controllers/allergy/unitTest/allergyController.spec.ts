@@ -12,6 +12,13 @@ describe('AllergyController - Unit Test', function () {
 
     beforeEach(function () {
         Container.reset();
+        
+        const allergySchemaInstance = require('../../../../src/persistence/schemas/allergySchema').default;
+        Container.set('allergySchema', allergySchemaInstance);
+
+        const allergyRepoClass = require('../../../../src/repos/AllergyRepo').default;
+        const allergyRepoInstance = Container.get(allergyRepoClass);
+        Container.set('AllergyRepo', allergyRepoInstance);
 
         const allergyServiceClass = require('../../../../src/services/AllergyService').default;
         const allergyServiceInstance = Container.get(allergyServiceClass);

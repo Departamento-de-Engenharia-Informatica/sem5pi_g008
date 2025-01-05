@@ -34,6 +34,9 @@ describe('MedicalRecordService - MedicalRecordCondition', function () {
         const medicalConditionSchemaInstance = require('../../../../src/persistence/schemas/medicalConditionSchema').default;
         Container.set('medicalConditionSchema', medicalConditionSchemaInstance);
         
+        const medicalRecordFamilyHistorySchemaInstance = require('../../../../src/persistence/schemas/medicalRecordFamilyHistorySchema').default;
+        Container.set('medicalRecordFamilyHistorySchema', medicalRecordFamilyHistorySchemaInstance);
+        
         const medicalRecordRepoClass = require('../../../../src/repos/MedicalRecordRepo').default;
         const medicalRecordRepoInstance = Container.get(medicalRecordRepoClass);
         Container.set('MedicalRecordRepo', medicalRecordRepoInstance);
@@ -41,6 +44,10 @@ describe('MedicalRecordService - MedicalRecordCondition', function () {
         const medicalRecordAllergyRepoClass = require('../../../../src/repos/MedicalRecordAllergyRepo').default;
         const medicalRecordAllergyRepoInstance = Container.get(medicalRecordAllergyRepoClass);
         Container.set('MedicalRecordAllergyRepo', medicalRecordAllergyRepoInstance);
+        
+        const medicalRecordFamilyHistoryRepoClass = require('../../../../src/repos/MedicalRecordFamilyHistoryRepo').default;
+        const medicalRecordFamilyHistoryRepoInstance = Container.get(medicalRecordFamilyHistoryRepoClass);
+        Container.set('MedicalRecordFamilyHistoryRepo', medicalRecordFamilyHistoryRepoInstance);
         
         const allergyRepoClass = require('../../../../src/repos/AllergyRepo').default;
         const allergyRepoInstance = Container.get(allergyRepoClass);

@@ -55,7 +55,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id", code: "C10" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditionByCode.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditionByCode.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditionByCode(req, res);
 
@@ -94,7 +94,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id", designation: "Test Designation" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditionByDesignation.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditionByDesignation.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditionByDesignation(req, res);
 
@@ -133,7 +133,7 @@ describe("MedicalRecordController - MedicalRecordMedicalCondition - Unit", () =>
             const req = { params: { id: "test-id" } };
             const res = { status: sandbox.stub().returnsThis(), json: sandbox.stub() };
 
-            medicalRecordServiceMock.getMedicalRecordConditions.rejects(new Error("Unexpected error thrown during test"));
+            medicalRecordServiceMock.getMedicalRecordConditions.rejects(new Error("Expected error thrown during test"));
 
             await medicalRecordController.getMedicalRecordConditions(req, res);
 
