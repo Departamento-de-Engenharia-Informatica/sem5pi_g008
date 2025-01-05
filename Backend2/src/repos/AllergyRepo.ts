@@ -79,8 +79,6 @@ export default class AllergyRepo implements IAllergyRepo {
     public async search(allergy: string): Promise<Allergy> {
 
         const allergies = await this.allergySchema.findOne({allergy: allergy});
-        console.log(allergies);
-
         return AllergyMap.toDomain(allergies);
     }
 

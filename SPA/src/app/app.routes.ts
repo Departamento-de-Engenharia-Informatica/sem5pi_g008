@@ -30,12 +30,6 @@ import {AllergyManagementComponent} from './Components/AllergyManagement/allergy
 import {MedicalRecordDetailsComponent} from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
 import {SearchAllergyManagementComponent} from './Components/AllergyManagement/search-allergy-management/search-allergy-management.component';
 import {AddMedicalConditionComponent} from './Components/MedicalConditionManagement/add-medical-condition/add-medical-condition.component';
-import {CreateAppointmentComponent} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
-import {PatientManagementAsDoctorComponent} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
-import {EditSpecializationComponent} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
-import {
-  MedicalRecordConditionListComponent
-} from './Components/MedicalRecordConditionManagement/medical-record-condition-list/medical-record-condition-list.component';
 import {
   MedicalConditionManagementComponent
 } from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
@@ -43,6 +37,30 @@ import {
   EditMedicalConditionComponent
 } from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import {EditAllergyComponent} from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
+import {RegisterPatientComponent} from './Components/Patient/register-patient/register-patient.component';
+import {
+  AddMedicalRecordFreeTextComponent
+} from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
+
+import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
+
+import {
+  CreateAppointmentComponent
+} from './Components/Appointment/createAppointment/create-appointment/create-appointment.component';
+import{  PatientManagementAsDoctorComponent
+} from './Components/PatientManagementAsADoctor/patientManagementAsDoctor/patient-management.component-as-doctor';
+import {
+  EditSpecializationComponent
+} from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import {UpdateAppointmentComponent} from './Components/Appointment/update-appointment/update-appointment.component';
+import {
+  UpdateMedicalRecordConditionComponent
+} from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
+import {AlgavComponent} from './Components/Algav/algav/algav.component';
+
+
+
+
 
 export const routes: Routes = [
   {
@@ -76,6 +94,7 @@ export const routes: Routes = [
       { path: 'specialization/add', component: CreateSpecializationComponent, title: 'CreateSpecialization' },
       { path: 'specialization/edit', component: EditSpecializationComponent, title: 'EditSpecialization' },
       { path: 'allergyManagement/edit', component: EditAllergyComponent, title: 'EditAllergy' },
+      {path: 'algav', component: AlgavComponent, title: 'Algav',}
     ],
   },
 
@@ -85,12 +104,17 @@ export const routes: Routes = [
     data: { roles: appSettings.userRoles.staff},
     children: [
       { path: '', component: StaffHomeComponent, title: 'StaffHome' },
+      {path: 'appointment', component: CreateAppointmentComponent, title: 'CreateAppointment'},
+      {path: 'appointment/update', component: UpdateAppointmentComponent, title: 'UpdateAppointment'},
       { path: 'operationRequests', component: ListOperationRequestComponent, title: 'OperationRequests' },
       { path: 'operationRequest/add', component: AddOperationRequestComponent, title: 'AddOperationRequest' },
       { path: 'operationRequest/edit', component: EditOperationRequestComponent, title: 'EditOperationRequest' },
       { path: 'patients', component: PatientManagementAsDoctorComponent, title: 'PatientManagementAsDoctor' },
       { path: 'patients/medicalRecord', component: MedicalRecordDetailsComponent, title: 'MedicalRecordDetails' },
       { path: 'searchAllergy', component: SearchAllergyManagementComponent, title: 'SearchAllergyManagement'},
+      {path:  'patients/medicalRecord/addFreeText', component: AddMedicalRecordFreeTextComponent, title:'AddMedicalRecordFreeTextComponent'},
+      {path: 'familyHistory', component: FamilyHistoryComponent, title: 'FamilyHistoryComponent'},
+      {path: 'UpdateMedicalRecordConditionComponent', component: UpdateMedicalRecordConditionComponent, title: 'UpdateMedicalRecordConditions'},
     ],
   },
 
@@ -117,7 +141,12 @@ export const routes: Routes = [
 
   {
     path: 'unregistered',
-    component: RegisterPatientProfileComponent,
+    component: RegisterPatientComponent,
     title: 'RegisterPatientProfile',
+  },
+  {
+    path: 'algav',
+    component: AlgavComponent,
+    title: 'Algav',
   }
 ];

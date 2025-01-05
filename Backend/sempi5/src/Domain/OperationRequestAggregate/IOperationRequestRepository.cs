@@ -14,4 +14,5 @@ public interface IOperationRequestRepository : IRepository<OperationRequest, Ope
     public Task<List<OperationRequest>> GetDoctorsOperationsRequests(string doctorId);
 
     Task<List<OperationRequest>> SearchAsyncWithDoctocId(string patientName, string type, string priority, string doctorId);
+   Task<List<OperationRequest>> GetallOperationRequest();
 }

@@ -19,5 +19,6 @@ namespace Sempi5.Infrastructure.StaffAggregate
         public Task<List<Staff>> GetActiveStaffBySpecialization(SpecializationName specializationName);
         
         public Task<List<Staff>> GetAllActiveStaff();
+        public Task update(Staff staffUpdate);
     }
 }

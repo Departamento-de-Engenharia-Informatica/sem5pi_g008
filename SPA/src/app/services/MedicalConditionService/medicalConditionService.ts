@@ -5,6 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { MedicalConditionMapper } from '../../DTOs/mappers/medicalConditionMapper';
 import { MedicalConditionDTO } from '../../DTOs/GenericDTOs/medicalConditionDTO';
 import { BackendMedicalConditionDTO } from '../../DTOs/backendDTOs/backendMedicalConditionDTO';
+import {DisplayMedicalConditionDTO} from '../../DTOs/displayDTOs/displayMedicalConditionDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,15 @@ export class MedicalConditionService {
   private apiUrl = `${json.backendApi['2'].url}/medicalConditions`;
 
   constructor(private http: HttpClient) {}
+
+  filterByCode(code: string): Observable<DisplayMedicalConditionDTO[]> {
+    return this.http.get<DisplayMedicalConditionDTO[]>(`${this.apiUrl}/code/${code}`, { withCredentials: true });
+  }
+
+  // Método para filtrar por designação
+  filterByDesignation(designation: string): Observable<DisplayMedicalConditionDTO[]> {
+    return this.http.get<DisplayMedicalConditionDTO[]>(`${this.apiUrl}/designation/${designation}`, { withCredentials: true });
+  }
 
   addMedicalCondition(medicalConditionDTO: MedicalConditionDTO): Observable<string> {
     const medicalCondition = MedicalConditionMapper.dtoToDomain(medicalConditionDTO);

@@ -21,7 +21,7 @@ export class CreateAppointmentComponent {
     surgeryRoom: '',
   }
 
-  constructor(private requisitionService: OperationRequestService, private router: Router, private appointmentService: AppointementService, private fb: FormBuilder) {
+  constructor(private router: Router, private appointmentService: AppointementService, private fb: FormBuilder) {
     const navigation = this.router.getCurrentNavigation();
     this.operationRequestId = navigation?.extras?.state?.['operationRequestId'];
     this.appointmentDTO.operationRequestID = this.operationRequestId;

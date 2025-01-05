@@ -1,0 +1,29 @@
+<div class="family-history-container">
+  <!-- Botão que aparece antes do formulário -->
+  <button *ngIf="!formVisible" (click)="toggleFormVisibility()">Add Family History</button>
+
+  <!-- Formulário que aparece após o clique no botão -->
+  <div *ngIf="formVisible" class="family-history-form">
+    <h2>Add Family History</h2>
+
+    <form [formGroup]="familyHistoryForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="familyMember">Family Member:</label>
+        <input id="familyMember" formControlName="familyMember" type="text" />
+        <div *ngIf="familyHistoryForm.get('familyMember')?.invalid && familyHistoryForm.get('familyMember')?.touched" class="error">
+          Family member is required.
+        </div>
+      </div>
+
+      <div>
+        <label for="condition">Condition:</label>
+        <input id="condition" formControlName="condition" type="text" />
+        <div *ngIf="familyHistoryForm.get('condition')?.invalid && familyHistoryForm.get('condition')?.touched" class="error">
+          Condition is required.
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="familyHistoryForm.invalid">Submit</button>
+    </form>
+  </div>
+</div>

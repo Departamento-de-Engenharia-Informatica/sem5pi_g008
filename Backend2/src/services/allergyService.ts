@@ -1,6 +1,5 @@
 ﻿import {Inject, Service} from "typedi";
 import IAllergyService from "./IServices/IAllergyService";
-import config from "../../config";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
 import {AllergyMap} from "../mappers/AllergyMap";
 import {Allergy} from "../domain/Allergy/Allergy";
@@ -65,6 +64,7 @@ export default class AllergyService implements IAllergyService {
 
   public async searchAllergies(allergy: string): Promise<any>{
     let aux = await this.allergyRepo.search(allergy);
+    console.log(aux);
     return AllergyMap.toDTO(aux);
   }
 

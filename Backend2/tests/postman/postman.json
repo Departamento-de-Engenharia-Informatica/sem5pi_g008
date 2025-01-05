@@ -1221,13 +1221,13 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{SandroCookieDoctor}}",
+										"value": "{{ruteDoctorCookie}}",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"patientName\": \"new User\",\r\n  \"type\": \"Heart Surgery\",\r\n  \"priority\": \"HIGH\"\r\n  \r\n}\r\n",
+									"raw": "{ }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2781,7 +2781,13 @@
 									},
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
 										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/allergy"
 									},
 									"response": []
@@ -3601,6 +3607,902 @@
 						}
 					],
 					"id": "f455f33e-0c6b-4528-8596-5be3ced83c0c"
+				},
+				{
+					"name": "Add Family History To Medical Record",
+					"item": [
+						{
+							"name": "Post",
+							"item": [
+								{
+									"name": "Add Family History- Success Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains correct family member\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"familyMember\", \"Father\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains correct condition\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"condition\", \"Heart Disease\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "73800fd0-b995-493f-9916-ad32f7cc4830",
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "6fa36661-aa69-420a-9c41-4a2a17b25498",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieRui}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"medicalRecord\": \"12345\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/api//familyhistory"
+									},
+									"response": []
+								},
+								{
+									"name": "Add Family History - Failure",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+												"exec": [
+													"pm.test(\"Status code is 400 or 422\", function () {\r",
+													"    pm.response.to.have.status(400); // ou 422\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains error message for missing medicalRecord\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"medicalRecord is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "033c0f86-771b-4ec3-8ae3-a790f19f91e5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"medicalRecord\": \"\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{backend2_url}}/api//familyhistory"
+									},
+									"response": []
+								}
+							],
+							"id": "8b0e0d71-ebf9-4a29-bb64-a57546dae189"
+						},
+						{
+							"name": "Get",
+							"item": [
+								{
+									"name": "Get Family History  - sucess",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains correct medical record ID\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"medicalRecord\", \"12345\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains family member and condition\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"familyMember\");\r",
+													"    pm.expect(jsonData).to.have.property(\"condition\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a48d4586-0720-4036-a5bb-2fb6366d73fc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/api//familyhistory/20241200005"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Family History  - Failure Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains error message for not found\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"Family history not found for the given ID\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0835b55c-07a4-4635-a088-448d26cb66a1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/api//familyhistory/20241200005"
+									},
+									"response": []
+								}
+							],
+							"id": "a15011a6-9841-489d-9e6d-ba34d961ccb3"
+						}
+					],
+					"id": "a30f0af9-d868-4037-944f-1089a4b1bd26"
+				},
+				{
+					"name": "Search Medical Conditions",
+					"item": [
+						{
+							"name": "designation",
+							"item": [
+								{
+									"name": "Get Medical Condition - Non existent Condition - Failure Copy 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message is 'Designation not found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Designation not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "42936290-a37e-47e7-8dfc-87204f1121ea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Condition By Code- Success Copy 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains designation\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"designation\", \"Hypertension\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message is 'Designation found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Designation found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f2048934-ecb7-4968-8f7d-36f43318c216",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+									},
+									"response": []
+								}
+							],
+							"id": "d16aa6d5-2f67-430b-b60b-40727d13d9c8"
+						},
+						{
+							"name": "code",
+							"item": [
+								{
+									"name": "Get Medical Condition - Non existent Condition - Failure Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message is 'Code not found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Code not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "02a7188c-aa23-462b-9f9c-50d6e8cbc77c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/api/medicalConditions/code/CA123"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Medical Condition By Code- Success Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains code\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"code\", \"A123\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message is 'Code found'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Code found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "caaa0f8e-42f5-47de-be2b-2b1cf3b06442",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Cookie",
+												"value": "{{AdminCookieMateus}}",
+												"type": "text"
+											}
+										],
+										"url": "{{backend2_url}}/api/medicalConditions/code/CA12"
+									},
+									"response": []
+								}
+							],
+							"id": "16bee563-1983-4389-9077-7992b2372d16"
+						}
+					],
+					"id": "9242a987-940f-4ae5-b58d-f64799afe253"
+				},
+				{
+					"name": "As Doctor, update medical record (MEDICAL CONDITIONS)-7.2.19",
+					"item": [
+						{
+							"name": "Medical Record Condition Update  comment-  Failure Non existing id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains error message for not found\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"Medical record not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d2f80e6a-ca9f-404d-ad6f-1186bb7485cd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"payload\": {\r\n    \"id\": \"nonexistent_id\", \r\n    \"comment\": \"This is a comment for a non-existent record.\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/api/medicalrecordConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Medical Record Condition Update  comment- Success Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains success message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Medical condition description updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "1ac1ddbb-9047-4825-8ec7-575fa4c490b2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"payload\": {\r\n    \"id\": \"1\",\r\n    \"comment\": \"Updated comment for the medical condition.\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/api/medicalrecordConditions"
+							},
+							"response": []
+						},
+						{
+							"name": "Medical Record Condition Update  comment-  Failure Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status should be 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should be 'Allergy not found'\", function () {\r",
+											"    var jsonResponse = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"Allergy not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5ee0e6d8-c5a2-42bd-b815-e9d8d11bbcee",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"designation\": \"TESTE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{backend2_url}}/api/medicalrecordConditions"
+							},
+							"response": []
+						}
+					],
+					"id": "eb16318b-8373-4895-a7af-243e5174dc8f"
+				},
+				{
+					"name": "As doctor, search for medical conditions-7.2.05",
+					"item": [
+						{
+							"name": "Get Medical Record Condition - Non existent Condition - Failure Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+										"exec": [
+											"pm.test(\"Response status code is 810\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(810, \"Expected status code to be 810\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has the required fields and correct message\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.be.an('object', \"Response should be an object\");\r",
+											"  pm.expect(responseData.message).to.exist.and.to.be.a('string', \"Message field should exist and be a string\");\r",
+											"  pm.expect(responseData.message).to.equal('No Medical Condition registered in the system with this Code.', \"Message should match expected text\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e476be01-ed45-47a6-8e0d-dc0e15235d6b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"url": "{{backend2_url}}/api/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Medical Record Condition By Code- Success Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "af07b17c-0e3a-4f6a-b425-1fbcf77db959",
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200, \"Expected status code to be 200\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has 'medicalRecordCondition' object with correct properties\", function () {\r",
+											"  const responseData = pm.response.json();\r",
+											"\r",
+											"  pm.expect(responseData).to.have.property('medicalRecordCondition').that.is.an('object', \"The 'medicalRecordCondition' should be an object\");\r",
+											"  \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "564af6fa-f5f9-4f39-b47f-0a769af759d8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+							},
+							"response": []
+						}
+					],
+					"id": "568f4e62-703a-460d-9bc7-acf48bd546a9"
+				},
+				{
+					"name": "As doctor, create surgery appointments-7.2.08",
+					"item": [
+						{
+							"name": "Create Appointement- Success Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1542202e-cb4a-4c1e-8a1f-b96cbe9ed74d",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response message contains 'Appointment Created'\", function () {\r",
+											"    pm.response.to.have.body(\"Appointment Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Appointment creation returns valid JSON\", function () {\r",
+											"    pm.response.to.have.jsonBody();\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Appointment has operationRequestId\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.operationRequestId).to.eql(\"12345\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Appointment has surgeryRoomId\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.surgeryRoomId).to.eql(\"1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Appointment has surgeryDate\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.surgeryDate).to.eql(\"2025-02-15T10:00:00\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "73800fd0-b995-493f-9916-ad32f7cc4830",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9d892489-be50-4d3e-9961-3132580ee580",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieRui}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"operationRequestId\": \"1\",\r\n    \"surgeryRoomId\": \"1\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\",\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/appointment"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Appointement - Failure Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains 'Missing required fields'\", function () {\r",
+											"    pm.response.to.have.body(\"Missing required fields.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "980e1131-2347-4964-9392-c07fe7ba3f5e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryDate\": \"2025-02-15T10:00:00\"\r\n    // Missing surgeryRoomId\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/appointment/"
+							},
+							"response": []
+						}
+					],
+					"id": "48286c90-5c3d-425e-8f83-7c5c0992347e"
+				},
+				{
+					"name": "As doctor, update surgery appointments.-7.2.09",
+					"item": [
+						{
+							"name": "Update Appointement - Success Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response message contains 'Appointment Updated'\", function () {\r",
+											"    pm.response.to.have.body(\"Appointment Updated\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Appointment update returns valid JSON\", function () {\r",
+											"    pm.response.to.have.jsonBody();\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Updated appointment has correct id\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(\"1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Updated appointment has new surgeryRoomId\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.surgeryRoomId).to.eql(\"2\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Updated appointment has new surgeryDate\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.surgeryDate).to.eql(\"2025-02-20T15:00:00\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Updated appointment has new status\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.status).to.eql(\"Rescheduled\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9186a9d7-896f-4ed2-942a-5d0bd1e13ff5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1\",\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryRoomId\": \"2\",\r\n    \"surgeryDate\": \"2025-02-20T15:00:00\",\r\n    \"status\": \"Rescheduled\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/appointment/"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Appointement - Failure Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains 'Missing required fields'\", function () {\r",
+											"    pm.response.to.have.body(\"Missing required fields.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f3ea9ab3-dfb9-4973-895a-bbe1ed0fa03c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookieMateus}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1\",\r\n    \"surgeryDate\": \"2025-02-20T15:00:00\"\r\n    // Missing surgeryRoomId and status\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/appointment/"
+							},
+							"response": []
+						}
+					],
+					"id": "22c6ee1f-70d7-4ddb-95bd-5fbeb2c96d3a"
 				}
 			],
 			"id": "7c7f8364-56cc-493d-ae83-181d0578255d"
@@ -3610,7 +4512,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "b9115d8f-017a-4dfa-aad9-6d1312cd6492",
+				"id": "e30bb4d9-72db-4879-bda9-18b1ef467e17",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -3620,7 +4522,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "9381d8b6-5944-4fa9-a9c5-370282d0f36a",
+				"id": "2548a943-4f22-41a6-afb0-0d9d5fb124c6",
 				"type": "text/javascript",
 				"exec": [
 					""

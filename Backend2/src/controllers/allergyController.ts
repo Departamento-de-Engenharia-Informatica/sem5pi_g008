@@ -141,7 +141,7 @@ export default class AllergyController implements IAllergyController {
             });
 
         } catch (error) {
-            console.error('Error getting allergies:', error.message);
+            console.error(',Error getting allergies:'+ error.message);
 
             res.status(500).json({
                 message: 'Error getting allergies',

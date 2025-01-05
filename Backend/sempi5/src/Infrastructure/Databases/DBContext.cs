@@ -25,6 +25,7 @@ using Sempi5.Infrastructure.PersonRepository;
 using Sempi5.Infrastructure.RequiredStaffRepository;
 using Sempi5.Infrastructure.SpecializationRepository;
 using Sempi5.Infrastructure.StaffRepository;
+using Sempi5.Infrastructure.SurgeryRoomAggregate;
 using Sempi5.Infrastructure.SurgeryRoomRepository;
 using Sempi5.Infrastructure.UserRepository;
 
@@ -32,6 +33,8 @@ namespace Sempi5.Infrastructure.Databases
 {
     public class DBContext : DbContext
     {
+        public DbSet<StaffAgenda> StaffAgendas{get;set;}
+        public DbSet<RoomAgenda>RoomAgendas{get;set;}
         public DbSet<ConfirmationLink>ConfirmationLink { get; set; }
         public DbSet<AccoutToDelete>AccoutToDelete { get; set; }
         public DbSet<Staff> StaffMembers { get; set; }
@@ -70,6 +73,8 @@ namespace Sempi5.Infrastructure.Databases
             modelBuilder.ApplyConfiguration(new AccountToDeleteEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ConfirmationTokenEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ConfirmationLinkEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomAgendaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StaffAgendaEntityTypeConfiguration());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

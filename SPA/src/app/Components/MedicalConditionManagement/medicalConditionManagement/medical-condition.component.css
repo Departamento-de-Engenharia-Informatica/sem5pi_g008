@@ -155,3 +155,19 @@ h1 {
   text-align: center;
   font-weight: bold;
 }
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-select {
+  padding: 5px;
+}
+
+.filter-input {
+  padding: 5px;
+  flex: 1;
+}
+

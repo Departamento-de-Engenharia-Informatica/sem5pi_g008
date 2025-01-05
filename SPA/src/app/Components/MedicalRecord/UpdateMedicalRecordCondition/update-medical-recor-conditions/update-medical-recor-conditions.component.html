@@ -1,0 +1,44 @@
+<h2 class="sub-header">Medical Conditions</h2>
+
+<!-- Exibe mensagem de erro se houver -->
+<div *ngIf="errorMessage" class="no-medical-record-conditions">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<!-- Lista de condições médicas com checkboxes -->
+<div class="medical-record-condition-list-container">
+  <div *ngFor="let medicalRecordCondition of medicalRecordConditions; let i = index" class="medical-record-condition-item">
+    <div class="medical-record-condition-details">
+      <input
+        type="checkbox"
+        [id]="'condition-' + i"
+        (change)="toggleSelection(medicalRecordCondition)"
+        [checked]="isSelected(medicalRecordCondition)"
+      />
+      <label [for]="'condition-' + i">
+        <p *ngIf="medicalRecordCondition.conditionCode">
+          <strong>Condition Code:</strong> {{ medicalRecordCondition.conditionCode }}
+        </p>
+        <p *ngIf="medicalRecordCondition.conditionDesignation">
+          <strong>Condition Designation:</strong> {{ medicalRecordCondition.conditionDesignation }}
+        </p>
+        <p *ngIf="medicalRecordCondition.doctorId">
+          <strong>Doctor:</strong> {{ medicalRecordCondition.doctorId }}
+        </p>
+        <p *ngIf="medicalRecordCondition.doctorLicenseNumber">
+          <strong>Doctor Name:</strong> {{ medicalRecordCondition.doctorName }}
+        </p>
+        <p *ngIf="medicalRecordCondition.doctorLicenseNumber">
+          <strong>Doctor License Number:</strong> {{ medicalRecordCondition.doctorLicenseNumber }}
+        </p>
+        <p><strong>Comment:</strong> {{ medicalRecordCondition.comment }}</p>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Botões para salvar ou cancelar -->
+<div class="action-buttons">
+  <button class="save-button" (click)="saveSelected()">Save Selected</button>
+  <button class="cancel-button" (click)="cancel()">Cancel</button>
+</div>

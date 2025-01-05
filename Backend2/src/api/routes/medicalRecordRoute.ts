@@ -44,6 +44,11 @@ export default (app: Router) => {
             ctrl.getAllergies(req, res, next);
         });
 
+    route.get('/:id/freeText',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getFreeTexts(req, res, next);
+        });
 
     route.get('/:id/allergy',
         checkRoleAndProceed(['admin', 'doctor']),
@@ -77,6 +82,17 @@ export default (app: Router) => {
     (req, res, next) => {
       ctrl.getAllergies(req, res, next);
     });
-
+  
+    route.get('/Allcondition',
+        //checkRoleAndProceed(['admin','doctor']),
+        (req, res, next) => {
+            ctrl.getAllMedicalRecordConditions(req, res, next);
+        }
+    );
+    
+    route.put(
+        '/medicalrecordConditions'
+        ,(req, res, next) => ctrl.updateMedicalRecordConditionComment(req, res, next),
+    );
 };
 

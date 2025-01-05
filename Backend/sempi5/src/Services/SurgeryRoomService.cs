@@ -25,6 +25,11 @@ public class SurgeryRoomService
      }
      return occupancy;
  }
+
+ public async Task<List<SurgeryRoom>>getSurgeryRoom()
+ {
+    return await _surgeryRoomRepository.GetAllStaff();
+ }
  
  public async Task<List<List<Dictionary<string, string>>>> getRoomsInfo()
  {

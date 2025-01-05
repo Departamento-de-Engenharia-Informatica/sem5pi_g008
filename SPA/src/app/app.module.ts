@@ -7,6 +7,7 @@ import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
 import {routes} from './app.routes';
+
 import {HomeComponent} from './Components/Dashboards/home/home.component';
 import {AdminMenuComponent} from './Components/Dashboards/admin-home/admin-home.component';
 import {MenuBoxComponent} from './Components/Shared/menu-box/menu-box.component';
@@ -47,7 +48,6 @@ import { PatientHomeComponent } from './Components/Dashboards/patient-home/patie
 import { CheckUserToDeleteComponent } from './Components/Patient/check-user-to-delete/check-user-to-delete.component';
 import {EditOperationRequestComponent} from './Components/OperationRequest/edit-operation-request/edit-operation-request.component';
 import {AddOperationRequestComponent} from './Components/OperationRequest/add-operation-request/add-operation-request.component';
-import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
 import {AddAllergyComponent} from './Components/AllergyManagement/add-allergy/add-allergy.component';
 import {SpecializationManagementComponent} from './Components/SpecializationManagement/specialization-management/specialization-management.component';
 import {SpecializationListComponent} from './Components/SpecializationManagement/specialization-list/specialization-list.component';
@@ -69,6 +69,7 @@ import {
 import {
   EditSpecializationComponent
 } from './Components/SpecializationManagement/edit-specialization/edit-specialization.component';
+import { UpdateAppointmentComponent } from './Components/Appointment/update-appointment/update-appointment.component';
 import {
   MedicalRecordDetailsComponent
 } from './Components/MedicalRecord/medical-record-details/medical-record-details.component';
@@ -76,17 +77,26 @@ import { MedicalRecordConditionListComponent } from './Components/MedicalRecordC
 import {
   MedicalRecordFreeTextListComponent
 } from './Components/MedicalRecordFreeTextManagement/medical-record-free-text-list/medical-record-free-text-list.component';
-import {MedicalRecordFreeTextService} from './services/MedicalRecordFreeTextService/medical-record-free-text.service';
 import {
   AddMedicalRecordFreeTextComponent
 } from './Components/MedicalRecordFreeTextManagement/add-medical-record-free-text/add-medical-record-free-text.component';
-
-import {
-  MedicalConditionManagementComponent
-} from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
 import {MedicalRecordAllergyListComponent} from './Components/MedicalRecordAllergyManagement/medical-record-allergy-list/medical-record-allergy-list.component';
 import {EditMedicalConditionComponent} from './Components/MedicalConditionManagement/edit-medical-condition/edit-medical-condition.component';
 import { EditAllergyComponent } from './Components/AllergyManagement/edit-allergy/edit-allergy.component';
+import {
+  MedicalConditionManagementComponent
+} from './Components/MedicalConditionManagement/medicalConditionManagement/medical-condition.component';
+import {FamilyHistoryComponent} from './Components/MedicalRecord/FamilyHistory/family-history/family-history.component';
+import {
+  UpdateMedicalRecorConditionsComponent
+} from './Components/MedicalRecord/UpdateMedicalRecordCondition/update-medical-recor-conditions/update-medical-recor-conditions.component';
+import { FamiliHistoryListComponent } from './Components/MedicalRecord/FamilyHistory/famili-history-list/famili-history-list.component';
+import { UpdateMedicalRecordConditionComponent } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
+import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
+import { AlgavComponent } from './Components/Algav/algav/algav.component';
+
+
+
 
 
 @NgModule({
@@ -130,8 +140,8 @@ import { EditAllergyComponent } from './Components/AllergyManagement/edit-allerg
     DeletePatientAccoutComponent,
     EditPatientProfileButtonComponent,
     EditPatientProfileComponent,
-    StaffHomeComponent,
     PatientHomeComponent,
+    StaffHomeComponent,
     CheckUserToDeleteComponent,
     EditOperationRequestComponent,
     AddOperationRequestComponent,
@@ -142,6 +152,7 @@ import { EditAllergyComponent } from './Components/AllergyManagement/edit-allerg
     SpecializationListComponent,
     ResetFilterButtonComponent,
     CreateSpecializationComponent,
+    AddMedicalConditionComponent,
     AllergyManagementComponent,
     SearchAllergyManagementComponent,
     AddMedicalConditionComponent,
@@ -149,6 +160,7 @@ import { EditAllergyComponent } from './Components/AllergyManagement/edit-allerg
     PatientManagementAsDoctorComponent,
     CreateAppointmentComponent,
     EditSpecializationComponent,
+    UpdateAppointmentComponent,
     MedicalRecordDetailsComponent,
     MedicalRecordConditionListComponent,
     MedicalRecordFreeTextListComponent,
@@ -157,6 +169,13 @@ import { EditAllergyComponent } from './Components/AllergyManagement/edit-allerg
     MedicalRecordAllergyListComponent,
     EditMedicalConditionComponent,
     EditAllergyComponent,
+    FamilyHistoryComponent,
+    UpdateMedicalRecorConditionsComponent,
+    FamiliHistoryListComponent,
+    UpdateMedicalRecordConditionComponent,
+    PatientProfileComponent,
+    AlgavComponent
+
   ],
   imports: [
     BrowserModule,
