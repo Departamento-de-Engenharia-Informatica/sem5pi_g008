@@ -36,8 +36,9 @@ export class MedicalRecordFamilyHistory extends AggregateRoot<MedicalRecordFamil
 
     public static create(props: MedicalRecordFamilyHistoryProps, id?: UniqueEntityID): Result<MedicalRecordFamilyHistory> {
         try {
-            // You can add validation logic here if required
-            const familyHistory = new MedicalRecordFamilyHistory(props, id);
+            if (!props.medicalRecord || !props.familyMember || !props.condition) {
+                return Result.fail<MedicalRecordFamilyHistory>("Missing required fields");
+            }            const familyHistory = new MedicalRecordFamilyHistory(props, id);
             return Result.ok<MedicalRecordFamilyHistory>(familyHistory);
         } catch (e) {
             return Result.fail<MedicalRecordFamilyHistory>(e.message);
