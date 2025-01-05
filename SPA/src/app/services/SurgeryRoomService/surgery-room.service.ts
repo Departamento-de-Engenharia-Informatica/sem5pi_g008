@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, Observable, of} from 'rxjs';
+import {catchError, forkJoin, Observable, of, tap} from 'rxjs';
 import json from '../../appsettings.json';
 
 @Injectable({
@@ -60,24 +60,53 @@ export class SurgeryRoomService {
     return this.http.get(`${this.SwiUrl}/getdata`);
   }
 
-  postSurgeryPlanRoom(agenda: any): Observable<any> {
-    const payload = {
-      date: agenda[0].date,
-      room_id: agenda[0].room_id,
-      task: agenda[0].tasks
-    };
-    console.log('Payload being sent:', payload);
-    console.log('service----Room agenda-- service:', agenda);
-    return this.http.patch(`${this.algavUrl}/updateRoomAgenda`, agenda, { withCredentials: true });
-  }
-  postSurgeryPlanStaff(agenda: any): Observable<any> {
-    const payload = {
-      agenda: agenda
-    };
-    console.log('Payload being sent:', payload);
 
-    return this.http.patch(`${this.algavUrl}/updateStaffAgenda`, payload, { withCredentials: true });
+  postSurgeryPlanRoom(agenda: any): Observable<any> {
+    const requests: Observable<any>[] = [];
+
+    for (let i = 0; i < agenda.length; i++) {
+      const payload = {
+        date: agenda[i].date,
+        room_id: agenda[i].room_id,
+        task: agenda[i].tasks
+      };
+
+      console.log('Payload being sent:', payload);
+      console.log('service----Room agenda-- service:', agenda[i]);
+
+      const request = this.http.patch(`${this.algavUrl}/updateRoomAgenda`, payload, { withCredentials: true });
+      requests.push(request);
+    }
+
+    // Combina todas as requisições em sequência e aguarda a conclusão de todas
+    return forkJoin(requests).pipe(
+      tap(() => console.log('All requests have been processed successfully.'))
+    );
   }
+
+  postSurgeryPlanStaff(agenda: any): Observable<any> {
+    const requests: Observable<any>[] = [];
+
+    for (let i = 0; i < agenda.length; i++) {
+      const payload = {
+        date: agenda[i].date,
+        room_id: agenda[i].staff_id,
+        task: agenda[i].tasks
+      };
+
+      console.log('Payload being sent:', payload);
+      console.log('service----Room agenda-- service:', agenda[i]);
+
+      const request = this.http.patch(`${this.algavUrl}/updateStaffAgenda`, payload, { withCredentials: true });
+      requests.push(request);
+    }
+
+    // Combina todas as requisições em sequência e aguarda a conclusão de todas
+    return forkJoin(requests).pipe(
+      tap(() => console.log('All requests have been processed successfully.'))
+    );
+  }
+
 
 
   getRoomInfo(): Observable<{ title: string, body: string | number }[][]> {

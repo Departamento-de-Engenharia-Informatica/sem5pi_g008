@@ -146,25 +146,20 @@ public class AlgavController : ControllerBase
     //     await _agendaService.createAppointment(appointment);
     //     return Ok(new { message = "Appointment was created" });
     // }
-    // [HttpPatch("updateStaffAgenda")]
-    // public async Task<IActionResult> updateStaffAgenda(AgendaDto agenda)
-    // {        
-    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
-    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
-    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
-    //     Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
-    //
-    //    // Console.WriteLine(agenda);
-    //    // await _agendaService.updateAgendaStaff(agenda);
-    //     return Ok(new { message = "Staff Agenda was updated" });
-    // }
-    [HttpPatch("updateRoomAgenda")]
-    public async Task<IActionResult> updateRoomAgenda(List<AgendaDto> agenda)
-    {        Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr ");
+    
+    [HttpPatch("updateStaffAgenda")]
+    public async Task<IActionResult> updateStaffAgenda(AgendaDto agenda)
+    {        
 
-      //  Console.WriteLine(agenda.room_id);
-      //  await _agendaService.updateAgendaRoom(agenda);
-        return Ok(new { message = "Room Agenda was updated" });
+       await _agendaService.updateAgendaStaff(agenda);
+       return Ok(new { message = "Staff Agenda was updated" });
+    }
+    
+    [HttpPatch("updateRoomAgenda")]
+    public async Task<IActionResult> updateRoomAgenda(AgendaDto agenda)
+    {      
+      await _agendaService.updateAgendaRoom(agenda);
+      return Ok(new { message = "Room Agenda was updated" });
     }
 
 }

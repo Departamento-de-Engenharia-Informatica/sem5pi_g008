@@ -10,5 +10,6 @@ namespace Sempi5.Infrastructure.SurgeryRoomAggregate
     {
         Task<List<SurgeryRoom>> GetAllStaff();
         Task<SurgeryRoom> GetSurgeryRoomById(int roomId);
+        Task updateRoomAgenda(SurgeryRoom roomAgenda);
     }
 }

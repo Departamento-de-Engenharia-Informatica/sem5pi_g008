@@ -33,7 +33,7 @@ export class AlgavComponent implements OnInit {
   };
 
   agendaStaff = {
-    room2: [
+    agendastafflist: [
       {
         date: 0,
         staff_id: '',
@@ -95,33 +95,30 @@ export class AlgavComponent implements OnInit {
   }
 
   savedata(): void {
-
    console.log('Agenda:',this.agenda);
 
     this.agendaRoom = this.agenda.agendaroomlist;
-   // this.agendaStaff = this.agenda.agendastafflist;
+    this.agendaStaff = this.agenda.agendastafflist;
 
     console.log('AgendaRoom:',this.agenda.agendaroomlist);
-    //console.log('AgendaStaff:',this.agenda.agendastafflist);
-
+    console.log('AgendaStaff:',this.agenda.agendastafflist);
 
     console.log("Expected AgendaRoom:",this.agendaRoom);
-    // console.log("Expected AgendaRoom:",this.agendaStaff);
-
+    console.log("Expected AgendaStaff:",this.agendaStaff);
 
     this.surgeryService.postSurgeryPlanRoom(this.agendaRoom).subscribe(
       {
-
         next: (data) => {
-          console.log('postSurgeryPlan:', data);
+          console.log('postSurgeryPlanRoom:', data);
         }
       });
-    // this.surgeryService.postSurgeryPlanStaff(this.agenda).subscribe(
-    //   {
-    //     next: (data) => {
-    //       console.log('postSurgeryPlan:', data);
-    //     }
-    //   });
+
+    this.surgeryService.postSurgeryPlanStaff(this.agendaStaff).subscribe(
+      {
+        next: (data) => {
+          console.log('postSurgeryPlanStaff:', data);
+        }
+      });
   }
 
 

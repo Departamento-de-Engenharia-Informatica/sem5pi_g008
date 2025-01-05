@@ -1,4 +1,5 @@
-﻿using Sempi5.Domain.PersonalData;
+﻿using Sempi5.Domain;
+using Sempi5.Domain.PersonalData;
 using Sempi5.Domain.Shared;
 using Sempi5.Domain.SpecializationAggregate;
 using Sempi5.Domain.StaffAggregate;
