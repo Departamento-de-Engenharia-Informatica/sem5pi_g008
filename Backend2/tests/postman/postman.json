@@ -3675,7 +3675,7 @@
 												}
 											}
 										},
-										"url": "{{backend2_url}}/api//familyhistory"
+										"url": "{{backend2_url}}/api/familyhistory"
 									},
 									"response": []
 								},
@@ -3718,7 +3718,7 @@
 												}
 											}
 										},
-										"url": "{{backend2_url}}/api//familyhistory"
+										"url": "{{backend2_url}}/api/familyhistory"
 									},
 									"response": []
 								}
@@ -3770,7 +3770,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/api//familyhistory/20241200005"
+										"url": "{{backend2_url}}/api/familyhistory/20241200005"
 									},
 									"response": []
 								},
@@ -3862,7 +3862,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+										"url": "{{backend2_url}}/api/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
 									},
 									"response": []
 								},
@@ -3907,7 +3907,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+										"url": "{{backend2_url}}/api//medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
 									},
 									"response": []
 								}
