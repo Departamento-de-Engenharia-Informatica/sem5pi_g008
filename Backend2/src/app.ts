@@ -166,7 +166,7 @@ async function startServer() {
     console.log("Server listening on port: " + config.port);
     Logger.info(`
       ################################################
-          Server in url ${config.api}
+          Server in url: ${config.host}
       🛡️  Server listening on port: ${config.port} 🛡️
       ################################################
     `);
