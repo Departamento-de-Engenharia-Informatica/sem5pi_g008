@@ -71,6 +71,13 @@ export default class MedicalRecordService implements IMedicalRecordService{
         return MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
     }
 
+    public async updateMedicalRecordAllergiesComment(id: string, newComment:string): Promise<IMedicalRecordAllergyDTO> {
+        const medicalRecordAllergy = await this.medicalRecordAllergyRepo.getByDomainId(Number.parseInt(id));
+        medicalRecordAllergy.comment = newComment;
+        await this.medicalRecordAllergyRepo.updateUsingDomainId(medicalRecordAllergy, "comment");
+        return MedicalRecordAllergyMapper.toDTO(medicalRecordAllergy);
+    }
+
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {
 
 

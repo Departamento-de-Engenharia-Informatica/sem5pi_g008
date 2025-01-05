@@ -334,6 +334,33 @@ export default class MedicalRecordController implements IMedicalRecordController
       });
     }
   }
+  
+  public async updateMedicalRecordAllergiesComment(req: any, res: any): Promise<void> {
+    console.log(req.body);
+    const medicalRecordId = req.body.payload.id;
+    const updatedComment = req.body.payload.comment;
+    try {
+      await this.medicalRecordInstance.updateMedicalRecordAllergiesComment(medicalRecordId, updatedComment);
+      res.status(200).json({
+        message: 'Allergies updated successfully',
+      });
+    } catch (error: any) {
+      console.error('Error updating allergies:', {
+        message: error.message,
+        stack: error.stack,
+      });
+      
+      res.status(500).json({
+        message: 'Error updating allergies',
+        details: error.message,
+      });
+    }
+    
+    
+    
+  }
+  
+  
 
 
 }

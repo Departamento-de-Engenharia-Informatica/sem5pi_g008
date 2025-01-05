@@ -4,6 +4,9 @@ import {MedicalRecordAllergy} from "../domain/MedicalRecordAllergy/MedicalRecord
 import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import IMedicalRecordAllergyRepo from "../services/IRepos/IMedicalRecordAllergyRepo";
 import {IMedicalRecordAllergyPersistence} from "../dataschema/IMedicalRecordAllergyPersistence";
+import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
+import {NotFoundException} from "../Exceptions/NotFoundException";
+import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
 
 
 @Service()
@@ -49,4 +52,46 @@ export default class MedicalRecordAllergyRepo implements IMedicalRecordAllergyRe
     return medicalRecordAllergies.map(MedicalRecordAllergyMapper.toDomain);
   }
 
+  public async getByDomainId(number: number): Promise<MedicalRecordAllergy> {
+    const allergy = await this.medicalRecordAllergySchema.findOne({domainId: number});
+
+    if (!allergy) {
+      throw new NotFoundException("allergy not found");
+    }
+
+    return MedicalRecordAllergyMapper.toDomain(allergy);
+  }
+
+  public async updateUsingDomainId(allergy: any, comment: string): Promise<MedicalRecordAllergy> {
+    const domainId = allergy.domainId;
+    const rawAllergy = MedicalRecordAllergyMapper.toPersistence(allergy, domainId);
+    delete rawAllergy.domainId;
+    delete rawAllergy.doctorId;
+    delete rawAllergy.allergyId;
+    delete rawAllergy.medicalRecordId;
+
+    const remainingFields = ['comment'];
+
+    // for (const field of comment) {
+    //   console.log("field", field)
+    //   if (!remainingFields.includes(field)) {
+    //     throw new Error("Invalid field to update");
+    //   }
+    // }
+    Object.keys(rawAllergy).forEach((key) => {
+      if (!comment.includes(key)) {
+        delete rawAllergy[key];
+      }
+    });
+    const updatedAllergy = await this.medicalRecordAllergySchema.findOneAndUpdate(
+        {domainId: domainId},
+        rawAllergy,
+        {new: true}
+    );
+    if (!updatedAllergy) {
+      throw new NotFoundException("Allergy not found");
+    }
+
+    return MedicalRecordAllergyMapper.toDomain(updatedAllergy);
+  }
 }

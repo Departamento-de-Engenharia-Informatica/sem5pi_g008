@@ -21,5 +21,5 @@ export default interface IMedicalRecordService{
     getMedicalRecordFamilyHistoryWithIds(medicalRecordId: any): any;
     
     updateMedicalRecordConditionComment(medicalRecordId: any, updatedComment: any):Promise<any>;
-
+    updateMedicalRecordAllergiesComment(medicalRecordId: any, updatedComment: any):Promise<any>;
 }

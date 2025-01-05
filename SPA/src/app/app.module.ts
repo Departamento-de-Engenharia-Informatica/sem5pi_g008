@@ -94,6 +94,9 @@ import { FamiliHistoryListComponent } from './Components/MedicalRecord/FamilyHis
 import { UpdateMedicalRecordConditionComponent } from './Components/MedicalRecordConditionManagement/update-medical-record-condition/update-medical-record-condition.component';
 import { PatientProfileComponent } from './Components/Patient/patient-profile/patient-profile.component';
 import { AlgavComponent } from './Components/Algav/algav/algav.component';
+import {
+  UpdateMedicalRecordAllergyComponent
+} from './Components/MedicalRecordAllergyManagement/update-medical-record-allergy/update-medical-record-allergy.component';
 
 
 
@@ -174,7 +177,8 @@ import { AlgavComponent } from './Components/Algav/algav/algav.component';
     FamiliHistoryListComponent,
     UpdateMedicalRecordConditionComponent,
     PatientProfileComponent,
-    AlgavComponent
+    AlgavComponent,
+    UpdateMedicalRecordAllergyComponent
 
   ],
   imports: [
