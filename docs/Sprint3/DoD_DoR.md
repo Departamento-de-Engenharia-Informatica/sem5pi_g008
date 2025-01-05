@@ -1,4 +1,4 @@
-﻿## Definition of Ready (DoR)
+﻿## Definition of Ready (DoR) - (In Our Case Is 'Todo')
 
 - The user story's dependencies are identified and resolved;
 - The user story's context has been created (meaning that the there are already the controller, service, repository, etc...);
