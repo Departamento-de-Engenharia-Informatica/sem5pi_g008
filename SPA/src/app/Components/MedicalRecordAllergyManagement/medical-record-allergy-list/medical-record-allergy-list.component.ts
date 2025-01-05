@@ -3,6 +3,7 @@ import {
   MedicalRecordAllergyService
 } from "../../../services/medicalRecordAllergyService/medical-record-allergy.service";
 import {DisplayMedicalRecordAllergyDTO} from "../../../DTOs/displayDTOs/displayMedicalRecordAllergyDTO";
+import {Router} from '@angular/router';
 
 @Component({
   selector: "app-medical-record-allergy-list",
@@ -12,7 +13,7 @@ import {DisplayMedicalRecordAllergyDTO} from "../../../DTOs/displayDTOs/displayM
 export class MedicalRecordAllergyListComponent implements OnInit {
   constructor(
     @Inject(MedicalRecordAllergyService)
-    private medicalRecordAllergyService: MedicalRecordAllergyService
+    private medicalRecordAllergyService: MedicalRecordAllergyService, private router: Router
   ) {}
 
   public errorMessage: string = "";
@@ -64,4 +65,12 @@ export class MedicalRecordAllergyListComponent implements OnInit {
       }
     }
   }
+
+  redirectToEdit(domainId: string | undefined) {
+    console.log("domainId in list",domainId);
+    this.router.navigate(['staff/patients/medicalRecord/editAllergy'], {
+      queryParams: { id: domainId }
+    });
+  }
+
 }

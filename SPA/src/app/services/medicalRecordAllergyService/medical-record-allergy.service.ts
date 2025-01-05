@@ -48,4 +48,13 @@ export class MedicalRecordAllergyService {
         })
     );
   }
+
+  updateComment(allergyId: string, comment: string): Observable<void> {
+    const payload = {
+      id: allergyId,
+      comment: comment
+    };
+    console.log('Payload:', payload);
+    return this.http.put<void>(`${this.apiUrl}/medicalRecordAllergies`, { payload }, { withCredentials: true });
+  }
 }
