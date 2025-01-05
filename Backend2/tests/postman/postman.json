@@ -4289,55 +4289,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"1\",\r\n    \"operationRequestId\": \"12345\",\r\n    \"surgeryRoomId\": \"2\",\r\n    \"surgeryDate\": \"2025-02-20T15:00:00\",\r\n    \"status\": \"Rescheduled\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/appointment/"
-							},
-							"response": []
-						},
-						{
-							"name": "Update Appointement - Failure Copy 2",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "4c2b3652-693b-4c86-8d29-bee3df01b906",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains 'Missing required fields'\", function () {\r",
-											"    pm.response.to.have.body(\"Missing required fields.\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "f3ea9ab3-dfb9-4973-895a-bbe1ed0fa03c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"1\",\r\n    \"surgeryDate\": \"2025-02-20T15:00:00\"\r\n    // Missing surgeryRoomId and status\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"1\",\r\n    \"surgeryRoomId\": \"2\",\r\n    \"surgeryDate\": \"2026-02-2\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
