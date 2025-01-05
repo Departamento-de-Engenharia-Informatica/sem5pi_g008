@@ -4,7 +4,7 @@ describe('Allergy Tests', () => {
 
   beforeEach(() => {
     cy.clearCookies();
-    cy.setCookie('.AspNetCore.Cookies', json.Cookies.Admin);
+    cy.setCookie('.AspNetCore.Cookies', json.Cookies.Doctor);
     cy.visit('/staff/searchAllergy');
   });
 
