@@ -15,7 +15,9 @@ export default {
    * Your favorite port : optional change to 4000 by JRT
    */
   port: parseInt(process.env.PORT, 10) || 4000,
-
+    
+  host : process.env.HOST || "localhost",  
+    
   /**
    * That long string from mlab
    */

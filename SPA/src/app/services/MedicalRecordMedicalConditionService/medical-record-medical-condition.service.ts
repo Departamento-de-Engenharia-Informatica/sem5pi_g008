@@ -142,8 +142,6 @@ export class MedicalRecordMedicalConditionService {
             errorMessage = error.error.message;
           }
 
-          console.log(error);
-
           return throwError(errorMessage);
         })
       );
