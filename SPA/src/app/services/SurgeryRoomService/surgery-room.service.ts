@@ -10,11 +10,35 @@ export class SurgeryRoomService {
 
   private apiUrl = json.backendApi["1"].url + '/surgeryRoom';
   private SwiUrl = "http://localhost:8080";
+  private SwiUrlTodasSalas = "http://localhost:8081";
   private algavUrl = json.backendApi["1"].url + '/algav';
 
   constructor(private http: HttpClient) {
   }
+  getSurgeryPlanTodasSalas(date: string): Observable<any[]> {
+    const params = new URLSearchParams();
+    params.set('date', date);
 
+    return this.http.get<any[]>(`${this.SwiUrlTodasSalas}/generate_plan?${params.toString()}`).pipe(
+      catchError(error => {
+        console.error('Error getting surgery plan:', error);
+        return of([]);
+      })
+    );
+  }
+
+
+  loadDataTodasSalas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.SwiUrlTodasSalas}/load`).pipe(
+      catchError(error => {
+        console.error('Error getting surgery plan:', error);
+        return of([]);
+      })
+    );
+  }
+  getDataTodasSalas(): Observable<any> {
+    return this.http.get(`${this.SwiUrlTodasSalas}/getdata`);
+  }
   getSurgeryRooms(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/status`, {
       withCredentials: true
