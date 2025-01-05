@@ -1,11 +1,11 @@
 <div class="family-history-list" *ngIf="familyHistoryData.length > 0; else noHistory">
-  <h2>Histórico Familiar</h2>
+  <h2>Family History</h2>
   <table>
     <thead>
     <tr>
-      <th>Membro da Família</th>
-      <th>Condição</th>
-      <th>Data de Registro</th>
+      <th>Family Member</th>
+      <th>Condition</th>
+      <th>Registration Date</th>
     </tr>
     </thead>
     <tbody>
@@ -20,5 +20,5 @@
 
 <!-- Template alternativo caso não haja histórico -->
 <ng-template #noHistory>
-  <p>Não há histórico familiar registrado para este paciente.</p>
+  <p>There is no family history for this patient.</p>
 </ng-template>
