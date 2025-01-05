@@ -1790,7 +1790,7 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{AdminCookieRui}}",
+										"value": "{{AdminCookie}}",
 										"type": "text"
 									}
 								],
@@ -1840,7 +1840,13 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
@@ -1885,7 +1891,13 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"code\":\"Z-88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
@@ -1930,7 +1942,13 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\" \",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
@@ -1975,7 +1993,13 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Severe systemic allergic reaction to penicillin characterized by anaphylaxis and life-threatening symptoms.\",\r\n    \"description\":\"Personal history of allergy to drugs, medicaments, and biological substances.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
@@ -2020,7 +2044,13 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AdminCookie}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"code\":\"Z88\",\r\n    \"designation\":\"Allergy To Penicillin\",\r\n    \"description\":\"Penicillin allergy is an adverse immune response triggered by exposure to penicillin-class antibiotics, which are widely used to treat bacterial infections. These antibiotics include amoxicillin, ampicillin, and benzylpenicillin. The allergy occurs when the immune system mistakenly identifies penicillin as a harmful substance and initiates a defensive response. This reaction can range from mild to life-threatening. The immune response associated with penicillin allergy is typically due to the production of antibodies against penicillin or its breakdown products. The most common is an Immunoglobulin E (IgE)-mediated hypersensitivity reaction, which occurs upon re-exposure to the drug. Factors that may increase the risk of developing a penicillin allergy include a family history of drug allergies, frequent or high-dose penicillin use, and a history of other allergies such as asthma or hay fever.Symptoms of penicillin allergy can manifest within minutes to hours after drug administration. They are classified into mild, moderate, and severe reactions. Mild reactions may include skin rash or hives, itching, and mild swelling of the lips, eyes, or face. Moderate reactions can involve chest tightness, difficulty breathing or wheezing, and gastrointestinal symptoms such as nausea, vomiting, or diarrhea. Severe reactions, such as anaphylaxis, are characterized by sudden swelling of the throat, tongue, or lips, a rapid drop in blood pressure, dizziness or loss of consciousness, and a rapid or weak pulse. Anaphylaxis is a medical emergency requiring immediate intervention with epinephrine and advanced medical care. Diagnosing a penicillin allergy involves a detailed medical history and clinical examination. Skin testing is a commonly used diagnostic method where small amounts of penicillin allergens are applied to the skin. If the test produces a raised, red area, it suggests a likely allergy. In some cases, blood tests or graded drug challenges may be used to confirm the diagnosis. Treatment for penicillin allergy primarily involves avoiding the drug and using alternative antibiotics when necessary. Mild allergic reactions can be managed with antihistamines like diphenhydramine, while severe reactions like anaphylaxis require epinephrine, corticosteroids, and hospitalization.In situations where penicillin is the only suitable treatment, desensitization protocols can be employed. This process involves administering gradually increasing doses of the drug under close medical supervision to build tolerance. Prevention is essential for patients with a known penicillin allergy. It is crucial to inform healthcare providers about the allergy and wear a medical alert bracelet. Carrying an epinephrine auto-injector can also be lifesaving in emergencies. Understanding and managing penicillin allergies is critical for ensuring safe and effective medical care while minimizing risks associated with unnecessary antibiotic avoidance. Patients should always consult a healthcare provider for personalized advice and treatment options.\",\r\n    \"effects\":[\"Sneezing\", \"Coughing\"]\r\n}",
@@ -2076,7 +2106,7 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
+										"value": "{{AdminCookie}}",
 										"type": "text"
 									}
 								],
@@ -2129,7 +2159,7 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
+										"value": "{{AdminCookie}}",
 										"type": "text"
 									}
 								],
@@ -2180,7 +2210,7 @@
 								"header": [
 									{
 										"key": "Cookie",
-										"value": "{{AdminCookieMateus}}",
+										"value": "{{AdminCookie}}",
 										"type": "text"
 									}
 								],
@@ -2298,7 +2328,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2340,7 +2370,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2382,7 +2412,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2430,7 +2460,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2472,7 +2502,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2514,7 +2544,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -2556,7 +2586,7 @@
 										"header": [
 											{
 												"key": "Cookie",
-												"value": "{{AdminCookieMateus}}",
+												"value": "{{AdminCookie}}",
 												"type": "text"
 											}
 										],
@@ -3668,57 +3698,14 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"medicalRecord\": \"12345\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
+											"raw": "{\r\n  \"medicalRecord\": \"20250100005\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Test Disease\"\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{backend2_url}}/api//familyhistory"
-									},
-									"response": []
-								},
-								{
-									"name": "Add Family History - Failure",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "d30c57eb-9179-46f5-8708-9d9c2c40f8d6",
-												"exec": [
-													"pm.test(\"Status code is 400 or 422\", function () {\r",
-													"    pm.response.to.have.status(400); // ou 422\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response contains error message for missing medicalRecord\", function () {\r",
-													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"medicalRecord is required\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "033c0f86-771b-4ec3-8ae3-a790f19f91e5",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"medicalRecord\": \"\",\r\n  \"familyMember\": \"Father\",\r\n  \"condition\": \"Heart Disease\"\r\n}\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{backend2_url}}/api//familyhistory"
+										"url": "{{backend2_url}}/api/familyhistory"
 									},
 									"response": []
 								}
@@ -3770,7 +3757,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/api//familyhistory/20241200005"
+										"url": "{{backend2_url}}/api/familyhistory/20250100005"
 									},
 									"response": []
 								},
@@ -3862,7 +3849,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
+										"url": "{{backend2_url}}/api/medicalRecord/{{medicalRecordID}}/condition/by-code/CA123"
 									},
 									"response": []
 								},
@@ -3907,7 +3894,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{backend2_url}}/medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
+										"url": "{{backend2_url}}/api//medicalRecord/{{medicalRecordID}}/condition/by-code/CA12"
 									},
 									"response": []
 								}
