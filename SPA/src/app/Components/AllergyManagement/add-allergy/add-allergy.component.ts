@@ -25,6 +25,10 @@ export class AddAllergyComponent {
 
   addAllergy() {
 
+    if(this.allergyDTO.allergyDescription === '') {
+      this.allergyDTO.allergyDescription = 'No description provided';
+    }
+
     this.allergyService.addAllergy(this.allergyDTO).subscribe(
       (response: any) => {
         alert('Allergy added successfully!');

@@ -25,6 +25,8 @@ export default class AllergyController implements IAllergyController {
             });
 
         } catch (error) {
+            
+            console.log(error);
 
             console.error('Error creating allergy:', error.message);
 

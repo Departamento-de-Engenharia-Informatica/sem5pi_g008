@@ -30,12 +30,12 @@ export class AllergyService {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An unknown error occurred.';
 
+        console.log(error);
+
         if (error.status >= 400 && error.status < 500) {
           errorMessage = error.error.message || 'There was an issue with your request. Please check the data you entered.';
         } else if (error.status >= 500 && error.status < 600) {
           errorMessage = error.error.message || 'An error occurred on the server. Please try again later.';
-        } else if (error.error instanceof ErrorEvent) {
-          errorMessage = error.error.message || 'A network error occurred. Please check your connection and try again.';
         }
 
         return throwError(errorMessage);
