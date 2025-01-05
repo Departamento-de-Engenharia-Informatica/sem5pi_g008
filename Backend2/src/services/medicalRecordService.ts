@@ -8,16 +8,13 @@ import IMedicalRecordAllergyDTO from "../dto/IMedicalRecordAllergyDTO";
 import {MedicalRecordAllergyMapper} from "../mappers/MedicalRecordAllergyMapper";
 import IAllergyRepo from "./IRepos/IAllergyRepo";
 import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
-import {MedicalRecordCondition} from "../domain/MedicalRecordCondition/MedicalRecordCondition";
 import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
 import {NoMedicalRecordConditionsException} from "../domain/MedicalRecordCondition/NoMedicalRecordConditionsException";
 import {MedicalRecordConditionMapper} from "../mappers/MedicalRecordConditionMapper";
 import IStaffDetailsDTO from "../dto/IStaffDetailsDTO";
 import http from "node:http";
-import IMedicalRecordConditionRepo from "./IRepos/IMedicalRecordConditionRepo";
 import IMedicalConditionRepo from "./IRepos/IMedicalConditionRepo";
 import {NoMedicalRecordException} from "../domain/MedicalRecord/NoMedicalRecordException";
-import IMedicalRecordConditionDTO from "../dto/IMedicalRecordConditionDTO";
 import {
     MedicalConditionNotFoundException
 } from "../domain/MedicalCondition/Exceptions/MedicalConditionNotFoundException";
@@ -27,15 +24,9 @@ import {
 import {Designation} from "../domain/Shared/designation";
 
 import IMedicalRecordFreeTextDTO from "../dto/IMedicalRecordFreeTextDTO";
-import {MedicalRecordFreeText} from "../domain/MedicalRecordFreeText/MedicalRecordFreeText";
-
 import IMedicalRecordFamilyHistoryRepo from "./IRepos/IMedicalRecordFamilyHistoryRepo";
-import {MedicalRecordFamilyHistoryMap} from "../mappers/MedicalRecordFamilyHistoryMapper";
 import {MedicalRecordFreeTextMap} from "../mappers/MedicalRecordFreeTextMapper";
 import IMedicalRecordFreeTextRepo from "./IRepos/IMedicalRecordFreeTextRepo";
-import IMedicalConditionDTO from "../dto/IMedicalConditionDTO";
-import {Description} from "../domain/Shared/description";
-import {MedicalConditionMap} from "../mappers/MedicalConditionMap";
 import {Code} from "../domain/Shared/code";
 
 
@@ -84,6 +75,13 @@ export default class MedicalRecordService implements IMedicalRecordService{
         await this.medicalRecordConditionRepo.updateUsingDomainId(medicalRecordCondition, "comment");
         console.log('pass3');
         return MedicalRecordConditionMapper.toDTO(medicalRecordCondition);
+    }
+
+    public async updateMedicalRecordAllergiesComment(id: string, newComment:string): Promise<IMedicalRecordAllergyDTO> {
+        const medicalRecordAllergy = await this.medicalRecordAllergyRepo.getByDomainId(Number.parseInt(id));
+        medicalRecordAllergy.comment = newComment;
+        await this.medicalRecordAllergyRepo.updateUsingDomainId(medicalRecordAllergy, "comment");
+        return MedicalRecordAllergyMapper.toDTO(medicalRecordAllergy);
     }
 
     public async getAllergies(medicalRecordId:string): Promise<IMedicalRecordAllergyDTO[]> {
